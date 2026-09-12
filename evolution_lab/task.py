@@ -3,9 +3,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 import numpy as np
 
 from .schema import ACTIONS, ExperimentGenome
+
+# Same integer as evolution_lab.splits.SPLIT_SEED. Canonical P0 lock seed.
+SPLIT_SEED = 20260912
 
 N_ACTIONS = len(ACTIONS)
 # sandbox_alive, retry_norm, budget, elapsed, transient, hard, unfamiliar,
@@ -163,15 +167,56 @@ class TaskData:
     ood: list[Episode]
 
 
-def build_task(genome: ExperimentGenome, *, n_train: int = 192, n_val: int = 48, n_confirm: int = 48, n_ood: int = 32) -> TaskData:
+def sample_task(
+    genome: ExperimentGenome,
+    *,
+    n_train: int = 192,
+    n_val: int = 48,
+    n_confirm: int = 48,
+    n_ood: int = 32,
+    seed: int = SPLIT_SEED,
+) -> TaskData:
+    """Draw splits from seed. Prefer build_task so L1 can load locked arrays."""
     T = genome.architecture.history
     delayed = genome.curriculum.delayed_cue
-    rng = np.random.default_rng(20260912)
+    rng = np.random.default_rng(seed)
     train = make_split(rng, n_train, T=T, delayed_cue=delayed, ood=False)
     val = make_split(rng, n_val, T=T, delayed_cue=delayed, ood=False)
     confirm = make_split(rng, n_confirm, T=T, delayed_cue=delayed, ood=False)
     ood = make_split(rng, n_ood, T=T, delayed_cue=delayed, ood=True)
     return TaskData(train, val, confirm, ood)
+
+
+def build_task(
+    genome: ExperimentGenome,
+    *,
+    n_train: int = 192,
+    n_val: int = 48,
+    n_confirm: int = 48,
+    n_ood: int = 32,
+    splits_dir: Path | None = None,
+) -> TaskData:
+    """Load data/p0/ when it matches this genome so L1 is not a drifting RNG draw."""
+    from .splits import try_load_for_genome
+
+    locked = try_load_for_genome(
+        genome,
+        n_train=n_train,
+        n_val=n_val,
+        n_confirm=n_confirm,
+        n_ood=n_ood,
+        splits_dir=splits_dir,
+    )
+    if locked is not None:
+        return locked
+    return sample_task(
+        genome,
+        n_train=n_train,
+        n_val=n_val,
+        n_confirm=n_confirm,
+        n_ood=n_ood,
+        seed=SPLIT_SEED,
+    )
 
 
 def apply_strobe(episode: Episode, drop: float, rng: np.random.Generator) -> Episode:

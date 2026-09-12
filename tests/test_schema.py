@@ -2,7 +2,14 @@ from __future__ import annotations
 
 import unittest
 
-from evolution_lab.schema import Curriculum, ExperimentGenome, GenomeError, genome_from_dict, observation_is_sanitized
+from evolution_lab.schema import (
+    Curriculum,
+    ExperimentGenome,
+    GenomeError,
+    PRODUCT_TARGET,
+    genome_from_dict,
+    observation_is_sanitized,
+)
 
 
 class SchemaTests(unittest.TestCase):
@@ -25,6 +32,18 @@ class SchemaTests(unittest.TestCase):
         data["backend"] = "not_real"
         with self.assertRaises(GenomeError):
             genome_from_dict(data)
+
+
+class ProductTargetTests(unittest.TestCase):
+    def test_product_target_declared(self):
+        self.assertEqual(PRODUCT_TARGET.success_vs_teacher, 0.95)
+        self.assertEqual(PRODUCT_TARGET.extra_violations, 0)
+        self.assertIsNone(PRODUCT_TARGET.joules)
+        from evolution_lab.targets import PRODUCT_TARGET as from_targets
+        from evolution_lab import PRODUCT_TARGET as from_pkg
+
+        self.assertIs(PRODUCT_TARGET, from_targets)
+        self.assertIs(PRODUCT_TARGET, from_pkg)
 
 
 if __name__ == "__main__":
