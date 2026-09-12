@@ -1,0 +1,39 @@
+{
+  "id": "rewired-reservoir-000",
+  "lineage": "rewired",
+  "hypothesis": "Same sparsity, new wiring, refit readout \u2014 topology control.",
+  "parents": [],
+  "role": "skeptic",
+  "backend": "local_numpy",
+  "architecture": {
+    "family": "rewired_reservoir",
+    "hidden": 48,
+    "history": 8,
+    "sparsity": 0.08,
+    "spectral_radius": 0.9,
+    "trainable": "readout",
+    "topology": "synthetic"
+  },
+  "curriculum": {
+    "task": "hermes_recovery",
+    "include_secrets": false,
+    "delayed_cue": true,
+    "strobe_drop": 0.0,
+    "ood_split": "unseen_failure"
+  },
+  "training": {
+    "algorithm": "ridge_readout",
+    "seed": 7,
+    "l2": 0.01,
+    "budget_steps": 1,
+    "teacher": "teacher_rule"
+  },
+  "evaluation": {
+    "seeds": 1,
+    "split": "confirm",
+    "environments": [
+      "iid",
+      "ood"
+    ]
+  }
+}
