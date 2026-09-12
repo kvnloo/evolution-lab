@@ -27,8 +27,10 @@ class ReceiptTests(unittest.TestCase):
         self.assertEqual(rec["mutation"], MUTATION_NA)
         self.assertEqual(rec["mutation"], "n/a")
         self.assertIn("joules_unknown", rec["limitations"])
+        self.assertIn("pareto_point_unasserted", rec["limitations"])
         self.assertIsInstance(rec["limitations"], list)
         self.assertIn("gym-smoke", rec["runtime_evidence"][0])
+        self.assertIn("unittest", rec["tests"]["green"])
         self.assertEqual(rec["ai_assistance"], "unattended")
 
     def test_does_not_invent_mutation_score(self):
@@ -53,6 +55,7 @@ class ReceiptTests(unittest.TestCase):
         self.assertIn("mutation:", text)
         self.assertIn("n/a", text)
         self.assertIn("joules_unknown", text)
+        self.assertIn("pareto_point_unasserted", text)
 
     def test_cli_receipt_prints_yaml(self):
         buf = StringIO()

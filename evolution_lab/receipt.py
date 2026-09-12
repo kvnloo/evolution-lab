@@ -9,8 +9,8 @@ from typing import Any
 MUTATION_NA = "n/a"
 DEFAULT_ISSUE = "2"
 DEFAULT_TESTS_RED = (
-    "python -m unittest tests.test_splits tests.test_receipt"
-    "  # expected fail before locked splits/receipt modules existed"
+    "python -m unittest tests.test_gym.GymTests.test_reset_rejects_every_secret_option_key"
+    "  # expected fail before reset checked every SECRET_FIELD_NAMES key"
 )
 DEFAULT_TESTS_GREEN = "python -m unittest discover -s tests -p 'test_*.py'"
 DEFAULT_TESTS_SABOTAGE = (
@@ -125,7 +125,7 @@ def evidence_receipt(
     root = cwd or repo_root()
     head = git_head_revision(root)
     base = git_base_revision(root)
-    limitations = ["joules_unknown"]
+    limitations = ["joules_unknown", "pareto_point_unasserted"]
     if extra_limitations:
         for item in extra_limitations:
             if item not in limitations:

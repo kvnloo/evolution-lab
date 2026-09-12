@@ -149,3 +149,12 @@ def genome_from_dict(data: dict[str, Any]) -> ExperimentGenome:
 
 def observation_is_sanitized(fields: dict[str, Any]) -> bool:
     return SECRET_FIELD_NAMES.isdisjoint(fields)
+
+
+def options_carry_secrets(options: dict[str, Any] | None) -> bool:
+    """True if reset/step options include the L0 secret flag or a secret-bearing key."""
+    if not options:
+        return False
+    if options.get("include_secrets"):
+        return True
+    return not SECRET_FIELD_NAMES.isdisjoint(options)
