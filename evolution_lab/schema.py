@@ -7,6 +7,8 @@ from typing import Any
 import json
 from pathlib import Path
 
+from .targets import PRODUCT_TARGET
+
 ACTIONS = ("retry", "restart_sandbox", "escalate", "noop", "page_human")
 FAMILIES = (
     "rule",
