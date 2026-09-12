@@ -109,8 +109,8 @@ files:
     sha256: 2714ce36d7368293036e616255d76234083d8ea0d6371bcb6b2d87721f1985c6
     kit_sha256: e1a7c3439668bd7f3848d8b80eb108fe3394ed15c1368d7678fa6502dfc55940
   - path: CONTRIBUTING.md
-    source: kit
-    sha256: df73ebef9e33ca20433a1fc8ca8c40b3068c370df11cbc48a8c4caaa2eec03c7
+    source: modified
+    sha256: ff2a179505ba5217fb7386cb34ddd1ef36239691beedeb9e7228963cf896d45f
     kit_sha256: df73ebef9e33ca20433a1fc8ca8c40b3068c370df11cbc48a8c4caaa2eec03c7
   - path: SECURITY.md
     source: kit

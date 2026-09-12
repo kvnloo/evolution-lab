@@ -10,7 +10,7 @@ from evolution_lab.gym import (
     n_features,
     rollout_teacher,
 )
-from evolution_lab.schema import ACTIONS, GenomeError
+from evolution_lab.schema import ACTIONS, GenomeError, SECRET_FIELD_NAMES
 
 
 class GymTests(unittest.TestCase):
@@ -48,6 +48,19 @@ class GymTests(unittest.TestCase):
         env = HermesRecoveryEnv()
         with self.assertRaises(GenomeError):
             env.reset(options={"include_secrets": True})
+
+    def test_reset_rejects_every_secret_option_key(self):
+        env = HermesRecoveryEnv()
+        for name in SECRET_FIELD_NAMES:
+            with self.subTest(name=name):
+                with self.assertRaises(GenomeError):
+                    env.reset(options={name: "x"})
+
+    def test_actions_tuple_locked(self):
+        self.assertEqual(
+            ACTIONS,
+            ("retry", "restart_sandbox", "escalate", "noop", "page_human"),
+        )
 
     def test_fork_traps_are_not_p0(self):
         for name in ("flygym", "flygym_gymnasium", "openevolve", "openenv", "neuromechfly"):

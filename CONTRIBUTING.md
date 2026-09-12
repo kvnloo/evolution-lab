@@ -35,6 +35,16 @@ Every PR fills `.github/PULL_REQUEST_TEMPLATE.md`:
 - mutation command and score, or `n/a`
 - contribution mode: unattended (cloud agent) or copilot (human-supervised)
 
+Proof commands (same table as `AGENTS.md`):
+
+| Layer | Command |
+|---|---|
+| Unit | `python -m unittest discover -s tests -p 'test_*.py'` |
+| Mutation | `n/a` |
+| Runtime | `python -m evolution_lab gym-smoke --n 8` |
+
+Or `bash scripts/verify.sh`. Do not invent a mutation score. Hosted joules stay unknown.
+
 Tests from another head are not evidence. `--with-automation` adds a CI check that the YAML keys exist and `head_revision` matches the PR SHA.
 
 Independent review bots the project already installed (Greptile, CodeRabbit, Bugbot, Copilot, Codecov, CodSpeed) are reviewers and evidence, not merge authority.
