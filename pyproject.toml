@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evolution-lab"
+version = "0.1.0"
+description = "Experiment engine: genomes, Hermes recovery gym, Pareto/MAP-Elites"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "kvnloo" }]
+dependencies = ["numpy>=1.26"]
+
+[project.scripts]
+evolution-lab = "evolution_lab.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/kvnloo/evolution-lab"
+Issues = "https://github.com/kvnloo/evolution-lab/issues"
+
+[tool.setuptools.packages.find]
+include = ["evolution_lab*"]
