@@ -12,8 +12,14 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class ProductTarget:
     success_vs_teacher: float = 0.95
+    cost_vs_teacher: float = 0.50
     extra_violations: int = 0
     joules: float | None = None
 
 
-PRODUCT_TARGET = ProductTarget(success_vs_teacher=0.95, extra_violations=0, joules=None)
+PRODUCT_TARGET = ProductTarget(
+    success_vs_teacher=0.95,
+    cost_vs_teacher=0.50,
+    extra_violations=0,
+    joules=None,
+)

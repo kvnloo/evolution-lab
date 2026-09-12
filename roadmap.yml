@@ -1,0 +1,48 @@
+roadmap_revision: pending-commit
+updated_at: 2026-09-12T00:00:00Z
+owners: [kvnloo]
+protocol: https://github.com/kvnloo/verified-oss-loop
+registered_target:
+  success_vs_teacher: 0.95
+  cost_vs_teacher: 0.50
+  extra_hard_policy_violations: 0
+  joules: unknown
+items:
+  - id: p0-lock-contract
+    github_issue: 2
+    linear: PER-1524
+    priority: P0
+    claimable: true
+    acceptance: hermes_recovery gym; secrets fail closed; locked splits; gym-smoke teacher=1.0; unittest discover
+  - id: p1-control-table
+    github_issue: 3
+    linear: PER-1525
+    priority: P1
+    claimable: false
+    acceptance: MLP/GRU/direct-input/rewire/reservoir on locked confirm; kill if GRU+direct-input dominate fly reservoir
+  - id: p2-distill
+    github_issue: 4
+    linear: PER-1526
+    priority: P2
+    claimable: false
+    acceptance: teacher trajectories + outcomes; no fake Tinker SFT
+  - id: p3-dagger-rl
+    github_issue: 5
+    priority: P2
+    claimable: false
+    acceptance: closed-loop student states; tinker_rl still fail-closed until wired
+  - id: p4-grow
+    github_issue: 6
+    priority: P3
+    claimable: false
+    acceptance: function-preservation check; fly-inspired after rewrite
+  - id: p5-interventions
+    github_issue: 7
+    priority: P2
+    claimable: false
+    acceptance: delayed-cue lesion; rewire refit
+  - id: p6-confirm
+    github_issue: 8
+    priority: P1
+    claimable: false
+    acceptance: independent seeds; locked confirm; unpublished failures reported
