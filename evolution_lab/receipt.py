@@ -13,6 +13,12 @@ DEFAULT_TESTS_RED = (
     "  # expected fail before locked splits/receipt modules existed"
 )
 DEFAULT_TESTS_GREEN = "python -m unittest discover -s tests -p 'test_*.py'"
+DEFAULT_TESTS_SABOTAGE = (
+    "python -c \"from evolution_lab.gym import make_env; make_env('flygym')\""
+    "  # expected GenomeError; fork traps are not P0"
+)
+DEFAULT_RUNTIME = "python -m evolution_lab gym-smoke --n 8"
+DEFAULT_AI_ASSISTANCE = "unattended"
 
 
 def repo_root() -> Path:
@@ -112,6 +118,7 @@ def evidence_receipt(
     cwd: Path | None = None,
     tests_red: str = DEFAULT_TESTS_RED,
     tests_green: str = DEFAULT_TESTS_GREEN,
+    tests_sabotage: str = DEFAULT_TESTS_SABOTAGE,
     extra_limitations: list[str] | None = None,
 ) -> dict[str, Any]:
     """Return a Verified OSS Loop evidence dict. mutation is always n/a here."""
@@ -132,9 +139,12 @@ def evidence_receipt(
         "tests": {
             "red": tests_red,
             "green": tests_green,
+            "sabotage": tests_sabotage,
         },
         "mutation": MUTATION_NA,
+        "runtime_evidence": [DEFAULT_RUNTIME],
         "limitations": limitations,
+        "ai_assistance": DEFAULT_AI_ASSISTANCE,
     }
 
 

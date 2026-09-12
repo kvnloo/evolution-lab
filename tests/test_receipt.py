@@ -17,16 +17,19 @@ from evolution_lab.receipt import (
 class ReceiptTests(unittest.TestCase):
     def test_receipt_has_verified_oss_loop_keys(self):
         rec = evidence_receipt(issue="2")
-        for key in ("issue", "base_revision", "head_revision", "tests", "mutation", "limitations"):
+        for key in ("issue", "base_revision", "head_revision", "tests", "mutation", "limitations", "runtime_evidence", "ai_assistance"):
             self.assertIn(key, rec)
         self.assertEqual(rec["issue"], "2")
         self.assertEqual(rec["tests"]["red"].strip().split()[0], "python")
         self.assertIn("unittest", rec["tests"]["green"])
         self.assertIn("test_*.py", rec["tests"]["green"])
+        self.assertIn("flygym", rec["tests"]["sabotage"])
         self.assertEqual(rec["mutation"], MUTATION_NA)
         self.assertEqual(rec["mutation"], "n/a")
         self.assertIn("joules_unknown", rec["limitations"])
         self.assertIsInstance(rec["limitations"], list)
+        self.assertIn("gym-smoke", rec["runtime_evidence"][0])
+        self.assertEqual(rec["ai_assistance"], "unattended")
 
     def test_does_not_invent_mutation_score(self):
         rec = evidence_receipt()

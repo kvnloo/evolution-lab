@@ -37,6 +37,7 @@ class SchemaTests(unittest.TestCase):
 class ProductTargetTests(unittest.TestCase):
     def test_product_target_declared(self):
         self.assertEqual(PRODUCT_TARGET.success_vs_teacher, 0.95)
+        self.assertEqual(PRODUCT_TARGET.cost_vs_teacher, 0.50)
         self.assertEqual(PRODUCT_TARGET.extra_violations, 0)
         self.assertIsNone(PRODUCT_TARGET.joules)
         from evolution_lab.targets import PRODUCT_TARGET as from_targets
