@@ -1,0 +1,39 @@
+{
+  "id": "teacher-rule-000",
+  "lineage": "teacher",
+  "hypothesis": "Reference recovery policy; not a learned student.",
+  "parents": [],
+  "role": "replicator",
+  "backend": "local_numpy",
+  "architecture": {
+    "family": "rule",
+    "hidden": 1,
+    "history": 8,
+    "sparsity": 0.05,
+    "spectral_radius": 0.9,
+    "trainable": "readout",
+    "topology": "synthetic"
+  },
+  "curriculum": {
+    "task": "hermes_recovery",
+    "include_secrets": false,
+    "delayed_cue": true,
+    "strobe_drop": 0.0,
+    "ood_split": "unseen_failure"
+  },
+  "training": {
+    "algorithm": "fixed",
+    "seed": 0,
+    "l2": 0.01,
+    "budget_steps": 1,
+    "teacher": "teacher_rule"
+  },
+  "evaluation": {
+    "seeds": 1,
+    "split": "confirm",
+    "environments": [
+      "iid",
+      "ood"
+    ]
+  }
+}
