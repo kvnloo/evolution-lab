@@ -44,6 +44,7 @@ Independent seeds, locked confirm, unseen failures. Then maybe Connectome-to-Fun
 - Native LM (`fly-hf`) only after `trust_remote_code` audit
 - [kvnloo/fly-wirehead](https://github.com/kvnloo/fly-wirehead) pinout demo — not the student
 - [kvnloo/TMNF-C](https://github.com/kvnloo/TMNF-C) (fork of adonis-singh/TMNF-C) — later visuo-motor gym; MaleCNS MB via DAN RPE; do not fork. [Issue #14](https://github.com/kvnloo/evolution-lab/issues/14)
+- SHERWOOD / Stonkfly fly-DEX clips — pinout meme / marketing skin, not a gym. PnL is not a connectome assay.
 - PER-944 Xenova WebGPU viewer — Linear Backlog, not this controller
 
 ## Sister repos
