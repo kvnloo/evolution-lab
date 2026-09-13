@@ -1,6 +1,6 @@
-"""Gymnasium-style env API without vendoring Gymnasium, FlyGym, or OpenEvolve.
+"""Gymnasium-style env API without vendoring Gymnasium, FlyGym, OpenEvolve, or TMNF-C.
 
-P0 gym is Hermes recovery. FlyGym / OpenEnv / OpenEvolve are named traps:
+P0 gym is Hermes recovery. FlyGym / OpenEnv / OpenEvolve / TMNF-C are named traps:
 consume later, do not replace this engine.
 """
 
@@ -45,6 +45,12 @@ class Env(Protocol):
 
 
 # Declared names that look like a shortcut and are not P0.
+_TMNF_C = (
+    "TMNF-C is a TrackMania Forever vector env with an optional MaleCNS mushroom-body "
+    "dopamine learner (kvnloo/TMNF-C, fork of adonis-singh/TMNF-C). Consume later as a "
+    "visuo-motor gym; it is not Hermes recovery. Do not fork it into this engine. "
+    "The MB learner projects engineered car state into PNs; frozen weights rarely finish."
+)
 FORK_TRAPS = {
     "flygym": (
         "FlyGym 2.x is NeuroMechFly (body + MuJoCo/Warp). Consume it later as a "
@@ -65,6 +71,10 @@ FORK_TRAPS = {
         "OpenEnv is a Docker/HTTP agent-env standard. Adopt reset/step over HTTP later "
         "for real Hermes sandboxes; P0 stays in-process."
     ),
+    "tmnf": _TMNF_C,
+    "tmnf-c": _TMNF_C,
+    "tmnf-fly": _TMNF_C,
+    "trackmania": _TMNF_C,
 }
 
 
@@ -207,7 +217,7 @@ def make_env(name: str, **kwargs: Any) -> HermesRecoveryEnv:
         return HermesRecoveryEnv(**kwargs)
     raise GenomeError(
         f"unknown env {name!r}; P0 env is hermes_recovery. "
-        "Do not fork FlyGym or OpenEvolve as this engine."
+        "Do not fork FlyGym, OpenEvolve, or TMNF-C as this engine."
     )
 
 
