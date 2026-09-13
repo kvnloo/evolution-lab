@@ -63,11 +63,39 @@ class GymTests(unittest.TestCase):
         )
 
     def test_fork_traps_are_not_p0(self):
-        for name in ("flygym", "flygym_gymnasium", "openevolve", "openenv", "neuromechfly"):
+        for name in (
+            "flygym",
+            "flygym_gymnasium",
+            "openevolve",
+            "openenv",
+            "neuromechfly",
+            "tmnf",
+            "tmnf-c",
+            "tmnf_c",
+            "tmnf-fly",
+            "trackmania",
+            "stonkfly",
+            "sherwood",
+            "wirehead",
+            "fly-wirehead",
+            "fly_wirehead",
+        ):
             with self.subTest(name=name):
                 with self.assertRaises(GenomeError) as ctx:
                     make_env(name)
-                self.assertTrue(str(ctx.exception))
+                msg = str(ctx.exception)
+                self.assertTrue(msg)
+                slug = name.strip().lower().replace("_", "-")
+                if slug in {"tmnf", "tmnf-c", "tmnf-fly", "trackmania"}:
+                    self.assertIn("TrackMania", msg)
+                    self.assertIn("Hermes recovery", msg)
+                if slug in {"stonkfly", "sherwood", "wirehead", "fly-wirehead"}:
+                    self.assertIn("PnL", msg)
+                    self.assertIn("Hermes recovery", msg)
         self.assertIn("flygym", FORK_TRAPS)
+        self.assertIn("tmnf-c", FORK_TRAPS)
+        self.assertIn("tmnf", FORK_TRAPS)
+        self.assertIn("sherwood", FORK_TRAPS)
+        self.assertIn("stonkfly", FORK_TRAPS)
         with self.assertRaises(GenomeError):
             make_env("cartpole")
