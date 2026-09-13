@@ -1,4 +1,4 @@
-"""CLI: seed, run, evolve, dashboard."""
+"""CLI: seed, run, evolve, dashboard, lock-splits, receipt."""
 
 from __future__ import annotations
 
@@ -103,6 +103,19 @@ def cmd_gym_smoke(n: int, delayed_cue: bool) -> None:
         raise SystemExit(1)
 
 
+def cmd_lock_splits(data_dir: Path) -> None:
+    from .splits import lock_splits
+
+    dest = lock_splits(data_dir)
+    print(f"locked splits {dest}")
+
+
+def cmd_receipt(*, issue: str) -> None:
+    from .receipt import receipt_yaml
+
+    print(receipt_yaml(issue=issue), end="")
+
+
 def cmd_quest_falsification(run_dir: Path, level: int) -> None:
     """Does the best reservoir still beat a refit rewired graph?"""
     from .schema import Architecture, Training
@@ -165,6 +178,10 @@ def main(argv: list[str] | None = None) -> int:
     pg = sub.add_parser("gym-smoke", parents=[parent])
     pg.add_argument("--n", type=int, default=24)
     pg.add_argument("--no-delayed-cue", action="store_true")
+    pl = sub.add_parser("lock-splits", parents=[parent])
+    pl.add_argument("--data-dir", type=Path, default=None)
+    prc = sub.add_parser("receipt", parents=[parent])
+    prc.add_argument("--issue", default="2")
     args = p.parse_args(argv)
     run_dir = args.run_dir
     if args.cmd == "seed":
@@ -181,4 +198,9 @@ def main(argv: list[str] | None = None) -> int:
         print(dest)
     elif args.cmd == "gym-smoke":
         cmd_gym_smoke(args.n, delayed_cue=not args.no_delayed_cue)
+    elif args.cmd == "lock-splits":
+        data_dir = args.data_dir or (root / "data" / "p0")
+        cmd_lock_splits(data_dir)
+    elif args.cmd == "receipt":
+        cmd_receipt(issue=args.issue)
     return 0

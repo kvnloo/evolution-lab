@@ -41,16 +41,18 @@ class EngineTests(unittest.TestCase):
 
     def test_tinker_refuses(self):
         tmp = Path(tempfile.mkdtemp())
-        g = ExperimentGenome(
-            id="tinker-x",
-            lineage="tinker",
-            hypothesis="must not fake SFT",
-            backend="tinker_sft",
-            architecture=Architecture(family="mlp"),
-        )
-        rec = run_one(g, Archive(tmp / "a.jsonl"), MapElites(), level=0, prior=[])
-        self.assertEqual(rec["status"], "failed")
-        self.assertIn("not wired", rec["error"])
+        for backend in ("tinker_sft", "tinker_rl"):
+            with self.subTest(backend=backend):
+                g = ExperimentGenome(
+                    id=f"tinker-{backend}",
+                    lineage="tinker",
+                    hypothesis="must not fake SFT",
+                    backend=backend,
+                    architecture=Architecture(family="mlp"),
+                )
+                rec = run_one(g, Archive(tmp / f"{backend}.jsonl"), MapElites(), level=0, prior=[])
+                self.assertEqual(rec["status"], "failed")
+                self.assertIn("not wired", rec["error"])
 
     def test_secrets_never_reach_fit(self):
         from evolution_lab.schema import Curriculum
