@@ -56,6 +56,7 @@ On the delayed-cue recovery task (L1): teacher **1.00**, mlp/fixed-reservoir/rew
 | [Gymnasium](https://github.com/Farama-Foundation/Gymnasium) | API we duck-type |
 | [FlyGym 2.x](https://github.com/NeLy-EPFL/flygym) | Later visuo-motor env (consume 2.x; do not fork `flygym-gymnasium`) |
 | [TMNF-C](https://github.com/kvnloo/TMNF-C) | Later TrackMania + MaleCNS MB dopamine env (fork of adonis-singh/TMNF-C). `make_env("tmnf")` fails closed. Not P0 |
+| Stonkfly / SHERWOOD | Fly-DEX / Shorts meme skins. `make_env("stonkfly"|"sherwood")` fails closed. PnL is not a connectome assay |
 | [OpenEnv](https://github.com/huggingface/OpenEnv) | Later HTTP/Docker Hermes sandbox |
 | [OpenEvolve](https://github.com/algorithmicsuperintelligence/openevolve) | Later mutation backend. `make_env("openevolve")` fails closed |
 
@@ -74,3 +75,4 @@ On the delayed-cue recovery task (L1): teacher **1.00**, mlp/fixed-reservoir/rew
 - Not a Tinker client until `tinker_sft` is wired (it refuses today)
 - Not an AODL runtime
 - Not a FlyGym, OpenEvolve, or TMNF-C rewrite
+- Not a Stonkfly / SHERWOOD DEX terminal

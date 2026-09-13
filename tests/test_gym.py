@@ -74,6 +74,11 @@ class GymTests(unittest.TestCase):
             "tmnf_c",
             "tmnf-fly",
             "trackmania",
+            "stonkfly",
+            "sherwood",
+            "wirehead",
+            "fly-wirehead",
+            "fly_wirehead",
         ):
             with self.subTest(name=name):
                 with self.assertRaises(GenomeError) as ctx:
@@ -84,8 +89,13 @@ class GymTests(unittest.TestCase):
                 if slug in {"tmnf", "tmnf-c", "tmnf-fly", "trackmania"}:
                     self.assertIn("TrackMania", msg)
                     self.assertIn("Hermes recovery", msg)
+                if slug in {"stonkfly", "sherwood", "wirehead", "fly-wirehead"}:
+                    self.assertIn("PnL", msg)
+                    self.assertIn("Hermes recovery", msg)
         self.assertIn("flygym", FORK_TRAPS)
         self.assertIn("tmnf-c", FORK_TRAPS)
         self.assertIn("tmnf", FORK_TRAPS)
+        self.assertIn("sherwood", FORK_TRAPS)
+        self.assertIn("stonkfly", FORK_TRAPS)
         with self.assertRaises(GenomeError):
             make_env("cartpole")
