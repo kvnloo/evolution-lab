@@ -8,6 +8,8 @@ The object under optimization is **the frontier of measured systems**, not “ma
 
 Tinker SFT/RL and Cursor Cloud Agent fan-out are declared backends, not fake training runs.
 
+Contribution contract: [Verified OSS Loop](https://github.com/kvnloo/verified-oss-loop). Maintainer roadmap: [ROADMAP.md](ROADMAP.md). Workers claim `claimable` issues (P0 is [#2](https://github.com/kvnloo/evolution-lab/issues/2)); they never merge `main`. Rollout scheme `rolling`: day-pass PRs target `preview`; overnight PRs target `nightly`.
+
 ## Goal
 
 > Continuously discover, verify, and explain computational systems that expand the achievable frontier between capability and resources.
@@ -37,6 +39,8 @@ python -m evolution_lab evolve --generations 2
 python -m evolution_lab dashboard
 python -m evolution_lab gym-smoke
 python -m unittest discover -s tests -p 'test_*.py'
+bash scripts/verify.sh
+python -m evolution_lab receipt
 ```
 
 Logs: `runs/<run_id>/archive.jsonl`  

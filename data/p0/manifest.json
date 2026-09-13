@@ -1,0 +1,21 @@
+{
+  "seed": 20260912,
+  "seed_note": "P0 lock seed 20260912. Load these arrays; do not re-sample L1.",
+  "task": "hermes_recovery",
+  "delayed_cue": true,
+  "history": 8,
+  "n_features": 15,
+  "counts": {
+    "train": 192,
+    "val": 48,
+    "confirm": 48,
+    "ood": 32
+  },
+  "format": "npz-v1",
+  "files": {
+    "train": "train.npz",
+    "val": "val.npz",
+    "confirm": "confirm.npz",
+    "ood": "ood.npz"
+  }
+}

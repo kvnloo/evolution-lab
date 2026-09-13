@@ -11,7 +11,7 @@ from typing import Any, Protocol
 
 import numpy as np
 
-from .schema import ACTIONS, GenomeError
+from .schema import ACTIONS, GenomeError, options_carry_secrets
 from .task import N_ACTIONS, Episode, _frame, n_features, teacher_action
 
 
@@ -104,7 +104,7 @@ class HermesRecoveryEnv:
         if self._closed:
             raise GenomeError("env is closed")
         options = options or {}
-        if options.get("include_secrets") or options.get("credential"):
+        if options_carry_secrets(options):
             raise GenomeError("secret-bearing observations fail closed at L0")
         if seed is not None:
             self._rng = np.random.default_rng(seed)
