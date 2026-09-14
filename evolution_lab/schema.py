@@ -17,6 +17,7 @@ FAMILIES = (
     "gru",
     "fixed_reservoir",
     "rewired_reservoir",
+    "local_plasticity",
     "fly_connectome",
     "hybrid",
 )

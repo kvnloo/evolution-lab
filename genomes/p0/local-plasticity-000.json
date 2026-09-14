@@ -1,0 +1,39 @@
+{
+  "id": "local-plasticity-000",
+  "lineage": "mushroom-body",
+  "hypothesis": "Frozen sparse PN→KC on flattened Hermes history (not the compound eye) plus local KC→MBON plasticity. Motif student; not MaleCNS SGD.",
+  "parents": [],
+  "role": "neuroscience",
+  "backend": "local_numpy",
+  "architecture": {
+    "family": "local_plasticity",
+    "hidden": 48,
+    "history": 8,
+    "sparsity": 0.05,
+    "spectral_radius": 0.9,
+    "trainable": "kc_mbon",
+    "topology": "mushroom_body_analogue"
+  },
+  "curriculum": {
+    "task": "hermes_recovery",
+    "include_secrets": false,
+    "delayed_cue": true,
+    "strobe_drop": 0.0,
+    "ood_split": "unseen_failure"
+  },
+  "training": {
+    "algorithm": "local_plasticity",
+    "seed": 0,
+    "l2": 0.01,
+    "budget_steps": 1,
+    "teacher": "teacher_rule"
+  },
+  "evaluation": {
+    "seeds": 1,
+    "split": "confirm",
+    "environments": [
+      "iid",
+      "ood"
+    ]
+  }
+}
