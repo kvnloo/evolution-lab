@@ -67,6 +67,16 @@ class TableTests(unittest.TestCase):
         self.assertGreaterEqual(report["success_vs_teacher"], 0.95)
         self.assertTrue(report["meets_success_target"])
 
+    def test_vs_teacher_prefers_cheaper_perfect_student(self):
+        rows = [
+            _row("rule", 1.0, 1.0, 0.2, 0),
+            _row("mlp", 1.0, 1.0, 0.08, 4000),
+            _row("local_plasticity", 1.0, 1.0, 0.02, 640),
+        ]
+        report = vs_teacher(rows)
+        self.assertEqual(report["best_learned_family"], "local_plasticity")
+        self.assertLess(report["cost_vs_mlp"], 1.0)
+
     def test_rows_by_family_skips_failed(self):
         rows = [
             _row("mlp", 1.0, 1.0, 0.1),

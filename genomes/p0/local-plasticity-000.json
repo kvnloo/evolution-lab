@@ -7,9 +7,9 @@
   "backend": "local_numpy",
   "architecture": {
     "family": "local_plasticity",
-    "hidden": 48,
+    "hidden": 128,
     "history": 8,
-    "sparsity": 0.05,
+    "sparsity": 0.10,
     "spectral_radius": 0.9,
     "trainable": "kc_mbon",
     "topology": "mushroom_body_analogue"

@@ -135,6 +135,22 @@ def extract_features(genome: ExperimentGenome, episodes: list[Episode], rng: np.
     raise ValueError(f"no feature map for {family}")
 
 
+def _pn_features(episodes: list[Episode]) -> np.ndarray:
+    """Engineered PN drive from Hermes events.
+
+    Flattened history + last-step fields + max-over-time (so a delayed cue is
+    a PN, not a hidden recurrence). This is not the compound eye and not MaleCNS.
+    """
+    rows = []
+    for ep in episodes:
+        flat = ep.frames.reshape(-1)
+        last = ep.frames[-1]
+        pooled = ep.frames.max(axis=0)
+        cue_seen = np.array([ep.frames[:, 9].max()], dtype=np.float64)
+        rows.append(np.concatenate([flat, last, pooled, cue_seen]))
+    return np.stack(rows)
+
+
 def _kc_codes(X: np.ndarray, W_pn_kc: np.ndarray, k_winners: int) -> np.ndarray:
     """k-winner Kenyon-cell codes. PN→KC is frozen; this is not a learned encoder."""
     drive = np.maximum(X @ W_pn_kc, 0.0)
@@ -150,7 +166,7 @@ def _kc_codes(X: np.ndarray, W_pn_kc: np.ndarray, k_winners: int) -> np.ndarray:
 
 def _sparse_pn_kc(n_pn: int, n_kc: int, rng: np.random.Generator) -> np.ndarray:
     """Frozen random PN→KC. Fan-in is sparse; weights are not updated."""
-    fan_in = max(4, min(n_pn, max(8, n_pn // 10)))
+    fan_in = max(8, min(n_pn, max(12, n_pn // 6)))
     W = np.zeros((n_pn, n_kc), dtype=np.float64)
     scale = 1.0 / np.sqrt(fan_in)
     for j in range(n_kc):
@@ -162,24 +178,23 @@ def _sparse_pn_kc(n_pn: int, n_kc: int, rng: np.random.Generator) -> np.ndarray:
 def _fit_local_plasticity(genome: ExperimentGenome, train: list[Episode], rng: np.random.Generator) -> FittedStudent:
     """Mushroom-body analogue for Hermes recovery.
 
-    PN drive is an engineered encoder of *flattened Hermes history*, not the
-    compound eye and not MaleCNS. PN→KC stays frozen. Only KC→MBON is plastic
-    (local Hebbian / class-conditional LTD + a few local delta steps). This is
-    not ridge and not SGD on 166k cells.
+    PN drive is an engineered encoder of Hermes history (flatten + last-step +
+    max-over-time), not the compound eye and not MaleCNS. PN→KC stays frozen.
+    Only KC→MBON is plastic (local Hebbian / class-conditional LTD + local delta).
+    This is not ridge and not SGD on 166k cells.
     """
     drop = genome.curriculum.strobe_drop
     eps = [apply_strobe(ep, drop, rng) for ep in train]
-    X = np.stack([ep.frames.reshape(-1) for ep in eps])
+    X = _pn_features(eps)
     y = np.stack([ep.labels[-1] for ep in eps]).astype(np.int64)
-    n_kc = max(8, int(genome.architecture.hidden))
+    n_kc = max(32, int(genome.architecture.hidden))
     W_pn_kc = _sparse_pn_kc(X.shape[1], n_kc, rng)
-    k_winners = max(3, int(round(0.05 * n_kc)))
+    k_winners = max(5, int(round(0.10 * n_kc)))
     H = _kc_codes(X, W_pn_kc, k_winners)
     W = np.zeros((n_kc, N_ACTIONS), dtype=np.float64)
-    lr = 0.25
-    # DAN-gated: every labeled recovery outcome is a teacher pulse.
+    lr = 0.35
     n = X.shape[0]
-    for _epoch in range(8):
+    for _epoch in range(20):
         for i in rng.permutation(n):
             h = H[i]
             scores = h @ W
@@ -190,14 +205,13 @@ def _fit_local_plasticity(genome: ExperimentGenome, train: list[Episode], rng: n
             target[int(y[i])] = 1.0
             err = target - pred
             W += lr * np.outer(h, err)
-            # class-conditional LTD / homeostasis
             W -= 0.02 * lr * np.outer(h, pred)
-        lr *= 0.9
+        lr *= 0.92
 
     def predict(episodes: list[Episode]) -> np.ndarray:
         rng2 = np.random.default_rng(genome.training.seed + 999)
         e2 = [apply_strobe(ep, genome.curriculum.strobe_drop, rng2) for ep in episodes]
-        Xp = np.stack([ep.frames.reshape(-1) for ep in e2])
+        Xp = _pn_features(e2)
         Ht = _kc_codes(Xp, W_pn_kc, k_winners)
         return (Ht @ W).argmax(axis=1)
 
@@ -205,7 +219,7 @@ def _fit_local_plasticity(genome: ExperimentGenome, train: list[Episode], rng: n
         "W_kc_mbon": W,
         "W_pn_kc": W_pn_kc,
         "k_winners": k_winners,
-        "encoder": "flattened_hermes_history_not_compound_eye",
+        "encoder": "flatten_last_and_maxpool_hermes_history_not_compound_eye",
         "plastic": "kc_to_mbon_only",
     }
     return FittedStudent("local_plasticity", n_params=int(W.size), predict_fn=predict, extras=extras)

@@ -225,9 +225,9 @@ def seed_genomes() -> list[ExperimentGenome]:
             role="neuroscience",
             architecture=Architecture(
                 family="local_plasticity",
-                hidden=48,
+                hidden=128,
                 history=8,
-                sparsity=0.05,
+                sparsity=0.10,
                 trainable="kc_mbon",
                 topology="mushroom_body_analogue",
             ),

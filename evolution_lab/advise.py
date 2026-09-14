@@ -99,7 +99,7 @@ def advise(fields: dict[str, Any], *, family: str = "rule") -> dict[str, Any]:
         "encoder": student.extras.get("encoder"),
         "n_params": student.n_params,
         "actions": list(ACTIONS),
-        "note": "PN drive is flattened Hermes history, not the compound eye.",
+        "note": "PN drive is flatten+last+maxpool Hermes history, not the compound eye.",
     }
 
 

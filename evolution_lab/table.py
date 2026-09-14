@@ -94,7 +94,8 @@ def vs_teacher(rows: list[dict[str, Any]]) -> dict[str, Any]:
     teacher_cost = _metric(teacher, "cost") if teacher else 0.0
     learned = [row for fam, row in by_fam.items() if fam != "rule"]
     if learned:
-        best = max(learned, key=lambda row: _metric(row, "success_rate"))
+        # Highest confirm success; cheapest among ties (capability vs resources).
+        best = max(learned, key=lambda row: (_metric(row, "success_rate"), -_metric(row, "cost")))
         best_success = _metric(best, "success_rate")
         best_cost = _metric(best, "cost")
         best_family = _family(best)
@@ -102,8 +103,11 @@ def vs_teacher(rows: list[dict[str, Any]]) -> dict[str, Any]:
         best_success = 0.0
         best_cost = 0.0
         best_family = None
+    mlp = by_fam.get("mlp")
+    mlp_cost = _metric(mlp, "cost") if mlp else None
     success_ratio = (best_success / teacher_success) if teacher_success else 0.0
     cost_ratio = (best_cost / teacher_cost) if teacher_cost else None
+    cost_vs_mlp = (best_cost / mlp_cost) if mlp_cost else None
     return {
         "teacher_success": teacher_success,
         "best_learned_success": best_success,
@@ -118,7 +122,13 @@ def vs_teacher(rows: list[dict[str, Any]]) -> dict[str, Any]:
             cost_ratio is not None and cost_ratio <= PRODUCT_TARGET.cost_vs_teacher
         ),
         "target_cost": PRODUCT_TARGET.cost_vs_teacher,
+        "mlp_cost": mlp_cost,
+        "cost_vs_mlp": cost_vs_mlp,
         "joules": PRODUCT_TARGET.joules,
+        "cost_note": (
+            "Teacher has ~0 params, so cost_vs_teacher is not hosted energy. "
+            "cost_vs_mlp compares the cheapest perfect student to the ridge MLP."
+        ),
     }
 
 
@@ -175,9 +185,10 @@ def write_control_table(
         "kill_criterion": kill_criterion(recs),
         "vs_teacher": vs_teacher(recs),
         "note": (
-            "PN→KC encoder is flattened Hermes history, not the compound eye. "
-            "fly_connectome remains an alias of fixed_reservoir. "
-            "Do not SGD MaleCNS. Hosted joules stay unknown."
+            "PN encoder is flatten + last-step + max-over-time Hermes history, "
+            "not the compound eye. fly_connectome remains an alias of fixed_reservoir. "
+            "Do not SGD MaleCNS. Hosted joules stay unknown. Teacher has ~0 params so "
+            "cost_vs_teacher is not a hosted-energy comparison."
         ),
         "useful_object": (
             "local_plasticity is a cheap Hermes recovery specialist "
