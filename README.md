@@ -52,7 +52,7 @@ python -m evolution_lab receipt --issue 3
 Logs: `runs/<run_id>/archive.jsonl`  
 Dashboard: `runs/<run_id>/dashboard.html`
 
-On the delayed-cue recovery task (L1): teacher **1.00**, mlp/fixed-reservoir/rewire **1.00**, gru **~0.92**, direct-input **~0.79**. The all-systems 2-D front is the free teacher; learned students are compared on `front_learned`. Hosted joules stay unknown.
+On the delayed-cue recovery task (L1, locked `data/p0/`): teacher **1.00**; mlp / rewired-reservoir / **local_plasticity** confirm **1.00**; fixed-reservoir confirm **1.00** val **~0.96**; gru **~0.92 / 0.90**; direct-input **~0.79 / 0.63**. The mushroom-body analogue uses **640** plastic KC→MBON weights (flatten+last+maxpool Hermes PNs, not the compound eye). Kill criterion does **not** fire: GRU and direct-input do not both dominate the reservoir on val. Still do **not** SGD MaleCNS. Hosted joules stay unknown. Teacher cost is ~0 params, so `cost_vs_teacher` is not an energy number; `cost_vs_mlp` compares learned students.
 
 ## Gym
 
