@@ -135,6 +135,82 @@ def extract_features(genome: ExperimentGenome, episodes: list[Episode], rng: np.
     raise ValueError(f"no feature map for {family}")
 
 
+def _kc_codes(X: np.ndarray, W_pn_kc: np.ndarray, k_winners: int) -> np.ndarray:
+    """k-winner Kenyon-cell codes. PN→KC is frozen; this is not a learned encoder."""
+    drive = np.maximum(X @ W_pn_kc, 0.0)
+    n, n_kc = drive.shape
+    k = max(1, min(int(k_winners), n_kc))
+    idx = np.argpartition(drive, -k, axis=1)[:, -k:]
+    mask = np.zeros_like(drive)
+    mask[np.arange(n)[:, None], idx] = 1.0
+    kc = drive * mask
+    norms = np.linalg.norm(kc, axis=1, keepdims=True)
+    return kc / np.maximum(norms, 1e-8)
+
+
+def _sparse_pn_kc(n_pn: int, n_kc: int, rng: np.random.Generator) -> np.ndarray:
+    """Frozen random PN→KC. Fan-in is sparse; weights are not updated."""
+    fan_in = max(4, min(n_pn, max(8, n_pn // 10)))
+    W = np.zeros((n_pn, n_kc), dtype=np.float64)
+    scale = 1.0 / np.sqrt(fan_in)
+    for j in range(n_kc):
+        idx = rng.choice(n_pn, size=fan_in, replace=False)
+        W[idx, j] = rng.normal(0.0, scale, size=fan_in)
+    return W
+
+
+def _fit_local_plasticity(genome: ExperimentGenome, train: list[Episode], rng: np.random.Generator) -> FittedStudent:
+    """Mushroom-body analogue for Hermes recovery.
+
+    PN drive is an engineered encoder of *flattened Hermes history*, not the
+    compound eye and not MaleCNS. PN→KC stays frozen. Only KC→MBON is plastic
+    (local Hebbian / class-conditional LTD + a few local delta steps). This is
+    not ridge and not SGD on 166k cells.
+    """
+    drop = genome.curriculum.strobe_drop
+    eps = [apply_strobe(ep, drop, rng) for ep in train]
+    X = np.stack([ep.frames.reshape(-1) for ep in eps])
+    y = np.stack([ep.labels[-1] for ep in eps]).astype(np.int64)
+    n_kc = max(8, int(genome.architecture.hidden))
+    W_pn_kc = _sparse_pn_kc(X.shape[1], n_kc, rng)
+    k_winners = max(3, int(round(0.05 * n_kc)))
+    H = _kc_codes(X, W_pn_kc, k_winners)
+    W = np.zeros((n_kc, N_ACTIONS), dtype=np.float64)
+    lr = 0.25
+    # DAN-gated: every labeled recovery outcome is a teacher pulse.
+    n = X.shape[0]
+    for _epoch in range(8):
+        for i in rng.permutation(n):
+            h = H[i]
+            scores = h @ W
+            s = scores - scores.max()
+            pred = np.exp(np.clip(s, -20, 20))
+            pred = pred / pred.sum()
+            target = np.zeros(N_ACTIONS, dtype=np.float64)
+            target[int(y[i])] = 1.0
+            err = target - pred
+            W += lr * np.outer(h, err)
+            # class-conditional LTD / homeostasis
+            W -= 0.02 * lr * np.outer(h, pred)
+        lr *= 0.9
+
+    def predict(episodes: list[Episode]) -> np.ndarray:
+        rng2 = np.random.default_rng(genome.training.seed + 999)
+        e2 = [apply_strobe(ep, genome.curriculum.strobe_drop, rng2) for ep in episodes]
+        Xp = np.stack([ep.frames.reshape(-1) for ep in e2])
+        Ht = _kc_codes(Xp, W_pn_kc, k_winners)
+        return (Ht @ W).argmax(axis=1)
+
+    extras = {
+        "W_kc_mbon": W,
+        "W_pn_kc": W_pn_kc,
+        "k_winners": k_winners,
+        "encoder": "flattened_hermes_history_not_compound_eye",
+        "plastic": "kc_to_mbon_only",
+    }
+    return FittedStudent("local_plasticity", n_params=int(W.size), predict_fn=predict, extras=extras)
+
+
 def fit_student(genome: ExperimentGenome, train: list[Episode]) -> FittedStudent:
     rng = np.random.default_rng(genome.training.seed)
     if genome.architecture.family == "rule":
@@ -150,6 +226,9 @@ def fit_student(genome: ExperimentGenome, train: list[Episode]) -> FittedStudent
             return np.asarray(out, dtype=np.int64)
 
         return FittedStudent("rule", n_params=0, predict_fn=predict, extras={})
+
+    if genome.architecture.family == "local_plasticity":
+        return _fit_local_plasticity(genome, train, rng)
 
     X, y, extras = extract_features(genome, train, rng)
     W = ridge_fit(X, y, N_ACTIONS, genome.training.l2)

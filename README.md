@@ -28,6 +28,7 @@ Control table (must always be in the archive together):
 | `gru` | recurrent compression |
 | `fixed_reservoir` | frozen sparse recurrent + readout |
 | `rewired_reservoir` | degree-preserving-ish random graph, **refit** |
+| `local_plasticity` | mushroom-body analogue: frozen PN→KC (flattened Hermes history, not the compound eye) + local KC→MBON |
 
 ## Run
 
@@ -38,10 +39,15 @@ python -m evolution_lab run --level 1
 python -m evolution_lab evolve --generations 2
 python -m evolution_lab dashboard
 python -m evolution_lab gym-smoke
+python -m evolution_lab table --level 1
+python -m evolution_lab advise '{"sandbox_alive": 0, "retry": 0, "budget": 1}'
+python -m evolution_lab advise '{"sandbox_alive": 1, "transient": 1, "retry": 0}' --family local_plasticity
 python -m unittest discover -s tests -p 'test_*.py'
 bash scripts/verify.sh
-python -m evolution_lab receipt
+python -m evolution_lab receipt --issue 3
 ```
+
+`table` writes `runs/p0/control_table.json` (or `--run-dir`): Track A families together, `vs_teacher` vs the registered product target, and the P1 kill criterion (GRU **and** direct-input dominating the reservoir on val → do not MaleCNS SGD; pivot to motif students). Hosted joules stay unknown. `fly_connectome` remains an alias of `fixed_reservoir`.
 
 Logs: `runs/<run_id>/archive.jsonl`  
 Dashboard: `runs/<run_id>/dashboard.html`
