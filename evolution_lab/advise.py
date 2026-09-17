@@ -15,6 +15,29 @@ import numpy as np
 from .schema import ACTIONS, GenomeError, options_carry_secrets
 from .task import Episode, N_ACTIONS, _frame, teacher_action
 
+_STUDENT_CACHE: dict[tuple[str, int], object] = {}
+
+
+def _local_plasticity_student():
+    from .engine import seed_genomes
+    from .models import fit_student
+    from .task import build_task
+
+    genome = next(g for g in seed_genomes() if g.architecture.family == "local_plasticity")
+    cache_key = (genome.id, genome.training.seed)
+    cached = _STUDENT_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
+    data = build_task(genome, n_train=64, n_val=8, n_confirm=8, n_ood=4)
+    student = fit_student(genome, data.train)
+    _STUDENT_CACHE[cache_key] = (genome, student)
+    return _STUDENT_CACHE[cache_key]
+
+
+def clear_student_cache() -> None:
+    """Test helper: drop cached local_plasticity student."""
+    _STUDENT_CACHE.clear()
+
 
 def _last_action_id(value: Any) -> int:
     if value is None:
@@ -83,13 +106,7 @@ def advise(fields: dict[str, Any], *, family: str = "rule") -> dict[str, Any]:
         raise GenomeError(
             f"advise supports family 'rule' or 'local_plasticity', not {family!r}"
         )
-    from .engine import seed_genomes
-    from .models import fit_student
-    from .task import build_task
-
-    genome = next(g for g in seed_genomes() if g.architecture.family == "local_plasticity")
-    data = build_task(genome, n_train=64, n_val=8, n_confirm=8, n_ood=4)
-    student = fit_student(genome, data.train)
+    genome, student = _local_plasticity_student()
     ep = episode_from_fields(fields, history=genome.architecture.history)
     pred = int(student.predict_fn([ep])[0])
     return {

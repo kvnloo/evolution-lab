@@ -242,6 +242,9 @@ def main(argv: list[str] | None = None) -> int:
     plab.add_argument("--fresh", action="store_true", help="drop archive/table before run")
     plab.add_argument("--skip-dagger", action="store_true")
 
+    prc_ctrl = sub.add_parser("recovery", parents=[parent])
+    prc_ctrl.add_argument("json", nargs="?", default="{}", help="recovery controller JSON request")
+
     pa = sub.add_parser("advise", parents=[parent])
     pa.add_argument("json", help="sanitized Hermes observation object")
     pa.add_argument(
@@ -273,6 +276,10 @@ def main(argv: list[str] | None = None) -> int:
         cmd_receipt(issue=args.issue)
     elif args.cmd == "table":
         cmd_table(run_dir, args.level)
+    elif args.cmd == "recovery":
+        from .recovery_cli import main as recovery_main
+
+        raise SystemExit(recovery_main([args.json]))
     elif args.cmd == "advise":
         cmd_advise(args.json, args.family)
     elif args.cmd == "dagger-smoke":
