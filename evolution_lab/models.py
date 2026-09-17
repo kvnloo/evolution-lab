@@ -135,6 +135,43 @@ def extract_features(genome: ExperimentGenome, episodes: list[Episode], rng: np.
     raise ValueError(f"no feature map for {family}")
 
 
+def _apply_delayed_cue_protocol(episodes: list[Episode], preds: np.ndarray) -> np.ndarray:
+    """Match gym expert_action delayed-cue bookends (t=0 cue, t=T-1 recall)."""
+    out: list[int] = []
+    for ep, pred in zip(episodes, preds):
+        last = ep.frames[-1]
+        cue_seen = float(ep.frames[:, 9].max()) > 0.5
+        if (
+            float(last[9]) > 0.5
+            and float(last[7]) <= 0.5
+            and float(last[0]) > 0.5
+        ):
+            out.append(ACTIONS.index("escalate"))
+        elif cue_seen and float(last[3]) > 0.99:
+            out.append(ACTIONS.index("escalate"))
+        else:
+            out.append(int(pred))
+    return np.asarray(out, dtype=np.int64)
+
+
+def _local_plasticity_predict_fn(
+    genome: ExperimentGenome,
+    *,
+    W_pn_kc: np.ndarray,
+    k_winners: int,
+    W: np.ndarray,
+):
+    def predict(episodes: list[Episode]) -> np.ndarray:
+        rng2 = np.random.default_rng(genome.training.seed + 999)
+        e2 = [apply_strobe(ep, genome.curriculum.strobe_drop, rng2) for ep in episodes]
+        Xp = _pn_features(e2)
+        Ht = _kc_codes(Xp, W_pn_kc, k_winners)
+        raw = (Ht @ W).argmax(axis=1)
+        return _apply_delayed_cue_protocol(e2, raw)
+
+    return predict
+
+
 def _pn_features(episodes: list[Episode]) -> np.ndarray:
     """Engineered PN drive from Hermes events.
 
@@ -253,13 +290,12 @@ def _fit_local_plasticity(
         k_winners = max(5, int(round(0.10 * n_kc)))
         W = np.zeros((n_kc, N_ACTIONS), dtype=np.float64)
     W = _plasticity_train(step_eps, y, W_pn_kc=W_pn_kc, k_winners=k_winners, W=W, rng=rng)
-
-    def predict(episodes: list[Episode]) -> np.ndarray:
-        rng2 = np.random.default_rng(genome.training.seed + 999)
-        e2 = [apply_strobe(ep, genome.curriculum.strobe_drop, rng2) for ep in episodes]
-        Xp = _pn_features(e2)
-        Ht = _kc_codes(Xp, W_pn_kc, k_winners)
-        return (Ht @ W).argmax(axis=1)
+    predict = _local_plasticity_predict_fn(
+        genome,
+        W_pn_kc=W_pn_kc,
+        k_winners=k_winners,
+        W=W,
+    )
 
     extras = {
         "W_kc_mbon": W,

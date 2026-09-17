@@ -12,6 +12,7 @@ from .advise import advise
 from .observe import action_guidance, observe_event
 from .schema import ACTIONS, GenomeError
 from .splits import splits_exist
+from .student_bundle import bundle_exists, bundle_meta
 
 
 def repo_root() -> Path:
@@ -27,6 +28,8 @@ def status_payload() -> dict[str, Any]:
         "locked_splits": splits_exist(data_dir),
         "actions": list(ACTIONS),
         "default_family": os.environ.get("FLYFORGE_RECOVERY_FAMILY", "local_plasticity"),
+        "student_bundle": bundle_exists(data_dir),
+        "student_bundle_meta": bundle_meta(data_dir),
         "python": sys.executable,
     }
 

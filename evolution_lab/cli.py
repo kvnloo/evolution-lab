@@ -235,6 +235,38 @@ def cmd_lab(
     print(json.dumps(summary, indent=2))
 
 
+
+def cmd_bundle_student(*, dagger_rounds: int) -> None:
+    """Train (optional DAgger) and write data/p0/recovery_student.npz for OMP."""
+    from .dagger import aggregate_dagger_episodes, mean_closed_loop_reward, make_env, run_dagger
+    from .engine import seed_genomes
+    from .models import fit_student
+    from .splits import load_splits
+    from .student_bundle import save_bundle
+
+    genome = next(g for g in seed_genomes() if g.architecture.family == "local_plasticity")
+    data = load_splits()
+    env = make_env("hermes_recovery", delayed_cue=True, history=genome.architecture.history)
+    metrics: dict = {}
+    if dagger_rounds > 0:
+        metrics["dagger"] = run_dagger(
+            genome,
+            base_train=data.train,
+            dagger_seeds=list(range(32, 56)),
+            eval_seeds=list(range(24)),
+            rounds=dagger_rounds,
+        )
+        train_pool = list(data.train)
+        student = fit_student(genome, data.train)
+        for _ in range(dagger_rounds):
+            train_pool = train_pool + aggregate_dagger_episodes(env, student, list(range(32, 56)))
+            student = fit_student(genome, train_pool, init_extras=student.extras)
+    else:
+        student = fit_student(genome, data.train)
+    metrics["closed_loop"] = mean_closed_loop_reward(env, student, list(range(24)))
+    path = save_bundle(genome, student, metrics=metrics)
+    print(json.dumps({"bundle": str(path), **metrics}, indent=2))
+
 def main(argv: list[str] | None = None) -> int:
     root = _root_from_here()
     parent = argparse.ArgumentParser(add_help=False)
@@ -268,6 +300,8 @@ def main(argv: list[str] | None = None) -> int:
     pt.add_argument("--level", type=int, default=1)
     pd = sub.add_parser("dagger-smoke", parents=[parent])
     pd.add_argument("--rounds", type=int, default=2)
+    pbs = sub.add_parser("bundle-student", parents=[parent])
+    pbs.add_argument("--dagger-rounds", type=int, default=0)
     plab = sub.add_parser("lab", parents=[parent], help="full experiment loop")
     plab.add_argument("--level", type=int, default=1)
     plab.add_argument("--evolve-generations", type=int, default=0)
@@ -325,6 +359,8 @@ def main(argv: list[str] | None = None) -> int:
         cmd_advise(args.json, args.family)
     elif args.cmd == "dagger-smoke":
         cmd_dagger_smoke(rounds=args.rounds)
+    elif args.cmd == "bundle-student":
+        cmd_bundle_student(dagger_rounds=args.dagger_rounds)
     elif args.cmd == "lab":
         cmd_lab(
             run_dir,

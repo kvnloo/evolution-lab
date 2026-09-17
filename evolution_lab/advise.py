@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from typing import Any
 import json
+from pathlib import Path
 
 import numpy as np
 
@@ -19,15 +20,23 @@ _STUDENT_CACHE: dict[tuple[str, int], object] = {}
 
 
 def _local_plasticity_student():
+    import os
+
     from .engine import seed_genomes
     from .models import fit_student
     from .splits import load_splits
+    from .student_bundle import BUNDLE_VERSION, bundle_exists, load_bundle
 
     genome = next(g for g in seed_genomes() if g.architecture.family == "local_plasticity")
-    cache_key = (genome.id, genome.training.seed, "locked_per_step_v1")
+    cache_key = (genome.id, genome.training.seed, BUNDLE_VERSION)
     cached = _STUDENT_CACHE.get(cache_key)
     if cached is not None:
         return cached
+    bundle_path = os.environ.get("FLYFORGE_RECOVERY_BUNDLE")
+    if bundle_path or bundle_exists():
+        student = load_bundle(genome, Path(bundle_path) if bundle_path else None)
+        _STUDENT_CACHE[cache_key] = (genome, student)
+        return _STUDENT_CACHE[cache_key]
     data = load_splits()
     student = fit_student(genome, data.train)
     _STUDENT_CACHE[cache_key] = (genome, student)
@@ -109,10 +118,11 @@ def advise(fields: dict[str, Any], *, family: str = "rule") -> dict[str, Any]:
     genome, student = _local_plasticity_student()
     ep = episode_from_fields(fields, history=genome.architecture.history)
     pred = int(student.predict_fn([ep])[0])
+    source = "recovery_student_bundle" if student.extras.get("bundle") else "kc_to_mbon_local_plasticity"
     return {
         "action": ACTIONS[pred],
         "family": "local_plasticity",
-        "source": "kc_to_mbon_local_plasticity",
+        "source": source,
         "encoder": student.extras.get("encoder"),
         "n_params": student.n_params,
         "actions": list(ACTIONS),

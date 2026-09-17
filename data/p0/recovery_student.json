@@ -1,0 +1,14 @@
+{
+  "version": "locked_per_step_v2",
+  "genome_id": "local-plasticity-000",
+  "seed": 0,
+  "history": 8,
+  "hidden": 128,
+  "n_params": 640,
+  "encoder": "flatten_last_and_maxpool_hermes_history_not_compound_eye",
+  "plastic": "kc_to_mbon_only",
+  "supervision": "per_step_prefix",
+  "metrics": {
+    "closed_loop": 1.0
+  }
+}
