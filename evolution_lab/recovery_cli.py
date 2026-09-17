@@ -28,8 +28,8 @@ def status_payload() -> dict[str, Any]:
         "locked_splits": splits_exist(data_dir),
         "actions": list(ACTIONS),
         "default_family": os.environ.get("FLYFORGE_RECOVERY_FAMILY", "local_plasticity"),
-        "student_bundle": bundle_exists(data_dir),
-        "student_bundle_meta": bundle_meta(data_dir),
+        "student_bundle": bundle_exists(root),
+        "student_bundle_meta": bundle_meta(root),
         "python": sys.executable,
     }
 
