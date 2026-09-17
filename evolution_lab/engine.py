@@ -38,7 +38,24 @@ def _cost(n_params: int, latency_s: float) -> float:
     return float(0.7 * param_term + 0.3 * time_term)
 
 
-def evaluate_genome(genome: ExperimentGenome, data: TaskData) -> dict[str, Any]:
+def evaluate_genome(genome: ExperimentGenome, data: TaskData, *, work_dir: Path | None = None) -> dict[str, Any]:
+    if genome.backend == "openjev":
+        from .openjev_runner import train_and_evaluate
+
+        if work_dir is None:
+            raise GenomeError("openjev backend requires work_dir")
+        spec = getattr(evaluate_genome, "_jev_spec", None)
+        if spec is None:
+            raise GenomeError("openjev evaluation requires promotion spec (internal)")
+        return train_and_evaluate(
+            genome,
+            n_train=spec["n_train"],
+            n_val=spec["n_val"],
+            n_confirm=spec["n_confirm"],
+            n_ood=spec["n_ood"],
+            work_dir=work_dir,
+            splits_dir=spec.get("splits_dir"),
+        )
     if genome.backend in {"tinker_sft", "tinker_rl"}:
         raise GenomeError(f"{genome.backend} is declared, not wired — refusing to fake SFT")
     if genome.backend == "fly_sim":
@@ -99,9 +116,18 @@ def run_one(
     *,
     level: int,
     prior: list[dict[str, Any]],
+    run_dir: Path | None = None,
+    jev_splits_dir: Path | None = None,
 ) -> dict[str, Any]:
     genome.validate()
     spec = LEVELS[min(level, 2)]
+    evaluate_genome._jev_spec = {
+        "n_train": spec["n_train"],
+        "n_val": spec["n_val"],
+        "n_confirm": spec["n_confirm"],
+        "n_ood": spec["n_ood"],
+        "splits_dir": jev_splits_dir,
+    }
     data = build_task(
         genome,
         n_train=spec["n_train"],
@@ -110,10 +136,11 @@ def run_one(
         n_ood=spec["n_ood"],
     )
     metrics_seeds = []
+    work_dir = run_dir or archive.path.parent
     try:
         for s in range(spec["seeds"]):
             g = genome.with_seed(genome.training.seed + s)
-            metrics_seeds.append(evaluate_genome(g, data))
+            metrics_seeds.append(evaluate_genome(g, data, work_dir=work_dir))
     except GenomeError as e:
         rec = {
             "experiment_id": genome.id,
@@ -128,6 +155,9 @@ def run_one(
 
     keys = ("success_rate", "val_success", "ood_score", "params", "latency_s", "fit_s", "cost", "violations")
     metrics = {k: float(np.mean([m[k] for m in metrics_seeds])) for k in keys}
+    for extra in ("jev_checkpoint", "device"):
+        if extra in metrics_seeds[0]:
+            metrics[extra] = metrics_seeds[0][extra]
     metrics["joules_per_success"] = None
     metrics["joules_unknown"] = True
     metrics["seeds"] = spec["seeds"]
@@ -233,6 +263,46 @@ def seed_genomes() -> list[ExperimentGenome]:
             ),
             training=Training(algorithm="local_plasticity", seed=0),
             curriculum=delayed,
+        ),
+    ]
+
+
+def seed_jev_genomes() -> list[ExperimentGenome]:
+    from .schema import Architecture, Curriculum, Training
+
+    synthetic = Curriculum(task="jev_synthetic", delayed_cue=False)
+    bridge = Curriculum(task="hermes_as_jev", delayed_cue=True)
+    tiny_train = Training(algorithm="sft", seed=0, jev_epochs=4, jev_rank=32)
+    hf_train = Training(algorithm="sft", seed=1, jev_epochs=4, jev_rank=64)
+
+    return [
+        ExperimentGenome(
+            id="jev-tiny-synthetic-000",
+            lineage="jev_tiny",
+            hypothesis="Byte TinyScorer on locked synthetic Jev splits (Route A).",
+            backend="openjev",
+            architecture=Architecture(family="jev_tiny", hidden=64, history=8),
+            training=tiny_train,
+            curriculum=synthetic,
+        ),
+        ExperimentGenome(
+            id="jev-tiny-hermes-000",
+            lineage="jev_tiny",
+            hypothesis="TinyScorer distilled from Hermes recovery states as choices.",
+            role="distiller",
+            backend="openjev",
+            architecture=Architecture(family="jev_tiny", hidden=64, history=8),
+            training=Training(algorithm="sft", seed=2, jev_epochs=4, jev_rank=32),
+            curriculum=bridge,
+        ),
+        ExperimentGenome(
+            id="jev-hf-head-synthetic-000",
+            lineage="jev_hf",
+            hypothesis="Frozen HF encoder + trainable attention head on synthetic Jev.",
+            backend="openjev",
+            architecture=Architecture(family="jev_hf_head", hidden=64, history=8),
+            training=hf_train,
+            curriculum=synthetic,
         ),
     ]
 

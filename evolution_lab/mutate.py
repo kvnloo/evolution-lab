@@ -20,15 +20,36 @@ def mutate(genome: ExperimentGenome, rng: np.random.Generator, *, generation: in
     if rng.random() < 0.3:
         history = int(rng.integers(4, 13))
     family = arch.family
+    backend = genome.backend
+    task = cur.task
     if family != "rule" and rng.random() < 0.15:
-        family = str(rng.choice([f for f in FAMILIES if f not in {"rule", "hybrid"}]))
+        choices = [f for f in FAMILIES if f not in {"rule", "hybrid"}]
+        if genome.backend == "openjev":
+            choices = [f for f in choices if f.startswith("jev_")]
+        family = str(rng.choice(choices))
+        if family.startswith("jev_"):
+            backend = "openjev"
+            task = "jev_synthetic"
+        elif backend == "openjev":
+            backend = "local_numpy"
+            task = "hermes_recovery"
     drop = cur.strobe_drop
     if rng.random() < 0.4:
         drop = float(np.clip(drop + rng.normal(0, 0.08), 0.0, 0.6))
     delayed = cur.delayed_cue
-    if rng.random() < 0.2:
+    if rng.random() < 0.2 and backend != "openjev":
         delayed = bool(rng.integers(0, 2))
     l2 = float(np.clip(tr.l2 * rng.choice([0.3, 1.0, 3.0]), 1e-5, 1.0))
+    jev_rank = tr.jev_rank
+    jev_epochs = tr.jev_epochs
+    jev_lr = tr.jev_lr
+    if backend == "openjev":
+        if rng.random() < 0.5:
+            jev_rank = int(np.clip(jev_rank * rng.choice([0.5, 1.0, 2.0]), 16, 256))
+        if rng.random() < 0.4:
+            jev_epochs = int(np.clip(jev_epochs + rng.integers(-2, 3), 2, 16))
+        if rng.random() < 0.3:
+            jev_lr = float(np.clip(jev_lr * rng.choice([0.5, 1.0, 2.0]), 1e-4, 1e-2))
     role = genome.role
     if rng.random() < 0.2:
         role = str(rng.choice(ROLES))
@@ -39,10 +60,17 @@ def mutate(genome: ExperimentGenome, rng: np.random.Generator, *, generation: in
         hypothesis=f"Mutated from {genome.id}: hidden={hidden}, strobe={drop:.2f}, family={family}",
         parents=(genome.id,),
         role=role,
-        backend=genome.backend,
+        backend=backend,
         architecture=replace(arch, family=family, hidden=hidden, history=history),
-        curriculum=replace(cur, strobe_drop=drop, delayed_cue=delayed),
-        training=replace(tr, l2=l2, seed=int(rng.integers(0, 10_000))),
+        curriculum=replace(cur, task=task, strobe_drop=drop, delayed_cue=delayed),
+        training=replace(
+            tr,
+            l2=l2,
+            seed=int(rng.integers(0, 10_000)),
+            jev_rank=jev_rank,
+            jev_epochs=jev_epochs,
+            jev_lr=jev_lr,
+        ),
         evaluation=genome.evaluation,
     )
 

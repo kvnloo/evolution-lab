@@ -12,6 +12,11 @@ license = { text = "MIT" }
 authors = [{ name = "kvnloo" }]
 dependencies = ["numpy>=1.26"]
 
+[project.optional-dependencies]
+openjev = [
+  "openjev-phase1 @ git+https://github.com/kvnloo/openjev.git",
+]
+
 [project.scripts]
 evolution-lab = "evolution_lab.cli:main"
 

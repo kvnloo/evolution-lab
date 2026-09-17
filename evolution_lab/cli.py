@@ -10,7 +10,7 @@ import numpy as np
 from .archive import Archive
 from .dashboard import write_dashboard
 from .elites import MapElites
-from .engine import run_one, seed_genomes, summarize
+from .engine import run_one, seed_genomes, seed_jev_genomes, summarize
 from .gym import make_env, rollout_teacher
 from .mutate import crossover, mutate
 from .schema import ExperimentGenome, genome_from_dict, load_genome
@@ -108,6 +108,35 @@ def cmd_lock_splits(data_dir: Path) -> None:
 
     dest = lock_splits(data_dir)
     print(f"locked splits {dest}")
+
+
+def cmd_seed_jev(run_dir: Path) -> None:
+    run_dir.mkdir(parents=True, exist_ok=True)
+    gdir = run_dir / "genomes"
+    gdir.mkdir(parents=True, exist_ok=True)
+    genomes = seed_jev_genomes()
+    for g in genomes:
+        (gdir / f"{g.id}.json").write_text(json.dumps(g.to_dict(), indent=2) + "\n")
+    print(f"wrote {len(genomes)} Jev genomes to {gdir}")
+
+
+def cmd_lock_jev_splits(data_dir: Path) -> None:
+    from .jev_splits import lock_splits
+
+    dest = lock_splits(data_dir)
+    print(f"locked Jev splits {dest}")
+
+
+def cmd_jev_smoke(run_dir: Path, level: int) -> None:
+    from .jev_splits import lock_splits, splits_exist
+    from .openjev_runner import openjev_available
+
+    if not openjev_available():
+        raise SystemExit("openjev-phase1 not installed; pip install -e '.[openjev]'")
+    if not splits_exist():
+        lock_splits()
+    cmd_seed_jev(run_dir)
+    cmd_run(run_dir, level)
 
 
 def cmd_receipt(*, issue: str) -> None:
@@ -230,6 +259,11 @@ def main(argv: list[str] | None = None) -> int:
     pl.add_argument("--data-dir", type=Path, default=None)
     prc = sub.add_parser("receipt", parents=[parent])
     prc.add_argument("--issue", default="2")
+    sub.add_parser("seed-jev", parents=[parent])
+    pjl = sub.add_parser("lock-jev-splits", parents=[parent])
+    pjl.add_argument("--data-dir", type=Path, default=None)
+    pjs = sub.add_parser("jev-smoke", parents=[parent])
+    pjs.add_argument("--level", type=int, default=0)
     pt = sub.add_parser("table", parents=[parent])
     pt.add_argument("--level", type=int, default=1)
     pd = sub.add_parser("dagger-smoke", parents=[parent])
@@ -272,6 +306,13 @@ def main(argv: list[str] | None = None) -> int:
     elif args.cmd == "lock-splits":
         data_dir = args.data_dir or (root / "data" / "p0")
         cmd_lock_splits(data_dir)
+    elif args.cmd == "seed-jev":
+        cmd_seed_jev(run_dir)
+    elif args.cmd == "lock-jev-splits":
+        data_dir = args.data_dir or (root / "data" / "jev" / "synthetic")
+        cmd_lock_jev_splits(data_dir)
+    elif args.cmd == "jev-smoke":
+        cmd_jev_smoke(run_dir, args.level)
     elif args.cmd == "receipt":
         cmd_receipt(issue=args.issue)
     elif args.cmd == "table":

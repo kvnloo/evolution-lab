@@ -1,0 +1,18 @@
+{
+  "counts": {
+    "confirm": 128,
+    "ood": 128,
+    "train": 512,
+    "val": 128
+  },
+  "files": {
+    "confirm": "confirm.jsonl",
+    "ood": "ood.jsonl",
+    "train": "train.jsonl",
+    "val": "val.jsonl"
+  },
+  "format": "openjev_choice_jsonl",
+  "seed": 20260917,
+  "seed_note": "Track B lock. Subsample for promotion levels; do not re-sample L1.",
+  "task": "jev_synthetic"
+}

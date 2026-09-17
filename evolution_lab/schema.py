@@ -20,8 +20,12 @@ FAMILIES = (
     "local_plasticity",
     "fly_connectome",
     "hybrid",
+    "jev_tiny",
+    "jev_hf_head",
 )
-BACKENDS = ("local_numpy", "fly_sim", "tinker_sft", "tinker_rl", "external_eval")
+BACKENDS = ("local_numpy", "fly_sim", "tinker_sft", "tinker_rl", "external_eval", "openjev")
+JEV_FAMILIES = frozenset({"jev_tiny", "jev_hf_head"})
+JEV_TASKS = frozenset({"jev_synthetic", "hermes_as_jev"})
 ROLES = ("explorer", "exploiter", "skeptic", "replicator", "distiller", "neuroscience")
 LEARNING_MODES = ("fixed", "ridge_readout", "sft", "rl", "local_plasticity", "hybrid")
 PARAM_BUCKETS = ("<100K", "100K-1M", "1M-10M", "10M-100M", ">100M")
@@ -62,6 +66,14 @@ class Training:
     l2: float = 1e-2
     budget_steps: int = 1
     teacher: str = "teacher_rule"
+    jev_rank: int = 64
+    jev_epochs: int = 8
+    jev_lr: float = 2e-3
+    jev_hf_model: str = "Qwen/Qwen2.5-0.5B"
+    jev_context_tokens: int = 192
+    jev_option_tokens: int = 32
+    jev_batch_size: int = 64
+    jev_device: str = "auto"
 
 
 @dataclass
@@ -102,6 +114,13 @@ class ExperimentGenome:
             raise GenomeError("hidden and history must be positive")
         if self.architecture.family == "rule" and self.backend not in {"local_numpy", "external_eval"}:
             raise GenomeError("rule family is local")
+        if self.architecture.family in JEV_FAMILIES:
+            if self.backend != "openjev":
+                raise GenomeError(f"{self.architecture.family} requires backend openjev")
+            if self.curriculum.task not in JEV_TASKS:
+                raise GenomeError(f"{self.architecture.family} requires a Jev curriculum task")
+        if self.backend == "openjev" and self.architecture.family not in JEV_FAMILIES:
+            raise GenomeError("openjev backend is Route A only (jev_tiny, jev_hf_head)")
 
     def with_seed(self, seed: int) -> "ExperimentGenome":
         return replace(self, training=replace(self.training, seed=seed))
