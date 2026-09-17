@@ -43,6 +43,7 @@ Commands were filled by `init-oss-repo.sh` / `oss-onboard` from the tree it saw.
 | Unit | `python -m unittest discover -s tests -p 'test_*.py'` |
 | Mutation | `n/a` |
 | Runtime | `python -m evolution_lab gym-smoke --n 8` |
+| Experiment | `python -m evolution_lab lab --evolve-generations 2` or `bash scripts/lab-run.sh` |
 
 1. Name the intended vs current behavior.
 2. Fail, then pass (see `skills/tdd/SKILL.md`).

@@ -1,0 +1,4 @@
+{
+  "install": "pip install -e .",
+  "start": "python -m evolution_lab gym-smoke --n 8"
+}

@@ -181,6 +181,31 @@ def cmd_dagger_smoke(*, rounds: int) -> None:
     print(json.dumps(report, indent=2))
 
 
+def cmd_lab(
+    run_dir: Path,
+    *,
+    level: int,
+    evolve_generations: int,
+    evolve_children: int,
+    dagger_rounds: int,
+    fresh: bool,
+    skip_dagger: bool,
+) -> None:
+    """Full experiment loop: seed → run → evolve → table → DAgger → summary."""
+    from .lab import run_lab
+
+    summary = run_lab(
+        run_dir=run_dir,
+        level=level,
+        evolve_generations=evolve_generations,
+        evolve_children=evolve_children,
+        dagger_rounds=dagger_rounds,
+        fresh=fresh,
+        skip_dagger=skip_dagger,
+    )
+    print(json.dumps(summary, indent=2))
+
+
 def main(argv: list[str] | None = None) -> int:
     root = _root_from_here()
     parent = argparse.ArgumentParser(add_help=False)
@@ -209,6 +234,13 @@ def main(argv: list[str] | None = None) -> int:
     pt.add_argument("--level", type=int, default=1)
     pd = sub.add_parser("dagger-smoke", parents=[parent])
     pd.add_argument("--rounds", type=int, default=2)
+    plab = sub.add_parser("lab", parents=[parent], help="full experiment loop")
+    plab.add_argument("--level", type=int, default=1)
+    plab.add_argument("--evolve-generations", type=int, default=0)
+    plab.add_argument("--evolve-children", type=int, default=4)
+    plab.add_argument("--dagger-rounds", type=int, default=2)
+    plab.add_argument("--fresh", action="store_true", help="drop archive/table before run")
+    plab.add_argument("--skip-dagger", action="store_true")
 
     pa = sub.add_parser("advise", parents=[parent])
     pa.add_argument("json", help="sanitized Hermes observation object")
@@ -245,4 +277,14 @@ def main(argv: list[str] | None = None) -> int:
         cmd_advise(args.json, args.family)
     elif args.cmd == "dagger-smoke":
         cmd_dagger_smoke(rounds=args.rounds)
+    elif args.cmd == "lab":
+        cmd_lab(
+            run_dir,
+            level=args.level,
+            evolve_generations=args.evolve_generations,
+            evolve_children=args.evolve_children,
+            dagger_rounds=args.dagger_rounds,
+            fresh=args.fresh,
+            skip_dagger=args.skip_dagger,
+        )
     return 0

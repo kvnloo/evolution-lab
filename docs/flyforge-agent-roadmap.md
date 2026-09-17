@@ -9,7 +9,9 @@ Companion to maintainer-owned [ROADMAP.md](../ROADMAP.md). Agents may update **t
 | Track | State | Evidence |
 | --- | --- | --- |
 | P0 Hermes contract | Done on `main` | GitHub [#2](https://github.com/kvnloo/evolution-lab/issues/2), Linear PER-1524 |
-| P1 control table + MB motif | Code on `cursor/p1-control-table-9425` @ `20555e7` | GitHub [#3](https://github.com/kvnloo/evolution-lab/issues/3), PER-1525 |
+| P1 control table + MB motif | Merged on `nightly` | GitHub [#3](https://github.com/kvnloo/evolution-lab/issues/3), PER-1525 |
+| P3 DAgger scaffold | `lab` CLI + `dagger-smoke` on `nightly` | GitHub [#5](https://github.com/kvnloo/evolution-lab/issues/5), PER-1717 |
+| Experiment loop wired | `python -m evolution_lab lab`, `scripts/lab-run.sh`, CI `experiment.yml` | Local + GitHub Actions |
 | Vault numbers + patch | Pushed `cursor/p1-control-table-kb-9425` | [frontier-kb#16](https://github.com/kvnloo/frontier-kb/pull/16) |
 | TMNF / SHERWOOD | Separate branches; fail-closed in lab gym | Not P0; do not vendor binaries |
 | fly-wirehead | Pinout demo only | [kvnloo/fly-wirehead](https://github.com/kvnloo/fly-wirehead) |
@@ -40,11 +42,11 @@ Last-step training hits confirm 1.00; **closed-loop** rollout of that student in
 
 ## Next engineering (priority)
 
-1. **Open / land draft PR** `cursor/p1-control-table-9425` → **`nightly`** (overnight target); receipt issue `"3"`; do not merge `main`/`dev`.
-2. **P3 closed-loop:** aggregate student trajectories on locked splits; bounded RL only when `tinker_rl` is wired (fail-closed today).
+1. **Run experiments:** `bash scripts/lab-run.sh` or `python -m evolution_lab lab --evolve-generations 2`; read `runs/p0/experiment_summary.json`.
+2. **P3 closed-loop:** extend DAgger rounds / seeds; bounded RL only when `tinker_rl` is wired (fail-closed today).
 3. **AODL port:** HOTL 0.2 executor-shaped specialist JSON (existing kinds only) — see frontier-kb `lit-20260912-aodl-fly-specialist-port-sketch`.
-4. **Cloud environment:** add `kvnloo/evolution-lab` to the agent environment + GitHub App; keep `GH_TOKEN` for push. OpenCode key: prefer secret name **`OPENCODE_API_KEY`** (dashboard cannot rename; duplicate then delete misnamed `OPENROUTER_API_KEY` if present).
-5. **P2 distill:** teacher trajectories + outcomes after P1 table is on `nightly`.
+4. **Cloud agent:** repo has `.cursor/environment.json`; add to Cursor Cloud Agent dashboard + GitHub App for push.
+5. **P2 distill:** teacher trajectories + outcomes after experiment loop is green on CI.
 
 ## Explicit non-goals
 

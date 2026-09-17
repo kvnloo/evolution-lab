@@ -32,6 +32,18 @@ Control table (must always be in the archive together):
 
 ## Run
 
+**One command (recommended):**
+
+```sh
+pip install -e .
+bash scripts/lab-run.sh
+# or: python -m evolution_lab lab --evolve-generations 2 --dagger-rounds 2
+```
+
+Writes `runs/p0/experiment_summary.json` (archive stats, P1 control table, P3 DAgger closed-loop).
+
+**Step-by-step:**
+
 ```sh
 pip install -e .
 python -m evolution_lab seed
@@ -40,12 +52,15 @@ python -m evolution_lab evolve --generations 2
 python -m evolution_lab dashboard
 python -m evolution_lab gym-smoke
 python -m evolution_lab table --level 1
+python -m evolution_lab dagger-smoke --rounds 2
 python -m evolution_lab advise '{"sandbox_alive": 0, "retry": 0, "budget": 1}'
 python -m evolution_lab advise '{"sandbox_alive": 1, "transient": 1, "retry": 0}' --family local_plasticity
 python -m unittest discover -s tests -p 'test_*.py'
 bash scripts/verify.sh
 python -m evolution_lab receipt --issue 3
 ```
+
+Scheduled CI: `.github/workflows/experiment.yml` (daily + manual dispatch). Cursor Cloud: `.cursor/environment.json`.
 
 `table` writes `runs/p0/control_table.json` (or `--run-dir`): Track A families together, `vs_teacher` vs the registered product target, and the P1 kill criterion (GRU **and** direct-input dominating the reservoir on val → do not MaleCNS SGD; pivot to motif students). Hosted joules stay unknown. `fly_connectome` remains an alias of `fixed_reservoir`.
 

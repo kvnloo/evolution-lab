@@ -1,0 +1,52 @@
+name: experiment
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      evolve_generations:
+        description: MAP-Elites generations after control run
+        required: false
+        default: "2"
+      dagger_rounds:
+        description: DAgger rounds on locked splits
+        required: false
+        default: "2"
+      fresh:
+        description: Drop archive before run (1=yes)
+        required: false
+        default: "0"
+
+permissions:
+  contents: read
+
+jobs:
+  lab:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - run: python -m unittest discover -s tests -p "test_*.py"
+      - name: Run experiment loop
+        env:
+          EVOLVE_GENERATIONS: ${{ github.event.inputs.evolve_generations || '2' }}
+          DAGGER_ROUNDS: ${{ github.event.inputs.dagger_rounds || '2' }}
+          FRESH: ${{ github.event.inputs.fresh || '0' }}
+        run: |
+          ARGS=(lab --run-dir runs/p0 --level 1 --evolve-generations "$EVOLVE_GENERATIONS" --dagger-rounds "$DAGGER_ROUNDS")
+          if [[ "$FRESH" == "1" ]]; then ARGS+=(--fresh); fi
+          python -m evolution_lab "${ARGS[@]}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: experiment-${{ github.run_id }}
+          path: |
+            runs/p0/experiment_summary.json
+            runs/p0/control_table.json
+            runs/p0/archive.jsonl
+            runs/p0/dashboard.html
+          if-no-files-found: warn
