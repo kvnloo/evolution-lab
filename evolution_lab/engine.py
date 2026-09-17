@@ -215,6 +215,25 @@ def seed_genomes() -> list[ExperimentGenome]:
             training=Training(seed=7),
             curriculum=delayed,
         ),
+        ExperimentGenome(
+            id="local-plasticity-000",
+            lineage="mushroom-body",
+            hypothesis=(
+                "Frozen sparse PN→KC on flattened Hermes history (not the compound eye) "
+                "plus local KC→MBON plasticity. Motif student; not MaleCNS SGD."
+            ),
+            role="neuroscience",
+            architecture=Architecture(
+                family="local_plasticity",
+                hidden=128,
+                history=8,
+                sparsity=0.10,
+                trainable="kc_mbon",
+                topology="mushroom_body_analogue",
+            ),
+            training=Training(algorithm="local_plasticity", seed=0),
+            curriculum=delayed,
+        ),
     ]
 
 

@@ -1,4 +1,4 @@
-"""CLI: seed, run, evolve, dashboard, lock-splits, receipt."""
+"""CLI: seed, run, evolve, dashboard, lock-splits, receipt, table."""
 
 from __future__ import annotations
 
@@ -116,6 +116,21 @@ def cmd_receipt(*, issue: str) -> None:
     print(receipt_yaml(issue=issue), end="")
 
 
+def cmd_table(run_dir: Path, level: int) -> None:
+    """P1 Track A control table + kill criterion. Writes control_table.json."""
+    from .table import write_control_table
+
+    genomes = _load_all(run_dir)
+    path = write_control_table(level=level, run_dir=run_dir, genomes=genomes)
+    print(path)
+
+
+def cmd_advise(payload: str, family: str) -> None:
+    from .advise import advise_json
+
+    print(advise_json(payload, family=family), end="")
+
+
 def cmd_quest_falsification(run_dir: Path, level: int) -> None:
     """Does the best reservoir still beat a refit rewired graph?"""
     from .schema import Architecture, Training
@@ -182,6 +197,16 @@ def main(argv: list[str] | None = None) -> int:
     pl.add_argument("--data-dir", type=Path, default=None)
     prc = sub.add_parser("receipt", parents=[parent])
     prc.add_argument("--issue", default="2")
+    pt = sub.add_parser("table", parents=[parent])
+    pt.add_argument("--level", type=int, default=1)
+    pa = sub.add_parser("advise", parents=[parent])
+    pa.add_argument("json", help="sanitized Hermes observation object")
+    pa.add_argument(
+        "--family",
+        default="rule",
+        choices=("rule", "local_plasticity"),
+        help="teacher_rule (default) or mushroom-body analogue",
+    )
     args = p.parse_args(argv)
     run_dir = args.run_dir
     if args.cmd == "seed":
@@ -203,4 +228,8 @@ def main(argv: list[str] | None = None) -> int:
         cmd_lock_splits(data_dir)
     elif args.cmd == "receipt":
         cmd_receipt(issue=args.issue)
+    elif args.cmd == "table":
+        cmd_table(run_dir, args.level)
+    elif args.cmd == "advise":
+        cmd_advise(args.json, args.family)
     return 0
