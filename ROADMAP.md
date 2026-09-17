@@ -49,6 +49,7 @@ Independent seeds, locked confirm, unseen failures. Then maybe Connectome-to-Fun
 
 | Repo | Owns |
 | --- | --- |
+| [kvnloo/openjev](https://github.com/kvnloo/openjev) | Runtime infra (clone first); JEV + setup; evolution-lab is the evolve sidecar |
 | [kvnloo/frontier-kb](https://github.com/kvnloo/frontier-kb) | Claims and protocol |
 | [kvnloo/aodl](https://github.com/kvnloo/aodl) | HOTL 0.2 port, not a new kind |
 | [kvnloo/verified-oss-loop](https://github.com/kvnloo/verified-oss-loop) | Claim lease / evidence receipt protocol |
