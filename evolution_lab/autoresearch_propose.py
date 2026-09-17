@@ -12,6 +12,11 @@ from .engine import seed_genomes
 from .schema import ExperimentGenome, genome_from_dict
 from .select import FlyCandidate
 
+# Locked splits (data/p0) were generated at history=8. Mutating history
+# desyncs PN features and zeros the bench — do not search it.
+LOCKED_HISTORY = 8
+DEFAULT_KNOBS = ("hidden", "dagger_rounds", "plasticity_lr", "plasticity_epochs", "seed")
+
 
 def champion_from_genome(genome: ExperimentGenome, **knobs: Any) -> FlyCandidate:
     return FlyCandidate(
@@ -29,6 +34,17 @@ def default_champion_candidate() -> FlyCandidate:
     return champion_from_genome(genome, description="default champion")
 
 
+def _knobs(config: dict[str, Any]) -> list[str]:
+    space = config.get("search_space") or {}
+    knobs = []
+    for name in DEFAULT_KNOBS:
+        if name == "seed" and "seed_delta" in space:
+            knobs.append("seed")
+        elif name in space:
+            knobs.append(name)
+    return knobs or ["seed"]
+
+
 def propose_candidate(
     champion: FlyCandidate,
     rng: np.random.Generator,
@@ -37,22 +53,21 @@ def propose_candidate(
     """Mutate exactly one search-space knob from the current champion."""
     space = config.get("search_space") or {}
     genome = genome_from_dict(deepcopy(champion.genome))
+    if genome.architecture.history != LOCKED_HISTORY:
+        genome = replace(
+            genome,
+            architecture=replace(genome.architecture, history=LOCKED_HISTORY),
+        )
     dagger_rounds = int(champion.dagger_rounds)
     lr = float(champion.plasticity_lr)
     epochs = int(champion.plasticity_epochs)
-    knob = str(rng.choice(["hidden", "history", "dagger_rounds", "plasticity_lr", "plasticity_epochs", "seed"]))
+    knob = str(rng.choice(_knobs(config)))
     if knob == "hidden":
         choices = [int(x) for x in space.get("hidden") or [128]]
         hidden = int(rng.choice([c for c in choices if c != genome.architecture.hidden] or choices))
-        arch = replace(genome.architecture, hidden=hidden, family="local_plasticity")
+        arch = replace(genome.architecture, hidden=hidden, family="local_plasticity", history=LOCKED_HISTORY)
         genome = replace(genome, architecture=arch, id=f"{genome.lineage}-ar-{int(rng.integers(1000,9999))}")
         desc = f"hidden={hidden}"
-    elif knob == "history":
-        choices = [int(x) for x in space.get("history") or [8]]
-        history = int(rng.choice([c for c in choices if c != genome.architecture.history] or choices))
-        arch = replace(genome.architecture, history=history)
-        genome = replace(genome, architecture=arch, id=f"{genome.lineage}-ar-{int(rng.integers(1000,9999))}")
-        desc = f"history={history}"
     elif knob == "dagger_rounds":
         choices = [int(x) for x in space.get("dagger_rounds") or [0]]
         dagger_rounds = int(rng.choice([c for c in choices if c != champion.dagger_rounds] or choices))

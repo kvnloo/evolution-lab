@@ -4,7 +4,8 @@
   "notes": [
     "SearchDriver proposes candidates; bench.py is the frozen judge.",
     "Hosted joules stay unknown; latency proxy until measured.",
-    "Product target from frontier-kb / PRODUCT_TARGET: confirm >= 0.95, zero extra violations."
+    "Product target from frontier-kb / PRODUCT_TARGET: confirm >= 0.95, zero extra violations.",
+    "history is locked to 8 by data/p0 splits; cycle loop must not mutate it."
   ],
   "product_target": {
     "closed_loop_min": 1.0,
@@ -26,12 +27,42 @@
   },
   "search_space": {
     "family": "local_plasticity",
-    "hidden": [32, 64, 96, 128, 160, 192, 256],
-    "history": [4, 6, 8, 10, 12],
-    "dagger_rounds": [0, 1, 2, 3],
-    "plasticity_lr": [0.15, 0.25, 0.35, 0.45, 0.55],
-    "plasticity_epochs": [10, 15, 20, 30, 40],
-    "seed_delta": [-2, -1, 0, 1, 2]
+    "hidden": [
+      32,
+      64,
+      96,
+      128,
+      160,
+      192,
+      256
+    ],
+    "dagger_rounds": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "plasticity_lr": [
+      0.15,
+      0.25,
+      0.35,
+      0.45,
+      0.55
+    ],
+    "plasticity_epochs": [
+      10,
+      15,
+      20,
+      30,
+      40
+    ],
+    "seed_delta": [
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ]
   },
   "stop": {
     "patience": 50,
@@ -41,5 +72,14 @@
   },
   "paths": {
     "run_dir": "runs/autoresearch"
+  },
+  "cycle": {
+    "max_experiments_per_session": 25,
+    "patience_per_session": 12,
+    "epsilon_start": 0.05,
+    "epsilon_min": 0.01,
+    "epsilon_shrink": 0.5,
+    "shrink_after_idle_sessions": 2,
+    "seed_stride": 17
   }
 }

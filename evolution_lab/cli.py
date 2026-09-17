@@ -263,6 +263,32 @@ def cmd_autoresearch(
     )
     print(json.dumps(summary, indent=2))
 
+def cmd_cycle(
+    *,
+    forever: bool,
+    max_sessions: int | None,
+    max_hours: float | None,
+    max_experiments: int | None,
+    patience: int | None,
+    skip_unit_tests: bool,
+    promote_bundle: bool,
+    seed: int,
+) -> None:
+    from .cycle import run_cycle
+
+    summary = run_cycle(
+        forever=forever,
+        max_sessions=max_sessions,
+        max_hours=max_hours,
+        max_experiments=max_experiments,
+        patience=patience,
+        skip_unit_tests=skip_unit_tests,
+        promote_bundle=promote_bundle,
+        seed=seed,
+    )
+    print(json.dumps(summary, indent=2))
+
+
 def cmd_lab(
     run_dir: Path,
     *,
@@ -378,6 +404,17 @@ def main(argv: list[str] | None = None) -> int:
     par.add_argument("--skip-unit-tests", action="store_true")
     par.add_argument("--seed", type=int, default=42)
 
+    pcy = sub.add_parser("cycle", parents=[parent], help="outer loop around autoresearch (evolve the fly)")
+    pcy.add_argument("--forever", action="store_true")
+    pcy.add_argument("--max-sessions", type=int, default=None)
+    pcy.add_argument("--max-hours", type=float, default=None)
+    pcy.add_argument("--max-experiments", type=int, default=None)
+    pcy.add_argument("--patience", type=int, default=None)
+    pcy.add_argument("--skip-unit-tests", action="store_true")
+    pcy.add_argument("--promote-bundle", action="store_true", default=True)
+    pcy.add_argument("--no-promote-bundle", action="store_false", dest="promote_bundle")
+    pcy.add_argument("--seed", type=int, default=42)
+
     prc_ctrl = sub.add_parser("recovery", parents=[parent])
     prc_ctrl.add_argument("json", nargs="?", default="{}", help="recovery controller JSON request")
 
@@ -447,6 +484,18 @@ def main(argv: list[str] | None = None) -> int:
             patience=getattr(args, "patience", None),
             promote_bundle=getattr(args, "promote_bundle", False),
             skip_unit_tests=getattr(args, "skip_unit_tests", False),
+            seed=getattr(args, "seed", 42),
+        )
+
+    elif args.cmd == "cycle":
+        cmd_cycle(
+            forever=getattr(args, "forever", False),
+            max_sessions=getattr(args, "max_sessions", None),
+            max_hours=getattr(args, "max_hours", None),
+            skip_unit_tests=getattr(args, "skip_unit_tests", False),
+            max_experiments=getattr(args, "max_experiments", None),
+            patience=getattr(args, "patience", None),
+            promote_bundle=getattr(args, "promote_bundle", True),
             seed=getattr(args, "seed", 42),
         )
 
