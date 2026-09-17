@@ -54,7 +54,7 @@ Last-step training hits confirm 1.00; **closed-loop** rollout of that student in
 
 | Repo | Role |
 | --- | --- |
-| [frontier-kb](https://github.com/kvnloo/frontier-kb) | Claims vault; [[literature/lit-20260914-p1-control-table-kill-criterion]] in git |
+| [frontier-kb](https://github.com/kvnloo/frontier-kb) | Claims vault; `literature/lit-20260914-p1-control-table-kill-criterion.md` |
 | [aodl](https://github.com/kvnloo/aodl) | HOTL 0.2; specialist is a port |
 | [fly-wirehead](https://github.com/kvnloo/fly-wirehead) | MaleCNS Shorts pinout demo |
 
