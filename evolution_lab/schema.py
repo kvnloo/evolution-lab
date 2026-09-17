@@ -74,6 +74,8 @@ class Training:
     jev_option_tokens: int = 32
     jev_batch_size: int = 64
     jev_device: str = "auto"
+    plasticity_lr: float = 0.35
+    plasticity_epochs: int = 20
 
 
 @dataclass

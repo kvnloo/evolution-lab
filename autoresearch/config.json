@@ -1,0 +1,45 @@
+{
+  "schema": "flyforge.autoresearch.v1",
+  "critical_path": "p0_lock_contract_then_p1_control_table_then_p3_closed_loop_kernel",
+  "notes": [
+    "SearchDriver proposes candidates; bench.py is the frozen judge.",
+    "Hosted joules stay unknown; latency proxy until measured.",
+    "Product target from frontier-kb / PRODUCT_TARGET: confirm >= 0.95, zero extra violations."
+  ],
+  "product_target": {
+    "closed_loop_min": 1.0,
+    "confirm_min": 0.95,
+    "val_min": 0.95,
+    "ood_min": 0.85,
+    "extra_violations_max": 0
+  },
+  "objective": {
+    "latency_weight_advise_p99_ms": 0.7,
+    "latency_weight_closed_loop_ms": 0.3,
+    "improve_epsilon": 0.05
+  },
+  "bench": {
+    "budget_s": 60,
+    "advise_warm_iters": 200,
+    "closed_loop_seeds": 24,
+    "omp_smoke": true
+  },
+  "search_space": {
+    "family": "local_plasticity",
+    "hidden": [32, 64, 96, 128, 160, 192, 256],
+    "history": [4, 6, 8, 10, 12],
+    "dagger_rounds": [0, 1, 2, 3],
+    "plasticity_lr": [0.15, 0.25, 0.35, 0.45, 0.55],
+    "plasticity_epochs": [10, 15, 20, 30, 40],
+    "seed_delta": [-2, -1, 0, 1, 2]
+  },
+  "stop": {
+    "patience": 50,
+    "max_experiments": 200,
+    "rebench_champion_every": 10,
+    "max_hours": 8
+  },
+  "paths": {
+    "run_dir": "runs/autoresearch"
+  }
+}

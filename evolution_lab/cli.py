@@ -210,6 +210,59 @@ def cmd_dagger_smoke(*, rounds: int) -> None:
     print(json.dumps(report, indent=2))
 
 
+
+def cmd_fly_bench(
+    *,
+    config: Path | None,
+    candidate: Path | None,
+    run_dir: Path | None,
+    tag: str | None,
+    skip_unit_tests: bool,
+) -> None:
+    from .bench import load_candidate, run_fly_bench
+    from .select import format_summary_block, load_config
+
+    cfg = load_config(config)
+    root = _root_from_here()
+    rd = run_dir
+    if rd is None and tag:
+        rd = root / str((cfg.get("paths") or {}).get("run_dir", "runs/autoresearch")) / tag
+    cand = load_candidate(candidate) if candidate else None
+    result = run_fly_bench(cand, config=cfg, run_dir=rd, skip_unit_tests=skip_unit_tests)
+    print(format_summary_block(result))
+    if not result.gates_pass:
+        raise SystemExit(1)
+
+
+def cmd_autoresearch(
+    *,
+    config: Path | None,
+    run_dir: Path | None,
+    tag: str | None,
+    baseline_only: bool,
+    max_experiments: int | None,
+    patience: int | None,
+    promote_bundle: bool,
+    skip_unit_tests: bool,
+    seed: int,
+) -> None:
+    from .autoresearch import run_autoresearch_loop, run_baseline
+
+    if baseline_only:
+        run_baseline(config_path=config, run_dir=run_dir, tag=tag, skip_unit_tests=skip_unit_tests)
+        return
+    summary = run_autoresearch_loop(
+        config_path=config,
+        run_dir=run_dir,
+        tag=tag,
+        max_experiments=max_experiments,
+        patience=patience,
+        promote_bundle=promote_bundle,
+        skip_unit_tests=skip_unit_tests,
+        seed=seed,
+    )
+    print(json.dumps(summary, indent=2))
+
 def cmd_lab(
     run_dir: Path,
     *,
@@ -310,6 +363,21 @@ def main(argv: list[str] | None = None) -> int:
     plab.add_argument("--fresh", action="store_true", help="drop archive/table before run")
     plab.add_argument("--skip-dagger", action="store_true")
 
+    pfb = sub.add_parser("fly-bench", parents=[parent], help="benchmark one recovery kernel candidate")
+    pfb.add_argument("--config", type=Path, default=None)
+    pfb.add_argument("--candidate", type=Path, default=None)
+    pfb.add_argument("--tag", type=str, default=None)
+    pfb.add_argument("--skip-unit-tests", action="store_true")
+    par = sub.add_parser("autoresearch", parents=[parent], help="continuous kernel autoresearch loop")
+    par.add_argument("--config", type=Path, default=None)
+    par.add_argument("--tag", type=str, default=None)
+    par.add_argument("--baseline-only", action="store_true")
+    par.add_argument("--max-experiments", type=int, default=None)
+    par.add_argument("--patience", type=int, default=None)
+    par.add_argument("--promote-bundle", action="store_true")
+    par.add_argument("--skip-unit-tests", action="store_true")
+    par.add_argument("--seed", type=int, default=42)
+
     prc_ctrl = sub.add_parser("recovery", parents=[parent])
     prc_ctrl.add_argument("json", nargs="?", default="{}", help="recovery controller JSON request")
 
@@ -361,6 +429,27 @@ def main(argv: list[str] | None = None) -> int:
         cmd_dagger_smoke(rounds=args.rounds)
     elif args.cmd == "bundle-student":
         cmd_bundle_student(dagger_rounds=args.dagger_rounds)
+    elif args.cmd == "fly-bench":
+        cmd_fly_bench(
+            config=args.config,
+            candidate=getattr(args, "candidate", None),
+            run_dir=run_dir if args.tag is None else None,
+            tag=args.tag,
+            skip_unit_tests=getattr(args, "skip_unit_tests", False),
+        )
+    elif args.cmd == "autoresearch":
+        cmd_autoresearch(
+            config=getattr(args, "config", None),
+            run_dir=run_dir if getattr(args, "tag", None) is None else None,
+            tag=getattr(args, "tag", None),
+            baseline_only=getattr(args, "baseline_only", False),
+            max_experiments=getattr(args, "max_experiments", None),
+            patience=getattr(args, "patience", None),
+            promote_bundle=getattr(args, "promote_bundle", False),
+            skip_unit_tests=getattr(args, "skip_unit_tests", False),
+            seed=getattr(args, "seed", 42),
+        )
+
     elif args.cmd == "lab":
         cmd_lab(
             run_dir,

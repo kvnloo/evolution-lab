@@ -289,7 +289,16 @@ def _fit_local_plasticity(
         W_pn_kc = _sparse_pn_kc(X_probe.shape[1], n_kc, rng)
         k_winners = max(5, int(round(0.10 * n_kc)))
         W = np.zeros((n_kc, N_ACTIONS), dtype=np.float64)
-    W = _plasticity_train(step_eps, y, W_pn_kc=W_pn_kc, k_winners=k_winners, W=W, rng=rng)
+    W = _plasticity_train(
+        step_eps,
+        y,
+        W_pn_kc=W_pn_kc,
+        k_winners=k_winners,
+        W=W,
+        rng=rng,
+        epochs=int(genome.training.plasticity_epochs),
+        lr=float(genome.training.plasticity_lr),
+    )
     predict = _local_plasticity_predict_fn(
         genome,
         W_pn_kc=W_pn_kc,
