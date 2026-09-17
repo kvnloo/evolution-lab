@@ -16,23 +16,7 @@ from .gym import HermesRecoveryEnv, make_env, rollout_teacher
 from .models import FittedStudent, fit_student
 from .schema import ACTIONS, ExperimentGenome
 from .splits import load_splits
-from .task import Episode
-def _episode_from_prefix(
-    frames: list[np.ndarray],
-    *,
-    history: int,
-    env: str = "iid",
-) -> Episode:
-    """Fixed-length episode for predict_fn (matches training T=history)."""
-    if not frames:
-        raise ValueError("_episode_from_prefix requires at least one frame")
-    if len(frames) >= history:
-        stacked = np.stack(frames[-history:])
-    else:
-        pad = history - len(frames)
-        stacked = np.stack([frames[0]] * pad + frames)
-    labels = np.zeros(history, dtype=np.int64)
-    return Episode(stacked, labels, env=env)
+from .task import Episode, episode_from_prefix
 
 
 def predict_step(
@@ -42,7 +26,7 @@ def predict_step(
     history: int,
 ) -> int:
     """One closed-loop action from frames collected so far (inclusive)."""
-    ep = _episode_from_prefix(frames, history=history)
+    ep = episode_from_prefix(frames, history=history)
     return int(student.predict_fn([ep])[0])
 
 
@@ -139,6 +123,7 @@ def run_dagger(
     teacher_rewards = [rollout_teacher(env, seed=s)[1] for s in eval_seeds]
     teacher_mean = float(np.mean(teacher_rewards)) if teacher_rewards else 0.0
 
+    warm_start = genome.architecture.family == "local_plasticity"
     student = fit_student(genome, base_train)
     before = mean_closed_loop_reward(env, student, eval_seeds)
 
@@ -147,7 +132,11 @@ def run_dagger(
     for r in range(rounds):
         dagger_eps = aggregate_dagger_episodes(env, student, dagger_seeds)
         train_pool = train_pool + dagger_eps
-        student = fit_student(genome, train_pool)
+        student = fit_student(
+            genome,
+            train_pool,
+            init_extras=student.extras if warm_start else None,
+        )
         student_mean = mean_closed_loop_reward(env, student, eval_seeds)
         history.append(
             DaggerRound(

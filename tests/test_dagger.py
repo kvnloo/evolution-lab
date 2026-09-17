@@ -47,7 +47,8 @@ class DaggerTests(unittest.TestCase):
             rounds=1,
         )
         self.assertEqual(report["family"], "local_plasticity")
-        self.assertGreaterEqual(report["student_mean_reward_after"], 0.0)
+        self.assertGreaterEqual(report["student_mean_reward_after"], report["student_mean_reward_before"])
+        self.assertGreaterEqual(report["student_mean_reward_after"], 0.9)
         self.assertEqual(report["teacher_mean_reward"], 1.0)
         self.assertEqual(len(report["history"]), 1)
 

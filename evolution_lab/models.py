@@ -6,7 +6,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from .schema import ExperimentGenome
-from .task import ACTIONS, Episode, N_ACTIONS, apply_strobe, teacher_action
+from .task import ACTIONS, Episode, N_ACTIONS, apply_strobe, episode_from_prefix, teacher_action
 
 
 def ridge_fit(X: np.ndarray, y: np.ndarray, n_out: int, l2: float) -> np.ndarray:
@@ -175,26 +175,39 @@ def _sparse_pn_kc(n_pn: int, n_kc: int, rng: np.random.Generator) -> np.ndarray:
     return W
 
 
-def _fit_local_plasticity(genome: ExperimentGenome, train: list[Episode], rng: np.random.Generator) -> FittedStudent:
-    """Mushroom-body analogue for Hermes recovery.
+def _local_plasticity_step_samples(
+    episodes: list[Episode],
+    *,
+    history: int,
+) -> tuple[list[Episode], np.ndarray]:
+    """Expand teacher episodes into per-step rows aligned with closed-loop predict."""
+    step_eps: list[Episode] = []
+    labels: list[int] = []
+    for ep in episodes:
+        T = ep.frames.shape[0]
+        for t in range(T):
+            step_eps.append(
+                episode_from_prefix(ep.frames[: t + 1], history=history, env=ep.env)
+            )
+            labels.append(int(ep.labels[t]))
+    return step_eps, np.asarray(labels, dtype=np.int64)
 
-    PN drive is an engineered encoder of Hermes history (flatten + last-step +
-    max-over-time), not the compound eye and not MaleCNS. PN→KC stays frozen.
-    Only KC→MBON is plastic (local Hebbian / class-conditional LTD + local delta).
-    This is not ridge and not SGD on 166k cells.
-    """
-    drop = genome.curriculum.strobe_drop
-    eps = [apply_strobe(ep, drop, rng) for ep in train]
-    X = _pn_features(eps)
-    y = np.stack([ep.labels[-1] for ep in eps]).astype(np.int64)
-    n_kc = max(32, int(genome.architecture.hidden))
-    W_pn_kc = _sparse_pn_kc(X.shape[1], n_kc, rng)
-    k_winners = max(5, int(round(0.10 * n_kc)))
+
+def _plasticity_train(
+    step_eps: list[Episode],
+    y: np.ndarray,
+    *,
+    W_pn_kc: np.ndarray,
+    k_winners: int,
+    W: np.ndarray,
+    rng: np.random.Generator,
+    epochs: int = 20,
+    lr: float = 0.35,
+) -> np.ndarray:
+    X = _pn_features(step_eps)
     H = _kc_codes(X, W_pn_kc, k_winners)
-    W = np.zeros((n_kc, N_ACTIONS), dtype=np.float64)
-    lr = 0.35
     n = X.shape[0]
-    for _epoch in range(20):
+    for _epoch in range(epochs):
         for i in rng.permutation(n):
             h = H[i]
             scores = h @ W
@@ -207,6 +220,39 @@ def _fit_local_plasticity(genome: ExperimentGenome, train: list[Episode], rng: n
             W += lr * np.outer(h, err)
             W -= 0.02 * lr * np.outer(h, pred)
         lr *= 0.92
+    return W
+
+
+def _fit_local_plasticity(
+    genome: ExperimentGenome,
+    train: list[Episode],
+    rng: np.random.Generator,
+    *,
+    init_extras: dict | None = None,
+) -> FittedStudent:
+    """Mushroom-body analogue for Hermes recovery.
+
+    PN drive is an engineered encoder of Hermes history (flatten + last-step +
+    max-over-time), not the compound eye and not MaleCNS. PN→KC stays frozen.
+    Only KC→MBON is plastic (local Hebbian / class-conditional LTD + local delta).
+    Trains on **per-step** prefixes so closed-loop matches confirm accuracy.
+    """
+    drop = genome.curriculum.strobe_drop
+    eps = [apply_strobe(ep, drop, rng) for ep in train]
+    history = int(genome.architecture.history)
+    step_eps, y = _local_plasticity_step_samples(eps, history=history)
+    n_kc = max(32, int(genome.architecture.hidden))
+    if init_extras and "W_pn_kc" in init_extras and "W_kc_mbon" in init_extras:
+        W_pn_kc = np.asarray(init_extras["W_pn_kc"], dtype=np.float64)
+        k_winners = int(init_extras["k_winners"])
+        W = np.asarray(init_extras["W_kc_mbon"], dtype=np.float64).copy()
+        n_kc = W.shape[0]
+    else:
+        X_probe = _pn_features(step_eps[:1])
+        W_pn_kc = _sparse_pn_kc(X_probe.shape[1], n_kc, rng)
+        k_winners = max(5, int(round(0.10 * n_kc)))
+        W = np.zeros((n_kc, N_ACTIONS), dtype=np.float64)
+    W = _plasticity_train(step_eps, y, W_pn_kc=W_pn_kc, k_winners=k_winners, W=W, rng=rng)
 
     def predict(episodes: list[Episode]) -> np.ndarray:
         rng2 = np.random.default_rng(genome.training.seed + 999)
@@ -221,11 +267,17 @@ def _fit_local_plasticity(genome: ExperimentGenome, train: list[Episode], rng: n
         "k_winners": k_winners,
         "encoder": "flatten_last_and_maxpool_hermes_history_not_compound_eye",
         "plastic": "kc_to_mbon_only",
+        "supervision": "per_step_prefix",
     }
     return FittedStudent("local_plasticity", n_params=int(W.size), predict_fn=predict, extras=extras)
 
 
-def fit_student(genome: ExperimentGenome, train: list[Episode]) -> FittedStudent:
+def fit_student(
+    genome: ExperimentGenome,
+    train: list[Episode],
+    *,
+    init_extras: dict | None = None,
+) -> FittedStudent:
     rng = np.random.default_rng(genome.training.seed)
     if genome.architecture.family == "rule":
         def predict(eps: list[Episode]) -> np.ndarray:
@@ -242,7 +294,7 @@ def fit_student(genome: ExperimentGenome, train: list[Episode]) -> FittedStudent
         return FittedStudent("rule", n_params=0, predict_fn=predict, extras={})
 
     if genome.architecture.family == "local_plasticity":
-        return _fit_local_plasticity(genome, train, rng)
+        return _fit_local_plasticity(genome, train, rng, init_extras=init_extras)
 
     X, y, extras = extract_features(genome, train, rng)
     W = ridge_fit(X, y, N_ACTIONS, genome.training.l2)

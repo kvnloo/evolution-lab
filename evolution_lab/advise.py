@@ -21,14 +21,14 @@ _STUDENT_CACHE: dict[tuple[str, int], object] = {}
 def _local_plasticity_student():
     from .engine import seed_genomes
     from .models import fit_student
-    from .task import build_task
+    from .splits import load_splits
 
     genome = next(g for g in seed_genomes() if g.architecture.family == "local_plasticity")
-    cache_key = (genome.id, genome.training.seed)
+    cache_key = (genome.id, genome.training.seed, "locked_per_step_v1")
     cached = _STUDENT_CACHE.get(cache_key)
     if cached is not None:
         return cached
-    data = build_task(genome, n_train=64, n_val=8, n_confirm=8, n_ood=4)
+    data = load_splits()
     student = fit_student(genome, data.train)
     _STUDENT_CACHE[cache_key] = (genome, student)
     return _STUDENT_CACHE[cache_key]

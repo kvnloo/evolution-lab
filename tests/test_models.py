@@ -19,13 +19,20 @@ class LocalPlasticityTests(unittest.TestCase):
             architecture=Architecture(family="local_plasticity", hidden=48, history=8),
             curriculum=Curriculum(delayed_cue=True),
         )
-        data = build_task(g, n_train=64, n_val=16, n_confirm=16, n_ood=8)
+        data = build_task(g, n_train=128, n_val=16, n_confirm=16, n_ood=8)
         student = fit_student(g, data.train)
         pred = student.predict_fn(data.train)
         self.assertEqual(pred.shape[0], len(data.train))
         self.assertTrue(set(pred.tolist()).issubset(set(range(len(ACTIONS)))))
         acc = float((pred == [ep.labels[-1] for ep in data.train]).mean())
         self.assertGreater(acc, 0.35)
+        self.assertEqual(student.extras.get("supervision"), "per_step_prefix")
+        from evolution_lab.dagger import mean_closed_loop_reward
+        from evolution_lab.gym import make_env
+
+        env = make_env("hermes_recovery", delayed_cue=True, history=g.architecture.history)
+        closed = mean_closed_loop_reward(env, student, list(range(16)))
+        self.assertGreaterEqual(closed, 0.85)
         self.assertEqual(student.family, "local_plasticity")
         self.assertGreater(student.n_params, 0)
         self.assertIn("W_kc_mbon", student.extras)

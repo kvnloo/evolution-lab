@@ -29,6 +29,28 @@ class Episode:
     secret: bool = False
 
 
+def episode_from_prefix(
+    frames: list[np.ndarray] | np.ndarray,
+    *,
+    history: int,
+    env: str = "iid",
+) -> Episode:
+    """Fixed-length prefix episode for closed-loop predict (matches gym rollouts)."""
+    if isinstance(frames, np.ndarray):
+        frame_list = [frames[i] for i in range(frames.shape[0])]
+    else:
+        frame_list = list(frames)
+    if not frame_list:
+        raise ValueError("episode_from_prefix requires at least one frame")
+    if len(frame_list) >= history:
+        stacked = np.stack(frame_list[-history:])
+    else:
+        pad = history - len(frame_list)
+        stacked = np.stack([frame_list[0]] * pad + frame_list)
+    labels = np.zeros(history, dtype=np.int64)
+    return Episode(stacked, labels, env=env)
+
+
 def teacher_action(frame: np.ndarray) -> int:
     """Reference policy. Indices match feature layout."""
     sandbox_alive, retry_norm, budget, _elapsed = frame[:4]
