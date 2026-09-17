@@ -173,6 +173,14 @@ def cmd_quest_falsification(run_dir: Path, level: int) -> None:
     write_dashboard(archive.read(), run_dir / "dashboard.html")
 
 
+def cmd_dagger_smoke(*, rounds: int) -> None:
+    """P3 closed-loop DAgger smoke on locked splits."""
+    from .dagger import default_dagger_smoke
+
+    report = default_dagger_smoke(rounds=rounds)
+    print(json.dumps(report, indent=2))
+
+
 def main(argv: list[str] | None = None) -> int:
     root = _root_from_here()
     parent = argparse.ArgumentParser(add_help=False)
@@ -199,6 +207,9 @@ def main(argv: list[str] | None = None) -> int:
     prc.add_argument("--issue", default="2")
     pt = sub.add_parser("table", parents=[parent])
     pt.add_argument("--level", type=int, default=1)
+    pd = sub.add_parser("dagger-smoke", parents=[parent])
+    pd.add_argument("--rounds", type=int, default=2)
+
     pa = sub.add_parser("advise", parents=[parent])
     pa.add_argument("json", help="sanitized Hermes observation object")
     pa.add_argument(
@@ -232,4 +243,6 @@ def main(argv: list[str] | None = None) -> int:
         cmd_table(run_dir, args.level)
     elif args.cmd == "advise":
         cmd_advise(args.json, args.family)
+    elif args.cmd == "dagger-smoke":
+        cmd_dagger_smoke(rounds=args.rounds)
     return 0
