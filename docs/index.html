@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Evolution Lab — process dump</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0 auto; max-width: 52rem; padding: 2rem 1.25rem 4rem;
+         font: 15px/1.45 ui-sans-serif, system-ui, sans-serif;
+         background: #0c0d0f; color: #d7d4cc; }
+  h1 { font-size: 1.35rem; font-weight: 600; letter-spacing: -0.02em; }
+  h2 { font-size: 0.92rem; margin: 2.2rem 0 0.6rem; color: #9a958c;
+       font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  ol.process { padding-left: 1.4rem; }
+  ol.process li { margin: 0.85rem 0; }
+  ol.process .cap { color: #8e8a82; font-size: 0.88rem; display: block; margin-top: 0.15rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+  th, td { text-align: left; padding: 0.28rem 0.45rem; border-bottom: 1px solid #2a2c31; font-variant-numeric: tabular-nums; }
+  th { color: #8e8a82; font-weight: 500; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.82rem; }
+  a { color: #c9b48a; }
+  .note { color: #8e8a82; font-size: 0.88rem; }
+  header p { color: #9a958c; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Evolution Lab</h1>
+  <p>Process dump — numbered artifacts, one-line captions. Not a marketing page.<br />
+  Engine: <a href="https://github.com/kvnloo/evolution-lab">kvnloo/evolution-lab</a> ·
+  Claims: <a href="https://github.com/kvnloo/frontier-kb">frontier-kb</a> ·
+  Runtime: <a href="https://github.com/kvnloo/openjev">openjev</a></p>
+</header>
+
+<h2>01 — What this is</h2>
+<p>Numpy mushroom-body student on typed Hermes recovery. Frozen PN→KC, plastic KC→MBON only. Not FlyGym, not OpenEvolve, not a Qwen swap. SearchDriver ≠ frozen judge.</p>
+
+<h2>02 — P1 control table (locked splits)</h2>
+<table>
+  <tr><th>Family</th><th>Confirm</th><th>Val</th><th>Params</th></tr>
+  <tr><td>teacher / rule</td><td>1.00</td><td>1.00</td><td>0</td></tr>
+  <tr><td>direct_input</td><td>0.79</td><td>0.63</td><td>75</td></tr>
+  <tr><td>mlp</td><td>1.00</td><td>1.00</td><td>4032</td></tr>
+  <tr><td>gru</td><td>0.92</td><td>0.90</td><td>3000</td></tr>
+  <tr><td>fixed_reservoir</td><td>1.00</td><td>0.96</td><td>3264</td></tr>
+  <tr><td>local_plasticity</td><td>1.00</td><td>0.98</td><td>640</td></tr>
+</table>
+<p class="note">Kill criterion did not fire. MaleCNS SGD still refused. Encoder is flatten+last+maxpool Hermes history, not the compound eye.</p>
+
+<h2>03 — Stack (how evolution actually runs)</h2>
+<ol class="process">
+  <li><code>lab</code> / MAP-Elites — discover families on the control table.
+    <span class="cap">Not the production kernel tuner.</span></li>
+  <li><code>autoresearch</code> — 1-knob champion chase; frozen <code>bench.py</code> / <code>select.py</code>.
+    <span class="cap">Hard gates: closed-loop ≥ 1.0, confirm/val ≥ 0.95, ood ≥ 0.85, violations = 0.</span></li>
+  <li><code>cycle</code> — outer loop: new session from league champion, shrink epsilon on idle, optional parallel sweep.
+    <span class="cap">This is the meta-level overtime evolver. Daemon is opt-in (<code>--forever</code>).</span></li>
+  <li><code>sweep</code> — 75% of logical CPUs, <code>OMP_NUM_THREADS=1</code>.
+    <span class="cap">Contended latency is not comparable to serial league. Serial rebench before keep.</span></li>
+  <li><code>jev-distill</code> — fly pre-predicts TypeSafe Jev skill routing from OMP history × Jev logs.
+    <span class="cap">Distillation, not RLHF. Jev already emits typed choices.</span></li>
+</ol>
+
+<h2>04 — Production champion (2026-09-17)</h2>
+<table>
+  <tr><th></th><th>Start</th><th>League</th></tr>
+  <tr><td>id</td><td>seed=1 / 640 w</td><td>fly-4080a10a</td></tr>
+  <tr><td>knobs</td><td>hidden=128, dagger=0</td><td>hidden=96, dagger=3</td></tr>
+  <tr><td>latency_score</td><td>12.20 → 6.32</td><td><b>5.923</b></td></tr>
+  <tr><td>closed-loop</td><td>1.0</td><td>1.0</td></tr>
+  <tr><td>advise p99</td><td>—</td><td>0.13 ms vs Jev ~272 ms</td></tr>
+</table>
+<p class="note">OMP bundle: <code>data/p0/recovery_student.npz</code>. Cycle stopped on operator request after 30 sessions / 23 idle.</p>
+
+<h2>05 — ABAB (5 waves)</h2>
+<ol class="process">
+  <li>Did not redo P0/P1/joules-definition/MB-LoRA/judge-split (frontier-kb).</li>
+  <li>hidden≤64 never hits closed-loop 1.0 (n=34).</li>
+  <li>C-test hidden=64 + dagger=3 still CL=0.953 — capacity, not undertraining.</li>
+  <li>H2 promoted. Next C: k_winners grid (now a SearchDriver knob).</li>
+  <li>Stop: budget. State: <code>.hermes/abab/fly-cycle-meta.json</code> (local).</li>
+</ol>
+
+<h2>06 — Jev distill (operator text)</h2>
+<p>72 OMP <code>history.db</code> prompts time-joined to Jev route logs (median 0.88 s). 7-way confirm: fly = majority = 0.33. Ridge 0.17. Fly 672 w, 0.028 ms. Cannot beat Jev without an outcome verifier.</p>
+
+<h2>07 — Parallel sweep (15 workers, 30 jobs, 13.5 s)</h2>
+<p>k_winners {5,8,12} failed the closed-loop gate. k_winners=10 (the 10% heuristic) holds. Best contended score 6.31 still worse than serial 5.92. Control rebenched at 9.24 under load — do not keep from contended benches.</p>
+<p class="note">Serial rebench of top rows: none beat 5.923. Champion stands.</p>
+
+<h2>08 — Commands</h2>
+<pre>
+python -m evolution_lab lab --evolve-generations 2 --dagger-rounds 2
+python -m evolution_lab autoresearch --tag YYYYMMDD --max-experiments 20
+python -m evolution_lab cycle --forever --skip-unit-tests
+python -m evolution_lab sweep --workers 15
+python -m evolution_lab jev-distill
+python -m evolution_lab recovery '{"action":"status"}'
+</pre>
+
+<p class="note">Maintainer roadmap stays <a href="https://github.com/kvnloo/evolution-lab/blob/nightly/ROADMAP.md">ROADMAP.md</a>. Workers do not rewrite it.</p>
+</body>
+</html>

@@ -48,6 +48,7 @@ class Architecture:
     spectral_radius: float = 0.9
     trainable: str = "readout"
     topology: str = "synthetic"
+    k_winners: int = 0  # 0 = 10% of hidden
 
 
 @dataclass

@@ -5,7 +5,8 @@
     "SearchDriver proposes candidates; bench.py is the frozen judge.",
     "Hosted joules stay unknown; latency proxy until measured.",
     "Product target from frontier-kb / PRODUCT_TARGET: confirm >= 0.95, zero extra violations.",
-    "history is locked to 8 by data/p0 splits; cycle loop must not mutate it."
+    "history is locked to 8 by data/p0 splits; cycle loop must not mutate it.",
+    "On idle, cycle runs a parallel sweep (75 pct CPUs, OMP_NUM_THREADS=1). Latency scores from contended sweeps are not comparable to serial league; keep uses serial rebench."
   ],
   "product_target": {
     "closed_loop_min": 1.0,
@@ -62,6 +63,14 @@
       0,
       1,
       2
+    ],
+    "k_winners": [
+      5,
+      8,
+      10,
+      12,
+      15,
+      19
     ]
   },
   "stop": {
@@ -80,6 +89,7 @@
     "epsilon_min": 0.01,
     "epsilon_shrink": 0.5,
     "shrink_after_idle_sessions": 2,
-    "seed_stride": 17
+    "seed_stride": 17,
+    "idle_sweep": true
   }
 }

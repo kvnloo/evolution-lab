@@ -9,3 +9,4 @@ build/
 .mypy_cache/
 .DS_Store
 .env
+.hermes/

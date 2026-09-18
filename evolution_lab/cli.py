@@ -289,6 +289,12 @@ def cmd_cycle(
     print(json.dumps(summary, indent=2))
 
 
+def cmd_sweep(*, workers: int | None) -> None:
+    from .sweep import run_sweep
+
+    print(json.dumps(run_sweep(workers=workers), indent=2, default=str))
+
+
 def cmd_jev_distill() -> None:
     from .jev_distill import run_jev_distill
 
@@ -421,6 +427,8 @@ def main(argv: list[str] | None = None) -> int:
     pcy.add_argument("--no-promote-bundle", action="store_false", dest="promote_bundle")
     pcy.add_argument("--seed", type=int, default=42)
 
+    psw = sub.add_parser("sweep", parents=[parent], help="parallel fly experiment pack (75 pct CPUs)")
+    psw.add_argument("--workers", type=int, default=None)
     sub.add_parser("jev-distill", parents=[parent], help="distill TypeSafe Jev skill routing into the fly")
     prc_ctrl = sub.add_parser("recovery", parents=[parent])
     prc_ctrl.add_argument("json", nargs="?", default="{}", help="recovery controller JSON request")
@@ -494,6 +502,8 @@ def main(argv: list[str] | None = None) -> int:
             seed=getattr(args, "seed", 42),
         )
 
+    elif args.cmd == "sweep":
+        cmd_sweep(workers=getattr(args, "workers", None))
     elif args.cmd == "jev-distill":
         cmd_jev_distill()
     elif args.cmd == "cycle":

@@ -20,6 +20,7 @@ class FlyCandidate:
     dagger_rounds: int = 0
     plasticity_lr: float = 0.35
     plasticity_epochs: int = 20
+    k_winners: int = 0
     description: str = ""
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,6 +34,7 @@ class FlyCandidate:
             dagger_rounds=int(data.get("dagger_rounds") or 0),
             plasticity_lr=float(data.get("plasticity_lr") or 0.35),
             plasticity_epochs=int(data.get("plasticity_epochs") or 20),
+            k_winners=int(data.get("k_winners") or 0),
             description=str(data.get("description") or ""),
         )
 

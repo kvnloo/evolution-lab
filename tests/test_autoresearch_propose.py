@@ -33,6 +33,15 @@ class ProposeTests(unittest.TestCase):
             cand = propose_candidate(champ, rng, cfg)
             self.assertEqual(cand.genome["architecture"]["history"], LOCKED_HISTORY)
             self.assertNotIn("history=", cand.description)
+        cfg["search_space"]["k_winners"] = [5, 10, 15]
+        saw = False
+        rng = np.random.default_rng(1)
+        for _ in range(80):
+            cand = propose_candidate(champ, rng, cfg)
+            if cand.description.startswith("k_winners="):
+                saw = True
+                self.assertIn(cand.k_winners, (5, 10, 15))
+        self.assertTrue(saw)
 
 
 if __name__ == "__main__":

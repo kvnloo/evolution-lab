@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from .autoresearch import _promote_bundle, run_autoresearch_loop
+from .sweep import run_sweep
 from .select import BenchResult, load_champion, load_config, save_champion
 
 
@@ -135,6 +136,10 @@ def run_cycle(
             idle += 1
             if idle >= idle_limit:
                 epsilon = max(eps_min, epsilon * shrink)
+                if bool(cycle_cfg.get("idle_sweep", False)):
+                    print(json.dumps({"cycle": "idle_sweep", "session": session, "epsilon": epsilon}), flush=True)
+                    sweep = run_sweep()
+                    print(json.dumps({"cycle": "idle_sweep_done", "keeps": len(sweep.get("keeps") or [])}), flush=True)
         lc = load_champion(league)
         status.update(
             {

@@ -287,7 +287,8 @@ def _fit_local_plasticity(
     else:
         X_probe = _pn_features(step_eps[:1])
         W_pn_kc = _sparse_pn_kc(X_probe.shape[1], n_kc, rng)
-        k_winners = max(5, int(round(0.10 * n_kc)))
+        kw = int(getattr(genome.architecture, "k_winners", 0) or 0)
+        k_winners = kw if kw > 0 else max(5, int(round(0.10 * n_kc)))
         W = np.zeros((n_kc, N_ACTIONS), dtype=np.float64)
     W = _plasticity_train(
         step_eps,

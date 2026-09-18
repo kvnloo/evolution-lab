@@ -15,7 +15,7 @@ from .select import FlyCandidate
 # Locked splits (data/p0) were generated at history=8. Mutating history
 # desyncs PN features and zeros the bench — do not search it.
 LOCKED_HISTORY = 8
-DEFAULT_KNOBS = ("hidden", "dagger_rounds", "plasticity_lr", "plasticity_epochs", "seed")
+DEFAULT_KNOBS = ("hidden", "dagger_rounds", "plasticity_lr", "plasticity_epochs", "k_winners", "seed")
 
 
 def champion_from_genome(genome: ExperimentGenome, **knobs: Any) -> FlyCandidate:
@@ -25,6 +25,7 @@ def champion_from_genome(genome: ExperimentGenome, **knobs: Any) -> FlyCandidate
         dagger_rounds=int(knobs.get("dagger_rounds") or 0),
         plasticity_lr=float(knobs.get("plasticity_lr") or genome.training.plasticity_lr),
         plasticity_epochs=int(knobs.get("plasticity_epochs") or genome.training.plasticity_epochs),
+        k_winners=int(knobs.get("k_winners") or getattr(genome.architecture, "k_winners", 0) or 0),
         description=str(knobs.get("description") or "champion"),
     )
 
@@ -61,6 +62,7 @@ def propose_candidate(
     dagger_rounds = int(champion.dagger_rounds)
     lr = float(champion.plasticity_lr)
     epochs = int(champion.plasticity_epochs)
+    k_winners = int(champion.k_winners or 0)
     knob = str(rng.choice(_knobs(config)))
     if knob == "hidden":
         choices = [int(x) for x in space.get("hidden") or [128]]
@@ -80,6 +82,11 @@ def propose_candidate(
         choices = [int(x) for x in space.get("plasticity_epochs") or [20]]
         epochs = int(rng.choice([c for c in choices if c != champion.plasticity_epochs] or choices))
         desc = f"plasticity_epochs={epochs}"
+    elif knob == "k_winners":
+        choices = [int(x) for x in space.get("k_winners") or [10]]
+        cur = k_winners or max(5, int(round(0.10 * genome.architecture.hidden)))
+        k_winners = int(rng.choice([c for c in choices if c != cur] or choices))
+        desc = f"k_winners={k_winners}"
     else:
         deltas = [int(x) for x in space.get("seed_delta") or [0]]
         seed = int(genome.training.seed + rng.choice(deltas))
@@ -91,5 +98,6 @@ def propose_candidate(
         dagger_rounds=dagger_rounds,
         plasticity_lr=lr,
         plasticity_epochs=epochs,
+        k_winners=k_winners,
         description=desc,
     )

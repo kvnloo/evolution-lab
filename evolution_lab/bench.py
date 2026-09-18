@@ -49,7 +49,9 @@ def candidate_to_genome(candidate: FlyCandidate) -> ExperimentGenome:
         plasticity_lr=float(candidate.plasticity_lr),
         plasticity_epochs=int(candidate.plasticity_epochs),
     )
-    return replace(genome, training=tr)
+    kw = int(getattr(candidate, "k_winners", 0) or 0)
+    arch = genome.architecture if kw <= 0 else replace(genome.architecture, k_winners=kw)
+    return replace(genome, training=tr, architecture=arch)
 
 
 def default_champion_candidate() -> FlyCandidate:
