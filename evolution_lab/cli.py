@@ -350,6 +350,22 @@ def cmd_preflight(*, text: str, capability: str | None, baseline_in: int | None,
         )
     )
 
+def cmd_l2_recovery(*, closed_loop_seeds: int, no_write: bool, no_promote: bool) -> None:
+    from .l2_benchmark import run_l2_recovery_benchmark
+
+    print(
+        json.dumps(
+            run_l2_recovery_benchmark(
+                closed_loop_seeds=closed_loop_seeds,
+                write=not no_write,
+                promote=not no_promote,
+            ),
+            indent=2,
+            default=str,
+        )
+    )
+
+
 
 
 
@@ -564,6 +580,15 @@ def main(argv: list[str] | None = None) -> int:
     ppre.add_argument("--capability", default=None, help="capability_id hint (e.g. blender.scene_reasoning)")
     ppre.add_argument("--baseline-in", type=int, default=None, dest="baseline_in")
     ppre.add_argument("--baseline-out", type=int, default=None, dest="baseline_out")
+    pl2 = sub.add_parser(
+        "l2-recovery",
+        parents=[parent],
+        help="L2 sealed outcome battery for recovery_action (+ shadow→canary gate)",
+    )
+    pl2.add_argument("--closed-loop-seeds", type=int, default=24)
+    pl2.add_argument("--no-write", action="store_true", help="Do not write ~/.z0int/benchmarks")
+    pl2.add_argument("--no-promote", action="store_true", help="Eval only; skip canary marker")
+
 
 
 
@@ -678,6 +703,13 @@ def main(argv: list[str] | None = None) -> int:
             baseline_in=getattr(args, "baseline_in", None),
             baseline_out=getattr(args, "baseline_out", None),
         )
+    elif args.cmd == "l2-recovery":
+        cmd_l2_recovery(
+            closed_loop_seeds=getattr(args, "closed_loop_seeds", 24),
+            no_write=getattr(args, "no_write", False),
+            no_promote=getattr(args, "no_promote", False),
+        )
+
 
 
 
