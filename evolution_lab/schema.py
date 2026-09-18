@@ -23,7 +23,7 @@ FAMILIES = (
     "jev_tiny",
     "jev_hf_head",
 )
-BACKENDS = ("local_numpy", "fly_sim", "tinker_sft", "tinker_rl", "external_eval", "openjev")
+BACKENDS = ("local_numpy", "local_jax", "fly_sim", "tinker_sft", "tinker_rl", "external_eval", "openjev")
 JEV_FAMILIES = frozenset({"jev_tiny", "jev_hf_head"})
 JEV_TASKS = frozenset({"jev_synthetic", "hermes_as_jev"})
 ROLES = ("explorer", "exploiter", "skeptic", "replicator", "distiller", "neuroscience")

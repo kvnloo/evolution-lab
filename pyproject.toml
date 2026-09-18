@@ -16,6 +16,8 @@ dependencies = ["numpy>=1.26"]
 openjev = [
   "openjev-phase1 @ git+https://github.com/kvnloo/openjev.git",
 ]
+jax = ["jax>=0.4"]
+
 
 [project.scripts]
 evolution-lab = "evolution_lab.cli:main"
