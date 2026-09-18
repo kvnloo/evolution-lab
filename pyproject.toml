@@ -21,8 +21,8 @@ openjev = [
 evolution-lab = "evolution_lab.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/kvnloo/z0int"
-Issues = "https://github.com/kvnloo/z0int/issues"
+Homepage = "https://github.com/kvnloo/evolution-lab"
+Issues = "https://github.com/kvnloo/evolution-lab/issues"
 
 [tool.setuptools.packages.find]
 include = ["evolution_lab*"]

@@ -4,21 +4,21 @@ Paste **this entire file** as the first message to any coding agent (Cursor, Cod
 
 | | |
 |---|---|
-| **This repo** | https://github.com/kvnloo/z0int |
-| Clone | `git clone https://github.com/kvnloo/z0int.git` |
+| **This repo** | https://github.com/kvnloo/evolution-lab |
+| Clone | `git clone https://github.com/kvnloo/evolution-lab.git` |
 | Protocol | [Verified OSS Loop](https://github.com/kvnloo/verified-oss-loop) (`SPEC.md` in that kit; this tree has `AGENTS.md`) |
 
 You are a contributor, not a maintainer. Donate **one** coding pass. **Never merge `main` or `dev`.** Default rollout is Arch-style `rolling` unless `.verified-oss-loop/rollout.yml` says otherwise.
 
 ## Do
 
-1. Clone or open https://github.com/kvnloo/z0int. `cd` into that tree. `git fetch origin`. `python3 .verified-oss-loop/rollout.py show`. Branch from `origin/$(python3 .verified-oss-loop/rollout.py get worker_base)` unless the issue names another base. Day-pass PRs target `feature_target`. Overnight PRs target `overnight_target`.
+1. Clone or open https://github.com/kvnloo/evolution-lab. `cd` into that tree. `git fetch origin`. `python3 .verified-oss-loop/rollout.py show`. Branch from `origin/$(python3 .verified-oss-loop/rollout.py get worker_base)` unless the issue names another base. Day-pass PRs target `feature_target`. Overnight PRs target `overnight_target`.
 2. Read `AGENTS.md` and `CONTRIBUTING.md` in this repo. Follow them if they conflict with this file.
 3. Search open issues and PRs. Stop on overlap.
 
 ```bash
-gh issue list --repo kvnloo/z0int --label claimable --state open
-gh pr list --repo kvnloo/z0int --state open
+gh issue list --repo kvnloo/evolution-lab --label claimable --state open
+gh pr list --repo kvnloo/evolution-lab --state open
 ```
 
 4. Branch on the queue:
@@ -42,7 +42,7 @@ Then add `claimed` and remove `claimable`.
 5. Orient before edit (`skills/orient/SKILL.md`). If GitNexus MCP is already there: `query` → `context` → `impact`. Do not run `gitnexus analyze` unless a human asked.
 6. Fail, then pass (`skills/tdd/SKILL.md`). Unit command: `python -m unittest discover -s tests -p 'test_*.py'`. Mutation: `n/a` (no mutator in this tree; do not invent a score). Runtime: `python -m evolution_lab gym-smoke --n 8`.
 7. Smallest complete change (`skills/anti-slop/SKILL.md`). If pstack is already installed, `/poteto-mode` is allowed; still never merge.
-8. Open a PR on https://github.com/kvnloo/z0int at `feature_target` (day) or `overnight_target` (overnight) with `.github/PULL_REQUEST_TEMPLATE.md` filled. Bind evidence to `head_revision`. **Do not merge `main` or `dev`.**
+8. Open a PR on https://github.com/kvnloo/evolution-lab at `feature_target` (day) or `overnight_target` (overnight) with `.github/PULL_REQUEST_TEMPLATE.md` filled. Bind evidence to `head_revision`. **Do not merge `main` or `dev`.**
 
 ## Stop
 

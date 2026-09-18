@@ -28,7 +28,7 @@ The object under optimization is **the frontier of measured systems**, not “ma
 
 Tinker SFT/RL and Cursor Cloud Agent fan-out are declared backends, not fake training runs.
 
-Contribution contract: [Verified OSS Loop](https://github.com/kvnloo/verified-oss-loop). Maintainer roadmap: [ROADMAP.md](ROADMAP.md). Process dump (GitHub Pages): https://kvnloo.github.io/z0int/ Workers claim `claimable` issues (P0 is [#2](https://github.com/kvnloo/z0int/issues/2)); they never merge `main`. Rollout scheme `rolling`: day-pass PRs target `preview`; overnight PRs target `nightly`.
+Contribution contract: [Verified OSS Loop](https://github.com/kvnloo/verified-oss-loop). Maintainer roadmap: [ROADMAP.md](ROADMAP.md). Process dump (GitHub Pages): https://kvnloo.github.io/evolution-lab/ Workers claim `claimable` issues (P0 is [#2](https://github.com/kvnloo/evolution-lab/issues/2)); they never merge `main`. Rollout scheme `rolling`: day-pass PRs target `preview`; overnight PRs target `nightly`.
 
 ## Goal
 
