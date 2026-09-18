@@ -94,7 +94,42 @@ def append_decision(row: dict[str, Any], *, path: Path | None = None) -> dict[st
     if out["high_info"] and dest == RAW:
         with HIGH_INFO.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(out, default=str) + "\n")
+    _maybe_emit_z0int_receipt(out)
     return out
+
+
+def _maybe_emit_z0int_receipt(row: dict[str, Any]) -> None:
+    """Best-effort dual-write to z0int.decision_receipt.v1 under ~/.z0int/receipts."""
+    try:
+        from z0int.receipt import append_receipt, build_receipt  # type: ignore
+    except ImportError:
+        return
+    decision = row.get("decision") or {}
+    fly = row.get("fly") or {}
+    try:
+        append_receipt(
+            build_receipt(
+                trace_id=str(row.get("trace_id") or ""),
+                session_id=row.get("session_id"),
+                capability_id=row.get("capability_id") or "coding.next_action",
+                provider="local_mb",
+                model=str(fly.get("source") or "mb"),
+                prediction=decision.get("label") or fly.get("label"),
+                confidence=(
+                    float(decision["p"])
+                    if decision.get("p") is not None
+                    else (float(fly["p"]) if fly.get("p") is not None else None)
+                ),
+                action_taken=decision.get("route") or row.get("route"),
+                route=decision.get("route") or row.get("route"),
+                execution="log_only",
+                latency_ms=row.get("latency_ms"),
+                extra={"live_stream": True, "disagree": row.get("disagree")},
+            )
+        )
+    except Exception:
+        return
+
 
 
 def join_outcome(
@@ -137,7 +172,14 @@ def join_outcome(
     if strong or negative:
         with dest.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(row, default=str) + "\n")
+    try:
+        from z0int.receipt import join_outcome as z0_join  # type: ignore
+
+        z0_join(trace_id, outcome)
+    except Exception:
+        pass
     return row
+
 
 
 def build_live_row(
