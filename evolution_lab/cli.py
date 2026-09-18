@@ -372,6 +372,23 @@ def cmd_l2_recovery(*, closed_loop_seeds: int, no_write: bool, no_promote: bool)
 
 
 
+
+def cmd_outer_loop(*, skip_mine: bool, skip_l2: bool, closed_loop_seeds: int) -> None:
+    from .outer_loop import run_outer_loop
+
+    print(
+        json.dumps(
+            run_outer_loop(
+                mine=not skip_mine,
+                l2=not skip_l2,
+                closed_loop_seeds=closed_loop_seeds,
+            ),
+            indent=2,
+            default=str,
+        )
+    )
+
+
 def cmd_gpu_abab(*, max_waves: int, n_pop: int, epochs: int) -> None:
     from .gpu_abab import run_gpu_abab
 
@@ -592,6 +609,16 @@ def main(argv: list[str] | None = None) -> int:
 
 
 
+
+    po = sub.add_parser(
+        "outer-loop",
+        parents=[parent],
+        help="mine → L2 recovery sealed battery → canary (thin continuous loop)",
+    )
+    po.add_argument("--skip-mine", action="store_true")
+    po.add_argument("--skip-l2", action="store_true")
+    po.add_argument("--closed-loop-seeds", type=int, default=24)
+
     pabab = sub.add_parser("gpu-abab", parents=[parent], help="ABAB around GPU next-action recipes")
     pabab.add_argument("--max-waves", type=int, default=8)
     pabab.add_argument("--pop", type=int, default=256)
@@ -712,6 +739,14 @@ def main(argv: list[str] | None = None) -> int:
 
 
 
+
+
+    elif args.cmd == "outer-loop":
+        cmd_outer_loop(
+            skip_mine=getattr(args, "skip_mine", False),
+            skip_l2=getattr(args, "skip_l2", False),
+            closed_loop_seeds=getattr(args, "closed_loop_seeds", 24),
+        )
 
     elif args.cmd == "gpu-abab":
         cmd_gpu_abab(max_waves=args.max_waves, n_pop=args.pop, epochs=args.epochs)
