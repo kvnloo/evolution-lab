@@ -289,6 +289,12 @@ def cmd_cycle(
     print(json.dumps(summary, indent=2))
 
 
+def cmd_gpu_evolve(*, n_pop: int, top_k: int, epochs: int) -> None:
+    from .gpu_evolve import run_gpu_evolve
+
+    print(json.dumps(run_gpu_evolve(n_pop=n_pop, top_k=top_k, epochs=epochs), indent=2))
+
+
 def cmd_sweep(*, workers: int | None) -> None:
     from .sweep import run_sweep
 
@@ -433,6 +439,10 @@ def main(argv: list[str] | None = None) -> int:
     pcy.add_argument("--no-promote-bundle", action="store_false", dest="promote_bundle")
     pcy.add_argument("--seed", type=int, default=42)
 
+    pgpu = sub.add_parser("gpu-evolve", parents=[parent], help="GPU population filter then CPU judge")
+    pgpu.add_argument("--pop", type=int, default=256)
+    pgpu.add_argument("--top", type=int, default=5)
+    pgpu.add_argument("--epochs", type=int, default=8)
     psw = sub.add_parser("sweep", parents=[parent], help="parallel fly experiment pack (75 pct CPUs)")
     psw.add_argument("--workers", type=int, default=None)
     sub.add_parser("jev-distill", parents=[parent], help="distill TypeSafe Jev skill routing into the fly")
@@ -510,6 +520,8 @@ def main(argv: list[str] | None = None) -> int:
             seed=getattr(args, "seed", 42),
         )
 
+    elif args.cmd == "gpu-evolve":
+        cmd_gpu_evolve(n_pop=args.pop, top_k=args.top, epochs=args.epochs)
     elif args.cmd == "sweep":
         cmd_sweep(workers=getattr(args, "workers", None))
     elif args.cmd == "jev-distill":

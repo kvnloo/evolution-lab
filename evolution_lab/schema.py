@@ -124,6 +124,8 @@ class ExperimentGenome:
                 raise GenomeError(f"{self.architecture.family} requires a Jev curriculum task")
         if self.backend == "openjev" and self.architecture.family not in JEV_FAMILIES:
             raise GenomeError("openjev backend is Route A only (jev_tiny, jev_hf_head)")
+        if self.backend == "local_jax" and self.architecture.family != "local_plasticity":
+            raise GenomeError("local_jax implements local_plasticity only")
 
     def with_seed(self, seed: int) -> "ExperimentGenome":
         return replace(self, training=replace(self.training, seed=seed))

@@ -38,6 +38,61 @@ def _cost(n_params: int, latency_s: float) -> float:
     return float(0.7 * param_term + 0.3 * time_term)
 
 
+def _evaluate_local_jax(genome: ExperimentGenome, data: TaskData) -> dict[str, Any]:
+    """JAX mushroom train; CPU numpy predict for the frozen metrics."""
+    from .jax_mb import fit_from_numpy
+    from .models import _kc_codes, _local_plasticity_step_samples, _pn_features, _sparse_pn_kc
+
+    if genome.architecture.family != "local_plasticity":
+        raise GenomeError("local_jax currently implements local_plasticity only")
+    t0 = time.perf_counter()
+    hist = int(genome.architecture.history)
+    step_eps, y = _local_plasticity_step_samples(data.train, history=hist)
+    X = _pn_features(step_eps)
+    rng = np.random.default_rng(genome.training.seed)
+    n_kc = max(32, int(genome.architecture.hidden))
+    W_pn = _sparse_pn_kc(X.shape[1], n_kc, rng)
+    k = int(genome.architecture.k_winners or 0) or max(5, int(round(0.10 * n_kc)))
+    pack = fit_from_numpy(
+        X,
+        y,
+        W_pn,
+        k_winners=k,
+        epochs=int(genome.training.plasticity_epochs),
+        lr=float(genome.training.plasticity_lr),
+        seed=int(genome.training.seed),
+    )
+    fit_s = time.perf_counter() - t0
+    W = pack["W_kc_mbon"]
+
+    def predict(episodes):
+        Xp = _pn_features(episodes)
+        H = _kc_codes(Xp, pack["W_pn_kc"], k)
+        return (H @ W).argmax(axis=1)
+
+    t1 = time.perf_counter()
+    success = _success(predict(data.confirm), data.confirm)
+    val = _success(predict(data.val), data.val)
+    ood = _success(predict(data.ood), data.ood)
+    latency = time.perf_counter() - t1
+    n_params = int(W.size)
+    return {
+        "success_rate": success,
+        "val_success": val,
+        "ood_score": ood,
+        "params": n_params,
+        "latency_s": latency,
+        "fit_s": fit_s,
+        "cost": _cost(n_params, fit_s + latency),
+        "violations": 0.0,
+        "joules_per_success": None,
+        "joules_unknown": True,
+        "backend": "local_jax",
+        "device": pack["device"],
+    }
+
+
+
 def evaluate_genome(genome: ExperimentGenome, data: TaskData, *, work_dir: Path | None = None) -> dict[str, Any]:
     if genome.backend == "openjev":
         from .openjev_runner import train_and_evaluate
@@ -60,6 +115,8 @@ def evaluate_genome(genome: ExperimentGenome, data: TaskData, *, work_dir: Path 
         raise GenomeError(f"{genome.backend} is declared, not wired — refusing to fake SFT")
     if genome.backend == "fly_sim":
         raise GenomeError("fly_sim backend is not wired; fly-wirehead stays a pinout demo")
+    if genome.backend == "local_jax":
+        return _evaluate_local_jax(genome, data)
     t0 = time.perf_counter()
     student = fit_student(genome, data.train)
     fit_s = time.perf_counter() - t0
