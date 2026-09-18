@@ -334,6 +334,23 @@ def cmd_capability_mine() -> None:
 
     print(json.dumps(run_capability_mine(), indent=2, default=str))
 
+def cmd_preflight(*, text: str, capability: str | None, baseline_in: int | None, baseline_out: int | None) -> None:
+    from .preflight import preflight
+
+    print(
+        json.dumps(
+            preflight(
+                text,
+                capability_hint=capability,
+                baseline_input_tokens=baseline_in,
+                baseline_output_tokens=baseline_out,
+            ),
+            indent=2,
+            default=str,
+        )
+    )
+
+
 
 
 
@@ -538,6 +555,16 @@ def main(argv: list[str] | None = None) -> int:
         parents=[parent],
         help="mine micro-process CapabilityCards + sealed L0 atlas under ~/.z0int/research",
     )
+    ppre = sub.add_parser(
+        "preflight",
+        parents=[parent],
+        help="z0int cognition filter: local stop or residual WorkRequirement for Kerdoios",
+    )
+    ppre.add_argument("text")
+    ppre.add_argument("--capability", default=None, help="capability_id hint (e.g. blender.scene_reasoning)")
+    ppre.add_argument("--baseline-in", type=int, default=None, dest="baseline_in")
+    ppre.add_argument("--baseline-out", type=int, default=None, dest="baseline_out")
+
 
 
     pabab = sub.add_parser("gpu-abab", parents=[parent], help="ABAB around GPU next-action recipes")
@@ -644,6 +671,14 @@ def main(argv: list[str] | None = None) -> int:
         cmd_next_action_2x2(n_pop=args.pop, epochs=args.epochs, promote=not args.no_promote)
     elif args.cmd == "capability-mine":
         cmd_capability_mine()
+    elif args.cmd == "preflight":
+        cmd_preflight(
+            text=args.text,
+            capability=getattr(args, "capability", None),
+            baseline_in=getattr(args, "baseline_in", None),
+            baseline_out=getattr(args, "baseline_out", None),
+        )
+
 
 
     elif args.cmd == "gpu-abab":
