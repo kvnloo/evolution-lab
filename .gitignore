@@ -10,3 +10,9 @@ build/
 .DS_Store
 .env
 .hermes/
+
+# Personal-trained next-action packs (fit on ~/.z0int episodes). Never publish.
+data/next_action/champion.npz
+data/next_action/*.weights.npz
+runs/gpu-evolve/next_action_*.npz
+runs/jev-distill/fly.npz
