@@ -2,7 +2,7 @@
 
 Experiment engine for evolving fly-style specialists on the FlyForge stack.
 
-**Start with [kvnloo/openjev](https://github.com/kvnloo/openjev).** OpenJev is what people clone
+**Start with [kvnloo/z0intelligence](https://github.com/kvnloo/z0intelligence).** OpenJev is what people clone
 first — it sets up typed JEV decisions, SLM scorers, and the runtime to *run* models. Evolution
 Lab is what you add to *evolve* them: genomes, locked splits, promotion ladder, DAgger, and
 control tables. Track B genomes call OpenJev as their training backend; Track A recovery fly runs
@@ -20,7 +20,7 @@ pip install -e /path/to/openjev   # runtime substrate first
 pip install -e .                  # evolution engine
 ```
 
-Integration contract: [openjev/docs/evolution-lab.md](https://github.com/kvnloo/openjev/blob/master/docs/evolution-lab.md).
+Integration contract: [openjev/docs/evolution-lab.md](https://github.com/kvnloo/z0intelligence/blob/master/docs/evolution-lab.md).
 
 This is **not** a fork of FlyGym, OpenEvolve, Stonkfly, or [kvnloo/fly-wirehead](https://github.com/kvnloo/fly-wirehead). The gym is `hermes_recovery` (Gymnasium `reset`/`step`). The knowledge vault stays in [kvnloo/frontier-kb](https://github.com/kvnloo/frontier-kb).
 
@@ -103,7 +103,7 @@ On the delayed-cue recovery task (L1, locked `data/p0/`): teacher **1.00**; mlp 
 
 | Repo | Owns |
 | --- | --- |
-| [kvnloo/openjev](https://github.com/kvnloo/openjev) | **Runtime infra** — clone first; JEV lane, SLM scorers, setup script |
+| [kvnloo/z0intelligence](https://github.com/kvnloo/z0intelligence) | **Runtime infra** — clone first; JEV lane, SLM scorers, setup script |
 | [kvnloo/frontier-kb](https://github.com/kvnloo/frontier-kb) | Claims, protocol, Pareto interpretation |
 | [kvnloo/aodl](https://github.com/kvnloo/aodl) | HOTL 0.2; specialist is a **port**, not a new kind |
 | [kvnloo/fly-wirehead](https://github.com/kvnloo/fly-wirehead) | MaleCNS Shorts pinout demo (fork of mattyhempstead/fly-wirehead) |

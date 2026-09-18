@@ -1,4 +1,6 @@
-"""z0int preflight — local cognition filter before residual model allocation.
+"""RESEARCH/SHADOW only. Production preflight is z0intelligence; never mints verified_success.
+
+z0int preflight — local cognition filter before residual model allocation.
 
 Returns a JSON packet:
   route=local  → stop; frontier tokens avoided (counterfactual)
