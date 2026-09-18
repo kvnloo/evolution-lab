@@ -11,5 +11,8 @@
   "majority_confirm_acc": 0.3529297128751462,
   "n_pop": 256,
   "n_kc": 96,
-  "k_winners": 20
+  "k_winners": 20,
+  "pn_dim": 64,
+  "promoted": true,
+  "note": "wave-5 arch keep; k_winners=20 n_kc=96 pn_dim=64"
 }
