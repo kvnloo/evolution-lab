@@ -287,5 +287,52 @@ def run_jev_distill(*, confirm_frac: float = 0.25, seed: int = 1) -> dict[str, A
     dest = root / "runs" / "jev-distill"
     dest.mkdir(parents=True, exist_ok=True)
     (dest / "report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-    # do not write prompts
+    save_pack(dest, fly, labels)
     return report
+
+
+def pack_dir(root: Path | None = None) -> Path:
+    return (root or Path(__file__).resolve().parents[1]) / "runs" / "jev-distill"
+
+
+def save_pack(dest: Path, fly: dict[str, Any], labels: list[str]) -> None:
+    np.savez(
+        dest / "fly.npz",
+        W_pn_kc=np.asarray(fly["W_pn_kc"]),
+        W_kc_mbon=np.asarray(fly["W_kc_mbon"]),
+        k_winners=np.asarray(fly["k_winners"]),
+    )
+    (dest / "labels.json").write_text(json.dumps(labels) + "\n", encoding="utf-8")
+
+
+def load_pack(root: Path | None = None) -> tuple[dict[str, Any], list[str]]:
+    dest = pack_dir(root)
+    data = np.load(dest / "fly.npz")
+    labels = json.loads((dest / "labels.json").read_text(encoding="utf-8"))
+    pack = {
+        "W_pn_kc": data["W_pn_kc"],
+        "W_kc_mbon": data["W_kc_mbon"],
+        "k_winners": int(data["k_winners"]),
+    }
+    return pack, labels
+
+
+def predict_prompt(text: str, root: Path | None = None) -> dict[str, Any]:
+    """Student forward pass. Teacher is Jev; this does not call Jev."""
+    t0 = __import__("time").perf_counter()
+    pack, labels = load_pack(root)
+    x = _hash_ngrams(text)[None, :]
+    H = _kc_codes(x, pack["W_pn_kc"], pack["k_winners"])
+    logits = (H @ pack["W_kc_mbon"])[0]
+    logits = logits - logits.max()
+    prob = np.exp(np.clip(logits, -20, 20))
+    prob = prob / prob.sum()
+    idx = int(prob.argmax())
+    return {
+        "ok": True,
+        "label": labels[idx],
+        "p": float(prob[idx]),
+        "ms": (__import__("time").perf_counter() - t0) * 1000,
+        "source": "fly_jev_student",
+        "n_params": int(pack["W_kc_mbon"].size),
+    }

@@ -301,6 +301,12 @@ def cmd_jev_distill() -> None:
     print(json.dumps(run_jev_distill(), indent=2))
 
 
+def cmd_jev_predict(prompt: str) -> None:
+    from .jev_distill import predict_prompt
+
+    print(json.dumps(predict_prompt(prompt), indent=2))
+
+
 def cmd_lab(
     run_dir: Path,
     *,
@@ -430,6 +436,8 @@ def main(argv: list[str] | None = None) -> int:
     psw = sub.add_parser("sweep", parents=[parent], help="parallel fly experiment pack (75 pct CPUs)")
     psw.add_argument("--workers", type=int, default=None)
     sub.add_parser("jev-distill", parents=[parent], help="distill TypeSafe Jev skill routing into the fly")
+    jpp = sub.add_parser("jev-predict", parents=[parent], help="fly pre-predict Jev skill from a prompt")
+    jpp.add_argument("prompt", nargs="+")
     prc_ctrl = sub.add_parser("recovery", parents=[parent])
     prc_ctrl.add_argument("json", nargs="?", default="{}", help="recovery controller JSON request")
 
@@ -506,6 +514,8 @@ def main(argv: list[str] | None = None) -> int:
         cmd_sweep(workers=getattr(args, "workers", None))
     elif args.cmd == "jev-distill":
         cmd_jev_distill()
+    elif args.cmd == "jev-predict":
+        cmd_jev_predict(" ".join(args.prompt))
     elif args.cmd == "cycle":
         cmd_cycle(
             forever=getattr(args, "forever", False),
