@@ -72,6 +72,23 @@ class CoverageCascade(unittest.TestCase):
         self.assertEqual(out["route"], "local")
         self.assertEqual(out["label"], "DELEGATE")
 
+    def test_any_delegate_routes_local(self):
+        """DELEGATE pred precision ~0.98 — absorb even low-p."""
+        fake = {
+            "ok": True,
+            "label": "DELEGATE",
+            "p": 0.22,
+            "margin": 0.01,
+            "second": "EXECUTE",
+            "source": "next_action_gpu_champion",
+            "n_params": 6912,
+        }
+        with mock.patch("evolution_lab.next_action_gpu.predict_next_action", return_value=fake):
+            out = decide_next_action("hand this to a subagent", policy=DEFAULT_COVERAGE_POLICY)
+        self.assertEqual(out["route"], "local")
+        self.assertEqual(out["label"], "DELEGATE")
+
+
     def test_ambiguous_execute_escalates_to_jev(self):
         fake = {
             "ok": True,

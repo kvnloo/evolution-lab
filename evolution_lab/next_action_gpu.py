@@ -371,12 +371,17 @@ DEFAULT_COVERAGE_POLICY: dict[str, Any] = {
     "schema": "flyforge.next_action_coverage.v1",
     "local_families": ["EXECUTE", "DELEGATE"],
     "thresholds": {
+        # EXECUTE preds ~0.48 precise overall — high conf only.
         "EXECUTE": {"min_p": 0.60, "min_margin": 0.30},
-        "DELEGATE": {"min_p": 0.40, "min_margin": 0.0},
+        # DELEGATE preds ~0.98 precise on confirm — absorb all.
+        "DELEGATE": {"min_p": 0.0, "min_margin": 0.0},
     },
     "escalate_to": "jev",
     "fallback": "openjev",
+    "metric": "coverage_at_precision",
+    "precision_floor": 0.95,
 }
+
 
 
 def load_coverage_policy(*, root: Path | None = None) -> dict[str, Any]:
@@ -562,8 +567,8 @@ def shadow_confirm(
     return report
 
 
-def live_shadow(prompt: str, *, log: Path | None = None) -> dict[str, Any]:
-    """One shadow row: coverage decision + next-action + jev-distill fly."""
+def live_shadow(prompt: str, *, log: Path | None = None, session_id: str | None = None) -> dict[str, Any]:
+    """One shadow row: coverage decision + next-action + jev-distill + live stream."""
     t0 = time.perf_counter()
     decision = decide_next_action(prompt)
     decision["ms"] = (time.perf_counter() - t0) * 1000.0
@@ -574,7 +579,6 @@ def live_shadow(prompt: str, *, log: Path | None = None) -> dict[str, Any]:
         jev: dict[str, Any] = dict(_jev_predict(prompt))
     except Exception as exc:  # pragma: no cover - optional peer pack
         jev = {"ok": False, "error": type(exc).__name__}
-    # Surface teacher for the cascade route (local specialist or Jev escalate).
     teacher = None
     if decision.get("route") == "local":
         teacher = {"source": "next_action_local", "label": decision.get("label"), "p": decision.get("p")}
@@ -602,6 +606,25 @@ def live_shadow(prompt: str, *, log: Path | None = None) -> dict[str, Any]:
     dest.parent.mkdir(parents=True, exist_ok=True)
     with dest.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(row) + "\n")
+    # Private multi-session learning stream (async train later).
+    try:
+        from .live_stream import append_decision, build_live_row
+
+        live = build_live_row(
+            prompt=prompt or "",
+            decision=row["decision"],
+            fly=next_a,
+            jev=jev if isinstance(jev, dict) else None,
+            session_id=session_id,
+            latency_ms=decision.get("ms"),
+        )
+        live = append_decision(live)
+        row["trace_id"] = live.get("trace_id")
+        row["high_info"] = live.get("high_info")
+        row["stream"] = "ok"
+    except Exception as exc:  # pragma: no cover
+        row["stream"] = f"err:{type(exc).__name__}"
     return row
+
 
 
