@@ -103,13 +103,31 @@ def load_or_seed(league: Path) -> World:
 
 
 def choose_b_action(world: World, *, idle: int, idle_limit: int) -> str:
-    """A: 1-knob session until plateau, then parallel sweep. Never edits the judge."""
+    """Wave 0 = frontier ideas pack (Jev skills + k_winners sweep). Then ABAB."""
+    if world.wave == 0:
+        return "ideas"
     if idle >= idle_limit or world.loop == "slow":
         return "sweep"
     return "autoresearch"
 
 
+def run_ideas_pack() -> dict[str, Any]:
+    """First B: Jev skill distill + parallel k_winners/2-knob sweep. Frozen judge."""
+    from .jev_distill import run_jev_distill
+    from .sweep import run_sweep
+
+    jev = run_jev_distill()
+    sweep = run_sweep()
+    return {
+        "ideas": ["jev_distill", "sweep"],
+        "jev_distill": jev,
+        "sweep": sweep,
+        "keeps": list(sweep.get("keeps") or []),
+    }
+
+
 def record_b(
+
     world: World,
     *,
     action: str,

@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from .abab_meta import choose_b_action, heartbeat, load_or_seed, record_b, world_path
+from .abab_meta import choose_b_action, heartbeat, load_or_seed, record_b, run_ideas_pack, world_path
 from .abab_state import save as save_abab
 from .autoresearch import _promote_bundle, run_autoresearch_loop
 from .sweep import run_sweep
@@ -119,7 +119,10 @@ def run_cycle(
         print(json.dumps({"abab_A": action, "wave": world.wave, "loop": world.loop}, indent=2), flush=True)
         nkeep = 0
         summary: dict = {}
-        if action == "sweep":
+        if action == "ideas":
+            summary = run_ideas_pack()
+            nkeep = len(summary.get("keeps") or [])
+        elif action == "sweep":
             summary = run_sweep()
             nkeep = len(summary.get("keeps") or [])
         else:

@@ -16,6 +16,8 @@ class AbabMetaTests(unittest.TestCase):
 
     def test_choose_autoresearch_until_idle(self):
         w = seed_fly_world()
+        self.assertEqual(choose_b_action(w, idle=0, idle_limit=2), "ideas")
+        w.wave = 1
         self.assertEqual(choose_b_action(w, idle=0, idle_limit=2), "autoresearch")
         self.assertEqual(choose_b_action(w, idle=2, idle_limit=2), "sweep")
 
