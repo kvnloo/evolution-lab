@@ -101,3 +101,44 @@ def run_gpu_abab(*, max_waves: int = 8, n_pop: int = 256, epochs: int = 6, idle_
     }
     (LEAGUE / "abab_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     return summary
+
+
+def run_arch_abab(*, n_pop: int = 256, epochs: int = 6) -> dict[str, Any]:
+    """Recipe frozen at wave-5. One architecture knob per wave."""
+    recipe = DataRecipe(n_train=0, gold_only=False, source="next_action", confirm_frac=0.2)
+    grid = (
+        {"n_kc": 48, "k_winners": 10},
+        {"n_kc": 96, "k_winners": 10},
+        {"n_kc": 192, "k_winners": 10},
+        {"n_kc": 96, "k_winners": 5},
+        {"n_kc": 96, "k_winners": 20},
+        {"n_kc": 192, "k_winners": 20},
+    )
+    world = seed_fly_world()
+    world.objective = "GPU next-action architecture; recipe frozen full-split unlabeled."
+    waves = []
+    for wave, knobs in enumerate(grid):
+        world.wave = wave
+        report = run_next_action_gpu(recipe=recipe, n_pop=n_pop, epochs=epochs, **knobs)
+        kept = _keep(report)
+        world = record_b(
+            world,
+            action="mutate_arch",
+            keeps=1 if kept else 0,
+            note=json.dumps({"knobs": knobs, "gpu": report["gpu_best_confirm_acc"], "ridge": report["ridge_confirm_acc"]}),
+        )
+        save_abab(world, LEAGUE / "abab_arch.json")
+        row = {
+            "wave": wave,
+            "keep": kept,
+            "knobs": knobs,
+            "gpu": report["gpu_best_confirm_acc"],
+            "ridge": report["ridge_confirm_acc"],
+            "majority": report["majority_confirm_acc"],
+            "n_train": report["n_train"],
+        }
+        waves.append(row)
+        print(json.dumps(row, indent=2), flush=True)
+    summary = {"schema": "flyforge.gpu_arch_abab.v1", "waves": waves, "keeps": sum(1 for w in waves if w["keep"])}
+    (LEAGUE / "abab_arch_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    return summary
