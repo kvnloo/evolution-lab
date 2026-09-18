@@ -1,0 +1,13 @@
+{
+  "recipe": {
+    "n_train": 0,
+    "gold_only": false,
+    "source": "next_action",
+    "confirm_frac": 0.2
+  },
+  "n_train": 61576,
+  "gpu_best_confirm_acc": 0.5661296609068468,
+  "ridge_confirm_acc": 0.36306353124594,
+  "majority_confirm_acc": 0.3529297128751462,
+  "n_pop": 256
+}

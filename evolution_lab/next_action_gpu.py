@@ -127,7 +127,30 @@ def run_next_action_gpu(
         "gpu_beats_ridge": best > ridge + 1e-12,
         "note": "GPU filters candidates; ridge is the CPU baseline. Do not keep from GPU acc alone.",
     }
-    out = Path(__file__).resolve().parents[1] / "runs" / "gpu-evolve" / "next_action_report.json"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(report, indent=2) + "\n")
+    root = Path(__file__).resolve().parents[1]
+    out_dir = root / "runs" / "gpu-evolve"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "next_action_report.json").write_text(json.dumps(report, indent=2) + "\n")
+    best_i = int(np.argmax(acc))
+    pack = {
+        "W_pn_kc": np.asarray(W_pn),
+        "W_kc_mbon": np.asarray(Ws[best_i]),
+        "k_winners": np.int32(k_winners),
+        "n_kc": np.int32(n_kc),
+        "acc": np.float64(best),
+        "ridge": np.float64(ridge),
+        "majority": np.float64(majority),
+    }
+    np.savez(out_dir / "next_action_champion.npz", **pack)
+    meta = {
+        "recipe": report["recipe"],
+        "n_train": report["n_train"],
+        "gpu_best_confirm_acc": best,
+        "ridge_confirm_acc": ridge,
+        "majority_confirm_acc": majority,
+        "n_pop": n_pop,
+    }
+    data_dir = root / "data" / "next_action"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    (data_dir / "champion.json").write_text(json.dumps(meta, indent=2) + "\n")
     return report
