@@ -98,12 +98,35 @@ def append_decision(row: dict[str, Any], *, path: Path | None = None) -> dict[st
     return out
 
 
+def _import_z0int_receipt():
+    """Import z0int.receipt even when not pip-installed (EL 3.14 vs z0int <3.14)."""
+    try:
+        from z0int.receipt import append_receipt, build_receipt, join_outcome as z0_join  # type: ignore
+
+        return append_receipt, build_receipt, z0_join
+    except ImportError:
+        pass
+    import os
+    import sys
+
+    root = os.environ.get("Z0INT_ROOT", "/home/kvn/tmp/openjev")
+    src = os.path.join(root, "src")
+    if src not in sys.path and os.path.isdir(src):
+        sys.path.insert(0, src)
+    try:
+        from z0int.receipt import append_receipt, build_receipt, join_outcome as z0_join  # type: ignore
+
+        return append_receipt, build_receipt, z0_join
+    except ImportError:
+        return None
+
+
 def _maybe_emit_z0int_receipt(row: dict[str, Any]) -> None:
     """Best-effort dual-write to z0int.decision_receipt.v1 under ~/.z0int/receipts."""
-    try:
-        from z0int.receipt import append_receipt, build_receipt  # type: ignore
-    except ImportError:
+    mods = _import_z0int_receipt()
+    if mods is None:
         return
+    append_receipt, build_receipt, _z0_join = mods
     decision = row.get("decision") or {}
     fly = row.get("fly") or {}
     try:
@@ -129,6 +152,7 @@ def _maybe_emit_z0int_receipt(row: dict[str, Any]) -> None:
         )
     except Exception:
         return
+
 
 
 
@@ -173,9 +197,10 @@ def join_outcome(
         with dest.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(row, default=str) + "\n")
     try:
-        from z0int.receipt import join_outcome as z0_join  # type: ignore
-
-        z0_join(trace_id, outcome)
+        mods = _import_z0int_receipt()
+        if mods is not None:
+            _append, _build, z0_join = mods
+            z0_join(trace_id, outcome)
     except Exception:
         pass
     return row
