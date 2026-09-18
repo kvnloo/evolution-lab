@@ -289,6 +289,12 @@ def cmd_cycle(
     print(json.dumps(summary, indent=2))
 
 
+def cmd_gpu_abab(*, max_waves: int, n_pop: int, epochs: int) -> None:
+    from .gpu_abab import run_gpu_abab
+
+    print(json.dumps(run_gpu_abab(max_waves=max_waves, n_pop=n_pop, epochs=epochs), indent=2))
+
+
 def cmd_gpu_evolve(*, n_pop: int, top_k: int, epochs: int, source: str, n_train: int, gold_only: bool) -> None:
     from .gpu_evolve import run_gpu_evolve
     from .next_action_gpu import run_next_action_gpu
@@ -445,6 +451,10 @@ def main(argv: list[str] | None = None) -> int:
     pcy.add_argument("--no-promote-bundle", action="store_false", dest="promote_bundle")
     pcy.add_argument("--seed", type=int, default=42)
 
+    pabab = sub.add_parser("gpu-abab", parents=[parent], help="ABAB around GPU next-action recipes")
+    pabab.add_argument("--max-waves", type=int, default=8)
+    pabab.add_argument("--pop", type=int, default=256)
+    pabab.add_argument("--epochs", type=int, default=6)
     pgpu = sub.add_parser("gpu-evolve", parents=[parent], help="GPU population filter then CPU judge")
     pgpu.add_argument("--pop", type=int, default=256)
     pgpu.add_argument("--top", type=int, default=5)
@@ -529,6 +539,8 @@ def main(argv: list[str] | None = None) -> int:
             seed=getattr(args, "seed", 42),
         )
 
+    elif args.cmd == "gpu-abab":
+        cmd_gpu_abab(max_waves=args.max_waves, n_pop=args.pop, epochs=args.epochs)
     elif args.cmd == "gpu-evolve":
         cmd_gpu_evolve(n_pop=args.pop, top_k=args.top, epochs=args.epochs, source=args.source, n_train=args.n_train, gold_only=args.gold_only)
     elif args.cmd == "sweep":

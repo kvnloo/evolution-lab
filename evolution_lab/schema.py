@@ -139,8 +139,8 @@ class ExperimentGenome:
             raise GenomeError("local_jax implements local_plasticity only")
         if self.recipe.source not in {"hermes_recovery", "next_action"}:
             raise GenomeError(f"unknown recipe.source {self.recipe.source}")
-        if self.recipe.n_train < 8:
-            raise GenomeError("recipe.n_train must be >= 8")
+        if self.recipe.n_train not in {0} and self.recipe.n_train < 8:
+            raise GenomeError("recipe.n_train must be 0 (all) or >= 8")
         if not 0 < self.recipe.confirm_frac < 1:
             raise GenomeError("recipe.confirm_frac must be in (0, 1)")
 

@@ -31,6 +31,7 @@ FAMILIES = (
     "ABSTAIN",
 )
 FAM_I = {n: i for i, n in enumerate(FAMILIES)}
+_XY_CACHE: dict[tuple, tuple] = {}
 
 
 def _hash(text: str, dim: int) -> np.ndarray:
@@ -46,6 +47,10 @@ def _hash(text: str, dim: int) -> np.ndarray:
 
 
 def load_xy(path: Path, *, gold_only: bool, dim: int = 64) -> tuple[np.ndarray, np.ndarray]:
+    key = (str(path), bool(gold_only), int(dim))
+    hit = _XY_CACHE.get(key)
+    if hit is not None:
+        return hit
     xs, ys = [], []
     with path.open(encoding="utf-8") as fh:
         for line in fh:
@@ -53,13 +58,19 @@ def load_xy(path: Path, *, gold_only: bool, dim: int = 64) -> tuple[np.ndarray, 
             fam = rec.get("family")
             if fam not in FAM_I:
                 continue
-            if gold_only and not rec.get("gold"):
+            if gold_only and not (rec.get("gold") or rec.get("tier") == "gold"):
                 continue
-            xs.append(_hash(rec.get("text") or "", dim))
+            text = rec.get("text") or rec.get("user") or ""
+            prev = rec.get("prev") or []
+            if prev:
+                text = text + " " + " ".join(str(x) for x in prev)
+            xs.append(_hash(text, dim))
             ys.append(FAM_I[fam])
     if not xs:
         raise FileNotFoundError(f"no next-action rows in {path}")
-    return np.stack(xs), np.asarray(ys, dtype=np.int32)
+    out = (np.stack(xs), np.asarray(ys, dtype=np.int32))
+    _XY_CACHE[key] = out
+    return out
 
 
 def ridge_acc(Xtr: np.ndarray, ytr: np.ndarray, Xte: np.ndarray, yte: np.ndarray) -> float:
@@ -88,7 +99,7 @@ def run_next_action_gpu(
     cut = max(8, int(n * (1.0 - recipe.confirm_frac)))
     Xtr, ytr = X[:cut], y[:cut]
     Xte, yte = X[cut:], y[cut:]
-    if len(Xtr) > recipe.n_train:
+    if recipe.n_train > 0 and len(Xtr) > recipe.n_train:
         Xtr, ytr = Xtr[-recipe.n_train :], ytr[-recipe.n_train :]
     rng = np.random.default_rng(seed)
     W_pn = _sparse_pn_kc(Xtr.shape[1], n_kc, rng)
@@ -101,6 +112,8 @@ def run_next_action_gpu(
     acc = np.stack([(Ht @ Ws[p]).argmax(1) == yte for p in range(n_pop)]).mean(axis=1)
     ridge = ridge_acc(Xtr, ytr, Xte, yte)
     best = float(acc.max())
+    counts = np.bincount(yte, minlength=int(yte.max()) + 1)
+    majority = float(counts.max() / len(yte)) if len(yte) else 0.0
     report = {
         "schema": "flyforge.next_action_gpu.v1",
         "recipe": recipe.__dict__ if hasattr(recipe, "__dict__") else dict(recipe),
@@ -110,7 +123,8 @@ def run_next_action_gpu(
         "gpu_filter_s": gpu_s,
         "gpu_best_confirm_acc": best,
         "ridge_confirm_acc": ridge,
-        "gpu_beats_ridge": best > ridge,
+        "majority_confirm_acc": majority,
+        "gpu_beats_ridge": best > ridge + 1e-12,
         "note": "GPU filters candidates; ridge is the CPU baseline. Do not keep from GPU acc alone.",
     }
     out = Path(__file__).resolve().parents[1] / "runs" / "gpu-evolve" / "next_action_report.json"
