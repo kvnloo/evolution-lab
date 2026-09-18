@@ -686,12 +686,14 @@ def _select_top3(
             if "coverage@95" in note and "n=1" not in note:
                 s += 2.0
         priors = {
-            "recovery_action": 4.0,
+            "recovery_action": 12.0,
             "delegate_gating": 5.0,
-            "needs_verification": 3.0,
-            "context_file_relevance": 2.0,
-            "continue_same_family": -2.0,
-            "next_action_family": -1.0,
+            "needs_verification": 6.0,
+            "context_file_relevance": 3.0,
+            "retry_execute": 1.0,
+            "continue_same_family": -12.0,
+            "next_action_family": -8.0,
+            "skill_routing": -1.0,
         }
         s += priors.get(c.id, 0.0)
         score[c.id] = s
