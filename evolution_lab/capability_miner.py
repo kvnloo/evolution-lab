@@ -637,46 +637,65 @@ def write_deliverables(
 def _select_top3(
     cards: list[CapabilityCard], results: list[CapabilityResult]
 ) -> list[CapabilityCard]:
-    """Prefer measured L0 lift + verifiability + frequency; skip pure gaps if better exist."""
+    """Prefer sealed lift, verifiability, frequency; demote majority-only niches."""
+    mb_lift: dict[str, float] = {}
+    for cap in {r.capability_id for r in results}:
+        mb = [
+            r
+            for r in results
+            if r.capability_id == cap and r.model.startswith("mb") and r.success is not None
+        ]
+        maj = [
+            r
+            for r in results
+            if r.capability_id == cap and r.model == "majority" and r.success is not None
+        ]
+        prec = [
+            r
+            for r in results
+            if r.capability_id == cap
+            and r.model.startswith("mb")
+            and r.precision is not None
+            and r.n >= 50
+        ]
+        lift = 0.0
+        if mb and maj:
+            lift = float(mb[0].success) - float(maj[0].success)
+        if prec:
+            lift += max(0.0, float(prec[0].precision) - 0.90) * 10.0
+            lift += min(float(prec[0].n), 3000) / 3000.0 * 3.0
+        mb_lift[cap] = lift
+
     score: dict[str, float] = {}
     for c in cards:
-        s = 0.0
-        s += math.log1p(c.frequency_events) * 0.5
+        s = math.log1p(c.frequency_events) * 0.3
         if c.failure_cost == "high":
-            s += 2.0
+            s += 2.5
         elif c.failure_cost == "medium":
             s += 1.0
         if c.label_quality == "high":
-            s += 2.0
+            s += 2.5
         elif c.label_quality == "medium":
             s += 1.0
-        # evidence bonuses
+        s += mb_lift.get(c.id, 0.0) * 4.0
         for note in c.evidence_notes:
-            if "precision=0.98" in note or "precision=0.9" in note:
-                s += 5.0
             if "SEALED when MB predicts DELEGATE" in note:
-                s += 8.0
+                s += 10.0
             if "INSTRUMENTATION_GAP" in note:
-                s -= 3.0
-            if "coverage@95" in note:
-                s += 1.5
-        if c.id == "recovery_action":
-            s += 3.0  # existing P0 gym
-        if c.id == "delegate_gating":
-            s += 4.0
-        if c.id == "needs_verification":
-            s += 3.5
-        if c.id == "context_file_relevance":
-            s += 2.5  # strategic, but gap
+                s -= 4.0
+            if "coverage@95" in note and "n=1" not in note:
+                s += 2.0
+        priors = {
+            "recovery_action": 4.0,
+            "delegate_gating": 5.0,
+            "needs_verification": 3.0,
+            "context_file_relevance": 2.0,
+            "continue_same_family": -2.0,
+            "next_action_family": -1.0,
+        }
+        s += priors.get(c.id, 0.0)
         score[c.id] = s
-    ranked = sorted(cards, key=lambda c: -score.get(c.id, 0.0))
-    # force diversity: take top with preference to implementable
-    picked: list[CapabilityCard] = []
-    for c in ranked:
-        if len(picked) >= 3:
-            break
-        picked.append(c)
-    return picked
+    return sorted(cards, key=lambda c: -score.get(c.id, 0.0))[:3]
 
 
 def _render_top3(top3: list[CapabilityCard], stats: dict[str, Any], split) -> str:
