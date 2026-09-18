@@ -19,6 +19,7 @@ from .engine import seed_genomes
 from .jax_mb import fit_from_numpy, numpy_perms, population_mbon, predict_numpy
 from .models import _kc_codes, _local_plasticity_step_samples, _pn_features, _sparse_pn_kc
 from .select import load_champion
+from .schema import DataRecipe
 from .splits import load_splits
 
 
@@ -132,9 +133,12 @@ def run_gpu_evolve(
     k_winners: int = 10,
     lr: float = 0.35,
     seed: int = 0,
+    recipe: DataRecipe | None = None,
 ) -> dict[str, Any]:
     os.environ.setdefault("XLA_PYTHON_CLIENT_MEM_FRACTION", "0.25")
     os.environ.setdefault("OMP_NUM_THREADS", "1")
+    recipe = recipe or DataRecipe(n_train=n_train, source="hermes_recovery")
+    n_train = int(recipe.n_train)
     snap0 = _gpu_snapshot()
     genome, data, X, y, W_pn, H, Hc, yc, k = _prepare(n_train=n_train, n_kc=n_kc, k_winners=k_winners, seed=seed)
     Ws, acc, gpu_s = gpu_filter(H, y, Hc, yc, n_pop=n_pop, epochs=epochs, lr=lr, seed=seed + 1)
@@ -154,6 +158,12 @@ def run_gpu_evolve(
         "top_k": top_k,
         "epochs": epochs,
         "n_train_eps": n_train,
+        "recipe": {
+            "n_train": recipe.n_train,
+            "gold_only": recipe.gold_only,
+            "source": recipe.source,
+            "confirm_frac": recipe.confirm_frac,
+        },
         "n_kc": n_kc,
         "k_winners": k_winners,
         "gpu_filter_s": gpu_s,

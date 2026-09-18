@@ -80,6 +80,16 @@ class Training:
 
 
 @dataclass
+class DataRecipe:
+    """Evolvable dataset recipe. Judge/splits/privacy are not in here."""
+
+    n_train: int = 64
+    gold_only: bool = False
+    source: str = "hermes_recovery"  # hermes_recovery | next_action
+    confirm_frac: float = 0.2
+
+
+@dataclass
 class Evaluation:
     seeds: int = 1
     split: str = "confirm"
@@ -98,6 +108,7 @@ class ExperimentGenome:
     curriculum: Curriculum = field(default_factory=Curriculum)
     training: Training = field(default_factory=Training)
     evaluation: Evaluation = field(default_factory=Evaluation)
+    recipe: DataRecipe = field(default_factory=DataRecipe)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -126,6 +137,12 @@ class ExperimentGenome:
             raise GenomeError("openjev backend is Route A only (jev_tiny, jev_hf_head)")
         if self.backend == "local_jax" and self.architecture.family != "local_plasticity":
             raise GenomeError("local_jax implements local_plasticity only")
+        if self.recipe.source not in {"hermes_recovery", "next_action"}:
+            raise GenomeError(f"unknown recipe.source {self.recipe.source}")
+        if self.recipe.n_train < 8:
+            raise GenomeError("recipe.n_train must be >= 8")
+        if not 0 < self.recipe.confirm_frac < 1:
+            raise GenomeError("recipe.confirm_frac must be in (0, 1)")
 
     def with_seed(self, seed: int) -> "ExperimentGenome":
         return replace(self, training=replace(self.training, seed=seed))
@@ -156,6 +173,7 @@ def genome_from_dict(data: dict[str, Any]) -> ExperimentGenome:
     if "environments" in ev_raw:
         ev_raw["environments"] = tuple(ev_raw["environments"])
     ev = Evaluation(**ev_raw)
+    rec = DataRecipe(**(data.get("recipe") or {}))
     g = ExperimentGenome(
         id=data["id"],
         lineage=data["lineage"],
@@ -167,6 +185,7 @@ def genome_from_dict(data: dict[str, Any]) -> ExperimentGenome:
         curriculum=cur,
         training=tr,
         evaluation=ev,
+        recipe=rec,
     )
     g.validate()
     return g

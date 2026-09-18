@@ -289,10 +289,16 @@ def cmd_cycle(
     print(json.dumps(summary, indent=2))
 
 
-def cmd_gpu_evolve(*, n_pop: int, top_k: int, epochs: int) -> None:
+def cmd_gpu_evolve(*, n_pop: int, top_k: int, epochs: int, source: str, n_train: int, gold_only: bool) -> None:
     from .gpu_evolve import run_gpu_evolve
+    from .next_action_gpu import run_next_action_gpu
+    from .schema import DataRecipe
 
-    print(json.dumps(run_gpu_evolve(n_pop=n_pop, top_k=top_k, epochs=epochs), indent=2))
+    recipe = DataRecipe(n_train=n_train, gold_only=gold_only, source=source)
+    if source == "next_action":
+        print(json.dumps(run_next_action_gpu(recipe=recipe, n_pop=n_pop, epochs=epochs), indent=2))
+    else:
+        print(json.dumps(run_gpu_evolve(n_pop=n_pop, top_k=top_k, epochs=epochs, recipe=recipe), indent=2))
 
 
 def cmd_sweep(*, workers: int | None) -> None:
@@ -443,6 +449,9 @@ def main(argv: list[str] | None = None) -> int:
     pgpu.add_argument("--pop", type=int, default=256)
     pgpu.add_argument("--top", type=int, default=5)
     pgpu.add_argument("--epochs", type=int, default=8)
+    pgpu.add_argument("--source", default="hermes_recovery", choices=["hermes_recovery", "next_action"])
+    pgpu.add_argument("--n-train", type=int, default=64)
+    pgpu.add_argument("--gold-only", action="store_true")
     psw = sub.add_parser("sweep", parents=[parent], help="parallel fly experiment pack (75 pct CPUs)")
     psw.add_argument("--workers", type=int, default=None)
     sub.add_parser("jev-distill", parents=[parent], help="distill TypeSafe Jev skill routing into the fly")
@@ -521,7 +530,7 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     elif args.cmd == "gpu-evolve":
-        cmd_gpu_evolve(n_pop=args.pop, top_k=args.top, epochs=args.epochs)
+        cmd_gpu_evolve(n_pop=args.pop, top_k=args.top, epochs=args.epochs, source=args.source, n_train=args.n_train, gold_only=args.gold_only)
     elif args.cmd == "sweep":
         cmd_sweep(workers=getattr(args, "workers", None))
     elif args.cmd == "jev-distill":

@@ -102,12 +102,25 @@ def load_or_seed(league: Path) -> World:
     return w
 
 
+def mutate_recipe(world: World):
+    """A mutates the dataset recipe, never the frozen judge."""
+    from .schema import DataRecipe
+
+    sizes = (32, 64, 128, 256, 512)
+    return DataRecipe(
+        n_train=sizes[world.wave % len(sizes)],
+        gold_only=bool(world.wave % 2),
+        source="hermes_recovery" if world.wave % 3 else "next_action",
+        confirm_frac=0.2,
+    )
+
+
 def choose_b_action(world: World, *, idle: int, idle_limit: int) -> str:
-    """Wave 0 = frontier ideas pack (Jev skills + k_winners sweep). Then ABAB."""
+    """Wave 0 = frontier ideas pack. Idle plateau mutates recipe then sweeps."""
     if world.wave == 0:
         return "ideas"
     if idle >= idle_limit or world.loop == "slow":
-        return "sweep"
+        return "mutate_recipe" if world.wave % 2 == 0 else "sweep"
     return "autoresearch"
 
 

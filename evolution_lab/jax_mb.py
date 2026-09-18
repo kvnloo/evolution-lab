@@ -31,12 +31,12 @@ def kc_codes(X: jnp.ndarray, W_pn_kc: jnp.ndarray, k_winners: int) -> jnp.ndarra
     return kc / jnp.maximum(norms, 1e-8)
 
 
-def _sample_update(W: jnp.ndarray, h: jnp.ndarray, yi: jnp.ndarray, lr: jnp.ndarray) -> jnp.ndarray:
+def _sample_update(W: jnp.ndarray, h: jnp.ndarray, yi: jnp.ndarray, lr: jnp.ndarray, n_actions: int) -> jnp.ndarray:
     scores = h @ W
     s = scores - jnp.max(scores)
     pred = jnp.exp(jnp.clip(s, -20.0, 20.0))
     pred = pred / jnp.sum(pred)
-    target = jax.nn.one_hot(yi, N_ACTIONS, dtype=W.dtype)
+    target = jax.nn.one_hot(yi, n_actions, dtype=W.dtype)
     W = W + lr * jnp.outer(h, target - pred)
     W = W - 0.02 * lr * jnp.outer(h, pred)
     return W
@@ -47,17 +47,18 @@ def train_mbon_with_perms(
     y: jnp.ndarray,
     perms: jnp.ndarray,
     lr0: float,
+    n_actions: int = N_ACTIONS,
 ) -> jnp.ndarray:
     """perms: [epochs, n] int permutation rows — same order as numpy."""
     n_kc = H.shape[1]
-    W = jnp.zeros((n_kc, N_ACTIONS), dtype=H.dtype)
+    W = jnp.zeros((n_kc, n_actions), dtype=H.dtype)
     lr = jnp.asarray(lr0, dtype=H.dtype)
 
     def epoch(carry, perm):
         W, lr = carry
 
         def step(W, idx):
-            W = _sample_update(W, H[idx], y[idx], lr)
+            W = _sample_update(W, H[idx], y[idx], lr, n_actions)
             return W, None
 
         W, _ = lax.scan(step, W, perm)
@@ -108,12 +109,16 @@ def population_mbon(
     y: np.ndarray,
     perm_bank: np.ndarray,
     lr: float,
+    n_actions: int | None = None,
 ) -> np.ndarray:
     """perm_bank: [P, epochs, n]. Returns W [P, KC, A]."""
+    if n_actions is None:
+        n_actions = int(np.max(y)) + 1
     H = jnp.asarray(H, dtype=jnp.float32)
     y = jnp.asarray(y, dtype=jnp.int32)
     perms = jnp.asarray(perm_bank)
-    vm = jax.vmap(lambda p: train_mbon_with_perms(H, y, p, lr))
+    n_a = int(n_actions)
+    vm = jax.vmap(lambda p: train_mbon_with_perms(H, y, p, lr, n_a))
     Ws = vm(perms)
     Ws.block_until_ready()
     return np.asarray(jax.device_get(Ws))

@@ -125,6 +125,18 @@ def run_cycle(
         elif action == "sweep":
             summary = run_sweep()
             nkeep = len(summary.get("keeps") or [])
+        elif action == "mutate_recipe":
+            from .abab_meta import mutate_recipe
+            from .gpu_evolve import run_gpu_evolve
+            from .next_action_gpu import run_next_action_gpu
+
+            recipe = mutate_recipe(world)
+            if recipe.source == "next_action":
+                summary = run_next_action_gpu(recipe=recipe, n_pop=128, epochs=4)
+                nkeep = 1 if summary.get("gpu_beats_ridge") else 0
+            else:
+                summary = run_gpu_evolve(n_pop=128, top_k=3, epochs=4, recipe=recipe)
+                nkeep = sum(1 for j in summary.get("judged") or [] if j.get("gates_pass"))
         else:
             summary = run_autoresearch_loop(
                 config_path=overlay,
