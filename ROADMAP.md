@@ -8,7 +8,7 @@ Registered product target (before more students): ≥95% of teacher verified suc
 
 ## P0 — Lock the contract (now)
 
-GitHub [#2](https://github.com/kvnloo/evolution-lab/issues/2) · Linear [PER-1524](https://linear.app/0ism/issue/PER-1524)
+GitHub [#2](https://github.com/kvnloo/z0int/issues/2) · Linear [PER-1524](https://linear.app/0ism/issue/PER-1524)
 
 Hermes recovery gym `hermes_recovery`. Actions `{retry, restart_sandbox, escalate, noop, page_human}`. Secrets fail closed. Direct-input is a mandatory skeptic. Tinker and FlyGym backends refuse.
 

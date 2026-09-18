@@ -8,9 +8,9 @@ Companion to maintainer-owned [ROADMAP.md](../ROADMAP.md). Agents may update **t
 
 | Track | State | Evidence |
 | --- | --- | --- |
-| P0 Hermes contract | Done on `main` | GitHub [#2](https://github.com/kvnloo/evolution-lab/issues/2), Linear PER-1524 |
-| P1 control table + MB motif | Merged on `nightly` | GitHub [#3](https://github.com/kvnloo/evolution-lab/issues/3), PER-1525 |
-| P3 DAgger scaffold | `lab` CLI + `dagger-smoke` on `nightly` | GitHub [#5](https://github.com/kvnloo/evolution-lab/issues/5), PER-1717 |
+| P0 Hermes contract | Done on `main` | GitHub [#2](https://github.com/kvnloo/z0int/issues/2), Linear PER-1524 |
+| P1 control table + MB motif | Merged on `nightly` | GitHub [#3](https://github.com/kvnloo/z0int/issues/3), PER-1525 |
+| P3 DAgger scaffold | `lab` CLI + `dagger-smoke` on `nightly` | GitHub [#5](https://github.com/kvnloo/z0int/issues/5), PER-1717 |
 | Experiment loop wired | `python -m evolution_lab lab`, `scripts/lab-run.sh`, CI `experiment.yml` | Local + GitHub Actions |
 | Vault numbers + patch | Pushed `cursor/p1-control-table-kb-9425` | [frontier-kb#16](https://github.com/kvnloo/frontier-kb/pull/16) |
 | TMNF / SHERWOOD | Separate branches; fail-closed in lab gym | Not P0; do not vendor binaries |
