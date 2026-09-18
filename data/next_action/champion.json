@@ -1,18 +1,16 @@
 {
-  "recipe": {
-    "n_train": 0,
-    "gold_only": false,
-    "source": "next_action",
-    "confirm_frac": 0.2
-  },
-  "n_train": 61576,
-  "gpu_best_confirm_acc": 0.5719760945823048,
-  "ridge_confirm_acc": 0.36306353124594,
-  "majority_confirm_acc": 0.3529297128751462,
-  "n_pop": 256,
+  "generation": 1,
+  "cell": "old_labels_rich_pn",
   "n_kc": 96,
   "k_winners": 20,
-  "pn_dim": 64,
-  "promoted": true,
-  "note": "wave-5 arch keep; k_winners=20 n_kc=96 pn_dim=64"
+  "pn_dim": 124,
+  "gpu_best_confirm_acc": 0.6303754709627127,
+  "coverage_at_95": 0.28692997271664283,
+  "precision_at_95": 0.9501924383065429,
+  "cascade_coverage": 0.3687150837988827,
+  "cascade_local_precision": 0.9001057082452432,
+  "gen0_coverage_at_95": 0.19897362608808628,
+  "gen0_confirm_acc": 0.5719760945823048,
+  "promote_metric": "coverage_at_95",
+  "features": "hash64+structured_cues"
 }

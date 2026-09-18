@@ -324,6 +324,13 @@ def cmd_next_action_weak(*, boosts: str, n_pop: int, epochs: int) -> None:
     print(json.dumps(run_weak_family_search(boosts=bs or (1, 2, 4, 8), n_pop=n_pop, epochs=epochs), indent=2))
 
 
+def cmd_next_action_2x2(*, n_pop: int, epochs: int, promote: bool) -> None:
+    from .experiment_2x2 import run_2x2
+
+    print(json.dumps(run_2x2(n_pop=n_pop, epochs=epochs, promote=promote), indent=2, default=str))
+
+
+
 
 
 def cmd_gpu_abab(*, max_waves: int, n_pop: int, epochs: int) -> None:
@@ -512,6 +519,15 @@ def main(argv: list[str] | None = None) -> int:
     pweak.add_argument("--boosts", default="1,2,4,8", help="comma-separated oversample factors")
     pweak.add_argument("--pop", type=int, default=256)
     pweak.add_argument("--epochs", type=int, default=6)
+    p2x2 = sub.add_parser(
+        "next-action-2x2",
+        parents=[parent],
+        help="2x2 labels x features; metric coverage at 95 pct precision; promote-only",
+    )
+    p2x2.add_argument("--pop", type=int, default=256)
+    p2x2.add_argument("--epochs", type=int, default=6)
+    p2x2.add_argument("--no-promote", action="store_true")
+
     pabab = sub.add_parser("gpu-abab", parents=[parent], help="ABAB around GPU next-action recipes")
     pabab.add_argument("--max-waves", type=int, default=8)
     pabab.add_argument("--pop", type=int, default=256)
@@ -612,6 +628,9 @@ def main(argv: list[str] | None = None) -> int:
         cmd_next_action_coverage()
     elif args.cmd == "next-action-weak":
         cmd_next_action_weak(boosts=args.boosts, n_pop=args.pop, epochs=args.epochs)
+    elif args.cmd == "next-action-2x2":
+        cmd_next_action_2x2(n_pop=args.pop, epochs=args.epochs, promote=not args.no_promote)
+
     elif args.cmd == "gpu-abab":
         cmd_gpu_abab(max_waves=args.max_waves, n_pop=args.pop, epochs=args.epochs)
     elif args.cmd == "gpu-evolve":

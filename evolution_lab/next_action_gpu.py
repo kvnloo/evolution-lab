@@ -340,15 +340,59 @@ def _softmax_scores(scores: np.ndarray) -> np.ndarray:
     return exps / exps.sum()
 
 
-def predict_next_action(text: str, *, pack: Path | None = None) -> dict[str, Any]:
-    """CPU readout from the frozen wave-5 champion. Not a keep path."""
+def _ctx_from_text(text: str, ctx: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Fill structured cues from prompt text when harness ctx is thin."""
+    out = dict(ctx or {})
+    t = (text or "").lower()
+    if not out.get("phase"):
+        if any(w in t for w in ("edit", "patch", "write file", "apply_patch", "fix")):
+            out["phase"] = "edit"
+        elif any(w in t for w in ("test", "pytest", "lint", "verify", "coverage")):
+            out["phase"] = "verify"
+        elif any(w in t for w in ("search", "grep", "find", "read ", "browse", "look up")):
+            out["phase"] = "search"
+        elif any(w in t for w in ("delegate", "subagent", "scout", "spawn", "task ")):
+            out["phase"] = "delegate"
+    if "has_test_signal" not in out:
+        out["has_test_signal"] = any(w in t for w in ("test", "pytest", "unittest"))
+    if "has_retry" not in out:
+        out["has_retry"] = "retry" in t or "again" in t
+    if "harness" not in out:
+        out["harness"] = "omp"
+    return out
+
+
+def _pn_vector(text: str, dim: int, *, ctx: dict[str, Any] | None = None) -> np.ndarray:
+    """Build PN vector matching pack dim (64=hash, larger=hash+structured)."""
+    from .pn_features import combine_pn
+
+    base = _hash(text, 64 if dim > 64 else dim)
+    if dim <= 64:
+        return base if dim == 64 else base[:dim]
+    rich = combine_pn(base, _ctx_from_text(text, ctx))
+    if rich.shape[0] == dim:
+        return rich
+    out = np.zeros(dim, dtype=np.float32)
+    n = min(dim, rich.shape[0])
+    out[:n] = rich[:n]
+    return out
+
+
+def predict_next_action(
+    text: str,
+    *,
+    pack: Path | None = None,
+    ctx: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """CPU readout from the frozen champion. Not a keep path."""
     root = Path(__file__).resolve().parents[1]
     pack = pack or root / "data" / "next_action" / "champion.npz"
     data = np.load(pack)
     W_pn = data["W_pn_kc"]
     W = data["W_kc_mbon"]
     k = int(data["k_winners"])
-    x = _hash(text, int(W_pn.shape[0]))
+    dim = int(W_pn.shape[0])
+    x = _pn_vector(text, dim, ctx=ctx)
     H = _kc_codes(x[None, :], W_pn, k)
     scores = np.asarray(H[0] @ W, dtype=np.float64)
     probs = _softmax_scores(scores)
@@ -364,7 +408,44 @@ def predict_next_action(text: str, *, pack: Path | None = None) -> dict[str, Any
         "probs": {FAMILIES[t]: float(probs[t]) for t in range(len(FAMILIES))},
         "source": "next_action_gpu_champion",
         "n_params": int(W_pn.size + W.size),
+        "pn_dim": dim,
     }
+
+
+
+def predict_next_action(
+    text: str,
+    *,
+    pack: Path | None = None,
+    ctx: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """CPU readout from the frozen wave-5 champion. Not a keep path."""
+    root = Path(__file__).resolve().parents[1]
+    pack = pack or root / "data" / "next_action" / "champion.npz"
+    data = np.load(pack)
+    W_pn = data["W_pn_kc"]
+    W = data["W_kc_mbon"]
+    k = int(data["k_winners"])
+    dim = int(W_pn.shape[0])
+    x = _pn_vector(text, dim, ctx=ctx)
+    H = _kc_codes(x[None, :], W_pn, k)
+    scores = np.asarray(H[0] @ W, dtype=np.float64)
+    probs = _softmax_scores(scores)
+    order = np.argsort(-probs)
+    i = int(order[0])
+    j = int(order[1]) if len(order) > 1 else i
+    return {
+        "ok": True,
+        "label": FAMILIES[i],
+        "p": float(probs[i]),
+        "margin": float(probs[i] - probs[j]),
+        "second": FAMILIES[j],
+        "probs": {FAMILIES[t]: float(probs[t]) for t in range(len(FAMILIES))},
+        "source": "next_action_gpu_champion",
+        "n_params": int(W_pn.size + W.size),
+        "pn_dim": dim,
+    }
+
 
 
 DEFAULT_COVERAGE_POLICY: dict[str, Any] = {
@@ -459,7 +540,17 @@ def evaluate_coverage_policy(
     W = data["W_kc_mbon"]
     k = int(data["k_winners"])
     dim = int(W_pn.shape[0])
-    X, y = load_xy(episodes or EPISODES, gold_only=False, dim=dim)
+    if dim > 64:
+        from .experiment_2x2 import load_episodes
+
+        X, y, _, _ = load_episodes(episodes or EPISODES, rich=True)
+        if X.shape[1] != dim:
+            X2 = np.zeros((len(X), dim), dtype=np.float32)
+            n = min(dim, X.shape[1])
+            X2[:, :n] = X[:, :n]
+            X = X2
+    else:
+        X, y = load_xy(episodes or EPISODES, gold_only=False, dim=dim)
     cut = max(8, int(len(y) * (1.0 - confirm_frac)))
     Xte, yte = X[cut:], y[cut:]
     Ht = _kc_codes(Xte, W_pn, k)
@@ -535,7 +626,20 @@ def shadow_confirm(
     W = data["W_kc_mbon"]
     k = int(data["k_winners"])
     dim = int(W_pn.shape[0])
-    X, y = load_xy(path, gold_only=gold_only, dim=dim)
+    if dim > 64:
+        from .experiment_2x2 import load_episodes
+
+        X, y, is_gold, _ = load_episodes(path, rich=True)
+        if gold_only:
+            X, y = X[is_gold], y[is_gold]
+        if X.shape[1] != dim:
+            # align
+            X2 = np.zeros((len(X), dim), dtype=np.float32)
+            n = min(dim, X.shape[1])
+            X2[:, :n] = X[:, :n]
+            X = X2
+    else:
+        X, y = load_xy(path, gold_only=gold_only, dim=dim)
     cut = max(8, int(len(y) * (1.0 - confirm_frac)))
     Xte, yte = X[cut:], y[cut:]
     Ht = _kc_codes(Xte, W_pn, k)
@@ -546,7 +650,7 @@ def shadow_confirm(
     by_fam = {
         FAMILIES[i]: {
             "n": int(counts[i]) if i < len(counts) else 0,
-            "acc": float((pred[yte == i] == i).mean()) if i < len(counts) and counts[i] else None,
+            "acc": float((pred[yte == i] == i).mean()) if counts[i] else None,
         }
         for i in range(len(FAMILIES))
     }
@@ -565,6 +669,7 @@ def shadow_confirm(
     shadow_dir.mkdir(parents=True, exist_ok=True)
     (shadow_dir / "champion_confirm.json").write_text(json.dumps(report, indent=2) + "\n")
     return report
+
 
 
 def live_shadow(prompt: str, *, log: Path | None = None, session_id: str | None = None) -> dict[str, Any]:

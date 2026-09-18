@@ -3,26 +3,46 @@
   "champion": {
     "n_kc": 96,
     "k_winners": 20,
-    "pn_dim": 64,
-    "confirm_acc": 0.5719760945823048,
-    "generation": 0
+    "pn_dim": 124,
+    "confirm_acc": 0.6303754709627127,
+    "coverage_at_95": 0.28692997271664283,
+    "generation": 1
   },
-  "local_families": ["EXECUTE", "DELEGATE"],
+  "local_families": [
+    "EXECUTE",
+    "DELEGATE"
+  ],
   "thresholds": {
-    "EXECUTE": {"min_p": 0.60, "min_margin": 0.30},
-    "DELEGATE": {"min_p": 0.0, "min_margin": 0.0}
+    "EXECUTE": {
+      "min_p": 0.6,
+      "min_margin": 0.3
+    },
+    "DELEGATE": {
+      "min_p": 0.0,
+      "min_margin": 0.0
+    }
   },
   "escalate_to": "jev",
   "fallback": "openjev",
   "metric": "coverage_at_precision",
   "precision_floor": 0.95,
   "confirm": {
-    "note": "Gen-0 risk/coverage: DELEGATE predictions are ~0.980 precise (n=3063, ~19.9% of confirm) — absorb all. EXECUTE has no ≥0.90 precision slice by margin; keep high-conf gate only.",
-    "delegate_pred_precision": 0.980411361410382,
-    "delegate_pred_n": 3063,
-    "delegate_coverage_of_confirm": 0.19897362608808628,
-    "execute_pred_precision": 0.4846105919003115,
-    "execute_high_conf_cov": 0.19566064700532676,
-    "execute_high_conf_prec": 0.6639372227908563
+    "note": "Gen-1 old_labels+rich_PN beats gen-0 on coverage@95 (0.287>0.199) and confirm (0.630>0.572). Cascade local_prec~0.90.",
+    "cascade_coverage": 0.3687150837988827,
+    "cascade_local_precision": 0.9001057082452432,
+    "by_local_family": {
+      "EXECUTE": {
+        "n": 5435,
+        "prec": 0.9002759889604416,
+        "min_p": 0.6,
+        "min_margin": 0.3
+      },
+      "DELEGATE": {
+        "n": 241,
+        "prec": 0.8962655601659751,
+        "min_p": 0.0,
+        "min_margin": 0.0
+      }
+    }
   }
 }
