@@ -109,7 +109,10 @@ SEED_CARDS: list[dict[str, Any]] = [
     },
     {
         "id": "context_file_relevance",
-        "description": "Which files/paths deserve attention (retrieval specialist slot)?",
+        "description": (
+            "Which files/paths deserve attention (retrieval specialist). "
+            "Primary Astra-token lever: shrink context before frontier calls."
+        ),
         "stage": "context",
         "trigger": "search/read phase",
         "input_contract": ["prompt", "candidate_paths", "repo"],
@@ -120,6 +123,7 @@ SEED_CARDS: list[dict[str, Any]] = [
         "temporal_dependency": "low",
         "label_quality": "high",
         "instrumentation_gap": True,
+        "economics_note": "context tokens avoided > action offload for long Astra sessions",
     },
     {
         "id": "task_complete",
@@ -689,7 +693,7 @@ def _select_top3(
             "recovery_action": 12.0,
             "delegate_gating": 5.0,
             "needs_verification": 6.0,
-            "context_file_relevance": 3.0,
+            "context_file_relevance": 8.0,  # economics: Astra context carve
             "retry_execute": 1.0,
             "continue_same_family": -12.0,
             "next_action_family": -8.0,
