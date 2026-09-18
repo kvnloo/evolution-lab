@@ -329,6 +329,12 @@ def cmd_next_action_2x2(*, n_pop: int, epochs: int, promote: bool) -> None:
 
     print(json.dumps(run_2x2(n_pop=n_pop, epochs=epochs, promote=promote), indent=2, default=str))
 
+def cmd_capability_mine() -> None:
+    from .capability_miner import run_capability_mine
+
+    print(json.dumps(run_capability_mine(), indent=2, default=str))
+
+
 
 
 
@@ -527,6 +533,12 @@ def main(argv: list[str] | None = None) -> int:
     p2x2.add_argument("--pop", type=int, default=256)
     p2x2.add_argument("--epochs", type=int, default=6)
     p2x2.add_argument("--no-promote", action="store_true")
+    sub.add_parser(
+        "capability-mine",
+        parents=[parent],
+        help="mine micro-process CapabilityCards + sealed L0 atlas under ~/.z0int/research",
+    )
+
 
     pabab = sub.add_parser("gpu-abab", parents=[parent], help="ABAB around GPU next-action recipes")
     pabab.add_argument("--max-waves", type=int, default=8)
@@ -630,6 +642,9 @@ def main(argv: list[str] | None = None) -> int:
         cmd_next_action_weak(boosts=args.boosts, n_pop=args.pop, epochs=args.epochs)
     elif args.cmd == "next-action-2x2":
         cmd_next_action_2x2(n_pop=args.pop, epochs=args.epochs, promote=not args.no_promote)
+    elif args.cmd == "capability-mine":
+        cmd_capability_mine()
+
 
     elif args.cmd == "gpu-abab":
         cmd_gpu_abab(max_waves=args.max_waves, n_pop=args.pop, epochs=args.epochs)
