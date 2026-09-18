@@ -54,8 +54,8 @@
     <span class="cap">Not the production kernel tuner.</span></li>
   <li><code>autoresearch</code> — 1-knob champion chase; frozen <code>bench.py</code> / <code>select.py</code>.
     <span class="cap">Hard gates: closed-loop ≥ 1.0, confirm/val ≥ 0.95, ood ≥ 0.85, violations = 0.</span></li>
-  <li><code>cycle</code> — outer loop: new session from league champion, shrink epsilon on idle, optional parallel sweep.
-    <span class="cap">This is the meta-level overtime evolver. Daemon is opt-in (<code>--forever</code>).</span></li>
+  <li><code>cycle</code> — ABAB A-timescale: 1-knob session until plateau, then sweep. World in <code>league/abab.json</code>.
+    <span class="cap">B is still frozen-judge autoresearch/sweep. Daemon opt-in (<code>--forever</code>).</span></li>
   <li><code>sweep</code> — 75% of logical CPUs, <code>OMP_NUM_THREADS=1</code>.
     <span class="cap">Contended latency is not comparable to serial league. Serial rebench before keep.</span></li>
   <li><code>jev-distill</code> — fly pre-predicts TypeSafe Jev skill routing from OMP history × Jev logs.

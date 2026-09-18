@@ -13,7 +13,7 @@ Ground truth: frontier-kb critical path — P0 contract locked, P1 control table
 ## What you MAY change (phase 1)
 
 - Propose candidates via `autoresearch_propose.propose_candidate` knobs only:
-  - `hidden`, `history`, `dagger_rounds`, `plasticity_lr`, `plasticity_epochs`, `seed`
+  - `hidden`, `dagger_rounds`, `plasticity_lr`, `plasticity_epochs`, `k_winners`, `seed` (`history` is locked at 8)
 - Do **not** edit bench gates, observe.py secret rules, or locked splits.
 
 ## Objective
@@ -52,6 +52,14 @@ Champion: `runs/autoresearch/<tag>/champion.json`.
 - Patience: N discards without keep
 - max_experiments / max_hours from config
 - Champion re-bench regression → halt
+
+## Two timescales (ABAB)
+
+- **A** (`cycle` + `abab_meta`): chooses the next *investigation* — 1-knob `autoresearch` session, or on plateau a parallel `sweep`. World: `runs/autoresearch/league/abab.json`.
+- **B**: executes that choice. Frozen judge is still `bench.py` / `select.py`.
+- **C**: a single discriminating bench (width floor, k_winners) when A says the experiment is cheaper than more search.
+
+Do not edit the judge during A or B. `NO_UPDATE` on idle does **not** stop `--forever`; it flips the world to `slow` and the next session sweeps.
 
 ## Relation to `lab`
 

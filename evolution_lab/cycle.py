@@ -14,6 +14,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from .abab_meta import choose_b_action, heartbeat, load_or_seed, record_b, world_path
+from .abab_state import save as save_abab
 from .autoresearch import _promote_bundle, run_autoresearch_loop
 from .sweep import run_sweep
 from .select import BenchResult, load_champion, load_config, save_champion
@@ -112,23 +114,38 @@ def run_cycle(
         league_champ_path = league / "champion.json"
         if league_champ_path.is_file():
             shutil.copy2(league_champ_path, sess_dir / "champion.json")
-        summary = run_autoresearch_loop(
-            config_path=overlay,
-            run_dir=sess_dir,
-            max_experiments=per_exp,
-            patience=per_pat,
-            promote_bundle=False,
-            skip_unit_tests=skip_unit_tests,
-            seed=int(seed) + session * stride,
-        )
-        sess_champ = load_champion(sess_dir)
-        league_champ = load_champion(league)
-        if _better(sess_champ, league_champ):
-            assert sess_champ is not None
-            save_champion(league, sess_champ)
-            if promote_bundle:
-                dest = _promote_bundle(sess_champ, root)
-                print(json.dumps({"promoted_bundle": str(dest), "tag": tag}, indent=2), flush=True)
+        world = load_or_seed(league)
+        action = choose_b_action(world, idle=idle, idle_limit=idle_limit)
+        print(json.dumps({"abab_A": action, "wave": world.wave, "loop": world.loop}, indent=2), flush=True)
+        nkeep = 0
+        summary: dict = {}
+        if action == "sweep":
+            summary = run_sweep()
+            nkeep = len(summary.get("keeps") or [])
+        else:
+            summary = run_autoresearch_loop(
+                config_path=overlay,
+                run_dir=sess_dir,
+                max_experiments=per_exp,
+                patience=per_pat,
+                promote_bundle=False,
+                skip_unit_tests=skip_unit_tests,
+                seed=int(seed) + session * stride,
+            )
+            nkeep = int(summary.get("keeps") or 0)
+            sess_champ = load_champion(sess_dir)
+            league_champ = load_champion(league)
+            if _better(sess_champ, league_champ):
+                assert sess_champ is not None
+                save_champion(league, sess_champ)
+                if promote_bundle:
+                    dest = _promote_bundle(sess_champ, root)
+                    print(json.dumps({"promoted_bundle": str(dest), "tag": tag}, indent=2), flush=True)
+                nkeep = max(nkeep, 1)
+        world = record_b(world, action=action, keeps=nkeep, note=f"tag={tag} epsilon={epsilon:.4f}")
+        save_abab(world, world_path(league))
+        print(json.dumps(heartbeat(world, action, nkeep), indent=2), flush=True)
+        if nkeep:
             keeps += 1
             idle = 0
             epsilon = float(cycle_cfg.get("epsilon_start", 0.05))
@@ -136,10 +153,6 @@ def run_cycle(
             idle += 1
             if idle >= idle_limit:
                 epsilon = max(eps_min, epsilon * shrink)
-                if bool(cycle_cfg.get("idle_sweep", False)):
-                    print(json.dumps({"cycle": "idle_sweep", "session": session, "epsilon": epsilon}), flush=True)
-                    sweep = run_sweep()
-                    print(json.dumps({"cycle": "idle_sweep_done", "keeps": len(sweep.get("keeps") or [])}), flush=True)
         lc = load_champion(league)
         status.update(
             {
