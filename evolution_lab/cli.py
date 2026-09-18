@@ -317,6 +317,13 @@ def cmd_next_action_coverage() -> None:
 
     print(json.dumps(evaluate_coverage_policy(), indent=2))
 
+def cmd_next_action_weak(*, boosts: str, n_pop: int, epochs: int) -> None:
+    from .next_action_gpu import run_weak_family_search
+
+    bs = tuple(int(x) for x in boosts.split(",") if x.strip())
+    print(json.dumps(run_weak_family_search(boosts=bs or (1, 2, 4, 8), n_pop=n_pop, epochs=epochs), indent=2))
+
+
 
 
 def cmd_gpu_abab(*, max_waves: int, n_pop: int, epochs: int) -> None:
@@ -497,6 +504,14 @@ def main(argv: list[str] | None = None) -> int:
         parents=[parent],
         help="confirm-split risk/coverage for locked cascade policy",
     )
+    pweak = sub.add_parser(
+        "next-action-weak",
+        parents=[parent],
+        help="oversample EDIT/WEB/VERIFY/ABSTAIN on frozen arch; promote-only",
+    )
+    pweak.add_argument("--boosts", default="1,2,4,8", help="comma-separated oversample factors")
+    pweak.add_argument("--pop", type=int, default=256)
+    pweak.add_argument("--epochs", type=int, default=6)
     pabab = sub.add_parser("gpu-abab", parents=[parent], help="ABAB around GPU next-action recipes")
     pabab.add_argument("--max-waves", type=int, default=8)
     pabab.add_argument("--pop", type=int, default=256)
@@ -595,6 +610,8 @@ def main(argv: list[str] | None = None) -> int:
         cmd_next_action_decide(text=args.text)
     elif args.cmd == "next-action-coverage":
         cmd_next_action_coverage()
+    elif args.cmd == "next-action-weak":
+        cmd_next_action_weak(boosts=args.boosts, n_pop=args.pop, epochs=args.epochs)
     elif args.cmd == "gpu-abab":
         cmd_gpu_abab(max_waves=args.max_waves, n_pop=args.pop, epochs=args.epochs)
     elif args.cmd == "gpu-evolve":

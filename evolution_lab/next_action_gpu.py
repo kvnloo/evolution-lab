@@ -80,6 +80,73 @@ def ridge_acc(Xtr: np.ndarray, ytr: np.ndarray, Xte: np.ndarray, yte: np.ndarray
     w = np.linalg.pinv(Xtr.T @ Xtr + 1.0 * np.eye(Xtr.shape[1])) @ Xtr.T @ Y
     return float(((Xte @ w).argmax(1) == yte).mean())
 
+WEAK_FAMILIES = ("EDIT", "WEB", "VERIFY", "ABSTAIN")
+
+
+def _boost_train(
+    Xtr: np.ndarray,
+    ytr: np.ndarray,
+    *,
+    families: tuple[str, ...] = WEAK_FAMILIES,
+    boost: int = 4,
+    max_n: int = 65536,
+    rng: np.random.Generator | None = None,
+) -> tuple[np.ndarray, np.ndarray, dict[str, int]]:
+    """Oversample named families on the train split only. Confirm set stays frozen."""
+    rng = rng or np.random.default_rng(0)
+    if boost <= 1:
+        if len(ytr) > max_n:
+            take = rng.choice(len(ytr), size=max_n, replace=False)
+            return Xtr[take], ytr[take], {f: 0 for f in families}
+        return Xtr, ytr, {f: 0 for f in families}
+    extra_x: list[np.ndarray] = []
+    extra_y: list[np.ndarray] = []
+    added = {f: 0 for f in families}
+    for name in families:
+        if name not in FAM_I:
+            continue
+        idx = np.where(ytr == FAM_I[name])[0]
+        if idx.size == 0:
+            continue
+        for _ in range(boost - 1):
+            extra_x.append(Xtr[idx])
+            extra_y.append(ytr[idx])
+            added[name] += int(idx.size)
+    if not extra_x:
+        Xb, yb = Xtr, ytr
+    else:
+        Xb = np.concatenate([Xtr, *extra_x], axis=0)
+        yb = np.concatenate([ytr, *extra_y], axis=0)
+    if len(yb) > max_n:
+        weak_ids = [FAM_I[f] for f in families if f in FAM_I]
+        weak_idx = np.where(np.isin(yb, weak_ids))[0]
+        other_idx = np.where(~np.isin(yb, weak_ids))[0]
+        if len(weak_idx) >= max_n:
+            take = rng.choice(weak_idx, size=max_n, replace=False)
+        else:
+            remain = max_n - len(weak_idx)
+            keep_o = (
+                rng.choice(other_idx, size=min(remain, len(other_idx)), replace=False)
+                if len(other_idx)
+                else np.array([], dtype=np.int64)
+            )
+            take = np.concatenate([weak_idx, keep_o])
+        Xb, yb = Xb[take], yb[take]
+    perm = rng.permutation(len(yb))
+    return Xb[perm], yb[perm], added
+
+
+
+def _family_acc(pred: np.ndarray, yte: np.ndarray) -> dict[str, dict[str, float | int | None]]:
+    out: dict[str, dict[str, float | int | None]] = {}
+    for i, name in enumerate(FAMILIES):
+        m = yte == i
+        n = int(m.sum())
+        out[name] = {
+            "n": n,
+            "acc": float((pred[m] == i).mean()) if n else None,
+        }
+    return out
 
 def run_next_action_gpu(
     *,
@@ -92,6 +159,8 @@ def run_next_action_gpu(
     seed: int = 0,
     episodes: Path | None = None,
     dim: int = 64,
+    weak_boost: int = 1,
+    weak_families: tuple[str, ...] = WEAK_FAMILIES,
 ) -> dict[str, Any]:
     os.environ.setdefault("XLA_PYTHON_CLIENT_MEM_FRACTION", "0.25")
     recipe = recipe or DataRecipe(source="next_action", n_train=2048)
@@ -104,6 +173,11 @@ def run_next_action_gpu(
     if recipe.n_train > 0 and len(Xtr) > recipe.n_train:
         Xtr, ytr = Xtr[-recipe.n_train :], ytr[-recipe.n_train :]
     rng = np.random.default_rng(seed)
+    boost_added: dict[str, int] = {f: 0 for f in weak_families}
+    if weak_boost > 1:
+        Xtr, ytr, boost_added = _boost_train(
+            Xtr, ytr, families=weak_families, boost=weak_boost, rng=rng
+        )
     W_pn = _sparse_pn_kc(Xtr.shape[1], n_kc, rng)
     H = _kc_codes(Xtr, W_pn, k_winners)
     Ht = _kc_codes(Xte, W_pn, k_winners)
@@ -111,15 +185,27 @@ def run_next_action_gpu(
     t0 = time.perf_counter()
     Ws = population_mbon(H, ytr, bank, lr)
     gpu_s = time.perf_counter() - t0
-    acc = np.stack([(Ht @ Ws[p]).argmax(1) == yte for p in range(n_pop)]).mean(axis=1)
-    ridge = ridge_acc(Xtr, ytr, Xte, yte)
-    best = float(acc.max())
-    counts = np.bincount(yte, minlength=int(yte.max()) + 1)
+    preds = np.stack([(Ht @ Ws[p]).argmax(1) for p in range(n_pop)])
+    acc = (preds == yte[None, :]).mean(axis=1)
+    # Fair ridge always uses unboosted train (frozen judge baseline).
+    # Fair ridge: always fit on the pre-boost train set reconstructed from recipe cut.
+    Xtr0, ytr0 = X[:cut], y[:cut]
+    if recipe.n_train > 0 and len(Xtr0) > recipe.n_train:
+        Xtr0, ytr0 = Xtr0[-recipe.n_train :], ytr0[-recipe.n_train :]
+    ridge = ridge_acc(Xtr0, ytr0, Xte, yte)
+    best_i = int(np.argmax(acc))
+    best = float(acc[best_i])
+    counts = np.bincount(yte, minlength=len(FAMILIES))
     majority = float(counts.max() / len(yte)) if len(yte) else 0.0
+    by_fam = _family_acc(preds[best_i], yte)
     report = {
         "schema": "flyforge.next_action_gpu.v1",
         "recipe": recipe.__dict__ if hasattr(recipe, "__dict__") else dict(recipe),
-        "n_train": int(len(ytr)),
+        "n_train": int(len(ytr0)),
+        "n_train_boosted": int(len(ytr)),
+        "weak_boost": int(weak_boost),
+        "weak_families": list(weak_families),
+        "weak_added": boost_added,
         "n_confirm": int(len(yte)),
         "n_pop": n_pop,
         "n_kc": int(n_kc),
@@ -130,13 +216,13 @@ def run_next_action_gpu(
         "ridge_confirm_acc": ridge,
         "majority_confirm_acc": majority,
         "gpu_beats_ridge": best > ridge + 1e-12,
-        "note": "GPU filters candidates; ridge is the CPU baseline. Do not keep from GPU acc alone.",
+        "by_family": by_fam,
+        "note": "GPU filters candidates; ridge is the CPU baseline on unboosted train. Promote-only.",
     }
     root = Path(__file__).resolve().parents[1]
     out_dir = root / "runs" / "gpu-evolve"
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "next_action_report.json").write_text(json.dumps(report, indent=2) + "\n")
-    best_i = int(np.argmax(acc))
     pack = {
         "W_pn_kc": np.asarray(W_pn),
         "W_kc_mbon": np.asarray(Ws[best_i]),
@@ -146,10 +232,68 @@ def run_next_action_gpu(
         "ridge": np.float64(ridge),
         "majority": np.float64(majority),
     }
-    # Always write run artifact under runs/; only promote data/ champion if better.
     np.savez(out_dir / "next_action_candidate.npz", **pack)
     report["promoted"] = _maybe_promote_champion(root, pack, report, n_pop=n_pop)
     return report
+
+
+def run_weak_family_search(
+    *,
+    boosts: tuple[int, ...] = (1, 2, 4, 8),
+    n_pop: int = 256,
+    epochs: int = 6,
+    families: tuple[str, ...] = WEAK_FAMILIES,
+) -> dict[str, Any]:
+    """Frozen-arch recipe search: oversample weak families; promote-only keeps."""
+    recipe = DataRecipe(n_train=0, gold_only=False, source="next_action", confirm_frac=0.2)
+    waves: list[dict[str, Any]] = []
+    for b in boosts:
+        rep = run_next_action_gpu(
+            recipe=recipe,
+            n_pop=n_pop,
+            n_kc=96,
+            k_winners=20,
+            epochs=epochs,
+            dim=64,
+            weak_boost=b,
+            weak_families=families,
+            seed=1000 + b,
+        )
+        weak_acc = {
+            f: (rep.get("by_family") or {}).get(f, {}).get("acc")
+            for f in families
+        }
+        waves.append(
+            {
+                "weak_boost": b,
+                "keep": bool(rep.get("promoted")),
+                "gpu": rep["gpu_best_confirm_acc"],
+                "ridge": rep["ridge_confirm_acc"],
+                "majority": rep["majority_confirm_acc"],
+                "gpu_beats_ridge": rep["gpu_beats_ridge"],
+                "n_train": rep["n_train"],
+                "n_train_boosted": rep.get("n_train_boosted"),
+                "weak_acc": weak_acc,
+                "by_family": rep.get("by_family"),
+            }
+        )
+    summary = {
+        "schema": "flyforge.next_action_weak_family.v1",
+        "families": list(families),
+        "boosts": list(boosts),
+        "waves": waves,
+        "keeps": sum(1 for w in waves if w["keep"]),
+        "best_gpu": max(w["gpu"] for w in waves) if waves else None,
+        "arch": {"n_kc": 96, "k_winners": 20, "pn_dim": 64},
+    }
+    out = Path(__file__).resolve().parents[1] / "runs" / "gpu-evolve"
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "weak_family_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    return summary
+
+
+
+
 
 
 def _maybe_promote_champion(
