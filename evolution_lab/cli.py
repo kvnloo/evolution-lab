@@ -289,6 +289,12 @@ def cmd_cycle(
     print(json.dumps(summary, indent=2))
 
 
+def cmd_next_action_predict(*, text: str) -> None:
+    from .next_action_gpu import predict_next_action
+
+    print(json.dumps(predict_next_action(text), indent=2))
+
+
 def cmd_gpu_abab(*, max_waves: int, n_pop: int, epochs: int) -> None:
     from .gpu_abab import run_gpu_abab
 
@@ -451,6 +457,8 @@ def main(argv: list[str] | None = None) -> int:
     pcy.add_argument("--no-promote-bundle", action="store_false", dest="promote_bundle")
     pcy.add_argument("--seed", type=int, default=42)
 
+    pnap = sub.add_parser("next-action-predict", parents=[parent])
+    pnap.add_argument("text")
     pabab = sub.add_parser("gpu-abab", parents=[parent], help="ABAB around GPU next-action recipes")
     pabab.add_argument("--max-waves", type=int, default=8)
     pabab.add_argument("--pop", type=int, default=256)
@@ -539,6 +547,8 @@ def main(argv: list[str] | None = None) -> int:
             seed=getattr(args, "seed", 42),
         )
 
+    elif args.cmd == "next-action-predict":
+        cmd_next_action_predict(text=args.text)
     elif args.cmd == "gpu-abab":
         cmd_gpu_abab(max_waves=args.max_waves, n_pop=args.pop, epochs=args.epochs)
     elif args.cmd == "gpu-evolve":

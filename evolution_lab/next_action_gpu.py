@@ -154,3 +154,24 @@ def run_next_action_gpu(
     data_dir.mkdir(parents=True, exist_ok=True)
     (data_dir / "champion.json").write_text(json.dumps(meta, indent=2) + "\n")
     return report
+
+
+def predict_next_action(text: str, *, pack: Path | None = None) -> dict[str, Any]:
+    """CPU readout from the frozen wave-5 champion. Not a keep path."""
+    root = Path(__file__).resolve().parents[1]
+    pack = pack or root / "data" / "next_action" / "champion.npz"
+    data = np.load(pack)
+    W_pn = data["W_pn_kc"]
+    W = data["W_kc_mbon"]
+    k = int(data["k_winners"])
+    x = _hash(text, int(W_pn.shape[0]))
+    H = _kc_codes(x[None, :], W_pn, k)
+    scores = H[0] @ W
+    i = int(np.argmax(scores))
+    return {
+        "ok": True,
+        "label": FAMILIES[i],
+        "p": float(np.exp(scores[i] - scores.max()) / np.exp(scores - scores.max()).sum()),
+        "source": "next_action_gpu_champion",
+        "n_params": int(W_pn.size + W.size),
+    }
