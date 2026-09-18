@@ -413,39 +413,6 @@ def predict_next_action(
 
 
 
-def predict_next_action(
-    text: str,
-    *,
-    pack: Path | None = None,
-    ctx: dict[str, Any] | None = None,
-) -> dict[str, Any]:
-    """CPU readout from the frozen wave-5 champion. Not a keep path."""
-    root = Path(__file__).resolve().parents[1]
-    pack = pack or root / "data" / "next_action" / "champion.npz"
-    data = np.load(pack)
-    W_pn = data["W_pn_kc"]
-    W = data["W_kc_mbon"]
-    k = int(data["k_winners"])
-    dim = int(W_pn.shape[0])
-    x = _pn_vector(text, dim, ctx=ctx)
-    H = _kc_codes(x[None, :], W_pn, k)
-    scores = np.asarray(H[0] @ W, dtype=np.float64)
-    probs = _softmax_scores(scores)
-    order = np.argsort(-probs)
-    i = int(order[0])
-    j = int(order[1]) if len(order) > 1 else i
-    return {
-        "ok": True,
-        "label": FAMILIES[i],
-        "p": float(probs[i]),
-        "margin": float(probs[i] - probs[j]),
-        "second": FAMILIES[j],
-        "probs": {FAMILIES[t]: float(probs[t]) for t in range(len(FAMILIES))},
-        "source": "next_action_gpu_champion",
-        "n_params": int(W_pn.size + W.size),
-        "pn_dim": dim,
-    }
-
 
 
 DEFAULT_COVERAGE_POLICY: dict[str, Any] = {
