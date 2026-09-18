@@ -14,7 +14,7 @@ dependencies = ["numpy>=1.26"]
 
 [project.optional-dependencies]
 openjev = [
-  "openjev-phase1 @ git+https://github.com/kvnloo/openjev.git",
+  "openjev-phase1 @ git+https://github.com/kvnloo/z0intelligence.git",
 ]
 jax = ["jax>=0.4"]
 

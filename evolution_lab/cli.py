@@ -334,6 +334,35 @@ def cmd_capability_mine() -> None:
 
     print(json.dumps(run_capability_mine(), indent=2, default=str))
 
+
+def cmd_export_z0int(
+    *,
+    run: str | None,
+    candidate: str,
+    output: str,
+    capability_id: str,
+    family: str,
+    runtime: str,
+    genome_id: str | None,
+) -> None:
+    """Export unpromoted z0int.candidate_artifact.v1 bundle (offline)."""
+    import json
+    from pathlib import Path
+
+    from .export_z0int import export_candidate
+
+    result = export_candidate(
+        run_dir=Path(run) if run else None,
+        candidate=candidate,
+        output=Path(output),
+        capability_id=capability_id,
+        family=family,
+        runtime=runtime,
+        genome_id=genome_id,
+    )
+    print(json.dumps(result, indent=2, default=str))
+
+
 def cmd_preflight(*, text: str, capability: str | None, baseline_in: int | None, baseline_out: int | None) -> None:
     from .preflight import preflight
 
@@ -588,10 +617,22 @@ def main(argv: list[str] | None = None) -> int:
         parents=[parent],
         help="mine micro-process CapabilityCards + sealed L0 atlas under ~/.z0int/research",
     )
+    pez = sub.add_parser(
+        "export-z0int",
+        parents=[parent],
+        help="Export unpromoted z0int.candidate_artifact.v1 (offline; never promotes)",
+    )
+    pez.add_argument("--run", default=None)
+    pez.add_argument("--candidate", required=True)
+    pez.add_argument("--output", required=True)
+    pez.add_argument("--capability-id", default="coding.recovery_action", dest="capability_id")
+    pez.add_argument("--family", default="local_plasticity")
+    pez.add_argument("--runtime", default="z0int.backend.mushroom.v1")
+    pez.add_argument("--genome-id", default=None, dest="genome_id")
     ppre = sub.add_parser(
         "preflight",
         parents=[parent],
-        help="z0int cognition filter: local stop or residual WorkRequirement for Kerdoios",
+        help="RESEARCH/SHADOW only — production preflight is z0intelligence; never mints verified_success",
     )
     ppre.add_argument("text")
     ppre.add_argument("--capability", default=None, help="capability_id hint (e.g. blender.scene_reasoning)")
@@ -723,6 +764,16 @@ def main(argv: list[str] | None = None) -> int:
         cmd_next_action_2x2(n_pop=args.pop, epochs=args.epochs, promote=not args.no_promote)
     elif args.cmd == "capability-mine":
         cmd_capability_mine()
+    elif args.cmd == "export-z0int":
+        cmd_export_z0int(
+            run=getattr(args, "run", None),
+            candidate=args.candidate,
+            output=args.output,
+            capability_id=getattr(args, "capability_id", "coding.recovery_action"),
+            family=getattr(args, "family", "local_plasticity"),
+            runtime=getattr(args, "runtime", "z0int.backend.mushroom.v1"),
+            genome_id=getattr(args, "genome_id", None),
+        )
     elif args.cmd == "preflight":
         cmd_preflight(
             text=args.text,
