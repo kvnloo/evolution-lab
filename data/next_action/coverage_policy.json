@@ -1,0 +1,28 @@
+{
+  "schema": "flyforge.next_action_coverage.v1",
+  "champion": {
+    "n_kc": 96,
+    "k_winners": 20,
+    "pn_dim": 64,
+    "confirm_acc": 0.5719760945823048
+  },
+  "local_families": ["EXECUTE", "DELEGATE"],
+  "thresholds": {
+    "EXECUTE": {"min_p": 0.60, "min_margin": 0.30},
+    "DELEGATE": {"min_p": 0.40, "min_margin": 0.0}
+  },
+  "escalate_to": "jev",
+  "fallback": "openjev",
+  "confirm": {
+    "coverage": 0.19566064700532676,
+    "local_precision": 0.6693227091633466,
+    "n_local": 3012,
+    "n_escalate": 12382,
+    "n_confirm": 15394,
+    "exec_n": 2931,
+    "exec_prec": 0.664,
+    "del_n": 81,
+    "del_prec": 0.8641975308641975
+  },
+  "note": "Safe coverage: high-conf EXECUTE (p>=0.60, margin>=0.30) and DELEGATE (p>=0.40) stay local; all other families and low-conf cases escalate to Jev (OpenJev fallback). Softmax is weakly calibrated — thresholds trade ~20% coverage for ~67% local precision on the locked confirm split."
+}

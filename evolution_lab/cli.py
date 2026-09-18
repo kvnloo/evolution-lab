@@ -306,6 +306,18 @@ def cmd_next_action_shadow(*, text: str) -> None:
 
     print(json.dumps(live_shadow(text), indent=2))
 
+def cmd_next_action_decide(*, text: str) -> None:
+    from .next_action_gpu import decide_next_action
+
+    print(json.dumps(decide_next_action(text), indent=2))
+
+
+def cmd_next_action_coverage() -> None:
+    from .next_action_gpu import evaluate_coverage_policy
+
+    print(json.dumps(evaluate_coverage_policy(), indent=2))
+
+
 
 def cmd_gpu_abab(*, max_waves: int, n_pop: int, epochs: int) -> None:
     from .gpu_abab import run_gpu_abab
@@ -474,6 +486,17 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("next-action-confirm", parents=[parent], help="offline confirm readout of wave-5 champion")
     pnas = sub.add_parser("next-action-shadow", parents=[parent], help="append one live shadow row")
     pnas.add_argument("text")
+    pnad = sub.add_parser(
+        "next-action-decide",
+        parents=[parent],
+        help="coverage cascade: local high-conf EXEC/DEL else escalate to Jev",
+    )
+    pnad.add_argument("text")
+    sub.add_parser(
+        "next-action-coverage",
+        parents=[parent],
+        help="confirm-split risk/coverage for locked cascade policy",
+    )
     pabab = sub.add_parser("gpu-abab", parents=[parent], help="ABAB around GPU next-action recipes")
     pabab.add_argument("--max-waves", type=int, default=8)
     pabab.add_argument("--pop", type=int, default=256)
@@ -568,6 +591,10 @@ def main(argv: list[str] | None = None) -> int:
         cmd_next_action_confirm()
     elif args.cmd == "next-action-shadow":
         cmd_next_action_shadow(text=args.text)
+    elif args.cmd == "next-action-decide":
+        cmd_next_action_decide(text=args.text)
+    elif args.cmd == "next-action-coverage":
+        cmd_next_action_coverage()
     elif args.cmd == "gpu-abab":
         cmd_gpu_abab(max_waves=args.max_waves, n_pop=args.pop, epochs=args.epochs)
     elif args.cmd == "gpu-evolve":

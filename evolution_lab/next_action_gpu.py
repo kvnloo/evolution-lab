@@ -191,6 +191,11 @@ def _maybe_promote_champion(
     return True
 
 
+def _softmax_scores(scores: np.ndarray) -> np.ndarray:
+    exps = np.exp(scores - float(scores.max()))
+    return exps / exps.sum()
+
+
 def predict_next_action(text: str, *, pack: Path | None = None) -> dict[str, Any]:
     """CPU readout from the frozen wave-5 champion. Not a keep path."""
     root = Path(__file__).resolve().parents[1]
@@ -201,16 +206,168 @@ def predict_next_action(text: str, *, pack: Path | None = None) -> dict[str, Any
     k = int(data["k_winners"])
     x = _hash(text, int(W_pn.shape[0]))
     H = _kc_codes(x[None, :], W_pn, k)
-    scores = H[0] @ W
-    i = int(np.argmax(scores))
-    exps = np.exp(scores - scores.max())
+    scores = np.asarray(H[0] @ W, dtype=np.float64)
+    probs = _softmax_scores(scores)
+    order = np.argsort(-probs)
+    i = int(order[0])
+    j = int(order[1]) if len(order) > 1 else i
     return {
         "ok": True,
         "label": FAMILIES[i],
-        "p": float(exps[i] / exps.sum()),
+        "p": float(probs[i]),
+        "margin": float(probs[i] - probs[j]),
+        "second": FAMILIES[j],
+        "probs": {FAMILIES[t]: float(probs[t]) for t in range(len(FAMILIES))},
         "source": "next_action_gpu_champion",
         "n_params": int(W_pn.size + W.size),
     }
+
+
+DEFAULT_COVERAGE_POLICY: dict[str, Any] = {
+    "schema": "flyforge.next_action_coverage.v1",
+    "local_families": ["EXECUTE", "DELEGATE"],
+    "thresholds": {
+        "EXECUTE": {"min_p": 0.60, "min_margin": 0.30},
+        "DELEGATE": {"min_p": 0.40, "min_margin": 0.0},
+    },
+    "escalate_to": "jev",
+    "fallback": "openjev",
+}
+
+
+def load_coverage_policy(*, root: Path | None = None) -> dict[str, Any]:
+    root = root or Path(__file__).resolve().parents[1]
+    path = root / "data" / "next_action" / "coverage_policy.json"
+    if path.is_file():
+        return json.loads(path.read_text(encoding="utf-8"))
+    return dict(DEFAULT_COVERAGE_POLICY)
+
+
+def decide_next_action(
+    text: str,
+    *,
+    pack: Path | None = None,
+    policy: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Cascade: high-conf EXECUTE/DELEGATE stay local; else escalate to Jev/OpenJev."""
+    policy = policy or load_coverage_policy()
+    pred = predict_next_action(text, pack=pack)
+    label = str(pred["label"])
+    p = float(pred["p"])
+    margin = float(pred["margin"])
+    local_families = set(policy.get("local_families") or ["EXECUTE", "DELEGATE"])
+    thresholds = policy.get("thresholds") or {}
+    th = thresholds.get(label) or {}
+    min_p = float(th.get("min_p", 1.0))
+    min_margin = float(th.get("min_margin", 1.0))
+    local_ok = label in local_families and p >= min_p and margin >= min_margin
+    if local_ok:
+        route = "local"
+        escalate_to = None
+        reason = f"high_conf_{label.lower()}"
+    else:
+        route = "escalate"
+        escalate_to = policy.get("escalate_to") or "jev"
+        if label not in local_families:
+            reason = f"family_not_local:{label}"
+        elif p < min_p:
+            reason = f"low_p:{p:.3f}<{min_p:.3f}"
+        else:
+            reason = f"low_margin:{margin:.3f}<{min_margin:.3f}"
+    out = {
+        "ok": True,
+        "route": route,
+        "reason": reason,
+        "escalate_to": escalate_to,
+        "fallback": policy.get("fallback") or "openjev",
+        "label": label,
+        "p": p,
+        "margin": margin,
+        "second": pred.get("second"),
+        "source": "next_action_coverage_v1",
+        "policy": {
+            "local_families": sorted(local_families),
+            "thresholds": thresholds,
+        },
+        "prediction": pred,
+    }
+    return out
+
+
+def evaluate_coverage_policy(
+    *,
+    pack: Path | None = None,
+    episodes: Path | None = None,
+    confirm_frac: float = 0.2,
+    policy: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Confirm-split risk/coverage for the locked cascade policy."""
+    root = Path(__file__).resolve().parents[1]
+    pack = pack or root / "data" / "next_action" / "champion.npz"
+    policy = policy or load_coverage_policy(root=root)
+    data = np.load(pack)
+    W_pn = data["W_pn_kc"]
+    W = data["W_kc_mbon"]
+    k = int(data["k_winners"])
+    dim = int(W_pn.shape[0])
+    X, y = load_xy(episodes or EPISODES, gold_only=False, dim=dim)
+    cut = max(8, int(len(y) * (1.0 - confirm_frac)))
+    Xte, yte = X[cut:], y[cut:]
+    Ht = _kc_codes(Xte, W_pn, k)
+    logits = Ht @ W
+    z = logits - logits.max(axis=1, keepdims=True)
+    probs = np.exp(np.clip(z, -40, 40))
+    probs = probs / probs.sum(axis=1, keepdims=True)
+    order = np.argsort(-probs, axis=1)
+    pred = order[:, 0]
+    p1 = probs[np.arange(len(probs)), pred]
+    p2 = probs[np.arange(len(probs)), order[:, 1]]
+    margin = p1 - p2
+    local_families = set(policy.get("local_families") or ["EXECUTE", "DELEGATE"])
+    thresholds = policy.get("thresholds") or {}
+    local_idx = {FAM_I[n] for n in local_families if n in FAM_I}
+    mask = np.zeros(len(yte), dtype=bool)
+    for lab in local_idx:
+        name = FAMILIES[lab]
+        th = thresholds.get(name) or {}
+        min_p = float(th.get("min_p", 1.0))
+        min_m = float(th.get("min_margin", 1.0))
+        mask |= (pred == lab) & (p1 >= min_p) & (margin >= min_m)
+    correct = pred == yte
+    n_loc = int(mask.sum())
+    report = {
+        "schema": "flyforge.next_action_coverage_eval.v1",
+        "n_confirm": int(len(yte)),
+        "n_local": n_loc,
+        "n_escalate": int(len(yte) - n_loc),
+        "coverage": float(mask.mean()) if len(yte) else 0.0,
+        "local_precision": float(correct[mask].mean()) if n_loc else None,
+        "escalate_rate": float(1.0 - mask.mean()) if len(yte) else 1.0,
+        "champion_confirm_acc": float(correct.mean()) if len(yte) else 0.0,
+        "policy": {
+            "local_families": sorted(local_families),
+            "thresholds": thresholds,
+            "escalate_to": policy.get("escalate_to"),
+            "fallback": policy.get("fallback"),
+        },
+        "by_local_family": {},
+    }
+    for lab in sorted(local_idx):
+        name = FAMILIES[lab]
+        th = thresholds.get(name) or {}
+        min_p = float(th.get("min_p", 1.0))
+        min_m = float(th.get("min_margin", 1.0))
+        m = (pred == lab) & (p1 >= min_p) & (margin >= min_m)
+        report["by_local_family"][name] = {
+            "n": int(m.sum()),
+            "prec": float(correct[m].mean()) if m.any() else None,
+            "min_p": min_p,
+            "min_margin": min_m,
+        }
+    shadow_dir = Path.home() / ".z0int" / "shadow"
+    shadow_dir.mkdir(parents=True, exist_ok=True)
+    (shadow_dir / "coverage_eval.json").write_text(json.dumps(report, indent=2) + "\n")
+    return report
 
 
 def shadow_confirm(
@@ -262,21 +419,39 @@ def shadow_confirm(
 
 
 def live_shadow(prompt: str, *, log: Path | None = None) -> dict[str, Any]:
-    """One shadow row: next-action champion (+ jev-distill fly when available)."""
+    """One shadow row: coverage decision + next-action + jev-distill fly."""
     t0 = time.perf_counter()
-    next_a = predict_next_action(prompt)
-    next_a["ms"] = (time.perf_counter() - t0) * 1000.0
+    decision = decide_next_action(prompt)
+    decision["ms"] = (time.perf_counter() - t0) * 1000.0
+    next_a = decision.get("prediction") or predict_next_action(prompt)
     try:
         from .jev_distill import predict_prompt as _jev_predict
 
         jev: dict[str, Any] = dict(_jev_predict(prompt))
     except Exception as exc:  # pragma: no cover - optional peer pack
         jev = {"ok": False, "error": type(exc).__name__}
+    # Surface teacher for the cascade route (local specialist or Jev escalate).
+    teacher = None
+    if decision.get("route") == "local":
+        teacher = {"source": "next_action_local", "label": decision.get("label"), "p": decision.get("p")}
+    elif decision.get("route") == "escalate" and isinstance(jev, dict) and jev.get("ok"):
+        teacher = {"source": jev.get("source"), "label": jev.get("label"), "p": jev.get("p")}
     row = {
         "ts": time.time(),
         "prompt": (prompt or "")[:400],
+        "decision": {
+            "route": decision.get("route"),
+            "reason": decision.get("reason"),
+            "escalate_to": decision.get("escalate_to"),
+            "fallback": decision.get("fallback"),
+            "label": decision.get("label"),
+            "p": decision.get("p"),
+            "margin": decision.get("margin"),
+            "ms": decision.get("ms"),
+        },
         "next_action": next_a,
         "jev": jev,
+        "teacher": teacher,
         "disagree": bool(next_a.get("ok") and jev.get("ok")) and next_a.get("label") != jev.get("label"),
     }
     dest = log or (Path.home() / ".z0int" / "shadow" / "jev-fly.jsonl")
@@ -284,3 +459,5 @@ def live_shadow(prompt: str, *, log: Path | None = None) -> dict[str, Any]:
     with dest.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(row) + "\n")
     return row
+
+
