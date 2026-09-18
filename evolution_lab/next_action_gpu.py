@@ -90,11 +90,12 @@ def run_next_action_gpu(
     lr: float = 0.35,
     seed: int = 0,
     episodes: Path | None = None,
+    dim: int = 64,
 ) -> dict[str, Any]:
     os.environ.setdefault("XLA_PYTHON_CLIENT_MEM_FRACTION", "0.25")
     recipe = recipe or DataRecipe(source="next_action", n_train=2048)
     path = episodes or EPISODES
-    X, y = load_xy(path, gold_only=recipe.gold_only)
+    X, y = load_xy(path, gold_only=recipe.gold_only, dim=dim)
     n = len(y)
     cut = max(8, int(n * (1.0 - recipe.confirm_frac)))
     Xtr, ytr = X[:cut], y[:cut]
