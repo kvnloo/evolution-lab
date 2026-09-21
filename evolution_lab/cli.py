@@ -552,6 +552,65 @@ def cmd_tool_tournament(
     )
 
 
+def cmd_phase2(
+    *,
+    action: str,
+    observations: Path,
+    fixtures: Path | None,
+    out: Path,
+    sealed_size: int,
+    holdout_families: list[str],
+) -> None:
+    """Phase 2 preparation.  Compiles episodes and freezes splits; trains nothing."""
+    from .episode import (
+        build_split_plan,
+        compile_episodes,
+        label_census,
+        selective_teacher_candidates,
+        write_episodes,
+    )
+
+    out.mkdir(parents=True, exist_ok=True)
+    episodes = compile_episodes(observations, fixtures_path=fixtures)
+    write_episodes(episodes, out / "episodes.jsonl")
+    summary: dict[str, Any] = {
+        "schema": "qroute.phase2.plan.v1",
+        "observations": str(observations),
+        "out": str(out),
+        "n_episodes": len(episodes),
+        "label_census": label_census(episodes),
+        "trained": False,
+    }
+    if action in ("select", "plan"):
+        selection = selective_teacher_candidates(episodes)
+        (out / "teacher_selection.json").write_text(
+            json.dumps(selection, indent=2, sort_keys=True, default=str) + "\n",
+            encoding="utf-8",
+        )
+        summary["teacher_selection"] = {
+            "n_selected": selection["n_selected"],
+            "selection_rate": selection["selection_rate"],
+            "reason_counts": selection["reason_counts"],
+        }
+    if action in ("split", "plan"):
+        plan = build_split_plan(
+            episodes,
+            sealed_size=sealed_size,
+            holdout_families=holdout_families or None,
+        )
+        (out / "splits.json").write_text(
+            json.dumps(plan, indent=2, sort_keys=True, default=str) + "\n",
+            encoding="utf-8",
+        )
+        summary["splits"] = {
+            "bucket_counts": plan["bucket_counts"],
+            "split_digest": plan["split_digest"],
+            "ood_families": plan["ood"]["holdout_families"],
+            "sealed_size": len(plan["sealed"]["selected"]),
+        }
+    print(json.dumps(summary, indent=2, sort_keys=True))
+
+
 def cmd_q_route(
     *,
     action: str,
@@ -560,11 +619,12 @@ def cmd_q_route(
     sources: str | None,
     seed: int,
     default_out: Path,
+    observations: Path | None = None,
 ) -> None:
     """Q-Route: learned per-region routing with an earned-complexity gate."""
     from .q_route import run as qr
 
-    if action == "build":
+    if action in ("build", "analyze"):
         dest = Path(out) if out is not None else (Path(run) if run is not None else default_out)
     else:
         dest = Path(run) if run is not None else (Path(out) if out is not None else default_out)
@@ -582,6 +642,8 @@ def cmd_q_route(
         elif action == "report":
             path = qr.build_report(dest)
             summary = {"schema": qr.RUN_SCHEMA, "run_dir": str(dest), "report": str(path)}
+        elif action == "analyze":
+            summary = qr.build_analyze(dest, observations_path=observations)
         else:  # pragma: no cover - argparse constrains the choices
             raise RuntimeError(f"unknown q-route action: {action}")
     except RuntimeError as exc:
@@ -786,7 +848,10 @@ def main(argv: list[str] | None = None) -> int:
         parents=[parent],
         help="learned per-region routing over the mechanism ladder (earned complexity)",
     )
-    pqr.add_argument("action", choices=("build", "utility", "q", "gate", "distill", "report"))
+    pqr.add_argument(
+        "action",
+        choices=("build", "utility", "q", "gate", "distill", "report", "analyze"),
+    )
     pqr.add_argument(
         "--out",
         type=Path,
@@ -805,7 +870,31 @@ def main(argv: list[str] | None = None) -> int:
         default=None,
         help="override inputs as comma list of kind:path (composition|bounded|orchestration)",
     )
+    pqr.add_argument(
+        "--observations",
+        type=Path,
+        default=None,
+        help="densified Phase 1B observations.jsonl for analyze (section G)",
+    )
     pqr.add_argument("--seed", type=int, default=42)
+    p2 = sub.add_parser(
+        "phase2",
+        parents=[parent],
+        help="Phase 2 preparation: compile episodes and freeze splits (trains nothing)",
+    )
+    p2.add_argument(
+        "action",
+        choices=("compile", "select", "split", "plan"),
+        help="compile episodes | nominate teacher candidates | freeze splits | all three",
+    )
+    p2.add_argument("--observations", type=Path, required=True,
+                    help="Phase 1B observations.jsonl written by densify_measurements.py")
+    p2.add_argument("--fixtures", type=Path, default=None,
+                    help="fixture file joining state text onto episodes")
+    p2.add_argument("--out", type=Path, default=None,
+                    help="output directory (default: runs/phase2)")
+    p2.add_argument("--sealed-size", type=int, default=12)
+    p2.add_argument("--holdout-family", action="append", default=[])
     args = p.parse_args(argv)
     run_dir = args.run_dir
     if args.cmd == "seed":
@@ -850,6 +939,15 @@ def main(argv: list[str] | None = None) -> int:
             backend=getattr(args, "backend", "deterministic"),
             seed=getattr(args, "seed", 42),
         )
+    elif args.cmd == "phase2":
+        cmd_phase2(
+            action=args.action,
+            observations=args.observations,
+            fixtures=args.fixtures,
+            out=args.out or (root / "runs" / "phase2"),
+            sealed_size=args.sealed_size,
+            holdout_families=args.holdout_family,
+        )
     elif args.cmd == "q-route":
         cmd_q_route(
             action=args.action,
@@ -858,6 +956,7 @@ def main(argv: list[str] | None = None) -> int:
             sources=getattr(args, "sources", None),
             seed=getattr(args, "seed", 42),
             default_out=root / "runs" / "q_route",
+            observations=getattr(args, "observations", None),
         )
     elif args.cmd == "dagger-smoke":
         cmd_dagger_smoke(rounds=args.rounds)

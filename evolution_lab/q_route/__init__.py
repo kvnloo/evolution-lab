@@ -45,6 +45,16 @@ from .teacher import (
     resolve_sources,
     write_teacher_table,
 )
+from .analysis import (
+    ANALYSIS_SCHEMA,
+    CellEvidence,
+    analyse,
+    bucket_ceiling,
+    load_observations,
+    realised_utility_gap,
+    render_md as render_analysis_markdown,
+    write_analysis,
+)
 from .utility import (
     OUTCOME_LABELS,
     OUTCOME_VALUES,
@@ -58,6 +68,8 @@ from .utility import (
 )
 
 __all__ = [
+    "ANALYSIS_SCHEMA",
+    "CellEvidence",
     "DEFAULT_SOURCES",
     "FEATURE_NAMES",
     "GATE_REPORT_SCHEMA",
@@ -81,6 +93,8 @@ __all__ = [
     "TeacherRow",
     "TeacherTable",
     "UtilityConfig",
+    "analyse",
+    "bucket_ceiling",
     "build_teacher_table",
     "compile_regions",
     "downside_risk",
@@ -92,14 +106,18 @@ __all__ = [
     "gate_targets",
     "ladder_rank",
     "ladder_rung",
+    "load_observations",
     "load_teacher_table",
     "non_inferiority",
     "pareto_arms",
+    "realised_utility_gap",
+    "render_analysis_markdown",
     "render_gate_markdown",
     "resolve_sources",
     "ridge_fit",
     "tail_risk",
     "utility",
     "value_distribution",
+    "write_analysis",
     "write_teacher_table",
 ]

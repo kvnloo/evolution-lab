@@ -219,6 +219,58 @@ def build_distill(run_dir: Path | str, seed: int = 42) -> dict[str, Any]:
     }
 
 
+def build_analyze(
+    run_dir: Path | str,
+    *,
+    observations_path: Path | str | None = None,
+) -> dict[str, Any]:
+    """Section G: diagnose the router's representation limit from measurements.
+
+    Trains nothing.  It re-derives the feature-bucket ceiling, classifies every
+    collision, scores candidate missing features by ceiling gain, and reports
+    counterfactual realised utility of the *already fitted* router.
+    """
+    from .analysis import analyse, write_analysis
+    from .distill import RouterModel
+    from .qfunc import StateFeatures
+
+    dest = Path(run_dir)
+    table = require_teacher(dest)
+    utility_config = load_utility_config(dest)
+    gate_config = load_gate_config(dest)
+    qmodel: QModel | None
+    try:
+        qmodel = require_qmodel(dest)
+    except SystemExit:
+        qmodel = None
+    router: RouterModel | None
+    try:
+        router = require_router(dest)
+    except SystemExit:
+        router = None
+    features = StateFeatures.from_teacher_table(table)
+    report = analyse(
+        table,
+        observations_path=observations_path,
+        router=router,
+        router_features=features,
+        qmodel=qmodel,
+        gate_config=gate_config,
+        utility_config=utility_config,
+    )
+    path = write_analysis(report, dest)
+    return {
+        "schema": report["schema"],
+        "run_dir": str(dest),
+        "analysis": str(path),
+        "n_collisions": report["ceiling"]["n_collisions"],
+        "ceiling": report["ceiling"]["ceiling"],
+        "router_fidelity": report["ceiling"]["router_fidelity"],
+        "dominant_limitation": report["verdict"]["dominant_limitation"],
+        "best_candidate_feature": report["verdict"]["best_candidate_feature"],
+    }
+
+
 def build_report(run_dir: Path | str) -> Path:
     dest = Path(run_dir)
     table = require_teacher(dest)
