@@ -1,0 +1,35 @@
+{
+  "deterministic": true,
+  "families": {
+    "control_flow": 5,
+    "escalation": 2,
+    "failure_recovery": 4,
+    "model_selection": 4,
+    "planning": 3,
+    "safety_refusal": 4,
+    "schema_correctness": 3,
+    "tool_selection": 3
+  },
+  "file": "fixtures.jsonl",
+  "fixture_count": 28,
+  "holdout_task_families": [
+    "routing",
+    "safety"
+  ],
+  "schema": "z0int.tool_tournament.fixtures.v1",
+  "task_families": {
+    "coding": 10,
+    "ops": 5,
+    "research": 3,
+    "routing": 6,
+    "safety": 4
+  },
+  "work_item_count": 23,
+  "work_items_per_task_family": {
+    "coding": 5,
+    "ops": 5,
+    "research": 3,
+    "routing": 6,
+    "safety": 4
+  }
+}
