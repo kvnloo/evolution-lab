@@ -8,11 +8,17 @@ The object under optimization is **the frontier of measured systems**, not “ma
 
 Tinker SFT/RL and Cursor Cloud Agent fan-out are declared backends, not fake training runs.
 
-Contribution contract: [Verified OSS Loop](https://github.com/kvnloo/verified-oss-loop). Maintainer roadmap: [ROADMAP.md](ROADMAP.md). Workers claim `claimable` issues (P0 is [#2](https://github.com/kvnloo/evolution-lab/issues/2)); they never merge `main`. Rollout scheme `rolling`: day-pass PRs target `preview`; overnight PRs target `nightly`.
+Contribution contract: [Verified OSS Loop](https://github.com/kvnloo/verified-oss-loop). Maintainer roadmap: [ROADMAP.md](ROADMAP.md). Workers claim `claimable` issues (P0 is [#2](https://github.com/kvnloo/evolution-lab/issues/2)); they never merge `main`. **Promotion to `nightly` is currently paused:** GitHub reports no common ancestor between `main` and `nightly`; reconcile the branch lineage in [#21](https://github.com/kvnloo/evolution-lab/issues/21) before treating nightly as a promotable continuation of main.
 
 ## Goal
 
 > Continuously discover, verify, and explain computational systems that expand the achievable frontier between capability and resources.
+
+## JEV evaluation sequencing
+
+Evolution Lab is the empirical promotion owner, but it is **not** a gate to the first reversible JEV dogfood slice. The existing [hermes-jev-skills](https://github.com/kvnloo/hermes-jev-skills) plugin should first run on one bounded Hermes hot path, capture replayable receipts, and fail open to baseline Hermes behavior.
+
+After real dogfood traces exist, [#20](https://github.com/kvnloo/evolution-lab/issues/20) compares counters-only, JEV semantic readings, and the combination using grouped work-item/task-family holdouts. JEV is a reference observer, not the gold label. Promotion remains per question family and outcome-grounded.
 
 ## P0 task
 
