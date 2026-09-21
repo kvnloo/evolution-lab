@@ -31,6 +31,15 @@ from .fixtures import (
     assert_required_fixtures,
     load_fixtures,
 )
+from .score import (
+    TOURNAMENT_SCHEMA,
+    TournamentSplit,
+    make_tournament_split,
+    percentile,
+    percentile_triplet,
+    run_tournament,
+    write_run,
+)
 
 __all__ = [
     "COMPOSITIONS",
@@ -38,6 +47,7 @@ __all__ = [
     "HOLDOUT_TASK_FAMILIES",
     "REQUIRED_FIXTURE_IDS",
     "ROLES",
+    "TOURNAMENT_SCHEMA",
     "BackendChoice",
     "BackendRegistry",
     "Composition",
@@ -48,9 +58,15 @@ __all__ = [
     "LogisticBaselineBackend",
     "ScriptedBackend",
     "TournamentBackend",
+    "TournamentSplit",
     "assert_required_fixtures",
     "compile_fixture",
     "load_fixtures",
+    "make_tournament_split",
+    "percentile",
+    "percentile_triplet",
     "resolve_composition_names",
+    "run_tournament",
     "selected_compositions",
+    "write_run",
 ]
