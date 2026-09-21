@@ -552,6 +552,43 @@ def cmd_tool_tournament(
     )
 
 
+def cmd_q_route(
+    *,
+    action: str,
+    out: Path | None,
+    run: Path | None,
+    sources: str | None,
+    seed: int,
+    default_out: Path,
+) -> None:
+    """Q-Route: learned per-region routing with an earned-complexity gate."""
+    from .q_route import run as qr
+
+    if action == "build":
+        dest = Path(out) if out is not None else (Path(run) if run is not None else default_out)
+    else:
+        dest = Path(run) if run is not None else (Path(out) if out is not None else default_out)
+    try:
+        if action == "build":
+            summary = qr.build_run(dest, sources_value=sources)
+        elif action == "utility":
+            summary = qr.build_utility(dest)
+        elif action == "q":
+            summary = qr.build_q(dest)
+        elif action == "gate":
+            summary = qr.build_gate(dest)
+        elif action == "distill":
+            summary = qr.build_distill(dest, seed=seed)
+        elif action == "report":
+            path = qr.build_report(dest)
+            summary = {"schema": qr.RUN_SCHEMA, "run_dir": str(dest), "report": str(path)}
+        else:  # pragma: no cover - argparse constrains the choices
+            raise RuntimeError(f"unknown q-route action: {action}")
+    except RuntimeError as exc:
+        raise SystemExit(f"q-route: {exc}") from exc
+    print(json.dumps(summary, indent=2, sort_keys=True))
+
+
 def main(argv: list[str] | None = None) -> int:
     root = _root_from_here()
     parent = argparse.ArgumentParser(add_help=False)
@@ -744,6 +781,31 @@ def main(argv: list[str] | None = None) -> int:
         help="backend source; deterministic and scripted need no GPU/network",
     )
     ptt.add_argument("--seed", type=int, default=42)
+    pqr = sub.add_parser(
+        "q-route",
+        parents=[parent],
+        help="learned per-region routing over the mechanism ladder (earned complexity)",
+    )
+    pqr.add_argument("action", choices=("build", "utility", "q", "gate", "distill", "report"))
+    pqr.add_argument(
+        "--out",
+        type=Path,
+        default=None,
+        help="run directory for `build` (default: runs/q_route)",
+    )
+    pqr.add_argument(
+        "--run",
+        type=Path,
+        default=None,
+        help="run directory for the other stages (default: runs/q_route)",
+    )
+    pqr.add_argument(
+        "--sources",
+        type=str,
+        default=None,
+        help="override inputs as comma list of kind:path (composition|bounded|orchestration)",
+    )
+    pqr.add_argument("--seed", type=int, default=42)
     args = p.parse_args(argv)
     run_dir = args.run_dir
     if args.cmd == "seed":
@@ -787,6 +849,15 @@ def main(argv: list[str] | None = None) -> int:
             compositions=getattr(args, "compositions", None),
             backend=getattr(args, "backend", "deterministic"),
             seed=getattr(args, "seed", 42),
+        )
+    elif args.cmd == "q-route":
+        cmd_q_route(
+            action=args.action,
+            out=getattr(args, "out", None),
+            run=getattr(args, "run", None),
+            sources=getattr(args, "sources", None),
+            seed=getattr(args, "seed", 42),
+            default_out=root / "runs" / "q_route",
         )
     elif args.cmd == "dagger-smoke":
         cmd_dagger_smoke(rounds=args.rounds)
