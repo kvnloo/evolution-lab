@@ -554,22 +554,62 @@ def sealed_human_audited(
     episodes: Sequence[Episode],
     *,
     size: int = 12,
-    seed: int = 42,
+    max_task_fraction: float = 0.15,
 ) -> dict[str, Any]:
-    """Nominate a small sealed, human-audited set that is never trained on.
+    """Nominate a sealed, human-audited set that is never trained on.
 
-    Deterministic selection: one episode per task, tasks ordered by family then
-    id, so the set is reproducible and not hand-picked toward easy cases.  The
-    caller passes the pool it should be drawn from -- ``build_split_plan`` passes
-    the newest confirm slice.
+    The unit is the **task**, not the episode.  Sealing a single episode of a
+    task whose siblings stay in train would leak the task into training while
+    calling it audited, which defeats the point.  So the whole task is sealed.
+
+    ``size`` is the requested number of *episodes*; ``max_task_fraction`` caps how
+    many tasks the sealed set may consume.  With the Phase 1B corpus (28 tasks)
+    the cap binds long before ``size`` does, and the plan records the shortfall
+    rather than silently sealing a third of the corpus.
+
+    Deterministic selection: tasks ordered by family then id, so the set is
+    reproducible and not hand-picked toward easy cases.
     """
-    by_task: dict[str, Episode] = {}
-    for ep in sorted(episodes, key=lambda e: (e.task_family, e.task_id, e.episode_id)):
-        by_task.setdefault(ep.task_id, ep)
-    ordered = sorted(by_task.values(), key=lambda e: (e.task_family, e.task_id))
-    chosen = ordered[: max(0, size)]
+    by_task: dict[str, list[Episode]] = defaultdict(list)
+    for ep in episodes:
+        by_task[ep.task_id].append(ep)
+    ordered = sorted(
+        by_task, key=lambda t: (by_task[t][0].task_family, t)
+    )
+    n_tasks = len(ordered)
+    budget = max(1, int(math.floor(n_tasks * max_task_fraction))) if n_tasks else 0
+    chosen: list[str] = []
+    running = 0
+    for task in ordered:
+        if len(chosen) >= budget or running >= size:
+            break
+        chosen.append(task)
+        running += len(by_task[task])
+    if not chosen and ordered:
+        chosen.append(ordered[0])
+    selected = [ep for task in chosen for ep in by_task[task]]
     return {
-        "requested_size": size,
+        "requested_episodes": size,
+        "task_budget": budget,
+        "sealed_task_ids": sorted(chosen),
+        "selected_tasks": len(chosen),
+        "selected_episodes": len(selected),
+        "shortfall_reason": (
+            None if len(selected) >= size
+            else (
+                f"whole-task sealing at {n_tasks} tasks allows at most {budget} "
+                f"tasks; sealing more would take the training split below a "
+                f"usable size"
+            )
+        ),
+        "overshoot_reason": (
+            None if len(selected) <= size
+            else (
+                f"the smallest sealable unit is one task, and the first task "
+                f"carries {len(selected)} episodes; sealing a partial task would "
+                f"leak its siblings into training"
+            )
+        ),
         "selected": [
             {
                 "episode_id": ep.episode_id,
@@ -578,9 +618,8 @@ def sealed_human_audited(
                 "human_audited": False,
                 "note": "sealed: excluded from every training and search split",
             }
-            for ep in chosen
+            for ep in sorted(selected, key=lambda e: (e.task_family, e.task_id, e.episode_id))
         ],
-        "seed": seed,
     }
 
 
@@ -592,24 +631,24 @@ def build_split_plan(
 ) -> dict[str, Any]:
     """Assemble the frozen Phase 2 split plan (no training, no search).
 
-    The sealed set is drawn from the **confirm** slice (the newest tasks), not
-    from anywhere in the corpus: taking audit material out of the middle would
-    remove early training tasks for no reason, and the confirm slice is already
-    the part that is never searched over.
+    The sealed set is drawn from the whole corpus, stratified one episode per
+    task, and a sealed episode leaves whatever chronological bucket it would have
+    had.  Drawing only from the newest confirm slice was tried and does not work
+    at this corpus size: 28 tasks give roughly four confirm tasks, so a 12-episode
+    audit set cannot be filled without consuming the whole slice.
     """
     chronological = chronological_split(episodes)
     ood = family_ood_split(episodes, holdout_families=holdout_families)
-    confirm_ids = {a.episode_id for a in chronological if a.bucket == "confirm"}
-    confirm_pool = [e for e in episodes if e.episode_id in confirm_ids]
-    sealed = sealed_human_audited(confirm_pool or episodes, size=sealed_size)
+    sealed = sealed_human_audited(episodes, size=sealed_size)
     sealed_ids = {row["episode_id"] for row in sealed["selected"]}
+    sealed_task_ids = set(sealed["sealed_task_ids"])
     ood_families = set(ood["holdout_families"])
 
     final: list[dict[str, Any]] = []
     counts: dict[str, int] = defaultdict(int)
     for assignment in chronological:
         bucket = assignment.bucket
-        if assignment.episode_id in sealed_ids:
+        if assignment.task_id in sealed_task_ids:
             bucket = "sealed_human_audited"
         elif assignment.task_family in ood_families:
             bucket = "ood"

@@ -182,6 +182,16 @@ class SplitTests(unittest.TestCase):
         for task, buckets in seen.items():
             self.assertEqual(len(buckets), 1, f"{task} leaked across buckets: {buckets}")
 
+    def test_task_budget_binds_and_is_reported(self):
+        episodes = self._episodes(20)
+        plan = build_split_plan(episodes, sealed_size=12)
+        sealed = plan["sealed"]
+        # 15% of 20 tasks is 3, so the task budget binds before 12 episodes do.
+        self.assertLessEqual(sealed["selected_tasks"], 3)
+        self.assertEqual(len(sealed["selected"]), sealed["selected_episodes"])
+        if sealed["selected_episodes"] < 12:
+            self.assertIsNotNone(sealed["shortfall_reason"])
+
     def test_buckets_are_disjoint_and_complete(self):
         episodes = self._episodes()
         plan = build_split_plan(episodes, sealed_size=4)
@@ -202,11 +212,15 @@ class SplitTests(unittest.TestCase):
             ):
                 self.fail(f"{row['task_id']} in a held-out family stayed in {row['bucket']}")
 
-    def test_sealed_set_is_never_in_train(self):
+    def test_sealed_tasks_never_reach_a_training_bucket(self):
         plan = build_split_plan(self._episodes(), sealed_size=4)
+        sealed_tasks = set(plan["sealed"]["sealed_task_ids"])
+        self.assertTrue(sealed_tasks)
+        # Sealing is per task: every episode of a sealed task is sealed, so no
+        # sibling of an audited episode can leak into training.
         for row in plan["assignments"]:
-            if row["bucket"] == "sealed_human_audited":
-                self.assertEqual(row["chronological_bucket"], "confirm")
+            if row["task_id"] in sealed_tasks:
+                self.assertEqual(row["bucket"], "sealed_human_audited")
 
     def test_split_digest_is_stable(self):
         episodes = self._episodes()

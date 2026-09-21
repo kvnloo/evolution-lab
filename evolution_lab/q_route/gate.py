@@ -51,6 +51,13 @@ ARM_LADDER: dict[str, str] = {
     "SUB_compiler_hammer3b": "tiny_specialist",
     "SUB_compiler_hammer7b": "general_function_caller",
     "SUB_compiler_functiongemma": "tiny_specialist",
+    # Arm names introduced by the Phase 1B densification.  Adding a rung for a
+    # newly measured arm does not change the gate's logic or any threshold: it
+    # only tells the ladder where the arm sits.  Both spellings are present
+    # because the first densified run predates the alias.
+    "SUB_compiler_qwen9b": "general_fallback",
+    "compiler+qwen3.5_9b": "general_fallback",
+    "unfiltered+hammer2.1_3b": "tiny_specialist",
     # tournament/backend aliases
     "qwen4b_instead_of_9b": "general_function_caller",
     "hammer3b_specialist": "tiny_specialist",
