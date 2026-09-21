@@ -1,0 +1,216 @@
+{
+  "items": [
+    {
+      "constraints": {
+        "models": [],
+        "providers": [
+          "local"
+        ],
+        "requires_gpu": true,
+        "split": "train",
+        "task_families": [
+          "hermes_recovery"
+        ]
+      },
+      "created_by": "evolution-lab",
+      "estimate": {
+        "calls": 384,
+        "completion_tokens": 0,
+        "cost_usd": 0.0,
+        "gpu_ms": 12000,
+        "prompt_tokens": 0,
+        "tokens": 0
+      },
+      "evidence": "evolution_lab.splits.load_splits -> TaskData.train/.val; local gym, no provider quota.",
+      "item_id": "hermes-recovery-locked-train",
+      "priority": 0,
+      "provenance": "data/p0/manifest.json",
+      "schema": "flyforge.capacity_queue_item.v1",
+      "summary": "Teacher rollouts on the locked Hermes recovery train/validation arrays",
+      "work_class": "dsh_hermes"
+    },
+    {
+      "constraints": {
+        "models": [],
+        "providers": [
+          "groq",
+          "cerebras"
+        ],
+        "requires_gpu": false,
+        "split": "validation",
+        "task_families": [
+          "tool_selection",
+          "planning",
+          "control_flow",
+          "failure_recovery"
+        ]
+      },
+      "created_by": "evolution-lab",
+      "estimate": {
+        "calls": 96,
+        "completion_tokens": 6000,
+        "cost_usd": 0.0,
+        "gpu_ms": 0,
+        "prompt_tokens": 24000,
+        "tokens": 30000
+      },
+      "evidence": "Ladder rungs ARM_LADDER; cells measured into runs/q_route_p1b_densified/teacher.jsonl (run output, gitignored).",
+      "item_id": "qroute-counterfactual-densified-cells",
+      "priority": 1,
+      "provenance": "evolution_lab/q_route/gate.py",
+      "schema": "flyforge.capacity_queue_item.v1",
+      "summary": "Fill the missing (state, arm) cells of the Q-Route mechanism ladder for counterfactual rollouts",
+      "work_class": "qroute_counterfactual"
+    },
+    {
+      "constraints": {
+        "models": [],
+        "providers": [
+          "groq",
+          "cerebras"
+        ],
+        "requires_gpu": false,
+        "split": "dev",
+        "task_families": [
+          "coding",
+          "ops",
+          "research"
+        ]
+      },
+      "created_by": "evolution-lab",
+      "estimate": {
+        "calls": 46,
+        "completion_tokens": 4000,
+        "cost_usd": 0.0,
+        "gpu_ms": 0,
+        "prompt_tokens": 18000,
+        "tokens": 22000
+      },
+      "evidence": "Non-holdout task families only; holdout families routing/safety stay certification-only.",
+      "item_id": "tool-tournament-candidate-substitutions",
+      "priority": 2,
+      "provenance": "data/tool_tournament/v1/fixtures.jsonl",
+      "schema": "flyforge.capacity_queue_item.v1",
+      "summary": "Frozen tool-calling tournament eval of issue #23 substitution candidates on the dev fold",
+      "work_class": "router_eval"
+    },
+    {
+      "constraints": {
+        "models": [],
+        "providers": [
+          "groq",
+          "cerebras"
+        ],
+        "requires_gpu": false,
+        "split": "train",
+        "task_families": [
+          "hermes_recovery"
+        ]
+      },
+      "created_by": "evolution-lab",
+      "estimate": {
+        "calls": 128,
+        "completion_tokens": 12000,
+        "cost_usd": 0.0,
+        "gpu_ms": 0,
+        "prompt_tokens": 40000,
+        "tokens": 52000
+      },
+      "evidence": "Teacher trajectories + outcomes on the locked train split; never confirm/OOD.",
+      "item_id": "phase2-distillation-examples",
+      "priority": 3,
+      "provenance": "data/p0/train.npz",
+      "schema": "flyforge.capacity_queue_item.v1",
+      "summary": "Turn verified recovery trajectories into trajectory distillation examples",
+      "work_class": "distillation_example"
+    },
+    {
+      "constraints": {
+        "models": [],
+        "providers": [
+          "groq",
+          "cerebras"
+        ],
+        "requires_gpu": false,
+        "split": "disposable",
+        "task_families": []
+      },
+      "created_by": "evolution-lab",
+      "estimate": {
+        "calls": 64,
+        "completion_tokens": 16000,
+        "cost_usd": 0.0,
+        "gpu_ms": 0,
+        "prompt_tokens": 30000,
+        "tokens": 46000
+      },
+      "evidence": "Task source for generated curriculum; generated rows are disposable and never promoted as ground truth.",
+      "item_id": "agent0-failure-cluster-curriculum",
+      "priority": 4,
+      "provenance": "data/tool_tournament/v1/fixtures.jsonl",
+      "schema": "flyforge.capacity_queue_item.v1",
+      "summary": "Generate harder tool-aware tasks from tournament failure clusters (Agent0-style curriculum)",
+      "work_class": "agent0_curriculum"
+    },
+    {
+      "constraints": {
+        "models": [],
+        "providers": [
+          "groq",
+          "cerebras"
+        ],
+        "requires_gpu": false,
+        "split": "train",
+        "task_families": [
+          "jev_routing"
+        ]
+      },
+      "created_by": "evolution-lab",
+      "estimate": {
+        "calls": 80,
+        "completion_tokens": 8000,
+        "cost_usd": 0.0,
+        "gpu_ms": 0,
+        "prompt_tokens": 16000,
+        "tokens": 24000
+      },
+      "evidence": "Train split only; jev synthetic confirm/ood files are certification-only.",
+      "item_id": "jev-tiny-router-training-pairs",
+      "priority": 5,
+      "provenance": "data/jev/synthetic/train.jsonl",
+      "schema": "flyforge.capacity_queue_item.v1",
+      "summary": "Extend JEV / tiny-router training pairs from verified decision rows",
+      "work_class": "jev_tiny_router_data"
+    },
+    {
+      "constraints": {
+        "models": [],
+        "providers": [
+          "groq",
+          "cerebras"
+        ],
+        "requires_gpu": false,
+        "split": "disposable",
+        "task_families": []
+      },
+      "created_by": "evolution-lab",
+      "estimate": {
+        "calls": 48,
+        "completion_tokens": 8000,
+        "cost_usd": 0.0,
+        "gpu_ms": 0,
+        "prompt_tokens": 20000,
+        "tokens": 28000
+      },
+      "evidence": "The dirty Phase 1B alias change; replaces the estimates left by the densified run.",
+      "item_id": "qroute-ladder-alias-teacher-sweep",
+      "priority": 6,
+      "provenance": "evolution_lab/q_route/gate.py",
+      "schema": "flyforge.capacity_queue_item.v1",
+      "summary": "Measure the newly aliased gate ladder rungs (qwen9b, hammer2.1_3b) with a free-tier teacher sweep",
+      "work_class": "queued_research"
+    }
+  ],
+  "note": "Explicitly queued useful work. No item is generated to exhaust a quota.",
+  "schema": "flyforge.capacity_queue.v1"
+}

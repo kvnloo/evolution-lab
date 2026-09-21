@@ -651,6 +651,45 @@ def cmd_q_route(
     print(json.dumps(summary, indent=2, sort_keys=True))
 
 
+def cmd_capacity_queue(
+    *,
+    action: str,
+    queue: Path | None,
+    provider: str,
+    model: str | None,
+    max_tokens: int | None,
+    max_cost_usd: float | None,
+    include_protected: bool,
+) -> None:
+    """What useful compatible work is queued, and what would consume it?"""
+    from .capacity_queue import QUEUE_SCHEMA, load_queue, plan_capacity
+
+    items = load_queue(queue)
+    if action == "list":
+        ordered = sorted(items, key=lambda item: (item.priority, item.item_id))
+        print(
+            json.dumps(
+                {
+                    "schema": QUEUE_SCHEMA,
+                    "count": len(ordered),
+                    "items": [item.to_dict() for item in ordered],
+                },
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return
+    plan = plan_capacity(
+        items,
+        provider=provider,
+        model=model,
+        max_tokens=max_tokens,
+        max_cost_usd=max_cost_usd,
+        include_protected=include_protected,
+    )
+    print(json.dumps(plan, indent=2, sort_keys=True))
+
+
 def main(argv: list[str] | None = None) -> int:
     root = _root_from_here()
     parent = argparse.ArgumentParser(add_help=False)
@@ -895,6 +934,27 @@ def main(argv: list[str] | None = None) -> int:
                     help="output directory (default: runs/phase2)")
     p2.add_argument("--sealed-size", type=int, default=12)
     p2.add_argument("--holdout-family", action="append", default=[])
+    pcq = sub.add_parser(
+        "capacity-queue",
+        parents=[parent],
+        help="explicitly queued useful work for otherwise-expiring free capacity",
+    )
+    pcq.add_argument("action", choices=("list", "plan"))
+    pcq.add_argument(
+        "--queue",
+        type=Path,
+        default=None,
+        help="queue JSON (default: data/capacity_queue/queue.json)",
+    )
+    pcq.add_argument("--provider", type=str, default="local", help="capacity owner provider id")
+    pcq.add_argument("--model", type=str, default=None)
+    pcq.add_argument("--max-tokens", type=int, default=None)
+    pcq.add_argument("--max-cost-usd", type=float, default=None)
+    pcq.add_argument(
+        "--include-protected",
+        action="store_true",
+        help="include certification-only splits (confirm/OOD/held-out); off by default",
+    )
     args = p.parse_args(argv)
     run_dir = args.run_dir
     if args.cmd == "seed":
@@ -947,6 +1007,16 @@ def main(argv: list[str] | None = None) -> int:
             out=args.out or (root / "runs" / "phase2"),
             sealed_size=args.sealed_size,
             holdout_families=args.holdout_family,
+        )
+    elif args.cmd == "capacity-queue":
+        cmd_capacity_queue(
+            action=args.action,
+            queue=args.queue,
+            provider=args.provider,
+            model=args.model,
+            max_tokens=args.max_tokens,
+            max_cost_usd=args.max_cost_usd,
+            include_protected=args.include_protected,
         )
     elif args.cmd == "q-route":
         cmd_q_route(
