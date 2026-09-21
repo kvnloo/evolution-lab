@@ -511,6 +511,47 @@ def cmd_bundle_student(*, dagger_rounds: int) -> None:
     path = save_bundle(genome, student, metrics=metrics)
     print(json.dumps({"bundle": str(path), **metrics}, indent=2))
 
+
+def cmd_tool_tournament(
+    *,
+    fixtures: Path | None,
+    out: Path,
+    compositions: str | None,
+    backend: str,
+    seed: int,
+) -> None:
+    """Frozen grouped evaluation of system compositions (issue #23)."""
+    from .tool_tournament import run_tournament
+
+    names = None
+    if compositions:
+        names = [part for part in compositions.split(",") if part.strip()]
+    try:
+        run = run_tournament(
+            fixtures_path=fixtures,
+            composition_names=names,
+            backend=backend,
+            seed=seed,
+            out_dir=out,
+        )
+    except RuntimeError as exc:
+        raise SystemExit(f"tool-tournament: {exc}") from exc
+    winners = {role: w["composition"] for role, w in run.report["role_winners"].items()}
+    print(
+        json.dumps(
+            {
+                "schema": run.report["schema"],
+                "run_dir": str(run.run_dir),
+                "compositions": list(run.report["compositions"]),
+                "skipped_compositions": run.report["skipped_compositions"],
+                "role_winners": winners,
+                "pareto_frontier": [p["composition"] for p in run.pareto["frontier"]],
+            },
+            indent=2,
+        )
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     root = _root_from_here()
     parent = argparse.ArgumentParser(add_help=False)
@@ -687,6 +728,22 @@ def main(argv: list[str] | None = None) -> int:
         choices=("rule", "local_plasticity"),
         help="teacher_rule (default) or mushroom-body analogue",
     )
+    ptt = sub.add_parser(
+        "tool-tournament",
+        parents=[parent],
+        help="frozen grouped evaluation of tool-calling system compositions (issue #23)",
+    )
+    ptt.add_argument("--fixtures", type=Path, default=None, help="frozen fixtures.jsonl path")
+    ptt.add_argument("--out", type=Path, default=root / "runs" / "tool_tournament")
+    ptt.add_argument("--compositions", type=str, default=None, help="comma list of names or A–F aliases")
+    ptt.add_argument(
+        "--backend",
+        type=str,
+        default="deterministic",
+        choices=("deterministic", "scripted", "local-slm"),
+        help="backend source; deterministic and scripted need no GPU/network",
+    )
+    ptt.add_argument("--seed", type=int, default=42)
     args = p.parse_args(argv)
     run_dir = args.run_dir
     if args.cmd == "seed":
@@ -723,6 +780,14 @@ def main(argv: list[str] | None = None) -> int:
         raise SystemExit(recovery_main([args.json]))
     elif args.cmd == "advise":
         cmd_advise(args.json, args.family)
+    elif args.cmd == "tool-tournament":
+        cmd_tool_tournament(
+            fixtures=getattr(args, "fixtures", None),
+            out=args.out,
+            compositions=getattr(args, "compositions", None),
+            backend=getattr(args, "backend", "deterministic"),
+            seed=getattr(args, "seed", 42),
+        )
     elif args.cmd == "dagger-smoke":
         cmd_dagger_smoke(rounds=args.rounds)
     elif args.cmd == "bundle-student":
