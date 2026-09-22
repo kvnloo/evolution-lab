@@ -1,0 +1,83 @@
+{
+ "schema": "z0evals.shadow-real-traffic.v1",
+ "evidence_class": "exploratory_beta",
+ "promotion_eligible": false,
+ "dataset": "/home/kvn/.z0int/episodes/next_action.jsonl",
+ "dataset_kind": "live Hermes next-action log",
+ "n_gold_rows": 4921,
+ "split": "chronological",
+ "n_train": 3444,
+ "n_confirm": 1477,
+ "families": {
+  "READ_SEARCH": 759,
+  "EDIT": 524,
+  "EXECUTE": 0,
+  "WEB": 0,
+  "DELEGATE": 0,
+  "VERIFY": 0,
+  "RESPOND": 0,
+  "ABSTAIN": 194
+ },
+ "results": {
+  "majority": 0.5138794854434665,
+  "ridge": 0.6425186188219364,
+  "mushroom_champion": 0.14285714285714285,
+  "nanojev": {
+   "confirm_acc": 0.2119,
+   "n": 1477,
+   "unparsed": 0,
+   "latency_p50_ms": 50.1
+  }
+ },
+ "nanojev_coverage": [
+  {
+   "threshold": 0.3,
+   "covered": 305,
+   "coverage": 0.2065,
+   "success_given_covered": 0.1967,
+   "escalated": 1172
+  },
+  {
+   "threshold": 0.4,
+   "covered": 175,
+   "coverage": 0.1185,
+   "success_given_covered": 0.1657,
+   "escalated": 1302
+  },
+  {
+   "threshold": 0.5,
+   "covered": 80,
+   "coverage": 0.0542,
+   "success_given_covered": 0.1375,
+   "escalated": 1397
+  },
+  {
+   "threshold": 0.6,
+   "covered": 17,
+   "coverage": 0.0115,
+   "success_given_covered": 0.2353,
+   "escalated": 1460
+  },
+  {
+   "threshold": 0.7,
+   "covered": 2,
+   "coverage": 0.0014,
+   "success_given_covered": 0.0,
+   "escalated": 1475
+  },
+  {
+   "threshold": 0.8,
+   "covered": 0,
+   "coverage": 0.0,
+   "success_given_covered": null,
+   "escalated": 1477
+  },
+  {
+   "threshold": 0.9,
+   "covered": 0,
+   "coverage": 0.0,
+   "success_given_covered": null,
+   "escalated": 1477
+  }
+ ]
+}
