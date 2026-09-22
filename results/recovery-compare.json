@@ -1,0 +1,52 @@
+{
+ "schema": "z0evals.recovery-backend-compare.v1",
+ "evidence_class": "exploratory_beta",
+ "promotion_eligible": false,
+ "task": "hermes_recovery",
+ "splits": "data/p0",
+ "manifest_seed": 20260912,
+ "actions": [
+  "retry",
+  "restart_sandbox",
+  "escalate",
+  "noop",
+  "page_human"
+ ],
+ "metric": "per-step action accuracy over all 8 steps",
+ "metric_caveat": "Per-step accuracy is a proxy for the P0 closed-loop reward, not the same number. The P0 control table is quoted separately and must not be merged with these values.",
+ "mushroom": {
+  "bundle": "data/p0/recovery_student.npz",
+  "bundle_version": "locked_per_step_v2",
+  "genome_id": "local-plasticity-000",
+  "encoder": "flatten_last_and_maxpool_hermes_history_not_compound_eye",
+  "hidden": 128,
+  "history": 8,
+  "k_winners": 13,
+  "n_params": 640,
+  "pn_features_dim": 151,
+  "p0_closed_loop_metric": 1.0
+ },
+ "results": {
+  "rule": {
+   "confirm": 0.9766,
+   "ood": 1.0
+  },
+  "mushroom": {
+   "confirm": 0.8385,
+   "ood": 1.0
+  },
+  "majority": {
+   "confirm": 0.3177,
+   "ood": 1.0
+  }
+ },
+ "p0_control_table_crossref": {
+  "teacher-rule": 1.0,
+  "mushroom-body-g1-8447": 1.0,
+  "mlp": 1.0,
+  "gru": 0.958,
+  "rewired-reservoir": 1.0,
+  "direct-input": 0.625
+ },
+ "not_measured": "NanoJev and Hammer3B are not in this table: they consume a typed state, not an 8x15 Hermes frame tensor, so including them needs a frame->state rendering that does not exist yet. Rendering it would be a new encoding, and comparing a fresh encoding against a policy fitted on the original features would not be a like-for-like comparison."
+}
