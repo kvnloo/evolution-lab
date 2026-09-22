@@ -560,6 +560,7 @@ def cmd_phase2(
     out: Path,
     sealed_size: int,
     holdout_families: list[str],
+    arms: list[str] | None = None,
 ) -> None:
     """Phase 2 preparation.  Compiles episodes and freezes splits; trains nothing."""
     from .episode import (
@@ -571,13 +572,14 @@ def cmd_phase2(
     )
 
     out.mkdir(parents=True, exist_ok=True)
-    episodes = compile_episodes(observations, fixtures_path=fixtures)
+    episodes = compile_episodes(observations, fixtures_path=fixtures, arms=arms)
     write_episodes(episodes, out / "episodes.jsonl")
     summary: dict[str, Any] = {
         "schema": "qroute.phase2.plan.v1",
         "observations": str(observations),
         "out": str(out),
         "n_episodes": len(episodes),
+        "arms": sorted(arms) if arms else None,
         "label_census": label_census(episodes),
         "trained": False,
     }
@@ -934,6 +936,8 @@ def main(argv: list[str] | None = None) -> int:
                     help="output directory (default: runs/phase2)")
     p2.add_argument("--sealed-size", type=int, default=12)
     p2.add_argument("--holdout-family", action="append", default=[])
+    p2.add_argument("--arm", action="append", default=[],
+                    help="restrict the corpus to this arm (repeatable); omit for every receipt")
     pcq = sub.add_parser(
         "capacity-queue",
         parents=[parent],
@@ -1007,6 +1011,7 @@ def main(argv: list[str] | None = None) -> int:
             out=args.out or (root / "runs" / "phase2"),
             sealed_size=args.sealed_size,
             holdout_families=args.holdout_family,
+            arms=args.arm or None,
         )
     elif args.cmd == "capacity-queue":
         cmd_capacity_queue(

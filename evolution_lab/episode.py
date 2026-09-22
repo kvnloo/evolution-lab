@@ -324,7 +324,17 @@ def compile_episodes(
     *,
     fixtures_path: Path | str | None = None,
     family_map: Mapping[str, str] | None = None,
+    arms: Sequence[str] | None = None,
 ) -> list[Episode]:
+    """Compile observation receipts into episodes.
+
+    ``arms`` restricts the corpus to an explicit arm set. The Phase 2 slice is
+    defined over five compiler-first arms (28 states x 5 arms x 3 reps = 420
+    gold episodes); compiling every receipt in the file would silently include
+    the unfiltered controls and the cold probe, which are different experiments
+    and must not enter the same corpus.
+    """
+    wanted = set(arms) if arms else None
     fixtures = _fixture_text_index(fixtures_path)
     episodes: list[Episode] = []
     path = Path(observations_path)
@@ -336,6 +346,8 @@ def compile_episodes(
             try:
                 row = json.loads(line)
             except json.JSONDecodeError:
+                continue
+            if wanted is not None and str(row.get("arm")) not in wanted:
                 continue
             episodes.append(
                 compile_episode(
