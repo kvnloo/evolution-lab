@@ -78,7 +78,13 @@ def main() -> int:
     manifest = {
         "schema": "evolution-lab.phase2-corpus.v1",
         "run_id": a.run,
-        "evidence_class": "corpus",
+        # A corpus is a dataset, not a claim about a capability, so it has no
+        # evidence class. `evidence_class: corpus` was a mislabel: no CONFIRM or
+        # OOD class exists for it, and a consumer that ranks classes would have
+        # been asked to rank a dataset. `export_phase2_corpus.py` wrote the old
+        # field until 2026-09-22; the sealed manifest for p1b-20260921T1430Z
+        # keeps it, because a frozen run is not rewritten to match a later idea.
+        "artifact_kind": "corpus",
         "promotion_eligible": False,
         "trained": False,
         "trained_note": (
