@@ -98,8 +98,8 @@ def ridge_acc(Xtr, ytr, Xte, yte) -> float:
 CHAMPION = ROOT / "runs" / "gpu-evolve" / "next_action_champion.npz"
 
 
-def mushroom_predict(X: np.ndarray, bundle: Path) -> np.ndarray:
-    """Champion local_plasticity readout: relu(X @ W_pn_kc) -> k-winner -> argmax."""
+def mushroom_logits(X: np.ndarray, bundle: Path) -> np.ndarray:
+    """Champion local_plasticity readout: relu(X @ W_pn_kc) -> k-winner -> MBON logits."""
     b = np.load(bundle, allow_pickle=True)
     drive = np.maximum(X @ b["W_pn_kc"], 0.0)
     k = int(np.asarray(b["k_winners"]).reshape(-1)[0])
@@ -107,7 +107,23 @@ def mushroom_predict(X: np.ndarray, bundle: Path) -> np.ndarray:
     idx = np.argpartition(drive, -k, axis=1)[:, -k:]
     mask = np.zeros_like(drive)
     np.put_along_axis(mask, idx, 1.0, axis=1)
-    return (drive * mask @ b["W_kc_mbon"]).argmax(axis=1)
+    return drive * mask @ b["W_kc_mbon"]
+
+
+def mushroom_predict(X: np.ndarray, bundle: Path) -> np.ndarray:
+    return mushroom_logits(X, bundle).argmax(axis=1)
+
+
+def margin_confidence(logits: np.ndarray) -> np.ndarray:
+    """Softmax top-1 probability from the raw logits.
+
+    The bundle has no calibrated head, so this is a *derived* confidence: softmax over
+    the MBON readout. It is a monotone function of the logit margin and is good enough
+    to sweep coverage, but it is not a calibrated probability and the artifact says so.
+    """
+    z = logits - logits.max(axis=1, keepdims=True)
+    e = np.exp(z)
+    return (e / e.sum(axis=1, keepdims=True)).max(axis=1)
 
 
 def coverage_stats(pred: np.ndarray, y: np.ndarray, conf: np.ndarray, thrs) -> list[dict]:
@@ -141,8 +157,18 @@ def main() -> int:
 
     counts = np.bincount(yte, minlength=len(FAMILIES))
     majority = float(counts.max() / len(yte))
-    ridge = ridge_acc(Xtr, ytr, Xte, yte)
-    champ = float((mushroom_predict(Xte, CHAMPION) == yte).mean()) if CHAMPION.is_file() else None
+
+    k = int(max(ytr.max(), yte.max())) + 1
+    Y = np.eye(k, dtype=np.float64)[ytr]
+    W = np.linalg.pinv(Xtr.T @ Xtr + 1.0 * np.eye(Xtr.shape[1])) @ Xtr.T @ Y
+    ridge_logits = Xte @ W
+    ridge_pred = ridge_logits.argmax(axis=1)
+    ridge = float((ridge_pred == yte).mean())
+
+    champ = None
+    if CHAMPION.is_file():
+        champ_logits = mushroom_logits(Xte, CHAMPION)
+        champ = float((champ_logits.argmax(axis=1) == yte).mean())
 
     print(f"dataset    {path}")
     print(f"gold rows  {n}")
@@ -170,8 +196,36 @@ def main() -> int:
     }
     if champ is not None:
         out["results"]["mushroom_champion"] = champ
+    out["confidence_note"] = (
+        "Mushroom confidence is derived as softmax over the MBON logits. The bundle has "
+        "no calibrated head, so this is not a calibrated probability; it is monotone in "
+        "the logit margin and is adequate to sweep coverage."
+    )
+    out["majority_floor"] = majority
 
-    thrs = (0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
+    # An 8-way softmax rarely exceeds 0.4, so the usual 0.5+ thresholds put every row
+    # below the bar and the curve came back empty. Sweep where the mass actually is.
+    thrs = (0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.5, 0.6)
+
+    # Item 2's risk/coverage sweep, run on the bounded-choice mushroom with a
+    # *derived* (softmax) confidence since the bundle has no calibrated head.
+    print()
+    print("  risk/coverage sweep (confidence derived from logits; not calibrated)")
+    print(f"  {'policy':12} {'thr':>5} {'coverage':>9} {'success':>8} {'vs majority':>12}")
+    sweeps: dict[str, list[dict]] = {}
+    for name, lg, pr in (("ridge", ridge_logits, ridge_pred),
+                         ("mushroom", champ_logits if champ is not None else None,
+                          None)):
+        if lg is None:
+            continue
+        conf = margin_confidence(lg)
+        pr = pr if pr is not None else lg.argmax(axis=1)
+        sweeps[name] = coverage_stats(pr, yte, conf, thrs)
+        for row in sweeps[name]:
+            d = (row["success_given_covered"] or 0) - majority
+            print(f"  {name:12} {row['threshold']:>5} {row['coverage']:>9.4f} "
+                  f"{str(row['success_given_covered']):>8} {d:>+12.4f}")
+    out_sweeps = sweeps
     for name in a.backend or []:
         if name == "nanojev":
             from z0int.backends.base import request_from_mapping
@@ -218,6 +272,8 @@ def main() -> int:
             out["nanojev_coverage"] = coverage_stats(
                 preds, yte[: len(preds)], np.asarray(confs), thrs
             )
+
+    out["coverage_sweeps"] = out_sweeps
 
     if a.out:
         Path(a.out).parent.mkdir(parents=True, exist_ok=True)
