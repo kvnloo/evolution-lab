@@ -1,0 +1,37 @@
+{
+ "schema": "z0evals.recovery-llm-compare.v1",
+ "evidence_class": "exploratory_beta",
+ "promotion_eligible": false,
+ "task": "hermes_recovery",
+ "encoding_caveat": "NanoJev and Hammer3B receive a text rendering of the frame tensor introduced by this script, not the 8x15 encoding the mushroom was fitted on. Values are quantised to 0-9 because NanoJev's encoder is capped at 512 tokens and refuses to truncate. Not a controlled bake-off; do not merge with recovery-compare.json.",
+ "backends": {
+  "nanojev": {
+   "confirm": {
+    "n": 48,
+    "accuracy": 0.0,
+    "unparsed": 0,
+    "latency_p50_ms": 57.9
+   },
+   "ood": {
+    "n": 32,
+    "accuracy": 0.0,
+    "unparsed": 0,
+    "latency_p50_ms": 58.4
+   }
+  },
+  "hammer2.1_3b": {
+   "confirm": {
+    "n": 48,
+    "accuracy": 0.2812,
+    "unparsed": 0,
+    "latency_p50_ms": 46.7
+   },
+   "ood": {
+    "n": 32,
+    "accuracy": 0.0,
+    "unparsed": 0,
+    "latency_p50_ms": 40.6
+   }
+  }
+ }
+}
