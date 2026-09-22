@@ -1,0 +1,228 @@
+{
+  "n_episodes": 420,
+  "n_selected": 24,
+  "reason_counts": {
+    "ambiguity": 15,
+    "disagreement": 9
+  },
+  "schema": "qroute.teacher_selection.v1",
+  "selected": [
+    {
+      "arm": "compiler+hammer2.1_3b",
+      "episode_id": "slm_uncertain:compiler+hammer2.1_3b:0:p1b-2d8c9c4073b8",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+functiongemma_270m",
+      "episode_id": "slm_uncertain:compiler+functiongemma_270m:0:p1b-52835b2e2934",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+qwen3.5_4b",
+      "episode_id": "slm_uncertain:compiler+qwen3.5_4b:0:p1b-2178435d491f",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+qwen3.5_9b",
+      "episode_id": "slm_uncertain:compiler+qwen3.5_9b:0:p1b-f0305b1c9bfa",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+nemotron_orchestrator_8b",
+      "episode_id": "required_argument_missing:compiler+nemotron_orchestrator_8b:0:p1b-b52f37fe8d39",
+      "n_in_cell": 3,
+      "reasons": [
+        "disagreement"
+      ],
+      "task_id": "required_argument_missing"
+    },
+    {
+      "arm": "compiler+nemotron_orchestrator_8b",
+      "episode_id": "tool_times_out:compiler+nemotron_orchestrator_8b:0:p1b-ef94f2bebc45",
+      "n_in_cell": 3,
+      "reasons": [
+        "disagreement"
+      ],
+      "task_id": "tool_times_out"
+    },
+    {
+      "arm": "compiler+nemotron_orchestrator_8b",
+      "episode_id": "slm_uncertain:compiler+nemotron_orchestrator_8b:0:p1b-362860142de7",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+nemotron_orchestrator_8b",
+      "episode_id": "retry_action:compiler+nemotron_orchestrator_8b:0:p1b-58c1180534c1",
+      "n_in_cell": 3,
+      "reasons": [
+        "disagreement"
+      ],
+      "task_id": "retry_action"
+    },
+    {
+      "arm": "compiler+hammer2.1_3b",
+      "episode_id": "slm_uncertain:compiler+hammer2.1_3b:1:p1b-dcc59eeacf8c",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+hammer2.1_3b",
+      "episode_id": "slm_uncertain:compiler+hammer2.1_3b:2:p1b-f133beeb529b",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+functiongemma_270m",
+      "episode_id": "slm_uncertain:compiler+functiongemma_270m:1:p1b-a81148bb242f",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+functiongemma_270m",
+      "episode_id": "slm_uncertain:compiler+functiongemma_270m:2:p1b-c159b5bda8a0",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+qwen3.5_4b",
+      "episode_id": "slm_uncertain:compiler+qwen3.5_4b:1:p1b-61231ce355f0",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+qwen3.5_4b",
+      "episode_id": "slm_uncertain:compiler+qwen3.5_4b:2:p1b-6a3b77ecd535",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+qwen3.5_9b",
+      "episode_id": "slm_uncertain:compiler+qwen3.5_9b:1:p1b-0ebb3536be8a",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+qwen3.5_9b",
+      "episode_id": "slm_uncertain:compiler+qwen3.5_9b:2:p1b-ed1db307da4a",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+nemotron_orchestrator_8b",
+      "episode_id": "required_argument_missing:compiler+nemotron_orchestrator_8b:1:p1b-ab116b4472c6",
+      "n_in_cell": 3,
+      "reasons": [
+        "disagreement"
+      ],
+      "task_id": "required_argument_missing"
+    },
+    {
+      "arm": "compiler+nemotron_orchestrator_8b",
+      "episode_id": "tool_times_out:compiler+nemotron_orchestrator_8b:1:p1b-9eb3f599a540",
+      "n_in_cell": 3,
+      "reasons": [
+        "disagreement"
+      ],
+      "task_id": "tool_times_out"
+    },
+    {
+      "arm": "compiler+nemotron_orchestrator_8b",
+      "episode_id": "slm_uncertain:compiler+nemotron_orchestrator_8b:1:p1b-9a4d06584a18",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+nemotron_orchestrator_8b",
+      "episode_id": "retry_action:compiler+nemotron_orchestrator_8b:1:p1b-0e572b6db74a",
+      "n_in_cell": 3,
+      "reasons": [
+        "disagreement"
+      ],
+      "task_id": "retry_action"
+    },
+    {
+      "arm": "compiler+nemotron_orchestrator_8b",
+      "episode_id": "required_argument_missing:compiler+nemotron_orchestrator_8b:2:p1b-b2fd3a30663e",
+      "n_in_cell": 3,
+      "reasons": [
+        "disagreement"
+      ],
+      "task_id": "required_argument_missing"
+    },
+    {
+      "arm": "compiler+nemotron_orchestrator_8b",
+      "episode_id": "tool_times_out:compiler+nemotron_orchestrator_8b:2:p1b-4aab3fa549dd",
+      "n_in_cell": 3,
+      "reasons": [
+        "disagreement"
+      ],
+      "task_id": "tool_times_out"
+    },
+    {
+      "arm": "compiler+nemotron_orchestrator_8b",
+      "episode_id": "slm_uncertain:compiler+nemotron_orchestrator_8b:2:p1b-226ff6bbb2af",
+      "n_in_cell": 3,
+      "reasons": [
+        "ambiguity"
+      ],
+      "task_id": "slm_uncertain"
+    },
+    {
+      "arm": "compiler+nemotron_orchestrator_8b",
+      "episode_id": "retry_action:compiler+nemotron_orchestrator_8b:2:p1b-6f553fbcc322",
+      "n_in_cell": 3,
+      "reasons": [
+        "disagreement"
+      ],
+      "task_id": "retry_action"
+    }
+  ],
+  "selection_rate": 0.05714285714285714
+}

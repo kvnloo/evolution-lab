@@ -1,0 +1,81 @@
+{
+  "arms": {
+    "compiler+functiongemma_270m": 84,
+    "compiler+hammer2.1_3b": 84,
+    "compiler+nemotron_orchestrator_8b": 84,
+    "compiler+qwen3.5_4b": 84,
+    "compiler+qwen3.5_9b": 84
+  },
+  "bucket_counts": {
+    "confirm": 75,
+    "ood": 90,
+    "sealed_human_audited": 15,
+    "train": 195,
+    "validation": 45
+  },
+  "budget_units_present_in_episodes": 420,
+  "episodes": 420,
+  "evidence_class": "corpus",
+  "families": {
+    "abstention": 30,
+    "control_flow": 75,
+    "dependencies": 30,
+    "parallelism": 15,
+    "recovery": 60,
+    "routing": 45,
+    "schema": 45,
+    "security": 60,
+    "tool_selection": 30,
+    "uncertainty": 30
+  },
+  "frozen_at": "2026-09-22T00:47:07.415875Z",
+  "label_sources": {
+    "gold": 420
+  },
+  "n_arms": 5,
+  "new_feature": "budget_units",
+  "ood_families": [
+    "abstention",
+    "control_flow",
+    "dependencies",
+    "parallelism",
+    "recovery",
+    "routing",
+    "schema",
+    "security",
+    "tool_selection",
+    "uncertainty"
+  ],
+  "promotion_eligible": false,
+  "proportions": {
+    "confirm": 0.15,
+    "train": 0.7,
+    "validation": 0.15
+  },
+  "provenance": {
+    "compiler_revision": "z0intelligence@3430a5afd06e+aodl@1fa80da2b9d3",
+    "external_inference": [
+      false
+    ],
+    "fixture_revision": "eeae4daa9f6184adfd6ad264158e679bca02b77d3b8309e6d59d4b404625d1df",
+    "source": "z0intelligence Phase 1B observations p1b-20260921T1430Z"
+  },
+  "run_id": "p1b-20260921T1430Z",
+  "schema": "evolution-lab.phase2-corpus.v1",
+  "sealed": {
+    "overshoot_reason": "the smallest sealable unit is one task, and the first task carries 15 episodes; sealing a partial task would leak its siblings into training",
+    "requested_episodes": 12,
+    "task_ids": [
+      "no_relevant_tool"
+    ]
+  },
+  "sha256": {
+    "episodes.jsonl": "e5ac110980a9040a78831e0565f53cece9f0fee3161398812cd94489bda61a2d",
+    "splits.json": "1e7e92392e5a0f7db2890c6b956e9bb5ea7b5215e70cd2a7a470cb1469998d20",
+    "teacher_selection.json": "957e2fcd55d11baf7f221cd514ec9aa6db4abfa7079055e55e9fae4b4dc73804"
+  },
+  "split_digest": "c9ef295816bba61b",
+  "tasks": 28,
+  "trained": false,
+  "trained_note": "This block writes and seals the corpus and stops. No model was trained on it, which is deliberate: the splits must be frozen before anything is fitted."
+}

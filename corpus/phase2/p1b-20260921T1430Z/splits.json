@@ -1,0 +1,3627 @@
+{
+  "assignments": [
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+hammer2.1_3b:0:p1b-2e7a43ac619c",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:25:33.349925Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+functiongemma_270m:0:p1b-0043df265bec",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:26:37.166095Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+qwen3.5_4b:0:p1b-33ddae794c65",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:26:53.958593Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+qwen3.5_9b:0:p1b-8a412a1f9e75",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:28:20.453130Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+nemotron_orchestrator_8b:0:p1b-1522e515c101",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:31:05.674657Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+hammer2.1_3b:1:p1b-e00ee22e97ea",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:37:07.115681Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+hammer2.1_3b:2:p1b-7ede930c43e2",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:37:13.673928Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+functiongemma_270m:1:p1b-9de452b65e25",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:38:03.882534Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+functiongemma_270m:2:p1b-26e6240db376",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:38:06.238078Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+qwen3.5_4b:1:p1b-727e4a234de3",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:38:24.672800Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+qwen3.5_4b:2:p1b-e7a7df1cc3f5",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:39:26.454456Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+qwen3.5_9b:1:p1b-10351b041659",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:40:50.791782Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+qwen3.5_9b:2:p1b-7d532db7bcf6",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:43:20.541042Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+nemotron_orchestrator_8b:1:p1b-a51deb0e9943",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:46:13.230969Z"
+    },
+    {
+      "bucket": "sealed_human_audited",
+      "chronological_bucket": "train",
+      "episode_id": "no_relevant_tool:compiler+nemotron_orchestrator_8b:2:p1b-13f3b5a985af",
+      "task_family": "abstention",
+      "task_id": "no_relevant_tool",
+      "timestamp": "2026-09-21T19:47:21.208044Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+hammer2.1_3b:0:p1b-77ff4a79674d",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:25:33.534901Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+functiongemma_270m:0:p1b-3a0238d9b7a9",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:26:38.700938Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+qwen3.5_4b:0:p1b-4fb0ba35285f",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:27:49.086443Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+qwen3.5_9b:0:p1b-11e62bada71f",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:30:37.071821Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+nemotron_orchestrator_8b:0:p1b-aa0e154c56ff",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:32:02.987866Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+hammer2.1_3b:1:p1b-3a7c14e678ec",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:37:12.802053Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+hammer2.1_3b:2:p1b-0b0ff11f0552",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:37:18.903049Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+functiongemma_270m:1:p1b-546fdb4443c1",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:38:05.936793Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+functiongemma_270m:2:p1b-445b2ab627c2",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:38:08.261693Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+qwen3.5_4b:1:p1b-7a68b461698e",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:39:18.989604Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+qwen3.5_4b:2:p1b-f1c63c092957",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:40:20.406730Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+qwen3.5_9b:1:p1b-ba2640c6262a",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:43:06.920687Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+qwen3.5_9b:2:p1b-d93ef6abea98",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:45:44.642938Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+nemotron_orchestrator_8b:1:p1b-c7a6d1883e37",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:47:11.343597Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "destructive_action:compiler+nemotron_orchestrator_8b:2:p1b-4297bc1b9712",
+      "task_family": "security",
+      "task_id": "destructive_action",
+      "timestamp": "2026-09-21T19:48:18.431841Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+hammer2.1_3b:0:p1b-b61235c766c6",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:26:04.052846Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+functiongemma_270m:0:p1b-4471786fcce3",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:26:37.066000Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+qwen3.5_4b:0:p1b-890bcf34cb16",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:26:50.558457Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+qwen3.5_9b:0:p1b-0cd6c8fe1ed5",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:28:13.025906Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+nemotron_orchestrator_8b:0:p1b-7781166ac616",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:31:01.137101Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+hammer2.1_3b:1:p1b-84dfe5886f5d",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:37:06.719812Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+hammer2.1_3b:2:p1b-e612a1fbdd9f",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:37:13.231294Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+functiongemma_270m:1:p1b-f57d86f084e8",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:38:03.732463Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+functiongemma_270m:2:p1b-8942361f8d78",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:38:06.095702Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+qwen3.5_4b:1:p1b-c6bedf0e68d9",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:38:21.279243Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+qwen3.5_4b:2:p1b-4aaf11d76c18",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:39:23.052736Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+qwen3.5_9b:1:p1b-763a44266cb3",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:40:43.458538Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+qwen3.5_9b:2:p1b-8ddbcf19be37",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:43:14.155139Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+nemotron_orchestrator_8b:1:p1b-c933a4cba197",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:46:08.646998Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "one_obvious_tool:compiler+nemotron_orchestrator_8b:2:p1b-d8778aff98db",
+      "task_family": "tool_selection",
+      "task_id": "one_obvious_tool",
+      "timestamp": "2026-09-21T19:47:16.708794Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+hammer2.1_3b:0:p1b-d03a684504b9",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:26:04.242373Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+functiongemma_270m:0:p1b-ddec584dc157",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:26:37.117771Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+qwen3.5_4b:0:p1b-5ce9748de016",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:26:52.341898Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+qwen3.5_9b:0:p1b-4080d1b02d40",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:28:15.799158Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+nemotron_orchestrator_8b:0:p1b-53ef222e9695",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:31:03.919198Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+hammer2.1_3b:1:p1b-d10a0604ddb2",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:37:06.919038Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+hammer2.1_3b:2:p1b-a6e05a78856d",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:37:13.439764Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+functiongemma_270m:1:p1b-54d865ffd0d9",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:38:03.816131Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+functiongemma_270m:2:p1b-8b21e724ae60",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:38:06.168689Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+qwen3.5_4b:1:p1b-bcd5c721485a",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:38:23.037890Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+qwen3.5_4b:2:p1b-2685c2706e85",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:39:24.807543Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+qwen3.5_9b:1:p1b-dc48f6282072",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:40:46.231660Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+qwen3.5_9b:2:p1b-2921bd22add5",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:43:16.858732Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+nemotron_orchestrator_8b:1:p1b-f3ef4eee9ce3",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:46:11.453679Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "two_similar_tools:compiler+nemotron_orchestrator_8b:2:p1b-454200a06fe2",
+      "task_family": "tool_selection",
+      "task_id": "two_similar_tools",
+      "timestamp": "2026-09-21T19:47:19.478376Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+hammer2.1_3b:0:p1b-5bc69e7f8281",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:26:04.426585Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+functiongemma_270m:0:p1b-d363fdbc6c93",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:26:37.234357Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+qwen3.5_4b:0:p1b-a23bde77e0cd",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:26:55.813632Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+qwen3.5_9b:0:p1b-2e2749646279",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:28:23.178509Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+nemotron_orchestrator_8b:0:p1b-b52f37fe8d39",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:31:08.433217Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+hammer2.1_3b:1:p1b-2f4419675803",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:37:07.306729Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+hammer2.1_3b:2:p1b-ca83d3a8d5b3",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:37:13.879102Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+functiongemma_270m:1:p1b-720687c09079",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:38:03.984481Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+functiongemma_270m:2:p1b-ea4cd40daa6a",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:38:06.341090Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+qwen3.5_4b:1:p1b-a4980f2549ef",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:38:26.496042Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+qwen3.5_4b:2:p1b-dbe7416e4a20",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:39:28.257702Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+qwen3.5_9b:1:p1b-53f8e33ee48b",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:40:53.465885Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+qwen3.5_9b:2:p1b-31c2ed4c915c",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:43:34.244460Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+nemotron_orchestrator_8b:1:p1b-ab116b4472c6",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:46:16.004567Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "required_argument_missing:compiler+nemotron_orchestrator_8b:2:p1b-b2fd3a30663e",
+      "task_family": "schema",
+      "task_id": "required_argument_missing",
+      "timestamp": "2026-09-21T19:47:23.444871Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+hammer2.1_3b:0:p1b-c1bf48dd6922",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:26:04.610291Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+functiongemma_270m:0:p1b-9f04d5ccae49",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:26:37.302758Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+qwen3.5_4b:0:p1b-044a25bd505e",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:26:57.431094Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+qwen3.5_9b:0:p1b-f8ebe6a713fd",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:28:36.864025Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+nemotron_orchestrator_8b:0:p1b-9e585de18d1a",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:31:10.327623Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+hammer2.1_3b:1:p1b-32f8f4142e22",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:37:07.502861Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+hammer2.1_3b:2:p1b-60e09c8d2753",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:37:14.081874Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+functiongemma_270m:1:p1b-e5aaccef24f5",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:38:04.076656Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+functiongemma_270m:2:p1b-3aebcfd17ee9",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:38:06.451785Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+qwen3.5_4b:1:p1b-1593e221a30a",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:38:28.134970Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+qwen3.5_4b:2:p1b-0f5d971dad65",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:39:30.248133Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+qwen3.5_9b:1:p1b-dd7c2d93f94b",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:41:07.116422Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+qwen3.5_9b:2:p1b-f150af676887",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:43:47.891040Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+nemotron_orchestrator_8b:1:p1b-c93e968c18bd",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:46:17.937545Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "wrong_argument_type:compiler+nemotron_orchestrator_8b:2:p1b-1af575a16cb2",
+      "task_family": "schema",
+      "task_id": "wrong_argument_type",
+      "timestamp": "2026-09-21T19:47:25.338551Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+hammer2.1_3b:0:p1b-53568e65b747",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:26:04.795439Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+functiongemma_270m:0:p1b-88bbef90a342",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:26:37.348785Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+qwen3.5_4b:0:p1b-8d30bbf72d3b",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:26:59.045136Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+qwen3.5_9b:0:p1b-9bfc774a4a9a",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:28:39.418151Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+nemotron_orchestrator_8b:0:p1b-3324139b0e6f",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:31:11.874950Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+hammer2.1_3b:1:p1b-77688172b121",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:37:07.708084Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+hammer2.1_3b:2:p1b-fafd60ab1bf5",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:37:14.283909Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+functiongemma_270m:1:p1b-78b6f000c00e",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:38:04.139141Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+functiongemma_270m:2:p1b-112025843ad1",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:38:06.508554Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+qwen3.5_4b:1:p1b-05065c13fa9c",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:38:29.780406Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+qwen3.5_4b:2:p1b-a2406aab03a4",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:39:31.779409Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+qwen3.5_9b:1:p1b-086d835cc2ce",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:41:09.626660Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+qwen3.5_9b:2:p1b-b196c15f78bf",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:43:50.349964Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+nemotron_orchestrator_8b:1:p1b-9eddadc6e47a",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:46:19.499091Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "unknown_tool:compiler+nemotron_orchestrator_8b:2:p1b-c6d02e0429aa",
+      "task_family": "schema",
+      "task_id": "unknown_tool",
+      "timestamp": "2026-09-21T19:47:26.908812Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+hammer2.1_3b:0:p1b-350c20b6b22d",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:26:05.174590Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+functiongemma_270m:0:p1b-d30259c28c95",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:26:37.422629Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+qwen3.5_4b:0:p1b-281430d5e7e2",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:27:01.672832Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+qwen3.5_9b:0:p1b-f840e0463a14",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:28:44.710821Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+nemotron_orchestrator_8b:0:p1b-4bf49460bcc1",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:31:14.673968Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+hammer2.1_3b:1:p1b-80d28a55814c",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:37:08.090494Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+hammer2.1_3b:2:p1b-6b293ddf01be",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:37:14.652366Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+functiongemma_270m:1:p1b-4241cbebe840",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:38:04.233151Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+functiongemma_270m:2:p1b-ee74ac352639",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:38:06.599772Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+qwen3.5_4b:1:p1b-130e983b9e09",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:38:32.427511Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+qwen3.5_4b:2:p1b-afa7b5e2e7ab",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:39:35.673923Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+qwen3.5_9b:1:p1b-be0c36de17ae",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:41:14.822254Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+qwen3.5_9b:2:p1b-30006c52ab79",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:43:55.343729Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+nemotron_orchestrator_8b:1:p1b-10b117fa6184",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:46:22.297695Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_returns_malformed_data:compiler+nemotron_orchestrator_8b:2:p1b-f889e252631c",
+      "task_family": "recovery",
+      "task_id": "tool_returns_malformed_data",
+      "timestamp": "2026-09-21T19:47:29.733923Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+hammer2.1_3b:0:p1b-b36270972824",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:26:05.373231Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+functiongemma_270m:0:p1b-ceee2daccdd2",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:26:37.560098Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+qwen3.5_4b:0:p1b-2ca9602c456c",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:27:03.943347Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+qwen3.5_9b:0:p1b-9f3fffe47fa9",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:28:49.440249Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+nemotron_orchestrator_8b:0:p1b-dc8391ce9206",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:31:17.478889Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+hammer2.1_3b:1:p1b-a211c2ed0ffa",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:37:08.293608Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+hammer2.1_3b:2:p1b-5d5745b34d28",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:37:14.895684Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+functiongemma_270m:1:p1b-de10d1efafa5",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:38:04.410439Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+functiongemma_270m:2:p1b-aa96e33c4c1c",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:38:06.729335Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+qwen3.5_4b:1:p1b-f5e94a8399f2",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:38:34.632560Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+qwen3.5_4b:2:p1b-db9fc0dab5cc",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:39:37.783296Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+qwen3.5_9b:1:p1b-a49287d9a643",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:41:19.559593Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+qwen3.5_9b:2:p1b-28a1c98aa728",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:43:59.793356Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+nemotron_orchestrator_8b:1:p1b-c773d7bfa9ef",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:46:25.177953Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_fails:compiler+nemotron_orchestrator_8b:2:p1b-098da6d5705f",
+      "task_family": "recovery",
+      "task_id": "tool_fails",
+      "timestamp": "2026-09-21T19:47:32.479302Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+hammer2.1_3b:0:p1b-e5773f95935a",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:26:05.554492Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+functiongemma_270m:0:p1b-f4bab50dd698",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:26:37.642616Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+qwen3.5_4b:0:p1b-3bd4e898351c",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:27:06.011653Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+qwen3.5_9b:0:p1b-b815cafd4989",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:28:52.747430Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+nemotron_orchestrator_8b:0:p1b-ef94f2bebc45",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:31:20.069171Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+hammer2.1_3b:1:p1b-0ef46be356fe",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:37:08.482509Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+hammer2.1_3b:2:p1b-bf049e15e1b9",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:37:15.105168Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+functiongemma_270m:1:p1b-ae488ff4b86b",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:38:04.522791Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+functiongemma_270m:2:p1b-fdfbcc300732",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:38:06.876285Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+qwen3.5_4b:1:p1b-40e756374dc3",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:38:36.742100Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+qwen3.5_4b:2:p1b-551177dfb38d",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:39:39.789210Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+qwen3.5_9b:1:p1b-4f75a00c3243",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:41:22.821867Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+qwen3.5_9b:2:p1b-130d71b7cc51",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:44:02.312371Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+nemotron_orchestrator_8b:1:p1b-9eb3f599a540",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:46:27.765452Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_times_out:compiler+nemotron_orchestrator_8b:2:p1b-4aab3fa549dd",
+      "task_family": "recovery",
+      "task_id": "tool_times_out",
+      "timestamp": "2026-09-21T19:47:35.345152Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+hammer2.1_3b:0:p1b-fe2e21c6d279",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:26:05.759841Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+functiongemma_270m:0:p1b-7fadc69cb9be",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:26:37.710913Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+qwen3.5_4b:0:p1b-300477a492cc",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:27:08.464353Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+qwen3.5_9b:0:p1b-b3e17bb69b50",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:29:06.623896Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+nemotron_orchestrator_8b:0:p1b-2244307f8fbe",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:31:22.369051Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+hammer2.1_3b:1:p1b-536efed227d4",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:37:08.696376Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+hammer2.1_3b:2:p1b-075b10c75871",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:37:15.266806Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+functiongemma_270m:1:p1b-15d7139842bc",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:38:04.617499Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+functiongemma_270m:2:p1b-1b39b11f6bb9",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:38:06.965872Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+qwen3.5_4b:1:p1b-87b55d6ca0fa",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:38:39.141002Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+qwen3.5_4b:2:p1b-28d3f063ea3d",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:39:42.172179Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+qwen3.5_9b:1:p1b-5a7736510e3d",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:41:36.657316Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+qwen3.5_9b:2:p1b-a6210d31ba75",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:44:16.126033Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+nemotron_orchestrator_8b:1:p1b-751efa4d3fb0",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:46:30.119901Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "tool_succeeds_after_retry:compiler+nemotron_orchestrator_8b:2:p1b-903dce97e392",
+      "task_family": "recovery",
+      "task_id": "tool_succeeds_after_retry",
+      "timestamp": "2026-09-21T19:47:37.602154Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+hammer2.1_3b:0:p1b-cc40f3e834d8",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:26:06.274113Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+functiongemma_270m:0:p1b-c68bbf1c221d",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:26:37.759354Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+qwen3.5_4b:0:p1b-2786642651ec",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:27:11.776803Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+qwen3.5_9b:0:p1b-e633d42d6854",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:29:11.254268Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+nemotron_orchestrator_8b:0:p1b-442ddb3f0e35",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:31:25.209638Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+hammer2.1_3b:1:p1b-29bff4ccd3d5",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:37:09.237416Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+hammer2.1_3b:2:p1b-5dbf93a2145d",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:37:15.855119Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+functiongemma_270m:1:p1b-ec9f849a724d",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:38:04.677159Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+functiongemma_270m:2:p1b-2e3600b921f6",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:38:07.025504Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+qwen3.5_4b:1:p1b-7ada3584c729",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:38:42.451950Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+qwen3.5_4b:2:p1b-ca18ec5786d0",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:39:45.683951Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+qwen3.5_9b:1:p1b-6a1fd8d31297",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:41:41.326746Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+qwen3.5_9b:2:p1b-f9e5eeb73b77",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:44:21.880299Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+nemotron_orchestrator_8b:1:p1b-40af0988e1dc",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:46:32.907744Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "two_independent_parallel_actions:compiler+nemotron_orchestrator_8b:2:p1b-03e15b4e9fd6",
+      "task_family": "parallelism",
+      "task_id": "two_independent_parallel_actions",
+      "timestamp": "2026-09-21T19:47:40.363414Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+hammer2.1_3b:0:p1b-5190daa87cb0",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:26:06.450064Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+functiongemma_270m:0:p1b-07efeb0ca422",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:26:37.801027Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+qwen3.5_4b:0:p1b-67781d950615",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:27:13.236026Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+qwen3.5_9b:0:p1b-b657b1c5d620",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:29:24.988413Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+nemotron_orchestrator_8b:0:p1b-2404b5951494",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:31:26.526695Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+hammer2.1_3b:1:p1b-bde0def235a1",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:37:09.534653Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+hammer2.1_3b:2:p1b-b3f7f7acec92",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:37:16.057290Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+functiongemma_270m:1:p1b-a1d66e2bb6fc",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:38:04.740240Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+functiongemma_270m:2:p1b-5401f378af6f",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:38:07.081413Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+qwen3.5_4b:1:p1b-5e5663093c0f",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:38:43.883441Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+qwen3.5_4b:2:p1b-42267764ba1a",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:39:47.060516Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+qwen3.5_9b:1:p1b-438bb3cf9708",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:41:55.056253Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+qwen3.5_9b:2:p1b-0238bbc22f49",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:44:35.514406Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+nemotron_orchestrator_8b:1:p1b-b81a625adcc9",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:46:34.256725Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "hard_dependency_a_then_b:compiler+nemotron_orchestrator_8b:2:p1b-d9c33a27668d",
+      "task_family": "dependencies",
+      "task_id": "hard_dependency_a_then_b",
+      "timestamp": "2026-09-21T19:47:41.689469Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+hammer2.1_3b:0:p1b-4ed9bea1d2fc",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:26:06.648536Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+functiongemma_270m:0:p1b-77f229c54405",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:26:37.837673Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+qwen3.5_4b:0:p1b-9d834cd781cb",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:27:15.163158Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+qwen3.5_9b:0:p1b-f82713b88462",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:29:38.653285Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+nemotron_orchestrator_8b:0:p1b-2efc98edb561",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:31:28.721531Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+hammer2.1_3b:1:p1b-05561abc7499",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:37:09.761689Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+hammer2.1_3b:2:p1b-05a88eb454fb",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:37:16.249488Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+functiongemma_270m:1:p1b-216ce507c3f7",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:38:04.794022Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+functiongemma_270m:2:p1b-fd173c9f6822",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:38:07.131426Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+qwen3.5_4b:1:p1b-79a4036c3a57",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:38:45.801775Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+qwen3.5_4b:2:p1b-432588cba620",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:39:48.924158Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+qwen3.5_9b:1:p1b-126b546e8b97",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:42:08.704633Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+qwen3.5_9b:2:p1b-38b970d479ed",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:44:49.121128Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+nemotron_orchestrator_8b:1:p1b-4a248c9868fc",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:46:36.505431Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "diamond_dependency_graph:compiler+nemotron_orchestrator_8b:2:p1b-48036c3e11ea",
+      "task_family": "dependencies",
+      "task_id": "diamond_dependency_graph",
+      "timestamp": "2026-09-21T19:47:44.191549Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+hammer2.1_3b:0:p1b-cbc5ca409056",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:26:06.833891Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+functiongemma_270m:0:p1b-30cac1359af9",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:26:37.902976Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+qwen3.5_4b:0:p1b-64e3ab07c4ee",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:27:17.068106Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+qwen3.5_9b:0:p1b-e90b85f7d7db",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:29:42.038188Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+nemotron_orchestrator_8b:0:p1b-d60a2bcd0b0e",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:31:30.507354Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+hammer2.1_3b:1:p1b-4bf2ba04a9cd",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:37:09.957929Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+hammer2.1_3b:2:p1b-fd7e789ae95d",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:37:16.418740Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+functiongemma_270m:1:p1b-9f5bc86611db",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:38:04.886374Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+functiongemma_270m:2:p1b-ee478a5ef4bf",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:38:07.226164Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+qwen3.5_4b:1:p1b-6b3f563fc611",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:38:47.673103Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+qwen3.5_4b:2:p1b-4ecad3191852",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:39:50.684878Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+qwen3.5_9b:1:p1b-7ca557599221",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:42:12.065883Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+qwen3.5_9b:2:p1b-a2a8b63de3c4",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:44:52.308008Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+nemotron_orchestrator_8b:1:p1b-83335726f3b9",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:46:38.288612Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "cheap_model_sufficient:compiler+nemotron_orchestrator_8b:2:p1b-a9e5cd092af8",
+      "task_family": "routing",
+      "task_id": "cheap_model_sufficient",
+      "timestamp": "2026-09-21T19:47:46.110041Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+hammer2.1_3b:0:p1b-44428db4992f",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:26:07.030364Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+functiongemma_270m:0:p1b-d26d0aff5cd3",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:26:37.953180Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+qwen3.5_4b:0:p1b-5162937b09b2",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:27:19.325024Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+qwen3.5_9b:0:p1b-6d42694f1c43",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:29:45.646369Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+nemotron_orchestrator_8b:0:p1b-85c5352c9766",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:31:33.061578Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+hammer2.1_3b:1:p1b-3f9bf6c38a28",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:37:10.164489Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+hammer2.1_3b:2:p1b-97733c7742d2",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:37:16.558438Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+functiongemma_270m:1:p1b-f47761cc6953",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:38:04.952154Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+functiongemma_270m:2:p1b-5291615e04b2",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:38:07.295143Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+qwen3.5_4b:1:p1b-40f7bec545f5",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:38:49.892114Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+qwen3.5_4b:2:p1b-4caab096e893",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:39:52.767419Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+qwen3.5_9b:1:p1b-1f411c9e672c",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:42:15.667404Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+qwen3.5_9b:2:p1b-27b2e5c81c5a",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:45:05.906265Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+nemotron_orchestrator_8b:1:p1b-1538c6705685",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:46:40.846434Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "specialist_required:compiler+nemotron_orchestrator_8b:2:p1b-40539012e7eb",
+      "task_family": "routing",
+      "task_id": "specialist_required",
+      "timestamp": "2026-09-21T19:47:48.563399Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+hammer2.1_3b:0:p1b-50c784efaf92",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:26:07.241569Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+functiongemma_270m:0:p1b-68105ff047c4",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:26:38.025298Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+qwen3.5_4b:0:p1b-16d1fae4882e",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:27:24.438067Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+qwen3.5_9b:0:p1b-4e19870921e0",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:29:50.649607Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+nemotron_orchestrator_8b:0:p1b-b7f81fa216c4",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:31:35.853623Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+hammer2.1_3b:1:p1b-dd3fe441cc8d",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:37:10.424337Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+hammer2.1_3b:2:p1b-9a4c664668f6",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:37:16.734540Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+functiongemma_270m:1:p1b-b25301e9aeab",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:38:05.058974Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+functiongemma_270m:2:p1b-77102113d127",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:38:07.440548Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+qwen3.5_4b:1:p1b-1f2c496ed88e",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:38:54.978604Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+qwen3.5_4b:2:p1b-9a8f45287303",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:39:56.922016Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+qwen3.5_9b:1:p1b-383137280678",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:42:20.556710Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+qwen3.5_9b:2:p1b-e112b3588be7",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:45:10.830656Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+nemotron_orchestrator_8b:1:p1b-62ad5c646d41",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:46:43.669984Z"
+    },
+    {
+      "bucket": "train",
+      "chronological_bucket": "train",
+      "episode_id": "expensive_model_unnecessary:compiler+nemotron_orchestrator_8b:2:p1b-4e930e634f1f",
+      "task_family": "routing",
+      "task_id": "expensive_model_unnecessary",
+      "timestamp": "2026-09-21T19:47:51.360904Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+hammer2.1_3b:0:p1b-761dd03794c7",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:26:07.439761Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+functiongemma_270m:0:p1b-93d0d4c15d23",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:26:38.074897Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+qwen3.5_4b:0:p1b-6f6dc2d1912d",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:27:26.521440Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+qwen3.5_9b:0:p1b-2f2af50abb68",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:29:54.165334Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+nemotron_orchestrator_8b:0:p1b-de41a9f4f2ad",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:31:38.126473Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+hammer2.1_3b:1:p1b-9c81a8f62521",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:37:10.629163Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+hammer2.1_3b:2:p1b-63a26560b5b9",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:37:16.966383Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+functiongemma_270m:1:p1b-2a1390c48774",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:38:05.120390Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+functiongemma_270m:2:p1b-66ffd4e49c6f",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:38:07.511600Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+qwen3.5_4b:1:p1b-5e252c970d25",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:38:57.110982Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+qwen3.5_4b:2:p1b-ee841c80f441",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:39:58.538295Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+qwen3.5_9b:1:p1b-b1ee53907732",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:42:23.983821Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+qwen3.5_9b:2:p1b-941876e1468d",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:45:15.991806Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+nemotron_orchestrator_8b:1:p1b-765249b7f9c2",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:46:45.980294Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "orchestrator_should_abstain:compiler+nemotron_orchestrator_8b:2:p1b-98e683b830bd",
+      "task_family": "abstention",
+      "task_id": "orchestrator_should_abstain",
+      "timestamp": "2026-09-21T19:47:53.758806Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+hammer2.1_3b:0:p1b-3de50020b761",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:26:07.777833Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+functiongemma_270m:0:p1b-5932a78693cc",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:26:38.167468Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+qwen3.5_4b:0:p1b-1f188961f552",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:27:28.849619Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+qwen3.5_9b:0:p1b-7ed7bb7fb12a",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:30:08.185330Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+nemotron_orchestrator_8b:0:p1b-034681e532f1",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:31:40.878052Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+hammer2.1_3b:1:p1b-7790924e9bad",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:37:11.035761Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+hammer2.1_3b:2:p1b-e92c3a4ccb7c",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:37:17.280494Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+functiongemma_270m:1:p1b-ebbc158b43c5",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:38:05.232960Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+functiongemma_270m:2:p1b-e900eef2ef16",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:38:07.620114Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+qwen3.5_4b:1:p1b-cb082bfac3d7",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:38:59.416207Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+qwen3.5_4b:2:p1b-4ee8f155c5ef",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:40:01.169038Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+qwen3.5_9b:1:p1b-96f5c5127c56",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:42:37.874614Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+qwen3.5_9b:2:p1b-3bae19ff4e88",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:45:18.730212Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+nemotron_orchestrator_8b:1:p1b-b18cbf7d35c5",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:46:48.802543Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "train",
+      "episode_id": "jev_uncertain:compiler+nemotron_orchestrator_8b:2:p1b-b41c7f6f74b7",
+      "task_family": "uncertainty",
+      "task_id": "jev_uncertain",
+      "timestamp": "2026-09-21T19:47:56.586041Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+hammer2.1_3b:0:p1b-2d8c9c4073b8",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:26:07.974612Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+functiongemma_270m:0:p1b-52835b2e2934",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:26:38.240189Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+qwen3.5_4b:0:p1b-2178435d491f",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:27:31.173830Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+qwen3.5_9b:0:p1b-f0305b1c9bfa",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:30:11.335436Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+nemotron_orchestrator_8b:0:p1b-362860142de7",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:31:43.633178Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+hammer2.1_3b:1:p1b-dcc59eeacf8c",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:37:11.282103Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+hammer2.1_3b:2:p1b-f133beeb529b",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:37:17.477938Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+functiongemma_270m:1:p1b-a81148bb242f",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:38:05.323429Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+functiongemma_270m:2:p1b-c159b5bda8a0",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:38:07.720121Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+qwen3.5_4b:1:p1b-61231ce355f0",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:39:01.766351Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+qwen3.5_4b:2:p1b-6a3b77ecd535",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:40:03.512025Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+qwen3.5_9b:1:p1b-0ebb3536be8a",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:42:40.926628Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+qwen3.5_9b:2:p1b-ed1db307da4a",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:45:21.606335Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+nemotron_orchestrator_8b:1:p1b-9a4d06584a18",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:46:51.618679Z"
+    },
+    {
+      "bucket": "ood",
+      "chronological_bucket": "validation",
+      "episode_id": "slm_uncertain:compiler+nemotron_orchestrator_8b:2:p1b-226ff6bbb2af",
+      "task_family": "uncertainty",
+      "task_id": "slm_uncertain",
+      "timestamp": "2026-09-21T19:47:59.396189Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+hammer2.1_3b:0:p1b-baeeefbf1634",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:26:08.162918Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+functiongemma_270m:0:p1b-d65d6da9004c",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:26:38.289753Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+qwen3.5_4b:0:p1b-ae44ecb5821e",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:27:32.907458Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+qwen3.5_9b:0:p1b-90de2c7040ec",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:30:13.910946Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+nemotron_orchestrator_8b:0:p1b-cc77c3df612b",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:31:45.734878Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+hammer2.1_3b:1:p1b-30b0a5defcb0",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:37:11.486680Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+hammer2.1_3b:2:p1b-de4adc7dadd0",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:37:17.683939Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+functiongemma_270m:1:p1b-e1dcfd738507",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:38:05.386686Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+functiongemma_270m:2:p1b-5d9afc677313",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:38:07.782033Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+qwen3.5_4b:1:p1b-f9e042400518",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:39:03.481443Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+qwen3.5_4b:2:p1b-4c95c6cffab3",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:40:05.119786Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+qwen3.5_9b:1:p1b-f99a76b37a0a",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:42:43.480663Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+qwen3.5_9b:2:p1b-96e8da67264c",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:45:24.009763Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+nemotron_orchestrator_8b:1:p1b-e51c7e09eb71",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:46:53.758494Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "stop_now:compiler+nemotron_orchestrator_8b:2:p1b-7ab4499446b2",
+      "task_family": "control_flow",
+      "task_id": "stop_now",
+      "timestamp": "2026-09-21T19:48:01.608137Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+hammer2.1_3b:0:p1b-9b7a14362433",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:26:08.261271Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+functiongemma_270m:0:p1b-fe3fbaec4eec",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:26:38.352215Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+qwen3.5_4b:0:p1b-be3393d645f7",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:27:34.457033Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+qwen3.5_9b:0:p1b-07aa24e52d6b",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:30:17.753354Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+nemotron_orchestrator_8b:0:p1b-5bcc60e9be7b",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:31:48.060403Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+hammer2.1_3b:1:p1b-7c428c247131",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:37:11.596578Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+hammer2.1_3b:2:p1b-bfb19fda62e9",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:37:17.816763Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+functiongemma_270m:1:p1b-2aa11ac2e74e",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:38:05.474216Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+functiongemma_270m:2:p1b-43deacdae42c",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:38:07.835774Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+qwen3.5_4b:1:p1b-17d5b39d4b6b",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:39:05.058903Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+qwen3.5_4b:2:p1b-99dcadc10ce8",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:40:06.627322Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+qwen3.5_9b:1:p1b-cc7d438ea768",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:42:47.591217Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+qwen3.5_9b:2:p1b-fd92dbd86588",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:45:28.177132Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+nemotron_orchestrator_8b:1:p1b-30b5a7413981",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:46:56.165033Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "continue_work:compiler+nemotron_orchestrator_8b:2:p1b-acfb6647a29b",
+      "task_family": "control_flow",
+      "task_id": "continue_work",
+      "timestamp": "2026-09-21T19:48:03.954272Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+hammer2.1_3b:0:p1b-55d8adfdb04f",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:26:08.420655Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+functiongemma_270m:0:p1b-66348ac36fc2",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:26:38.411859Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+qwen3.5_4b:0:p1b-119bc98de531",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:27:36.560543Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+qwen3.5_9b:0:p1b-ac853ba9e5ee",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:30:21.053431Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+nemotron_orchestrator_8b:0:p1b-58c1180534c1",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:31:50.818599Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+hammer2.1_3b:1:p1b-d2cce988947f",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:37:11.783143Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+hammer2.1_3b:2:p1b-3ed138859549",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:37:17.951774Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+functiongemma_270m:1:p1b-dd56af800e01",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:38:05.550883Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+functiongemma_270m:2:p1b-fa3789f27c1e",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:38:07.905147Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+qwen3.5_4b:1:p1b-028a735e81cd",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:39:07.177885Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+qwen3.5_4b:2:p1b-1df276c1e837",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:40:08.689528Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+qwen3.5_9b:1:p1b-f0bc5948943e",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:42:50.929181Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+qwen3.5_9b:2:p1b-c9b90c8d2bee",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:45:31.551169Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+nemotron_orchestrator_8b:1:p1b-0e572b6db74a",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:46:58.961425Z"
+    },
+    {
+      "bucket": "validation",
+      "chronological_bucket": "validation",
+      "episode_id": "retry_action:compiler+nemotron_orchestrator_8b:2:p1b-6f553fbcc322",
+      "task_family": "control_flow",
+      "task_id": "retry_action",
+      "timestamp": "2026-09-21T19:48:06.562789Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+hammer2.1_3b:0:p1b-d64cd8dc8fab",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:26:08.603535Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+functiongemma_270m:0:p1b-b569d3ae125c",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:26:38.480049Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+qwen3.5_4b:0:p1b-4949763910bc",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:27:38.108067Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+qwen3.5_9b:0:p1b-3256b7940aff",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:30:25.144301Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+nemotron_orchestrator_8b:0:p1b-4c345d5e1465",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:31:53.194854Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+hammer2.1_3b:1:p1b-c3530b5051be",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:37:11.976479Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+hammer2.1_3b:2:p1b-2f8aaff69e47",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:37:18.143062Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+functiongemma_270m:1:p1b-7bc13e361244",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:38:05.638391Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+functiongemma_270m:2:p1b-f63033abd080",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:38:07.981305Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+qwen3.5_4b:1:p1b-1b6360399445",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:39:08.757800Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+qwen3.5_4b:2:p1b-eda57c106f9e",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:40:10.413824Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+qwen3.5_9b:1:p1b-39244d7ab74c",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:42:54.981128Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+qwen3.5_9b:2:p1b-041e5c916de7",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:45:33.912195Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+nemotron_orchestrator_8b:1:p1b-c194497d2395",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:47:01.400573Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "escalate_action:compiler+nemotron_orchestrator_8b:2:p1b-3d1cc9984474",
+      "task_family": "control_flow",
+      "task_id": "escalate_action",
+      "timestamp": "2026-09-21T19:48:08.803060Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+hammer2.1_3b:0:p1b-ae787f3acedf",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:26:08.775160Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+functiongemma_270m:0:p1b-5bb59fb94f13",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:26:38.523770Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+qwen3.5_4b:0:p1b-8841d7f4a28b",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:27:40.921835Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+qwen3.5_9b:0:p1b-afc2f590aacd",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:30:28.549983Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+nemotron_orchestrator_8b:0:p1b-a0cef6df1bd2",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:31:55.307990Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+hammer2.1_3b:1:p1b-c2735cffaabd",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:37:12.160455Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+hammer2.1_3b:2:p1b-d022b5b5ad61",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:37:18.336763Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+functiongemma_270m:1:p1b-218a0dc02cab",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:38:05.695203Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+functiongemma_270m:2:p1b-a82653a23717",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:38:08.034182Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+qwen3.5_4b:1:p1b-697746662e70",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:39:11.504298Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+qwen3.5_4b:2:p1b-78ac6de60f23",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:40:13.207112Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+qwen3.5_9b:1:p1b-3bdd315da90e",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:42:58.408725Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+qwen3.5_9b:2:p1b-3222b6ffb561",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:45:36.907726Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+nemotron_orchestrator_8b:1:p1b-e7595010f000",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:47:03.530748Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "replan:compiler+nemotron_orchestrator_8b:2:p1b-a3fdcc325d6e",
+      "task_family": "control_flow",
+      "task_id": "replan",
+      "timestamp": "2026-09-21T19:48:10.861239Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+hammer2.1_3b:0:p1b-086a43261562",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:26:08.955252Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+functiongemma_270m:0:p1b-0a67e622fdad",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:26:38.592719Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+qwen3.5_4b:0:p1b-2fd2bad48d7d",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:27:45.220102Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+qwen3.5_9b:0:p1b-735e187a5207",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:30:31.348590Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+nemotron_orchestrator_8b:0:p1b-fb951c6a0b2d",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:31:57.601252Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+hammer2.1_3b:1:p1b-13049b85700d",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:37:12.350975Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+hammer2.1_3b:2:p1b-8f0f9015b157",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:37:18.460456Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+functiongemma_270m:1:p1b-51b64a953a78",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:38:05.791813Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+functiongemma_270m:2:p1b-b0259788d809",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:38:08.126631Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+qwen3.5_4b:1:p1b-5d7fb2567264",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:39:15.226082Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+qwen3.5_4b:2:p1b-6e2ed6e3e5ad",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:40:16.848611Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+qwen3.5_9b:1:p1b-53554a3d6655",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:43:01.231911Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+qwen3.5_9b:2:p1b-aa0c8e4ab638",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:45:39.617898Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+nemotron_orchestrator_8b:1:p1b-e0145af9bdce",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:47:05.847140Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "permission_denied:compiler+nemotron_orchestrator_8b:2:p1b-ce5a72cb5f96",
+      "task_family": "security",
+      "task_id": "permission_denied",
+      "timestamp": "2026-09-21T19:48:13.196253Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+hammer2.1_3b:0:p1b-f3e0a95b8eb5",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:26:09.115022Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+functiongemma_270m:0:p1b-9ca77fe77b7b",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:26:38.656217Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+qwen3.5_4b:0:p1b-db9c3eec93dd",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:27:47.301355Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+qwen3.5_9b:0:p1b-2ded9fddd542",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:30:33.714282Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+nemotron_orchestrator_8b:0:p1b-fac8a1fcb2b5",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:32:00.335515Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+hammer2.1_3b:1:p1b-4808883a99b3",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:37:12.574311Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+hammer2.1_3b:2:p1b-4d5ec7941cec",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:37:18.665886Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+functiongemma_270m:1:p1b-d11143e834de",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:38:05.880752Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+functiongemma_270m:2:p1b-e64125899eef",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:38:08.210814Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+qwen3.5_4b:1:p1b-ff98475a14a7",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:39:17.210982Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+qwen3.5_4b:2:p1b-f70bee402898",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:40:18.613550Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+qwen3.5_9b:1:p1b-6e8ba1c1f288",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:43:03.561753Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+qwen3.5_9b:2:p1b-c0d23ce93a83",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:45:41.929947Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+nemotron_orchestrator_8b:1:p1b-c6beac94f139",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:47:08.622731Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "credential_required_action:compiler+nemotron_orchestrator_8b:2:p1b-c27213c8ea28",
+      "task_family": "security",
+      "task_id": "credential_required_action",
+      "timestamp": "2026-09-21T19:48:15.832977Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+hammer2.1_3b:0:p1b-d6e188d84922",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:26:09.275300Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+functiongemma_270m:0:p1b-7a2ed969d592",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:26:38.746631Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+qwen3.5_4b:0:p1b-cd78fb91ba02",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:27:51.683240Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+qwen3.5_9b:0:p1b-b4ba39b577e5",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:30:42.244930Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+nemotron_orchestrator_8b:0:p1b-6776e6bffeb4",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:32:05.525334Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+hammer2.1_3b:1:p1b-27ac3a44c162",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:37:12.981282Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+hammer2.1_3b:2:p1b-7d237267170f",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:37:19.042656Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+functiongemma_270m:1:p1b-6b80cae42302",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:38:06.001156Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+functiongemma_270m:2:p1b-d1b4a412c5a5",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:38:08.317671Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+qwen3.5_4b:1:p1b-8ea4fb47bf55",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:39:21.467904Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+qwen3.5_4b:2:p1b-07e1baa665a3",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:40:22.285392Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+qwen3.5_9b:1:p1b-a8bdfbdb4a12",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:43:12.080728Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+qwen3.5_9b:2:p1b-76a5140c478c",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:45:49.677556Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+nemotron_orchestrator_8b:1:p1b-16390a2c025c",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:47:13.919430Z"
+    },
+    {
+      "bucket": "confirm",
+      "chronological_bucket": "confirm",
+      "episode_id": "publish_send_deploy_action:compiler+nemotron_orchestrator_8b:2:p1b-8b3b8289c811",
+      "task_family": "security",
+      "task_id": "publish_send_deploy_action",
+      "timestamp": "2026-09-21T19:48:20.360500Z"
+    }
+  ],
+  "bucket_counts": {
+    "confirm": 75,
+    "ood": 90,
+    "sealed_human_audited": 15,
+    "train": 195,
+    "validation": 45
+  },
+  "frozen_at": "2026-09-22T00:47:07.415875Z",
+  "n_episodes": 420,
+  "n_tasks": 28,
+  "ood": {
+    "episodes_in_holdout": [
+      "no_relevant_tool:compiler+hammer2.1_3b:0:p1b-2e7a43ac619c",
+      "two_independent_parallel_actions:compiler+hammer2.1_3b:0:p1b-cc40f3e834d8",
+      "hard_dependency_a_then_b:compiler+hammer2.1_3b:0:p1b-5190daa87cb0",
+      "diamond_dependency_graph:compiler+hammer2.1_3b:0:p1b-4ed9bea1d2fc",
+      "orchestrator_should_abstain:compiler+hammer2.1_3b:0:p1b-761dd03794c7",
+      "jev_uncertain:compiler+hammer2.1_3b:0:p1b-3de50020b761",
+      "slm_uncertain:compiler+hammer2.1_3b:0:p1b-2d8c9c4073b8",
+      "no_relevant_tool:compiler+functiongemma_270m:0:p1b-0043df265bec",
+      "two_independent_parallel_actions:compiler+functiongemma_270m:0:p1b-c68bbf1c221d",
+      "hard_dependency_a_then_b:compiler+functiongemma_270m:0:p1b-07efeb0ca422",
+      "diamond_dependency_graph:compiler+functiongemma_270m:0:p1b-77f229c54405",
+      "orchestrator_should_abstain:compiler+functiongemma_270m:0:p1b-93d0d4c15d23",
+      "jev_uncertain:compiler+functiongemma_270m:0:p1b-5932a78693cc",
+      "slm_uncertain:compiler+functiongemma_270m:0:p1b-52835b2e2934",
+      "no_relevant_tool:compiler+qwen3.5_4b:0:p1b-33ddae794c65",
+      "two_independent_parallel_actions:compiler+qwen3.5_4b:0:p1b-2786642651ec",
+      "hard_dependency_a_then_b:compiler+qwen3.5_4b:0:p1b-67781d950615",
+      "diamond_dependency_graph:compiler+qwen3.5_4b:0:p1b-9d834cd781cb",
+      "orchestrator_should_abstain:compiler+qwen3.5_4b:0:p1b-6f6dc2d1912d",
+      "jev_uncertain:compiler+qwen3.5_4b:0:p1b-1f188961f552",
+      "slm_uncertain:compiler+qwen3.5_4b:0:p1b-2178435d491f",
+      "no_relevant_tool:compiler+qwen3.5_9b:0:p1b-8a412a1f9e75",
+      "two_independent_parallel_actions:compiler+qwen3.5_9b:0:p1b-e633d42d6854",
+      "hard_dependency_a_then_b:compiler+qwen3.5_9b:0:p1b-b657b1c5d620",
+      "diamond_dependency_graph:compiler+qwen3.5_9b:0:p1b-f82713b88462",
+      "orchestrator_should_abstain:compiler+qwen3.5_9b:0:p1b-2f2af50abb68",
+      "jev_uncertain:compiler+qwen3.5_9b:0:p1b-7ed7bb7fb12a",
+      "slm_uncertain:compiler+qwen3.5_9b:0:p1b-f0305b1c9bfa",
+      "no_relevant_tool:compiler+nemotron_orchestrator_8b:0:p1b-1522e515c101",
+      "two_independent_parallel_actions:compiler+nemotron_orchestrator_8b:0:p1b-442ddb3f0e35",
+      "hard_dependency_a_then_b:compiler+nemotron_orchestrator_8b:0:p1b-2404b5951494",
+      "diamond_dependency_graph:compiler+nemotron_orchestrator_8b:0:p1b-2efc98edb561",
+      "orchestrator_should_abstain:compiler+nemotron_orchestrator_8b:0:p1b-de41a9f4f2ad",
+      "jev_uncertain:compiler+nemotron_orchestrator_8b:0:p1b-034681e532f1",
+      "slm_uncertain:compiler+nemotron_orchestrator_8b:0:p1b-362860142de7",
+      "no_relevant_tool:compiler+hammer2.1_3b:1:p1b-e00ee22e97ea",
+      "two_independent_parallel_actions:compiler+hammer2.1_3b:1:p1b-29bff4ccd3d5",
+      "hard_dependency_a_then_b:compiler+hammer2.1_3b:1:p1b-bde0def235a1",
+      "diamond_dependency_graph:compiler+hammer2.1_3b:1:p1b-05561abc7499",
+      "orchestrator_should_abstain:compiler+hammer2.1_3b:1:p1b-9c81a8f62521",
+      "jev_uncertain:compiler+hammer2.1_3b:1:p1b-7790924e9bad",
+      "slm_uncertain:compiler+hammer2.1_3b:1:p1b-dcc59eeacf8c",
+      "no_relevant_tool:compiler+hammer2.1_3b:2:p1b-7ede930c43e2",
+      "two_independent_parallel_actions:compiler+hammer2.1_3b:2:p1b-5dbf93a2145d",
+      "hard_dependency_a_then_b:compiler+hammer2.1_3b:2:p1b-b3f7f7acec92",
+      "diamond_dependency_graph:compiler+hammer2.1_3b:2:p1b-05a88eb454fb",
+      "orchestrator_should_abstain:compiler+hammer2.1_3b:2:p1b-63a26560b5b9",
+      "jev_uncertain:compiler+hammer2.1_3b:2:p1b-e92c3a4ccb7c",
+      "slm_uncertain:compiler+hammer2.1_3b:2:p1b-f133beeb529b",
+      "no_relevant_tool:compiler+functiongemma_270m:1:p1b-9de452b65e25",
+      "two_independent_parallel_actions:compiler+functiongemma_270m:1:p1b-ec9f849a724d",
+      "hard_dependency_a_then_b:compiler+functiongemma_270m:1:p1b-a1d66e2bb6fc",
+      "diamond_dependency_graph:compiler+functiongemma_270m:1:p1b-216ce507c3f7",
+      "orchestrator_should_abstain:compiler+functiongemma_270m:1:p1b-2a1390c48774",
+      "jev_uncertain:compiler+functiongemma_270m:1:p1b-ebbc158b43c5",
+      "slm_uncertain:compiler+functiongemma_270m:1:p1b-a81148bb242f",
+      "no_relevant_tool:compiler+functiongemma_270m:2:p1b-26e6240db376",
+      "two_independent_parallel_actions:compiler+functiongemma_270m:2:p1b-2e3600b921f6",
+      "hard_dependency_a_then_b:compiler+functiongemma_270m:2:p1b-5401f378af6f",
+      "diamond_dependency_graph:compiler+functiongemma_270m:2:p1b-fd173c9f6822",
+      "orchestrator_should_abstain:compiler+functiongemma_270m:2:p1b-66ffd4e49c6f",
+      "jev_uncertain:compiler+functiongemma_270m:2:p1b-e900eef2ef16",
+      "slm_uncertain:compiler+functiongemma_270m:2:p1b-c159b5bda8a0",
+      "no_relevant_tool:compiler+qwen3.5_4b:1:p1b-727e4a234de3",
+      "two_independent_parallel_actions:compiler+qwen3.5_4b:1:p1b-7ada3584c729",
+      "hard_dependency_a_then_b:compiler+qwen3.5_4b:1:p1b-5e5663093c0f",
+      "diamond_dependency_graph:compiler+qwen3.5_4b:1:p1b-79a4036c3a57",
+      "orchestrator_should_abstain:compiler+qwen3.5_4b:1:p1b-5e252c970d25",
+      "jev_uncertain:compiler+qwen3.5_4b:1:p1b-cb082bfac3d7",
+      "slm_uncertain:compiler+qwen3.5_4b:1:p1b-61231ce355f0",
+      "no_relevant_tool:compiler+qwen3.5_4b:2:p1b-e7a7df1cc3f5",
+      "two_independent_parallel_actions:compiler+qwen3.5_4b:2:p1b-ca18ec5786d0",
+      "hard_dependency_a_then_b:compiler+qwen3.5_4b:2:p1b-42267764ba1a",
+      "diamond_dependency_graph:compiler+qwen3.5_4b:2:p1b-432588cba620",
+      "orchestrator_should_abstain:compiler+qwen3.5_4b:2:p1b-ee841c80f441",
+      "jev_uncertain:compiler+qwen3.5_4b:2:p1b-4ee8f155c5ef",
+      "slm_uncertain:compiler+qwen3.5_4b:2:p1b-6a3b77ecd535",
+      "no_relevant_tool:compiler+qwen3.5_9b:1:p1b-10351b041659",
+      "two_independent_parallel_actions:compiler+qwen3.5_9b:1:p1b-6a1fd8d31297",
+      "hard_dependency_a_then_b:compiler+qwen3.5_9b:1:p1b-438bb3cf9708",
+      "diamond_dependency_graph:compiler+qwen3.5_9b:1:p1b-126b546e8b97",
+      "orchestrator_should_abstain:compiler+qwen3.5_9b:1:p1b-b1ee53907732",
+      "jev_uncertain:compiler+qwen3.5_9b:1:p1b-96f5c5127c56",
+      "slm_uncertain:compiler+qwen3.5_9b:1:p1b-0ebb3536be8a",
+      "no_relevant_tool:compiler+qwen3.5_9b:2:p1b-7d532db7bcf6",
+      "two_independent_parallel_actions:compiler+qwen3.5_9b:2:p1b-f9e5eeb73b77",
+      "hard_dependency_a_then_b:compiler+qwen3.5_9b:2:p1b-0238bbc22f49",
+      "diamond_dependency_graph:compiler+qwen3.5_9b:2:p1b-38b970d479ed",
+      "orchestrator_should_abstain:compiler+qwen3.5_9b:2:p1b-941876e1468d",
+      "jev_uncertain:compiler+qwen3.5_9b:2:p1b-3bae19ff4e88",
+      "slm_uncertain:compiler+qwen3.5_9b:2:p1b-ed1db307da4a",
+      "no_relevant_tool:compiler+nemotron_orchestrator_8b:1:p1b-a51deb0e9943",
+      "two_independent_parallel_actions:compiler+nemotron_orchestrator_8b:1:p1b-40af0988e1dc",
+      "hard_dependency_a_then_b:compiler+nemotron_orchestrator_8b:1:p1b-b81a625adcc9",
+      "diamond_dependency_graph:compiler+nemotron_orchestrator_8b:1:p1b-4a248c9868fc",
+      "orchestrator_should_abstain:compiler+nemotron_orchestrator_8b:1:p1b-765249b7f9c2",
+      "jev_uncertain:compiler+nemotron_orchestrator_8b:1:p1b-b18cbf7d35c5",
+      "slm_uncertain:compiler+nemotron_orchestrator_8b:1:p1b-9a4d06584a18",
+      "no_relevant_tool:compiler+nemotron_orchestrator_8b:2:p1b-13f3b5a985af",
+      "two_independent_parallel_actions:compiler+nemotron_orchestrator_8b:2:p1b-03e15b4e9fd6",
+      "hard_dependency_a_then_b:compiler+nemotron_orchestrator_8b:2:p1b-d9c33a27668d",
+      "diamond_dependency_graph:compiler+nemotron_orchestrator_8b:2:p1b-48036c3e11ea",
+      "orchestrator_should_abstain:compiler+nemotron_orchestrator_8b:2:p1b-98e683b830bd",
+      "jev_uncertain:compiler+nemotron_orchestrator_8b:2:p1b-b41c7f6f74b7",
+      "slm_uncertain:compiler+nemotron_orchestrator_8b:2:p1b-226ff6bbb2af"
+    ],
+    "family_sizes": {
+      "abstention": 30,
+      "control_flow": 75,
+      "dependencies": 30,
+      "parallelism": 15,
+      "recovery": 60,
+      "routing": 45,
+      "schema": 45,
+      "security": 60,
+      "tool_selection": 30,
+      "uncertainty": 30
+    },
+    "holdout_families": [
+      "abstention",
+      "dependencies",
+      "parallelism",
+      "uncertainty"
+    ],
+    "in_family_count": 6
+  },
+  "proportions": {
+    "confirm": 0.15,
+    "train": 0.7,
+    "validation": 0.15
+  },
+  "schema": "qroute.phase2_splits.v1",
+  "sealed": {
+    "overshoot_reason": "the smallest sealable unit is one task, and the first task carries 15 episodes; sealing a partial task would leak its siblings into training",
+    "requested_episodes": 12,
+    "sealed_task_ids": [
+      "no_relevant_tool"
+    ],
+    "selected": [
+      {
+        "episode_id": "no_relevant_tool:compiler+functiongemma_270m:0:p1b-0043df265bec",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+functiongemma_270m:1:p1b-9de452b65e25",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+functiongemma_270m:2:p1b-26e6240db376",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+hammer2.1_3b:0:p1b-2e7a43ac619c",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+hammer2.1_3b:1:p1b-e00ee22e97ea",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+hammer2.1_3b:2:p1b-7ede930c43e2",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+nemotron_orchestrator_8b:0:p1b-1522e515c101",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+nemotron_orchestrator_8b:1:p1b-a51deb0e9943",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+nemotron_orchestrator_8b:2:p1b-13f3b5a985af",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+qwen3.5_4b:0:p1b-33ddae794c65",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+qwen3.5_4b:1:p1b-727e4a234de3",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+qwen3.5_4b:2:p1b-e7a7df1cc3f5",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+qwen3.5_9b:0:p1b-8a412a1f9e75",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+qwen3.5_9b:1:p1b-10351b041659",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      },
+      {
+        "episode_id": "no_relevant_tool:compiler+qwen3.5_9b:2:p1b-7d532db7bcf6",
+        "human_audited": false,
+        "note": "sealed: excluded from every training and search split",
+        "task_family": "abstention",
+        "task_id": "no_relevant_tool"
+      }
+    ],
+    "selected_episodes": 15,
+    "selected_tasks": 1,
+    "shortfall_reason": null,
+    "task_budget": 4
+  },
+  "split_digest": "c9ef295816bba61b"
+}
