@@ -29,6 +29,12 @@ from .coverage_metric import binary_gate_metrics
 from .dagger import mean_closed_loop_reward
 from .gym import make_env
 from .schema import ACTIONS
+from .slice_informativeness import (
+    GATE_UNINFORMATIVE,
+    assess_slice,
+    gate_status,
+    summarise as summarise_slices,
+)
 from .splits import load_splits
 from .student_bundle import bundle_exists, bundle_meta, load_bundle
 
@@ -39,6 +45,14 @@ GATE_CONFIRM = 0.95
 GATE_VAL = 0.95
 GATE_OOD = 0.85
 GATE_CLOSED_LOOP = 1.0 - 1e-9
+
+#: These gates read the per-EPISODE unit. `results/recovery-compare.json` reports
+#: the same frozen bundle per STEP (0.8385) while this file recorded 1.000 per
+#: episode and promoted on it. Both numbers are real; the differing unit was
+#: never declared, which is how they came to coexist. Declared here, and carried
+#: into the report, so a comparison contract can reject the pair.
+METRIC_UNIT = "accuracy"
+AGGREGATION_UNIT = "per_episode"
 
 
 def _home() -> Path:
@@ -129,9 +143,14 @@ def run_l2_recovery_benchmark(
     controls: dict[str, dict[str, Any]] = {}
     # majority
     maj_c = _majority_predict(data.train, data.confirm)
+    maj_v = _majority_predict(data.train, data.val)
     maj_o = _majority_predict(data.train, data.ood)
     controls["majority"] = {
         "confirm": _split_metrics("confirm", maj_c, data.confirm),
+        # `val` is gated at GATE_VAL like the others, so it needs a baseline to be
+        # gated *against*. Without one the threshold check had nothing to
+        # discriminate from and passed vacuously.
+        "val": _split_metrics("val", maj_v, data.val),
         "ood": _split_metrics("ood", maj_o, data.ood),
         "closed_loop_reward": None,
     }
@@ -169,6 +188,35 @@ def run_l2_recovery_benchmark(
     ood_acc = float((student_block or {}).get("ood", {}).get("accuracy") or 0.0)
     cl = float(closed_loop) if closed_loop is not None else 0.0
 
+    # --- slice informativeness -------------------------------------------
+    # A gate that compares a candidate to a threshold only means something if
+    # the slice can discriminate. On 2026-09-21 this capability was promoted to
+    # canary with promote_allowed=true on an OOD slice whose 32/32 labels are
+    # `escalate`, so the majority baseline scored 1.000 and cleared `ood_ge`.
+    def _gold(split) -> list[int]:
+        return [int(ep.labels[-1]) for ep in split]
+
+    train_gold = _gold(data.train)
+    slice_assessments = []
+    for slice_id, split, threshold in (
+        ("confirm", data.confirm, GATE_CONFIRM),
+        ("val", data.val, GATE_VAL),
+        ("ood", data.ood, GATE_OOD),
+    ):
+        maj = ((controls.get("majority") or {}).get(slice_id) or {}).get("accuracy")
+        slice_assessments.append(
+            assess_slice(
+                slice_id=slice_id,
+                gold_labels=_gold(split),
+                fit_labels=train_gold,
+                majority_accuracy=(float(maj) if maj is not None else None),
+                metric_unit=METRIC_UNIT,
+                aggregation_unit=AGGREGATION_UNIT,
+                gate_threshold=threshold,
+                declared_class_count=len(ACTIONS),
+            )
+        )
+
     gates = {
         "confirm_ge": GATE_CONFIRM,
         "val_ge": GATE_VAL,
@@ -180,13 +228,23 @@ def run_l2_recovery_benchmark(
         "closed_loop_ok": cl + 1e-12 >= GATE_CLOSED_LOOP,
         "bundle_present": has_bundle,
     }
-    gates["pass"] = bool(
+    thresholds_passed = bool(
         gates["bundle_present"]
         and gates["confirm_ok"]
         and gates["val_ok"]
         and gates["ood_ok"]
         and gates["closed_loop_ok"]
     )
+    slices_informative = all(s.informative for s in slice_assessments)
+    gates["thresholds_passed"] = thresholds_passed
+    gates["slices_informative"] = slices_informative
+    gates["informative_slices"] = [s.slice_id for s in slice_assessments if s.informative]
+    gates["uninformative_slices"] = [s.slice_id for s in slice_assessments if not s.informative]
+    # Pass now requires both: the thresholds cleared AND the slices able to tell
+    # the difference. An uninformative slice outranks a fail — it is an absent
+    # test, not a failed one.
+    gates["pass"] = bool(thresholds_passed and slices_informative)
+    gates["gate_status"] = gate_status(slice_assessments, thresholds_passed=thresholds_passed)
 
     report: dict[str, Any] = {
         "schema": SCHEMA,
@@ -206,12 +264,31 @@ def run_l2_recovery_benchmark(
             "n_ood": len(data.ood),
         },
         "actions": list(ACTIONS),
+        "metric_unit": METRIC_UNIT,
+        "aggregation_unit": AGGREGATION_UNIT,
+        "unit_note": (
+            "These gates read the per-episode unit. results/recovery-compare.json "
+            "reports the same bundle per step (0.8385). Declared so the two can no "
+            "longer be compared without a mismatch being visible."
+        ),
         "controls": controls,
+        "slice_informativeness": summarise_slices(slice_assessments),
         "gates": gates,
         "execution_policy": {
             "current": "canary" if gates["pass"] else "shadow",
             "omp_hooks": "log_only_until_canary_marker",
             "promote_allowed": bool(promote and gates["pass"]),
+            "gate_status": gates["gate_status"],
+            "blocked_reason": (
+                None
+                if gates["pass"]
+                else (
+                    "uninformative promotion slice(s): "
+                    + ", ".join(gates["uninformative_slices"])
+                    if gates["uninformative_slices"]
+                    else "gate thresholds not met"
+                )
+            ),
         },
     }
 
@@ -237,13 +314,34 @@ def run_l2_recovery_benchmark(
 
     out_dir = _home() / "benchmarks"
     spec_dir = _home() / "specialists"
-    report_path = out_dir / "recovery_action_l2.json"
+    # The 2026-09-21 artifact is historical evidence for a gate that promoted on
+    # an uninformative slice. It is NOT overwritten: its recorded result stands,
+    # and the revised report is written beside it. A re-run must not be able to
+    # rewrite the record of what previously passed.
+    legacy_path = out_dir / "recovery_action_l2.json"
+    report_path = out_dir / "recovery_action_l2.revised.json"
     canary_path = spec_dir / "recovery_action.canary.json"
+    report["supersedes"] = str(legacy_path) if legacy_path.is_file() else None
+    if legacy_path.is_file():
+        try:
+            prev = json.loads(legacy_path.read_text(encoding="utf-8"))
+            report["superseded_verdict"] = {
+                "gates_pass": (prev.get("gates") or {}).get("pass"),
+                "promote_allowed": (prev.get("execution_policy") or {}).get("promote_allowed"),
+                "note": (
+                    "The superseded run passed on an OOD slice whose labels are a single "
+                    "class, so its majority baseline scored 1.000 and cleared ood_ge=0.85."
+                ),
+            }
+        except (OSError, json.JSONDecodeError):
+            report["superseded_verdict"] = {"note": "legacy artifact present but unreadable"}
     if write:
         out_dir.mkdir(parents=True, exist_ok=True)
         spec_dir.mkdir(parents=True, exist_ok=True)
-        report_path.write_text(json.dumps(report, indent=2, default=str) + "\n", encoding="utf-8")
-        report["report_path"] = str(report_path)
+        # Resolve the canary outcome BEFORE writing, so every field below reaches
+        # disk. Previously the report was written first and the stale-marker flag
+        # was set afterwards, so the flag existed only in the returned dict and
+        # never in the artifact a later reader would find.
         if promote and gates["pass"]:
             marker = {
                 "schema": "z0int.specialist_canary.v1",
@@ -259,6 +357,13 @@ def run_l2_recovery_benchmark(
         elif canary_path.exists() and not gates["pass"]:
             # do not delete existing canary automatically — fail closed on new run only
             report["canary_marker_stale"] = str(canary_path)
+            report["canary_marker_stale_reason"] = (
+                f"an existing canary marker remains from a run that passed under gate "
+                f"semantics this run does not ({gates['gate_status']}); it is deliberately "
+                "not deleted, but it must not be read as a current endorsement"
+            )
+        report["report_path"] = str(report_path)
+        report_path.write_text(json.dumps(report, indent=2, default=str) + "\n", encoding="utf-8")
 
     return report
 
