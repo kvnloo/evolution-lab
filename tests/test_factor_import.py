@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 
 from evolution_lab.factor_import import (
+    import_bend_attestation_rows,
     import_rlm_evidence_ab,
     import_sol_pi_observation_ledger,
     import_state_packet,
@@ -204,6 +205,44 @@ class FactorImportTests(unittest.TestCase):
         self.assertEqual(result.measurements["invalid_calls"], 1)
         self.assertEqual(result.measurements["peak_vram_mb"], 4400)
         self.assertEqual(result.receipts[0].factor, "local_slm_policy")
+
+
+
+    def test_bend_verdict_pass_cannot_hide_semantic_mismatch(self):
+        result = import_bend_attestation_rows(
+            [
+                {
+                    "candidate": "2.0.34",
+                    "adapter_pass": True,
+                    "source_value": False,
+                    "certified_value": True,
+                    "translation_mismatch": True,
+                }
+            ],
+            revision="bend@2.0.34",
+        )
+        self.assertEqual(result.measurements["verifier_pass_rate"], 1.0)
+        self.assertEqual(result.measurements["semantic_attestation_rate"], 0.0)
+        self.assertEqual(result.measurements["translation_mismatches"], 1)
+        self.assertFalse(result.measurements["hard_gate_pass"])
+
+    def test_bend_patched_candidate_clears_semantic_oracle(self):
+        result = import_bend_attestation_rows(
+            [
+                {
+                    "candidate": "patched-main",
+                    "adapter_pass": True,
+                    "source_value": False,
+                    "certified_value": False,
+                    "translation_mismatch": False,
+                }
+                for _ in range(25)
+            ],
+            revision="17db447a8b8c17b51517de42b35d3216e563f40f",
+        )
+        self.assertEqual(result.measurements["semantic_attestation_rate"], 1.0)
+        self.assertEqual(result.measurements["translation_mismatches"], 0)
+        self.assertTrue(result.measurements["hard_gate_pass"])
 
 
 
