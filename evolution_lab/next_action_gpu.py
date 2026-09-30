@@ -161,7 +161,9 @@ def run_next_action_gpu(
     dim: int = 64,
     weak_boost: int = 1,
     weak_families: tuple[str, ...] = WEAK_FAMILIES,
+    root: Path | None = None,
 ) -> dict[str, Any]:
+    """``root`` is where runs/ and data/next_action/ are written (default: repo root)."""
     os.environ.setdefault("XLA_PYTHON_CLIENT_MEM_FRACTION", "0.25")
     recipe = recipe or DataRecipe(source="next_action", n_train=2048)
     path = episodes or EPISODES
@@ -219,7 +221,7 @@ def run_next_action_gpu(
         "by_family": by_fam,
         "note": "GPU filters candidates; ridge is the CPU baseline on unboosted train. Promote-only.",
     }
-    root = Path(__file__).resolve().parents[1]
+    root = root or Path(__file__).resolve().parents[1]
     out_dir = root / "runs" / "gpu-evolve"
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "next_action_report.json").write_text(json.dumps(report, indent=2) + "\n")
