@@ -5,6 +5,7 @@ import unittest
 from evolution_lab.factor_import import (
     import_bend_attestation_rows,
     import_rlm_evidence_ab,
+    import_rlm_querygen,
     import_sol_pi_observation_ledger,
     import_state_packet,
     import_slm_tournament_rows,
@@ -243,6 +244,82 @@ class FactorImportTests(unittest.TestCase):
         self.assertEqual(result.measurements["semantic_attestation_rate"], 1.0)
         self.assertEqual(result.measurements["translation_mismatches"], 0)
         self.assertTrue(result.measurements["hard_gate_pass"])
+
+
+
+    def test_rlm_querygen_gate_preserves_scope(self):
+        rows = []
+        for workload in ("a", "b", "c", "d", "e"):
+            rows.extend(
+                [
+                    {
+                        "run": 1,
+                        "arm": "oracle",
+                        "workload": workload,
+                        "retrievalPass": True,
+                        "patternHits": 1,
+                        "grantedBytes": 1000,
+                        "generatorElapsedMs": 0,
+                        "systemTokenProxy": 250,
+                    },
+                    {
+                        "run": 1,
+                        "arm": "lexical",
+                        "workload": workload,
+                        "retrievalPass": workload != "e",
+                        "patternHits": 1,
+                        "grantedBytes": 1200,
+                        "generatorElapsedMs": 0,
+                        "systemTokenProxy": 300,
+                    },
+                    {
+                        "run": 1,
+                        "arm": "model",
+                        "workload": workload,
+                        "retrievalPass": workload != "e",
+                        "patternHits": 1,
+                        "grantedBytes": 1100,
+                        "generatorTotalTokens": 20,
+                        "generatorElapsedMs": 8,
+                        "systemTokenProxy": 295,
+                    },
+                ]
+            )
+        result = import_rlm_querygen(
+            rows, revision="exp/rlm-evidence-ab-clean"
+        )
+        gate = result.measurements["provisional_querygen_gate"]
+        self.assertTrue(gate["oracle_is_complete"])
+        self.assertEqual(gate["model_oracle_retention"], 0.8)
+        self.assertTrue(gate["model_not_below_lexical"])
+        self.assertTrue(gate["candidate"])
+        self.assertIn(
+            "sub-gate only", result.measurements["qualification_note"]
+        )
+
+    def test_rlm_querygen_rejects_partial_model_cohort(self):
+        rows = [
+            {
+                "run": 1,
+                "arm": "oracle",
+                "workload": "a",
+                "retrievalPass": True,
+            },
+            {
+                "run": 1,
+                "arm": "lexical",
+                "workload": "a",
+                "retrievalPass": True,
+            },
+            {
+                "run": 2,
+                "arm": "model",
+                "workload": "a",
+                "retrievalPass": True,
+            },
+        ]
+        with self.assertRaisesRegex(ValueError, "cohort differs"):
+            import_rlm_querygen(rows, revision="test")
 
 
 
