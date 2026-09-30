@@ -273,6 +273,75 @@ def predict_population(
     return out
 
 
+# ----------------------------------------------------------------------------- sharding
+
+
+def _shard_worker(args):
+    """One process = one pinned core, single-threaded XLA/BLAS. Returns val acc + weights."""
+    genes, cpu, backend, protocol, train, val_eps = args
+    import os as _os
+
+    if cpu is not None:
+        _os.sched_setaffinity(0, {cpu})
+    ts = train_set(train)
+    t0 = time.perf_counter()
+    st = setup_population(genes, ts)
+    t1 = time.perf_counter()
+    W = train_jax(st, ts.y) if backend == "jax" else train_numpy(st, ts.y)
+    t2 = time.perf_counter()
+    eps, y = prefix_episodes(val_eps)
+    pv = predict_population(st, W, eps, protocol=protocol)
+    accs = (pv == y[None, :]).mean(axis=1)
+    dense = [dense_weights(st, W, p) for p in range(len(genes))]
+    return accs, dense, {"setup_s": t1 - t0, "train_s": t2 - t1, "cpu": cpu, "n": len(genes)}
+
+
+def evaluate_sharded(
+    genes: Sequence[Gene],
+    train: Sequence[Episode],
+    val_eps: Sequence[Episode],
+    *,
+    workers: int = 4,
+    cpus: Sequence[int] | None = None,
+    backend: str = "jax",
+    protocol: bool = True,
+) -> tuple[np.ndarray, list[np.ndarray], list[dict[str, Any]]]:
+    """Split the population across `workers` single-threaded processes (spawn, pinned)."""
+    import multiprocessing as mp
+    import os as _os
+
+    genes = list(genes)
+    if cpus is None:
+        cpus = sorted(_os.sched_getaffinity(0))[:workers]
+    shards = [genes[i::workers] for i in range(workers)]
+    env_backup = {k: _os.environ.get(k) for k in ("XLA_FLAGS", "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS")}
+    _os.environ["XLA_FLAGS"] = "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=1"
+    _os.environ["OMP_NUM_THREADS"] = "1"
+    _os.environ["OPENBLAS_NUM_THREADS"] = "1"
+    try:
+        ctx = mp.get_context("spawn")
+        with ctx.Pool(workers) as pool:
+            res = pool.map(
+                _shard_worker,
+                [(s, cpus[i % len(cpus)], backend, protocol, list(train), list(val_eps)) for i, s in enumerate(shards) if s],
+            )
+    finally:
+        for k, v in env_backup.items():
+            if v is None:
+                _os.environ.pop(k, None)
+            else:
+                _os.environ[k] = v
+    accs = np.empty(len(genes))
+    dense: list[np.ndarray] = [None] * len(genes)  # type: ignore[list-item]
+    stats = []
+    for i, (a, d, s) in enumerate(res):
+        for j, (acc, w) in enumerate(zip(a, d)):
+            accs[i + j * workers] = acc
+            dense[i + j * workers] = w
+        stats.append(s)
+    return accs, dense, stats
+
+
 # ----------------------------------------------------------------------------- evolution
 
 
@@ -335,6 +404,8 @@ def evolve(
     backend: str = "numpy",
     seed: int = 0,
     seed_genes: Sequence[Gene] = (Gene(),),
+    workers: int = 1,
+    train_eps: Sequence[Episode] | None = None,
     log=print,
 ) -> dict[str, Any]:
     """(mu + lambda) on val per-step accuracy (max) and params (min). Val only."""
@@ -347,7 +418,13 @@ def evolve(
     for gen in range(generations):
         todo = [g for g in dict.fromkeys(genes) if g not in scored]
         t0 = time.perf_counter()
-        if todo:
+        if todo and workers > 1:
+            accs, _, _ = evaluate_sharded(todo, train_eps, val_eps, workers=workers, backend=backend, protocol=protocol)
+            t1 = t0
+            t2 = time.perf_counter()
+            for g, a in zip(todo, accs):
+                scored[g] = {"val_step": float(a), "params": g.n_params}
+        elif todo:
             st = setup_population(todo, ts)
             t1 = time.perf_counter()
             W = train_jax(st, ts.y) if backend == "jax" else train_numpy(st, ts.y)
