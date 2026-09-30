@@ -1,0 +1,113 @@
+version: 1
+repo: kvnloo/evolution-lab
+id: evolution-lab
+component: evolution-lab
+kind: research
+summary: Experiment engine for measured specialist evolution, locked corpora, DAgger, Pareto/MAP-Elites search, and evidence-backed promotion.
+
+architecture:
+  subsystems:
+    - id: experiment-engine
+      name: Experiment engine
+      kind: research
+      summary: Executes candidate genomes, archives measurements, and compares systems on common tasks and controls.
+      paths:
+        - evolution_lab/engine.py
+        - evolution_lab/cycle.py
+        - evolution_lab/lab.py
+        - evolution_lab/archive.py
+        - evolution_lab/bench.py
+
+    - id: locked-corpora
+      name: Locked corpora and splits
+      kind: evidence
+      summary: Builds deterministic train/validation/confirm/OOD/sealed partitions while preserving corpus identity separately from evidence strength.
+      paths:
+        - corpus/
+        - evolution_lab/sealed_split.py
+        - evolution_lab/splits.py
+        - evolution_lab/episode.py
+        - docs/phase2-corpus.md
+      depends_on: [experiment-engine]
+
+    - id: specialist-search
+      name: Specialist search
+      kind: learning
+      summary: Evolves and compares bounded specialist families using DAgger, mutation, Pareto selection, MAP-Elites niches, and task-specific student bundles.
+      paths:
+        - evolution_lab/dagger.py
+        - evolution_lab/mutate.py
+        - evolution_lab/pareto.py
+        - evolution_lab/elites.py
+        - evolution_lab/student_bundle.py
+        - evolution_lab/q_route/
+      depends_on: [locked-corpora]
+
+    - id: abab-meta-loop
+      name: ABAB meta-loop
+      kind: learning
+      summary: Evaluates architecture and data-generation changes while keeping frozen evaluation and promotion gates outside the evolvable surface.
+      paths:
+        - evolution_lab/abab_meta.py
+        - evolution_lab/abab_state.py
+        - evolution_lab/outer_loop.py
+        - evolution_lab/autoresearch.py
+        - evolution_lab/autoresearch_propose.py
+      depends_on: [locked-corpora, specialist-search]
+
+    - id: promotion
+      name: Promotion ladder
+      kind: governance
+      summary: Requires candidates to earn higher rungs through measured controls, external outcomes, and promotion criteria rather than self-reported model quality.
+      paths:
+        - evolution_lab/promote.py
+        - evolution_lab/coverage_metric.py
+        - evolution_lab/receipt.py
+        - roadmap.yml
+      depends_on: [specialist-search]
+
+    - id: z0int-export
+      name: z0intelligence export boundary
+      kind: integration
+      summary: Exports measured specialist artifacts and decisions back to the z0intelligence runtime while leaving production execution outside Evolution Lab.
+      paths:
+        - evolution_lab/export_z0int.py
+        - evolution_lab/jev_bridge.py
+        - evolution_lab/openjev_runner.py
+      depends_on: [promotion]
+
+  implements_mechanisms:
+    - verified-specialist-evolution
+
+  provides_interfaces: []
+
+  consumes_interfaces:
+    - tokenomics.report.v1
+    - z0int.decision_receipt.v1
+
+  produces_representations: []
+
+  consumes_representations:
+    - decision-receipt
+
+  boundaries:
+    owns:
+      - experiment genomes and search
+      - locked corpora and splits
+      - control tables and candidate comparisons
+      - specialist evolution and promotion evidence
+    not_here:
+      - production agent runtime
+      - source memory truth
+      - personal trace storage
+      - canonical evaluation publication
+
+  evidence:
+    docs:
+      - README.md
+      - ROADMAP.md
+      - docs/phase2-corpus.md
+    tests:
+      - tests/
+    schemas:
+      - corpus/
