@@ -89,7 +89,6 @@ architecture:
 
   consumes_representations:
     - decision-receipt
-    - evaluation-artifact
 
   boundaries:
     owns:
