@@ -170,3 +170,113 @@ def rlm_arm_summaries(
         )
 
     return make(control_id, full), make(candidate_id, search)
+
+
+def import_state_packet(
+    packet: Mapping[str, Any],
+    *,
+    revision: str,
+    trace_id: str = "state-packet",
+) -> ImportResult:
+    """Normalize the current z0int ContextPacket/StatePacket-compatible shape.
+
+    This importer only measures state construction/provenance. A packet by
+    itself is not a verified task outcome, so it cannot independently qualify
+    the memory factor for promotion.
+    """
+    row = dict(packet)
+    schema = str(row.get("schema") or "")
+    if not schema.startswith("z0int.context_resolve") and not schema.startswith("z0int.state"):
+        raise ValueError("unsupported StatePacket/context schema")
+    evidence = row.get("evidence") or []
+    gaps = row.get("unresolved_gaps") or row.get("blocking_unknowns") or []
+    contradictions = row.get("contradictions") or []
+    if not isinstance(evidence, list) or not isinstance(gaps, list) or not isinstance(contradictions, list):
+        raise ValueError("invalid packet collections")
+
+    provenance_missing = 0
+    for item in evidence:
+        if not isinstance(item, Mapping):
+            provenance_missing += 1
+            continue
+        if not item.get("source_id") or not item.get("source_version") or not item.get("locator"):
+            provenance_missing += 1
+
+    measurements = dict(row.get("measurements") or {})
+    receipt = FactorReceipt(
+        factor="state_packet_memory",
+        trace_id=trace_id,
+        schema=schema,
+        source="kvnloo/z0intelligence",
+        revision=revision,
+    )
+    return ImportResult(
+        factor="state_packet_memory",
+        observations=1,
+        measurements={
+            "evidence_count": len(evidence),
+            "unresolved_gap_count": len(gaps),
+            "contradiction_count": len(contradictions),
+            "provenance_missing": provenance_missing,
+            "source_reads": measurements.get("source_reads"),
+            "latency_ms": measurements.get("latency_ms"),
+            "packet_bytes": measurements.get("packet_bytes"),
+            "cache_hit": measurements.get("cache_hit"),
+            "qualification_note": "state construction alone is not verified task success",
+        },
+        receipts=(receipt,),
+    )
+
+
+def import_slm_tournament_rows(
+    rows: Iterable[Mapping[str, Any]],
+    *,
+    composition: str,
+    revision: str,
+    trace_id: str = "local-slm-tournament",
+) -> ImportResult:
+    """Normalize Evolution Lab local-tool-tournament row receipts.
+
+    The tournament already separates compiler legality from learned choice and
+    exposes hard_failure, correct, latency, token, GPU, VRAM and retry fields.
+    """
+    data = [
+        dict(r)
+        for r in rows
+        if r.get("schema") == "z0int.tool_tournament.row.v1"
+        and r.get("composition") == composition
+    ]
+    if not data:
+        raise ValueError("no matching local SLM tournament rows")
+
+    prompt_tokens = [float(r["prompt_tokens"]) for r in data if r.get("prompt_tokens") is not None]
+    completion_tokens = [float(r["completion_tokens"]) for r in data if r.get("completion_tokens") is not None]
+    gpu_ms = [float(r["gpu_ms"]) for r in data if r.get("gpu_ms") is not None]
+    vram = [float(r["vram_peak_mb"]) for r in data if r.get("vram_peak_mb") is not None]
+
+    receipt = FactorReceipt(
+        factor="local_slm_policy",
+        trace_id=trace_id,
+        schema="z0int.local_tool_tournament.v1",
+        source="kvnloo/evolution-lab",
+        revision=revision,
+    )
+    return ImportResult(
+        factor="local_slm_policy",
+        observations=len(data),
+        measurements={
+            "composition": composition,
+            "correct_rate": sum(bool(r.get("correct")) for r in data) / len(data),
+            "hard_failures": sum(bool(r.get("hard_failure")) for r in data),
+            "invalid_calls": sum(bool(r.get("invalid_call")) for r in data),
+            "dangerous_picks": sum(bool(r.get("dangerous_pick")) for r in data),
+            "abstention_rate": sum(bool(r.get("abstained")) for r in data) / len(data),
+            "mean_latency_ms": mean(float(r.get("latency_ms") or 0) for r in data),
+            "mean_retries": mean(float(r.get("retries") or 0) for r in data),
+            "mean_prompt_tokens": mean(prompt_tokens) if prompt_tokens else None,
+            "mean_completion_tokens": mean(completion_tokens) if completion_tokens else None,
+            "mean_gpu_ms": mean(gpu_ms) if gpu_ms else None,
+            "peak_vram_mb": max(vram) if vram else None,
+        },
+        receipts=(receipt,),
+    )
