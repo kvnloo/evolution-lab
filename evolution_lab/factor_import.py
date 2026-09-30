@@ -341,3 +341,89 @@ def import_bend_attestation_rows(
         },
         receipts=(receipt,),
     )
+
+
+def import_rlm_querygen(
+    rows: Iterable[Mapping[str, Any]],
+    *,
+    revision: str,
+    trace_id: str = "rlm-querygen",
+) -> ImportResult:
+    """Normalize OMP RLM querygen.jsonl into the RLM factor.
+
+    This is a retrieval-formation sub-gate only. It does not count as verified
+    end-to-end task success and therefore cannot promote RLM by itself.
+    """
+    data = [
+        dict(r)
+        for r in rows
+        if r.get("arm") in {"oracle", "lexical", "model"}
+        and r.get("retrievalPass") is not None
+    ]
+    if not data:
+        raise ValueError("no RLM query-generation rows")
+
+    cohorts = {
+        arm: {(r.get("run"), r.get("workload")) for r in data if r.get("arm") == arm}
+        for arm in ("oracle", "lexical", "model")
+    }
+    if not cohorts["oracle"] or not cohorts["lexical"]:
+        raise ValueError("oracle and lexical query-generation arms are required")
+    if cohorts["oracle"] != cohorts["lexical"]:
+        raise ValueError("oracle/lexical query-generation cohorts differ")
+    if cohorts["model"] and cohorts["model"] != cohorts["oracle"]:
+        raise ValueError("model query-generation cohort differs from oracle")
+
+    def summary(arm: str) -> dict[str, Any]:
+        group = [r for r in data if r.get("arm") == arm]
+        if not group:
+            return {"rows": 0, "retrieval_rate": None}
+        generator_tokens = [
+            float(r["generatorTotalTokens"])
+            for r in group
+            if r.get("generatorTotalTokens") is not None
+        ]
+        return {
+            "rows": len(group),
+            "retrieval_rate": sum(bool(r.get("retrievalPass")) for r in group) / len(group),
+            "mean_pattern_hits": mean(float(r.get("patternHits") or 0) for r in group),
+            "mean_granted_bytes": mean(float(r.get("grantedBytes") or 0) for r in group),
+            "mean_generator_tokens": mean(generator_tokens) if generator_tokens else None,
+            "mean_generator_ms": mean(float(r.get("generatorElapsedMs") or 0) for r in group),
+            "mean_system_token_proxy": mean(float(r.get("systemTokenProxy") or 0) for r in group),
+        }
+
+    arms = {arm: summary(arm) for arm in ("oracle", "lexical", "model")}
+    oracle_rate = float(arms["oracle"]["retrieval_rate"])
+    lexical_rate = float(arms["lexical"]["retrieval_rate"])
+    model_rate = arms["model"]["retrieval_rate"]
+    provisional = None
+    if model_rate is not None:
+        retention = float(model_rate) / oracle_rate if oracle_rate else 0.0
+        provisional = {
+            "oracle_is_complete": oracle_rate == 1.0,
+            "model_oracle_retention": retention,
+            "model_not_below_lexical": float(model_rate) >= lexical_rate,
+            "candidate": oracle_rate == 1.0 and retention >= 0.8 and float(model_rate) >= lexical_rate,
+        }
+
+    receipt = FactorReceipt(
+        factor="rlm_evidence_addressing",
+        trace_id=trace_id,
+        schema="omp.rlm.querygen.v1",
+        source="kvnloo/oh-my-pi",
+        revision=revision,
+    )
+    return ImportResult(
+        factor="rlm_evidence_addressing",
+        observations=len(data),
+        measurements={
+            "arms": arms,
+            "provisional_querygen_gate": provisional,
+            "qualification_note": (
+                "query-generation retrieval is a sub-gate only; "
+                "native end-to-end verified task evidence is still required"
+            ),
+        },
+        receipts=(receipt,),
+    )
