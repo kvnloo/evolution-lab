@@ -1,0 +1,172 @@
+"""Import existing z0 mechanism receipts into the factorized-stack experiment.
+
+These adapters consume the source mechanisms' existing output shapes. They do
+not modify source runtimes or reinterpret model agreement as verification.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from statistics import mean
+from typing import Any, Iterable, Mapping
+
+from .factorized_stack import ArmSummary, FactorReceipt
+
+
+@dataclass(frozen=True)
+class ImportResult:
+    factor: str
+    observations: int
+    measurements: Mapping[str, Any] = field(default_factory=dict)
+    receipts: tuple[FactorReceipt, ...] = ()
+
+
+def _rows(rows: Iterable[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    return [dict(row) for row in rows]
+
+
+def import_sol_pi_observation_ledger(
+    rows: Iterable[Mapping[str, Any]],
+    *,
+    revision: str,
+    trace_id: str = "sol-pi-observation-ledger",
+) -> ImportResult:
+    """Summarize the real sol-pi-hermes ObservationPack ledger shape."""
+    data = _rows(rows)
+    relevant = [r for r in data if r.get("event") in {"full", "placeholder"}]
+    placeholders = [r for r in relevant if r.get("event") == "placeholder"]
+    full = [r for r in relevant if r.get("event") == "full"]
+
+    original_placeholder_bytes = sum(
+        int(r.get("originalBytes") or 0) for r in placeholders
+    )
+    estimated_placeholder_bytes = sum(
+        int(r.get("placeholderTokens") or 0) * 4 for r in placeholders
+    )
+    estimated_avoided = max(0, original_placeholder_bytes - estimated_placeholder_bytes)
+
+    receipt = FactorReceipt(
+        factor="sol_pi_observation_pack",
+        trace_id=trace_id,
+        schema="sol_pi.observation_pack.ledger.v1",
+        source="kvnloo/sol-pi-hermes",
+        revision=revision,
+    )
+    return ImportResult(
+        factor="sol_pi_observation_pack",
+        observations=len(relevant),
+        measurements={
+            "full_events": len(full),
+            "placeholder_events": len(placeholders),
+            "original_placeholder_bytes": original_placeholder_bytes,
+            "estimated_placeholder_bytes": estimated_placeholder_bytes,
+            "estimated_context_bytes_avoided": estimated_avoided,
+            "unique_observations": len(
+                {str(r.get("id")) for r in relevant if r.get("id")}
+            ),
+            "measurement_note": "placeholder byte estimate uses source placeholderTokens*4",
+        },
+        receipts=(receipt,),
+    )
+
+
+def import_rlm_evidence_ab(
+    rows: Iterable[Mapping[str, Any]],
+    *,
+    revision: str,
+    trace_id: str = "rlm-evidence-ab",
+) -> dict[str, Any]:
+    """Summarize the real OMP evidence-ab.jsonl row shape."""
+    data = _rows(rows)
+    valid = [
+        r
+        for r in data
+        if r.get("arm") in {"full", "fixed8k", "search8k"}
+        and r.get("backend") in {"mechanism", "live"}
+    ]
+    if not valid:
+        raise ValueError("no RLM evidence A/B rows")
+
+    def summarize(arm: str) -> dict[str, Any]:
+        group = [r for r in valid if r.get("arm") == arm]
+        if not group:
+            return {
+                "rows": 0,
+                "pass_rate": None,
+                "mean_granted_bytes": None,
+                "mean_prompt_bytes": None,
+                "mean_total_tokens": None,
+                "mean_elapsed_ms": None,
+            }
+        tokens = [float(r["totalTokens"]) for r in group if r.get("totalTokens") is not None]
+        return {
+            "rows": len(group),
+            "pass_rate": sum(bool(r.get("pass")) for r in group) / len(group),
+            "mean_granted_bytes": mean(float(r.get("grantedBytes") or 0) for r in group),
+            "mean_prompt_bytes": mean(float(r.get("promptBytes") or 0) for r in group),
+            "mean_total_tokens": mean(tokens) if tokens else None,
+            "mean_elapsed_ms": mean(float(r.get("elapsedMs") or 0) for r in group),
+        }
+
+    summary = {arm: summarize(arm) for arm in ("full", "fixed8k", "search8k")}
+    backends = sorted({str(r.get("backend")) for r in valid})
+    models = sorted({str(r.get("model")) for r in valid})
+
+    receipt = FactorReceipt(
+        factor="rlm_evidence_addressing",
+        trace_id=trace_id,
+        schema="omp.rlm.evidence_ab.v1",
+        source="kvnloo/oh-my-pi",
+        revision=revision,
+    )
+    return {
+        "factor": "rlm_evidence_addressing",
+        "observations": len(valid),
+        "backends": backends,
+        "models": models,
+        "arms": summary,
+        "receipts": [receipt.to_dict()],
+        "scope_note": (
+            "search8k tests addressing with a supplied lexical query; "
+            "live mode is descriptive, not native OMP end-to-end"
+        ),
+    }
+
+
+def rlm_arm_summaries(
+    rows: Iterable[Mapping[str, Any]],
+    *,
+    control_id: str = "control",
+    candidate_id: str = "rlm_evidence_addressing__only",
+) -> tuple[ArmSummary, ArmSummary]:
+    """Project RLM full/search rows into the common quality+cost gate."""
+    data = _rows(rows)
+    full = [r for r in data if r.get("arm") == "full"]
+    search = [r for r in data if r.get("arm") == "search8k"]
+    if not full or not search:
+        raise ValueError("full and search8k rows are required")
+
+    def keys(group: list[dict[str, Any]]) -> set[tuple[Any, Any]]:
+        return {(r.get("run"), r.get("workload")) for r in group}
+
+    if keys(full) != keys(search):
+        raise ValueError("RLM arms do not cover the same run/workload cohort")
+
+    def make(arm_id: str, group: list[dict[str, Any]]) -> ArmSummary:
+        tokens = [float(r["totalTokens"]) for r in group if r.get("totalTokens") is not None]
+        elapsed = sorted(float(r.get("elapsedMs") or 0) for r in group)
+        p95_i = max(0, min(len(elapsed) - 1, int(round(0.95 * (len(elapsed) - 1)))))
+        return ArmSummary(
+            arm_id=arm_id,
+            n_work_items=len(group),
+            verified_success_rate=sum(bool(r.get("pass")) for r in group) / len(group),
+            mean_input_tokens=mean(tokens) if tokens else None,
+            mean_context_bytes=mean(float(r.get("grantedBytes") or 0) for r in group),
+            p95_latency_ms=elapsed[p95_i],
+            measurements={
+                "source_success_semantics": "RLM evidence A/B pass field",
+                "backend": sorted({str(r.get("backend")) for r in group}),
+            },
+        )
+
+    return make(control_id, full), make(candidate_id, search)
