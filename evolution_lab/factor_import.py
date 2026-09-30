@@ -280,3 +280,64 @@ def import_slm_tournament_rows(
         },
         receipts=(receipt,),
     )
+
+
+def import_bend_attestation_rows(
+    rows: Iterable[Mapping[str, Any]],
+    *,
+    revision: str,
+    trace_id: str = "bend-semantic-attestation",
+) -> ImportResult:
+    """Normalize Bend source->BendTT semantic-attestation results.
+
+    A successful verifier exit is never enough. The candidate only has a
+    semantically clean row when source_value == certified_value and the
+    translation_mismatch flag is false.
+    """
+    data = _rows(rows)
+    if not data:
+        raise ValueError("no Bend attestation rows")
+
+    mismatches = 0
+    verifier_passes = 0
+    semantic_passes = 0
+    latencies: list[float] = []
+    for row in data:
+        adapter_pass = bool(row.get("adapter_pass") or row.get("verdict_pass"))
+        if adapter_pass:
+            verifier_passes += 1
+        source = row.get("source_value")
+        certified = row.get("certified_value")
+        mismatch = bool(row.get("translation_mismatch")) or (
+            source is not None and certified is not None and source != certified
+        )
+        if mismatch:
+            mismatches += 1
+        if adapter_pass and not mismatch and source is not None and certified is not None:
+            semantic_passes += 1
+        if row.get("latency_ms") is not None:
+            latencies.append(float(row["latency_ms"]))
+
+    receipt = FactorReceipt(
+        factor="bend_structural_verifier",
+        trace_id=trace_id,
+        schema="bend.semantic_attestation.v1",
+        source="kvnloo/bend + kvnloo/hermes-agent",
+        revision=revision,
+    )
+    return ImportResult(
+        factor="bend_structural_verifier",
+        observations=len(data),
+        measurements={
+            "verifier_pass_rate": verifier_passes / len(data),
+            "semantic_attestation_rate": semantic_passes / len(data),
+            "translation_mismatches": mismatches,
+            "mean_latency_ms": mean(latencies) if latencies else None,
+            "hard_gate_pass": mismatches == 0 and semantic_passes == len(data),
+            "measurement_note": (
+                "source/certified agreement is authoritative for this factor; "
+                "--verdict success alone is insufficient"
+            ),
+        },
+        receipts=(receipt,),
+    )
