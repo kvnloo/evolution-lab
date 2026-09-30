@@ -5,6 +5,8 @@ import unittest
 from evolution_lab.factor_import import (
     import_rlm_evidence_ab,
     import_sol_pi_observation_ledger,
+    import_state_packet,
+    import_slm_tournament_rows,
     rlm_arm_summaries,
 )
 from evolution_lab.factorized_stack import qualify_singleton
@@ -135,6 +137,74 @@ class FactorImportTests(unittest.TestCase):
         ]
         with self.assertRaisesRegex(ValueError, "same run/workload cohort"):
             rlm_arm_summaries(rows)
+
+
+    def test_state_packet_import_checks_provenance(self):
+        packet = {
+            "schema": "z0int.context_resolve.v1",
+            "evidence": [
+                {
+                    "source_id": "git:repo",
+                    "source_version": "sha:abc",
+                    "locator": "README.md:1",
+                    "trust_class": "code",
+                    "observed_at": "2026-09-30T00:00:00Z",
+                },
+                {"source_id": "memory:x"},
+            ],
+            "contradictions": ["old vs new"],
+            "unresolved_gaps": ["current CI state"],
+            "measurements": {"source_reads": 2, "packet_bytes": 900, "latency_ms": 4.2},
+        }
+        result = import_state_packet(packet, revision="z0int@abc")
+        self.assertEqual(result.measurements["evidence_count"], 2)
+        self.assertEqual(result.measurements["provenance_missing"], 1)
+        self.assertEqual(result.measurements["unresolved_gap_count"], 1)
+        self.assertEqual(result.receipts[0].factor, "state_packet_memory")
+
+    def test_slm_tournament_import_keeps_hard_failures_separate(self):
+        rows = [
+            {
+                "schema": "z0int.tool_tournament.row.v1",
+                "composition": "compiler_qwen4b",
+                "correct": True,
+                "hard_failure": False,
+                "invalid_call": False,
+                "dangerous_pick": False,
+                "abstained": False,
+                "latency_ms": 120,
+                "retries": 0,
+                "prompt_tokens": 80,
+                "completion_tokens": 12,
+                "gpu_ms": 100,
+                "vram_peak_mb": 4300,
+            },
+            {
+                "schema": "z0int.tool_tournament.row.v1",
+                "composition": "compiler_qwen4b",
+                "correct": False,
+                "hard_failure": True,
+                "invalid_call": True,
+                "dangerous_pick": False,
+                "abstained": True,
+                "latency_ms": 180,
+                "retries": 1,
+                "prompt_tokens": 90,
+                "completion_tokens": 10,
+                "gpu_ms": 150,
+                "vram_peak_mb": 4400,
+            },
+        ]
+        result = import_slm_tournament_rows(
+            rows, composition="compiler_qwen4b", revision="evolution-lab@test"
+        )
+        self.assertEqual(result.observations, 2)
+        self.assertEqual(result.measurements["correct_rate"], 0.5)
+        self.assertEqual(result.measurements["hard_failures"], 1)
+        self.assertEqual(result.measurements["invalid_calls"], 1)
+        self.assertEqual(result.measurements["peak_vram_mb"], 4400)
+        self.assertEqual(result.receipts[0].factor, "local_slm_policy")
+
 
 
 if __name__ == "__main__":
