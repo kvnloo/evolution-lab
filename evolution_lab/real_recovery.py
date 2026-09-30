@@ -382,3 +382,43 @@ def rich_features(ep: dict[str, Any]) -> np.ndarray:
 
 def n_rich_features() -> int:
     return n_features() + len(SOURCES) + len(TOOL_FAMILIES) + len(EXIT_BUCKETS) + 4
+
+
+MAPPINGS = {
+    "strict": STRICT_MAP,
+    "loose": LOOSE_MAP,
+    # same as loose but "moved on with a different tool" read as routing to another capability
+    "loose_esc": {**LOOSE_MAP, "switch_tool": "escalate"},
+}
+
+
+def label_of(ep: dict[str, Any], mapping: str) -> int:
+    """Mapped action id if the downstream outcome is verified good, else -1 (unknown)."""
+    a = MAPPINGS[mapping].get(ep["raw_action"])
+    good = bool(ep["local_recovered"]) and ep["session_complete"] is not False
+    if a is None or not good:
+        return -1
+    return ACTIONS.index(a)
+
+
+def history_episodes(episodes: list[dict[str, Any]], *, rich: bool, history: int = 8):
+    """Per mined episode, a prefix-padded Episode of prior decision frames in the same lineage.
+
+    Frame t is the episode's own features; earlier frames are the previous failure
+    decision points in that lineage (time-ordered). Mirrors task.episode_from_prefix.
+    """
+    from collections import defaultdict as _dd
+
+    from .task import Episode, episode_from_prefix
+
+    feat = rich_features if rich else gym_frame
+    by_lin: dict[str, list[int]] = _dd(list)
+    for i, e in enumerate(episodes):
+        by_lin[e["lineage"]].append(i)
+    out: list[Episode | None] = [None] * len(episodes)
+    for idxs in by_lin.values():
+        idxs.sort(key=lambda i: (episodes[i]["ts"], episodes[i]["turn_idx"]))
+        frames = [feat(episodes[i]) for i in idxs]
+        for pos, i in enumerate(idxs):
+            out[i] = episode_from_prefix(frames[max(0, pos - history + 1) : pos + 1], history=history, env="real")
+    return out  # type: ignore[return-value]
