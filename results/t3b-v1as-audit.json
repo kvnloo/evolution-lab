@@ -1,0 +1,29 @@
+{
+ "structural-blind": {
+  "action_agreement": 0.9701,
+  "action_kappa": 0.964,
+  "audit": "structural-blind",
+  "confusion_rule_vs_auditor": {
+   "noop->edit_retry": 2
+  },
+  "n": 67,
+  "n_per_rule_action": {
+   "abort": 7,
+   "ask": 12,
+   "edit_retry": 12,
+   "noop": 12,
+   "retry": 12,
+   "switch_tool": 12
+  },
+  "per_rule_action_agreement": {
+   "abort": 1.0,
+   "ask": 1.0,
+   "edit_retry": 1.0,
+   "noop": 0.833,
+   "retry": 1.0,
+   "switch_tool": 1.0
+  },
+  "recovered_agreement": 1.0,
+  "recovered_kappa": 1.0
+ }
+}

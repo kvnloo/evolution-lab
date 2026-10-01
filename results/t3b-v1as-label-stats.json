@@ -1,0 +1,194 @@
+{
+ "action_x_recovered": {
+  "abort": {
+   "True": 7
+  },
+  "ask": {
+   "None": 6,
+   "True": 26
+  },
+  "edit_retry": {
+   "False": 90,
+   "True": 1218
+  },
+  "excluded": {
+   "None": 7
+  },
+  "noop": {
+   "False": 120,
+   "True": 468
+  },
+  "retry": {
+   "False": 28,
+   "True": 25
+  },
+  "switch_tool": {
+   "False": 46,
+   "True": 299
+  }
+ },
+ "actions": [
+  "noop",
+  "retry",
+  "edit_retry",
+  "switch_tool",
+  "ask",
+  "abort"
+ ],
+ "behavioral": {
+  "abort": 7,
+  "ask": 32,
+  "edit_retry": 1308,
+  "excluded": 7,
+  "noop": 588,
+  "retry": 53,
+  "switch_tool": 345
+ },
+ "by_rule": {
+  "R0_human_interrupt": 5,
+  "R0_none": 2,
+  "R1_stop_headless_clean": 18,
+  "R1_stop_headless_failreport": 7,
+  "R1_stop_interactive": 30,
+  "R2_clarify": 2,
+  "R3_delegate": 3,
+  "R4_restart": 21,
+  "R5_exact": 53,
+  "R6_similar_args": 583,
+  "R7_same_tool_same_target": 704,
+  "R8_other_tool_same_target": 342,
+  "R9_moved_on": 570
+ },
+ "episodes_in_new_lineages_dropped": 1,
+ "error_class_x_primary_label": {
+  "benign": {
+   "ask": 1,
+   "edit_retry": 39,
+   "noop": 20,
+   "switch_tool": 5,
+   "unknown": 7
+  },
+  "hard": {
+   "abort": 3,
+   "ask": 12,
+   "edit_retry": 808,
+   "noop": 305,
+   "retry": 1,
+   "switch_tool": 62,
+   "unknown": 122
+  },
+  "policy": {
+   "abort": 2,
+   "ask": 1,
+   "edit_retry": 24,
+   "noop": 24,
+   "switch_tool": 208,
+   "unknown": 32
+  },
+  "sandbox": {
+   "edit_retry": 7,
+   "noop": 19,
+   "switch_tool": 5,
+   "unknown": 3
+  },
+  "transient": {
+   "abort": 2,
+   "ask": 5,
+   "edit_retry": 144,
+   "noop": 41,
+   "retry": 1,
+   "switch_tool": 8,
+   "unknown": 50
+  },
+  "unfamiliar": {
+   "ask": 7,
+   "edit_retry": 196,
+   "noop": 59,
+   "retry": 23,
+   "switch_tool": 11,
+   "unknown": 83
+  }
+ },
+ "id_overlap_with_t3b_episodes": {
+  "shared": 2340,
+  "t3b": 2340,
+  "v1as": 2341
+ },
+ "mine_seconds": 11.1,
+ "n_episodes": 2340,
+ "new_lineages_not_in_frozen_split": 1,
+ "per_split_primary": {
+  "test": {
+   "abort": 1,
+   "ask": 1,
+   "edit_retry": 239,
+   "noop": 81,
+   "retry": 7,
+   "switch_tool": 50,
+   "unknown": 59
+  },
+  "train": {
+   "abort": 4,
+   "ask": 23,
+   "edit_retry": 754,
+   "noop": 318,
+   "retry": 9,
+   "switch_tool": 203,
+   "unknown": 199
+  },
+  "val": {
+   "abort": 2,
+   "ask": 2,
+   "edit_retry": 225,
+   "noop": 69,
+   "retry": 9,
+   "switch_tool": 46,
+   "unknown": 39
+  }
+ },
+ "primary_labels": {
+  "abort": 7,
+  "ask": 26,
+  "edit_retry": 1218,
+  "noop": 468,
+  "retry": 25,
+  "switch_tool": 299,
+  "unknown": 297
+ },
+ "private_store": "~/.z0int/research/t3b/episodes_v1as.jsonl (not committed)",
+ "source_x_action": {
+  "a2a": {
+   "abort": 3,
+   "edit_retry": 35,
+   "noop": 25,
+   "retry": 1,
+   "switch_tool": 13
+  },
+  "cron": {
+   "abort": 4,
+   "edit_retry": 1109,
+   "excluded": 4,
+   "noop": 422,
+   "retry": 51,
+   "switch_tool": 274
+  },
+  "interactive": {
+   "ask": 32,
+   "edit_retry": 144,
+   "excluded": 3,
+   "noop": 79,
+   "retry": 1,
+   "switch_tool": 50
+  },
+  "kanban": {
+   "edit_retry": 1,
+   "noop": 4,
+   "switch_tool": 1
+  },
+  "subagent": {
+   "edit_retry": 19,
+   "noop": 58,
+   "switch_tool": 7
+  }
+ }
+}
