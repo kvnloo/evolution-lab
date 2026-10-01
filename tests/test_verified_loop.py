@@ -95,6 +95,11 @@ class TestDecision(unittest.TestCase):
         self.assertEqual(res['decision'], vl.INSUFFICIENT)
         self.assertTrue(res['descriptive_only'])
 
+    def test_single_group_is_descriptive_gate_only(self):
+        res = vl.evaluate(synthetic(20, groups=1), steps=10, boot_b=10)
+        self.assertEqual(res['decision'], vl.INSUFFICIENT)
+        self.assertNotIn('L_cov', res['pooled'])
+
     def test_empty_table_is_insufficient(self):
         self.assertEqual(vl.evaluate([], steps=10, boot_b=10)['decision'], vl.INSUFFICIENT)
 
@@ -147,8 +152,11 @@ class TestEndToEnd(unittest.TestCase):
         rows = synthetic(40, groups=4) + [row(99, 'g99', None)]
         man = {'feature_schema_sha': 'abc', 'counts': {},
                'sweep': {'first_opportunity_at': '2026-09-30T00:00:00Z',
-                         'total': {'turns': 430, 'verified_success': 100, 'verified_failure': 4, 'contested': 1,
-                                   'with_opportunity': 20, 'with_opportunity_and_resolved': 7},
+                         'sessions_by_cohort': {'interactive': 3, 'harness': 50},
+                         'by_cohort': {'interactive': {'turns': 100, 'verified_success': 30, 'verified_failure': 2,
+                                                       'turns_after_first_opportunity': 80,
+                                                       'with_opportunity_after_first_opportunity': 20},
+                                       'harness': {'turns': 330, 'verified_success': 70, 'verified_failure': 3}},
                          'by_day': {'2026-09-29': {'turns': 60}, '2026-09-30': {'turns': 80, 'with_opportunity': 20}}}}
         with tempfile.TemporaryDirectory() as d:
             t = Path(d) / 't.jsonl'
@@ -159,7 +167,7 @@ class TestEndToEnd(unittest.TestCase):
             self.assertEqual(vl.main(['--table', str(t), '--out', str(out), '--md', str(md)]), 0)
             res = json.loads(out.read_text())
             self.assertEqual(res['primary']['decision'], vl.INSUFFICIENT)
-            sc = res['projection']['scenarios']
+            sc = res['projection']['populations']['live (interactive+agent)']['scenarios']
             self.assertAlmostEqual(sc['current_feature_coverage']['feature_coverage'], 0.25)
             self.assertGreater(sc['current_feature_coverage']['weeks_to_sufficiency_gate'],
                                sc['full_feature_coverage']['weeks_to_sufficiency_gate'])

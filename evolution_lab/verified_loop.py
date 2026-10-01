@@ -287,6 +287,13 @@ def evaluate(rows: Sequence[Mapping[str, Any]], *, steps: int = STEPS, boot_b: i
     if not rows:
         suff = sufficiency(rows, None)
         return {'decision': INSUFFICIENT, 'sufficiency': suff, 'descriptive_only': True, 'pooled': None}
+    if len({r['group'] for r in rows}) < 2:  # grouped CV impossible: no held-out session exists
+        y = [int(r['label']['y_success']) for r in rows]
+        g = [gate_act(r) for r in rows]
+        return {'decision': INSUFFICIENT, 'descriptive_only': True, 'sufficiency': sufficiency(rows, None),
+                'k': 1, 'cv': 'not possible with fewer than 2 groups',
+                'pooled': {'G': {'coverage': coverage(g), 'selective_not_success': sel_risk(g, y)},
+                           'n': len(y), 'not_success': y.count(0)}}
     cv = run_cv(rows, steps=steps)
     oof, y, groups = cv['oof'], cv['y'], cv['groups']
     act = {pol: [o[pol] for o in oof] for pol in ('G', 'L_cov', 'L_crc')}
@@ -368,49 +375,68 @@ def observed_span_days(sweep: Mapping[str, Any], nominal: float = 7.0) -> float:
     return min(nominal, max(1.0, (b - a) / 86400))
 
 
+POPULATIONS = {
+    # the population the live gate serves (Claude Code with the z0 hooks): real work, not eval arms
+    'live (interactive+agent)': ('interactive', 'agent'),
+    'all cohorts (incl. eval/probe harness)': ('interactive', 'agent', 'harness', 'unknown'),
+}
+
+
+def _sum(by_cohort: Mapping[str, Mapping[str, int]], cohorts: Iterable[str], key: str) -> int:
+    return sum((by_cohort.get(c) or {}).get(key, 0) for c in cohorts)
+
+
 def projection(sweep: Mapping[str, Any] | None, manifest_counts: Mapping[str, Any] | None,
-               analysis_rows: int, analysis_neg: int, *, sweep_days: float | None = None) -> dict[str, Any]:
+               analysis_rows: int, analysis_neg: int, analysis_groups: int = 0, *,
+               sweep_days: float | None = None) -> dict[str, Any]:
+    """Weeks until the sufficiency gate / 80% power, per population and feature-coverage scenario."""
     if not sweep:
         return {'available': False, 'why': 'no manifest.sweep (run z0int outcomes export --sweep-since 7d)'}
     sweep_days = sweep_days or observed_span_days(sweep)
-    t = sweep.get('total') or {}
-    turns = t.get('turns', 0)
-    resolved = t.get('verified_success', 0) + t.get('verified_failure', 0) + t.get('contested', 0)
-    neg = t.get('verified_failure', 0) + t.get('contested', 0)
     wk = 7.0 / sweep_days
-    per_week = {'turns': turns * wk, 'resolved': resolved * wk, 'not_success': neg * wk,
-                'with_opportunity': t.get('with_opportunity', 0) * wk,
-                'with_opportunity_and_resolved': t.get('with_opportunity_and_resolved', 0) * wk}
-    # feature coverage within the window the hooks were live (by UTC day >= first opportunity day)
-    first = (sweep.get('first_opportunity_at') or '')[:10]
-    live = [c for d, c in (sweep.get('by_day') or {}).items() if first and d >= first]
-    live_turns = sum(c.get('turns', 0) for c in live)
-    feat_cov = (sum(c.get('with_opportunity', 0) for c in live) / live_turns) if live_turns else 0.0
-    p0 = neg / resolved if resolved else None
-    scenarios = {}
-    for name, cov in (('current_feature_coverage', feat_cov), ('full_feature_coverage', 1.0)):
-        r_wk = per_week['resolved'] * cov
-        n_wk = per_week['not_success'] * cov
-        need_rows = max(MIN_ROWS - analysis_rows, 0)
-        need_neg = max(MIN_NEG - analysis_neg, 0)
-        weeks_gate = max(need_rows / r_wk if r_wk else math.inf, need_neg / n_wk if n_wk else math.inf)
-        n_power = required_n_halving(p0) if p0 else None
-        weeks_power = (max(n_power - analysis_rows, 0) / r_wk) if (n_power and r_wk) else math.inf
-        scenarios[name] = {'feature_coverage': cov, 'resolved_per_week': r_wk, 'not_success_per_week': n_wk,
-                           'weeks_to_sufficiency_gate': _fin(weeks_gate),
-                           'rows_for_80pct_power_halving': n_power, 'weeks_to_power': _fin(weeks_power)}
-    by_cohort = {k: {'turns_per_week': c.get('turns', 0) * wk,
-                     'resolved_per_week': (c.get('verified_success', 0) + c.get('verified_failure', 0)
-                                           + c.get('contested', 0)) * wk,
-                     'not_success_per_week': (c.get('verified_failure', 0) + c.get('contested', 0)) * wk}
-                 for k, c in (sweep.get('by_cohort') or {}).items()}
-    return {'available': True, 'sweep_days': sweep_days, 'per_week': per_week, 'by_cohort': by_cohort,
-            'sessions': sweep.get('sessions'), 'sessions_by_cohort': sweep.get('sessions_by_cohort'),
-            'base_not_success_rate_among_resolved': p0,
-            'resolved_fraction': resolved / turns if turns else None,
-            'feature_coverage_window_turns': live_turns, 'scenarios': scenarios,
-            'caveat': 'linear extrapolation at current utilization; distinct groups (>=10) also required; '
-                      'labels mature over the fix window, so resolved counts lag by up to 7 days'}
+    by_c = sweep.get('by_cohort') or {'unknown': sweep.get('total') or {}}
+    sess = sweep.get('sessions_by_cohort') or {}
+    all_c = POPULATIONS['all cohorts (incl. eval/probe harness)']
+    all_res = sum(_sum(by_c, all_c, k) for k in ('verified_success', 'verified_failure', 'contested'))
+    all_neg = _sum(by_c, all_c, 'verified_failure') + _sum(by_c, all_c, 'contested')
+    pooled_p0 = all_neg / all_res if all_res and all_neg else None
+    pops = {}
+    for pop, cohorts in POPULATIONS.items():
+        turns = _sum(by_c, cohorts, 'turns')
+        resolved = sum(_sum(by_c, cohorts, k) for k in ('verified_success', 'verified_failure', 'contested'))
+        neg = _sum(by_c, cohorts, 'verified_failure') + _sum(by_c, cohorts, 'contested')
+        after = _sum(by_c, cohorts, 'turns_after_first_opportunity')
+        cov_now = _sum(by_c, cohorts, 'with_opportunity_after_first_opportunity') / after if after else 0.0
+        sessions_wk = sum(sess.get(c, 0) for c in cohorts) * wk
+        p0 = neg / resolved if resolved and neg else None
+        # a rate from fewer than 10 events is not a planning rate: use the pooled one instead
+        p_plan, p_src = (p0, 'population') if neg >= 10 else (pooled_p0, 'pooled_all_cohorts')
+        n_power = required_n_halving(p_plan) if p_plan else None
+        scen = {}
+        for name, cov in (('current_feature_coverage', cov_now), ('full_feature_coverage', 1.0)):
+            r_wk = resolved * wk * cov
+            n_wk = r_wk * p_plan if p_plan else 0.0
+            g_wk = sessions_wk * (1.0 if cov > 0 else 0.0)
+            parts = {'rows': max(MIN_ROWS - analysis_rows, 0) / r_wk if r_wk else math.inf,
+                     'not_success': max(MIN_NEG - analysis_neg, 0) / n_wk if n_wk else math.inf,
+                     'groups': max(MIN_GROUPS - analysis_groups, 0) / g_wk if g_wk else math.inf}
+            weeks_power = max(n_power - analysis_rows, 0) / r_wk if (n_power and r_wk) else math.inf
+            scen[name] = {'feature_coverage': cov, 'resolved_per_week': r_wk, 'not_success_per_week': n_wk,
+                          'sessions_per_week': g_wk, 'weeks_to_sufficiency_gate': _fin(max(parts.values())),
+                          'binding_constraint': max(parts, key=parts.get),
+                          'rows_for_80pct_power_halving': n_power, 'weeks_to_power': _fin(weeks_power)}
+        pops[pop] = {'turns_per_week': turns * wk, 'resolved_per_week': resolved * wk,
+                     'not_success_per_week': neg * wk, 'sessions_per_week': sessions_wk,
+                     'resolved_fraction': resolved / turns if turns else None,
+                     'base_not_success_rate': p0, 'not_success_observed': neg,
+                     'planning_not_success_rate': p_plan, 'planning_rate_source': p_src,
+                     'feature_coverage_since_emission_began': cov_now,
+                     'turns_since_emission_began': after, 'scenarios': scen}
+    return {'available': True, 'sweep_days': sweep_days, 'sessions': sweep.get('sessions'),
+            'sessions_by_cohort': sess, 'populations': pops,
+            'caveat': 'linear extrapolation of a short window at current utilization; tiny not-success counts make '
+                      'the base rate (and so the power target) very uncertain; labels mature over the fix window '
+                      '(up to 7 days), so resolved counts lag'}
 
 
 # ----------------------------------------------------------------------------- report
@@ -428,7 +454,7 @@ def run(table: Path, manifest: Path | None = None, *, steps: int = STEPS, boot_b
                   'states': dict(Counter(str((r.get('label') or {}).get('state')) for r in rows))},
         'primary': primary,
         'sensitivity_unverified_as_not_success': sensitivity_unverified_as_failure(rows, steps=steps, boot_b=boot_b),
-        'projection': projection(man.get('sweep'), man.get('counts'), len(ana), neg),
+        'projection': projection(man.get('sweep'), man.get('counts'), len(ana), neg, len({r['group'] for r in ana})),
         'privacy': 'metrics and counts only; no rows, ids or text',
     }
 
@@ -454,7 +480,12 @@ def markdown(res: Mapping[str, Any]) -> str:
     L += [f'| {k} | {vals[k]} | {v} |' for k, v in p['sufficiency']['checks'].items()]
     i = res['input']
     L += ['', f'Input rows {i["rows"]}; analysis rows {i["analysis_rows"]}; excluded {i["excluded"]}.', '']
-    if p.get('pooled'):
+    if p.get('pooled') and 'L_cov' not in p['pooled']:
+        q = p['pooled']
+        L += [f'Grouped CV not possible ({p.get("cv")}). Gate only, descriptive: n={q["n"]}, '
+              f'not-success={q["not_success"]}, G ACT coverage {_f(q["G"]["coverage"])}, '
+              f'selective not-success {_f(q["G"]["selective_not_success"])}.']
+    if p.get('pooled') and 'L_cov' in p['pooled']:
         q = p['pooled']
         L += ['## Pooled out-of-fold (grouped CV, k=%s)' % p.get('k'), '',
               '| policy | ACT coverage | selective not-success |', '|---|---:|---:|']
@@ -469,7 +500,7 @@ def markdown(res: Mapping[str, Any]) -> str:
               '| criterion | met |', '|---|---|']
         L += [f'| {k} | {v} |' for k, v in p['criteria'].items()]
     s = res['sensitivity_unverified_as_not_success']
-    if s.get('pooled'):
+    if s.get('pooled') and 'L_cov' in s['pooled']:
         q = s['pooled']
         L += ['', f'Sensitivity (unverified counted as not-success, {s["rows"]} rows, not decisional): '
                   f'G {_f(q["G"]["selective_not_success"])} vs L_cov {_f(q["L_cov"]["selective_not_success"])}, '
@@ -479,22 +510,21 @@ def markdown(res: Mapping[str, Any]) -> str:
     if not pr.get('available'):
         L += [f'- unavailable: {pr.get("why")}']
     else:
-        w = pr['per_week']
         L += [f'- sweep span actually covered: {pr["sweep_days"]:.2f} days (rates scaled to a week); '
-              f'sessions {pr.get("sessions")} by cohort {pr.get("sessions_by_cohort")}']
-        for k, c in (pr.get('by_cohort') or {}).items():
-            L += [f'  - {k}: turns/wk {c["turns_per_week"]:.0f}, resolved/wk {c["resolved_per_week"]:.0f}, '
-                  f'not-success/wk {c["not_success_per_week"]:.1f}']
-        L += [f'- per week: turns {w["turns"]:.0f}, resolved {w["resolved"]:.0f}, '
-              f'not-success {w["not_success"]:.1f}, with opportunity record {w["with_opportunity"]:.0f}',
-              f'- base not-success rate among resolved: {_f(pr["base_not_success_rate_among_resolved"])}; '
-              f'resolved fraction {_f(pr["resolved_fraction"])}', '',
-              '| scenario | feature coverage | resolved/wk | not-success/wk | weeks to sufficiency gate | rows for 80% power (halving) | weeks to power |',
-              '|---|---:|---:|---:|---:|---:|---:|']
-        for name, sc in pr['scenarios'].items():
-            L += [f'| {name} | {_f(sc["feature_coverage"])} | {_f(sc["resolved_per_week"], 1)} | '
-                  f'{_f(sc["not_success_per_week"], 1)} | {_f(sc["weeks_to_sufficiency_gate"], 1)} | '
-                  f'{_f(sc["rows_for_80pct_power_halving"])} | {_f(sc["weeks_to_power"], 1)} |']
+              f'sessions {pr.get("sessions")} by cohort {pr.get("sessions_by_cohort")}', '',
+              '| population | turns/wk | resolved/wk | not-success/wk (observed n) | sessions/wk | not-success rate (planning, source) | feature coverage since emission began |',
+              '|---|---:|---:|---:|---:|---|---:|']
+        for pop, c in pr['populations'].items():
+            L += [f'| {pop} | {c["turns_per_week"]:.0f} | {c["resolved_per_week"]:.0f} | '
+                  f'{c["not_success_per_week"]:.1f} ({c["not_success_observed"]}) | {c["sessions_per_week"]:.0f} | '
+                  f'{_f(c["base_not_success_rate"])} ({_f(c["planning_not_success_rate"])}, {c["planning_rate_source"]}) | '
+                  f'{_f(c["feature_coverage_since_emission_began"])} |']
+        L += ['', '| population | scenario | weeks to sufficiency gate | binding | rows for 80% power (halving) | weeks to power |',
+              '|---|---|---:|---|---:|---:|']
+        for pop, c in pr['populations'].items():
+            for name, sc in c['scenarios'].items():
+                L += [f'| {pop} | {name} ({_f(sc["feature_coverage"], 2)}) | {_f(sc["weeks_to_sufficiency_gate"], 1)} | '
+                      f'{sc["binding_constraint"]} | {_f(sc["rows_for_80pct_power_halving"])} | {_f(sc["weeks_to_power"], 1)} |']
         L += ['', f'- {pr["caveat"]}']
     return '\n'.join(L) + '\n'
 
