@@ -1,0 +1,245 @@
+{
+ "by_error_class": {
+  "benign": 72,
+  "hard": 1313,
+  "policy": 291,
+  "sandbox": 34,
+  "transient": 251,
+  "unfamiliar": 379
+ },
+ "by_raw_action": {
+  "clarify": 2,
+  "delegate": 3,
+  "human_interrupt": 5,
+  "none": 2,
+  "restart": 21,
+  "retry_exact": 53,
+  "retry_modified": 583,
+  "stop_headless": 25,
+  "stop_interactive": 30,
+  "switch_tool": 1616
+ },
+ "by_source": {
+  "a2a": 77,
+  "cron": 1864,
+  "interactive": 309,
+  "kanban": 6,
+  "subagent": 84
+ },
+ "by_tool_family": {
+  "agent": 1,
+  "code": 502,
+  "file": 91,
+  "other": 9,
+  "process": 86,
+  "search": 29,
+  "skill": 59,
+  "terminal": 1560,
+  "web": 3
+ },
+ "error_class_x_raw_action": {
+  "benign": {
+   "retry_modified": 10,
+   "stop_interactive": 1,
+   "switch_tool": 61
+  },
+  "hard": {
+   "clarify": 1,
+   "delegate": 2,
+   "none": 2,
+   "restart": 15,
+   "retry_exact": 1,
+   "retry_modified": 376,
+   "stop_headless": 14,
+   "stop_interactive": 14,
+   "switch_tool": 888
+  },
+  "policy": {
+   "human_interrupt": 3,
+   "restart": 1,
+   "retry_modified": 7,
+   "stop_headless": 5,
+   "stop_interactive": 2,
+   "switch_tool": 273
+  },
+  "sandbox": {
+   "retry_modified": 2,
+   "switch_tool": 32
+  },
+  "transient": {
+   "delegate": 1,
+   "human_interrupt": 1,
+   "restart": 2,
+   "retry_exact": 1,
+   "retry_modified": 44,
+   "stop_headless": 3,
+   "stop_interactive": 7,
+   "switch_tool": 192
+  },
+  "unfamiliar": {
+   "clarify": 1,
+   "human_interrupt": 1,
+   "restart": 3,
+   "retry_exact": 51,
+   "retry_modified": 144,
+   "stop_headless": 3,
+   "stop_interactive": 6,
+   "switch_tool": 170
+  }
+ },
+ "labels_loose": {
+  "escalate": 2,
+  "noop": 1395,
+  "page_human": 27,
+  "restart_sandbox": 14,
+  "retry": 519,
+  "unknown": 383
+ },
+ "labels_strict": {
+  "escalate": 2,
+  "page_human": 26,
+  "restart_sandbox": 14,
+  "retry": 12,
+  "unknown": 2286
+ },
+ "mapping": {
+  "loose": {
+   "clarify": "page_human",
+   "delegate": "escalate",
+   "human_interrupt": "page_human",
+   "none": null,
+   "restart": "restart_sandbox",
+   "retry_exact": "retry",
+   "retry_modified": "retry",
+   "stop_headless": "noop",
+   "stop_interactive": "page_human",
+   "switch_tool": "noop"
+  },
+  "raw_actions": [
+   "retry_exact",
+   "retry_modified",
+   "restart",
+   "delegate",
+   "clarify",
+   "stop_interactive",
+   "stop_headless",
+   "human_interrupt",
+   "switch_tool",
+   "none"
+  ],
+  "strict": {
+   "clarify": "page_human",
+   "delegate": "escalate",
+   "human_interrupt": null,
+   "none": null,
+   "restart": "restart_sandbox",
+   "retry_exact": "retry",
+   "retry_modified": null,
+   "stop_headless": null,
+   "stop_interactive": "page_human",
+   "switch_tool": null
+  }
+ },
+ "mine_seconds": 57.7,
+ "n_episodes": 2340,
+ "n_families": 92,
+ "n_lineages": 815,
+ "private_store": "~/.z0int/research/t3b/episodes.jsonl (not committed)",
+ "raw_action_x_local_recovered": {
+  "clarify": {
+   "True": 2
+  },
+  "delegate": {
+   "True": 3
+  },
+  "human_interrupt": {
+   "False": 3,
+   "True": 2
+  },
+  "none": {
+   "None": 2
+  },
+  "restart": {
+   "False": 7,
+   "True": 14
+  },
+  "retry_exact": {
+   "False": 40,
+   "True": 13
+  },
+  "retry_modified": {
+   "False": 48,
+   "True": 535
+  },
+  "stop_headless": {
+   "True": 25
+  },
+  "stop_interactive": {
+   "None": 6,
+   "True": 24
+  },
+  "switch_tool": {
+   "False": 180,
+   "True": 1436
+  }
+ },
+ "raw_action_x_session_complete": {
+  "clarify": {
+   "True": 2
+  },
+  "delegate": {
+   "False": 1,
+   "True": 2
+  },
+  "human_interrupt": {
+   "False": 1,
+   "True": 4
+  },
+  "none": {
+   "False": 2
+  },
+  "restart": {
+   "True": 21
+  },
+  "retry_exact": {
+   "False": 17,
+   "True": 36
+  },
+  "retry_modified": {
+   "False": 34,
+   "True": 549
+  },
+  "stop_headless": {
+   "True": 25
+  },
+  "stop_interactive": {
+   "True": 30
+  },
+  "switch_tool": {
+   "False": 81,
+   "True": 1535
+  }
+ },
+ "stats": {
+  "kw_policy:<structured_key>": 16,
+  "kw_policy:<wildcard-branch>": 2,
+  "kw_policy:approval": 247,
+  "kw_policy:blocked by": 1,
+  "kw_policy:dangerous command": 25,
+  "kw_sandbox:<wildcard-branch>": 1,
+  "kw_sandbox:daemon": 7,
+  "kw_sandbox:socket": 27,
+  "kw_transient:429": 9,
+  "kw_transient:<wildcard-branch>": 14,
+  "kw_transient:temporar": 2,
+  "kw_transient:timed out": 193,
+  "kw_transient:timeout": 29,
+  "kw_transient:unavailable": 4,
+  "sessions_complete": 1189,
+  "sessions_scanned": 6177,
+  "sessions_with_failure": 832,
+  "tool_calls": 72254,
+  "tool_calls_no_result": 12,
+  "tool_results": 72242
+ }
+}
