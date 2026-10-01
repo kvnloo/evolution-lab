@@ -129,4 +129,36 @@ A null (CI straddling 0) is reported as a null. The test split is read once, by 
 
 ## Deviations
 
-(none at commit time)
+* The val-only `--dry` debugging run was stopped part-way (machine load ~30); the harness
+  had been committed (4b1015b) before the single full run. No code changed after it.
+* No other deviations. Models, grids, decoding, cost matrix and endpoints ran as written.
+
+## Results (single test read, `results/t3b-v1as-eval.json`)
+
+Labels (primary, filtered): 2043 of 2340 episodes; edit_retry 1218, noop 468, switch_tool 299,
+ask 26, retry 25, abort 7, unknown 297. Test n=379: edit_retry 239, noop 81, switch_tool 50,
+retry 7, **ask 1, abort 1**. Structural blind audit n=67: action agreement 0.970 (kappa 0.964),
+recovered-verdict agreement 1.000; both misses are rule-`noop` vs auditor-`edit_retry`
+(overlap just under threshold). The content-level owner audit has not been done yet.
+
+| test (primary) | mean cost [95% CI] | acc | macro-F1 | Δcost vs best constant [95% CI] |
+|---|---|---|---|---|
+| best constant (edit_retry) | 0.368 [0.319, 0.422] | 0.631 | 0.129 | — |
+| rule_v1 (a priori) | 0.433 [0.382, 0.488] | 0.546 | 0.207 | +0.065 [+0.008, +0.119] |
+| ridge rich, cost-dec | **0.252** [0.201, 0.303] | 0.749 | 0.401 | −0.117 [−0.162, −0.072] |
+| MLP rich, cost-dec | 0.295 [0.240, 0.352] | 0.712 | 0.430 | [−0.135, −0.011] |
+| **MB rich, cost-dec (primary)** | 0.288 [0.234, 0.345] | 0.720 | 0.366 | **−0.081 [−0.131, −0.030]** |
+| MB-tuned rich, cost-dec | 0.273 [0.222, 0.330] | 0.726 | 0.312 | [−0.137, −0.056] |
+
+* Primary endpoint met: retrained MB beats the trivial controller on cost (CI excludes 0).
+  MB seeds 0–4: 0.263–0.288.
+* MB vs MLP: Δ −0.007 [−0.069, +0.056] — indistinguishable, but the pre-registered
+  "competitive" bar (upper < 0.05) is missed by 0.006. MB vs ridge: [−0.014, +0.085] (ridge
+  nominally better, not significant). Ridge is the best single model.
+* The a-priori rule is worse than the constant: hand-coded error-class → action mappings do
+  not match what successful agents do.
+* No model ever predicts abort. With one ask and one abort in test, the asymmetric parts of
+  the cost matrix are essentially untested; the result is about noop / retry / edit_retry /
+  switch_tool. The ask/abort question needs more interactive and headless-stop data.
+* Sensitivity (behavioural labels): same ordering. MB rich −0.088 [−0.139, −0.046] vs constant;
+  MB vs MLP [−0.067, +0.038] (competitive); MB-tuned beats MLP [−0.115, −0.028].
