@@ -1,0 +1,188 @@
+{
+ "feature_schema_sha": "69d7eef44ba1707e",
+ "input": {
+  "analysis_rows": 6,
+  "excluded": {
+   "observed_not_act": 1,
+   "unverified_or_no_label": 16
+  },
+  "gate": {
+   "ACT": 22,
+   "ESCALATE": 1
+  },
+  "rows": 23,
+  "states": {
+   "None": 2,
+   "contested": 1,
+   "unverified": 14,
+   "verified_failure": 1,
+   "verified_success": 5
+  }
+ },
+ "prereg": "docs/prereg/verified-loop-v0.md",
+ "primary": {
+  "cv": "not possible with fewer than 2 groups",
+  "decision": "INSUFFICIENT_DATA",
+  "descriptive_only": true,
+  "k": 1,
+  "pooled": {
+   "G": {
+    "coverage": 1.0,
+    "selective_not_success": 0.16666666666666666
+   },
+   "n": 6,
+   "not_success": 1
+  },
+  "sufficiency": {
+   "checks": {
+    "groups>=10": false,
+    "k==5_and_every_test_fold_has_both_classes": false,
+    "not_success>=30": false,
+    "rows>=300": false
+   },
+   "observed": {
+    "groups": 1,
+    "k": null,
+    "not_success": 1,
+    "rows": 6,
+    "success": 5
+   },
+   "passed": false
+  }
+ },
+ "privacy": "metrics and counts only; no rows, ids or text",
+ "projection": {
+  "available": true,
+  "caveat": "linear extrapolation of a short window at current utilization; tiny not-success counts make the base rate (and so the power target) very uncertain; labels mature over the fix window (up to 7 days), so resolved counts lag",
+  "populations": {
+   "all cohorts (incl. eval/probe harness)": {
+    "base_not_success_rate": 0.043010752688172046,
+    "feature_coverage_since_emission_began": 0.05232558139534884,
+    "not_success_observed": 4,
+    "not_success_per_week": 28.0,
+    "planning_not_success_rate": 0.043010752688172046,
+    "planning_rate_source": "pooled_all_cohorts",
+    "resolved_fraction": 0.2612359550561798,
+    "resolved_per_week": 651.0,
+    "scenarios": {
+     "current_feature_coverage": {
+      "binding_constraint": "not_success",
+      "feature_coverage": 0.05232558139534884,
+      "not_success_per_week": 1.4651162790697676,
+      "resolved_per_week": 34.06395348837209,
+      "rows_for_80pct_power_halving": 834,
+      "sessions_per_week": 2317.0,
+      "weeks_to_power": 24.307219662058372,
+      "weeks_to_sufficiency_gate": 19.79365079365079
+     },
+     "full_feature_coverage": {
+      "binding_constraint": "not_success",
+      "feature_coverage": 1.0,
+      "not_success_per_week": 28.000000000000004,
+      "resolved_per_week": 651.0,
+      "rows_for_80pct_power_halving": 834,
+      "sessions_per_week": 2317.0,
+      "weeks_to_power": 1.271889400921659,
+      "weeks_to_sufficiency_gate": 1.0357142857142856
+     }
+    },
+    "sessions_per_week": 2317.0,
+    "turns_per_week": 2492.0,
+    "turns_since_emission_began": 172
+   },
+   "live (interactive+agent)": {
+    "base_not_success_rate": 0.25,
+    "feature_coverage_since_emission_began": 1.0,
+    "not_success_observed": 1,
+    "not_success_per_week": 7.0,
+    "planning_not_success_rate": 0.043010752688172046,
+    "planning_rate_source": "pooled_all_cohorts",
+    "resolved_fraction": 0.12903225806451613,
+    "resolved_per_week": 28.0,
+    "scenarios": {
+     "current_feature_coverage": {
+      "binding_constraint": "not_success",
+      "feature_coverage": 1.0,
+      "not_success_per_week": 1.2043010752688172,
+      "resolved_per_week": 28.0,
+      "rows_for_80pct_power_halving": 834,
+      "sessions_per_week": 42.0,
+      "weeks_to_power": 29.571428571428573,
+      "weeks_to_sufficiency_gate": 24.080357142857142
+     },
+     "full_feature_coverage": {
+      "binding_constraint": "not_success",
+      "feature_coverage": 1.0,
+      "not_success_per_week": 1.2043010752688172,
+      "resolved_per_week": 28.0,
+      "rows_for_80pct_power_halving": 834,
+      "sessions_per_week": 42.0,
+      "weeks_to_power": 29.571428571428573,
+      "weeks_to_sufficiency_gate": 24.080357142857142
+     }
+    },
+    "sessions_per_week": 42.0,
+    "turns_per_week": 217.0,
+    "turns_since_emission_began": 9
+   }
+  },
+  "sessions": 331,
+  "sessions_by_cohort": {
+   "agent": 5,
+   "harness": 325,
+   "interactive": 1
+  },
+  "sweep_days": 1.0
+ },
+ "schema": "evolution_lab.verified_loop.result.v0",
+ "sensitivity_unverified_as_not_success": {
+  "decision_if_primary": "INSUFFICIENT_DATA",
+  "pooled": {
+   "G": {
+    "coverage": 0.9473684210526315,
+    "selective_not_success": 0.7222222222222222
+   },
+   "L_cov": {
+    "coverage": 0.0,
+    "selective_not_success": null
+   },
+   "L_crc": {
+    "coverage": 0.0,
+    "selective_not_success": null
+   },
+   "L_crc_fallback": {
+    "ASK": 1,
+    "OBSERVE": 18
+   },
+   "auroc_oof": 0.4642857142857143,
+   "brier_oof": 0.28586202214920725,
+   "brier_prevalence": 0.26721897335932426,
+   "crc_joint_risk": 0.0,
+   "delta_L_cov_minus_G": null,
+   "delta_ci95": {
+    "B": 2000,
+    "hi": null,
+    "lo": null,
+    "skipped": 2000
+   },
+   "folds_with_delta<0": 0,
+   "illegal_act_rows": 0
+  },
+  "rows": 19
+ },
+ "sources": {
+  "opportunities.jsonl": {
+   "rows": 27,
+   "sha256": "c0b08543aeb7ef08"
+  },
+  "outcomes.jsonl": {
+   "rows": 86,
+   "sha256": "24c10a3b4e307b60"
+  },
+  "outcomes_verified.jsonl": {
+   "rows": 78,
+   "sha256": "71b27d8e53bbe3b8"
+  }
+ },
+ "table_version": "0.1.0"
+}
