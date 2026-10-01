@@ -1,0 +1,187 @@
+{
+ "schema": "flyforge.t3-pareto.v1",
+ "evidence_class": "exploratory_beta",
+ "promotion_eligible": false,
+ "fresh_battery": [
+  20000,
+  21999
+ ],
+ "cpus": [
+  3
+ ],
+ "picks_rule": "judged[1] of each evolve run (first val-front candidate); chosen without held-out data",
+ "picks": {
+  "evolved protocol s0 (kc32,k9)": {
+   "file": "t3-evolve-protocol-s0.json",
+   "gene": {
+    "seed": 1021166509,
+    "hidden": 32,
+    "k_winners": 9,
+    "lr": 0.548891448157042,
+    "epochs": 17
+   },
+   "filter_val_step": 1.0
+  },
+  "evolved protocol s1 (kc32,k7)": {
+   "file": "t3-evolve-protocol-s1.json",
+   "gene": {
+    "seed": 1700377722,
+    "hidden": 32,
+    "k_winners": 7,
+    "lr": 0.20976333539864808,
+    "epochs": 14
+   },
+   "filter_val_step": 1.0
+  },
+  "evolved raw s0 (kc32,k15)": {
+   "file": "t3-evolve-raw-s0.json",
+   "gene": {
+    "seed": 761935891,
+    "hidden": 32,
+    "k_winners": 15,
+    "lr": 2.518457762954296,
+    "epochs": 11
+   },
+   "filter_val_step": 1.0
+  },
+  "evolved raw s1 (kc32,k10)": {
+   "file": "t3-evolve-raw-s1.json",
+   "gene": {
+    "seed": 1277708246,
+    "hidden": 32,
+    "k_winners": 10,
+    "lr": 0.5899551929212968,
+    "epochs": 21
+   },
+   "filter_val_step": 1.0
+  }
+ },
+ "rows": {
+  "rule_expert (0p)": {
+   "cl_fresh2000": 1.0,
+   "confirm_step": 1.0,
+   "lat_p50_us": 11.915,
+   "lat_p99_us": 22.15356,
+   "params": 0,
+   "eval_s": 6.081521722000616,
+   "pareto": true
+  },
+  "rule_repo": {
+   "cl_fresh2000": 0.759625,
+   "confirm_step": 0.8385416666666666,
+   "lat_p50_us": 51.8025,
+   "lat_p99_us": 1138.19212,
+   "params": 0,
+   "eval_s": 5.237045604997547,
+   "pareto": false
+  },
+  "majority": {
+   "cl_fresh2000": 0.316125,
+   "confirm_step": 0.3177083333333333,
+   "lat_p50_us": 11.987,
+   "lat_p99_us": 30.723809999999997,
+   "params": 0,
+   "eval_s": 3.9853836839974974,
+   "pareto": false
+  },
+  "ridge_last (direct_input)": {
+   "cl_fresh2000": 0.150375,
+   "confirm_step": 0.8203125,
+   "lat_p50_us": 415.8495,
+   "lat_p99_us": 1826.9600299999988,
+   "params": 75,
+   "eval_s": 11.511529996998433,
+   "pareto": false
+  },
+  "ridge_pn": {
+   "cl_fresh2000": 0.834875,
+   "confirm_step": 0.9947916666666666,
+   "lat_p50_us": 206.4415,
+   "lat_p99_us": 2457.310659999999,
+   "params": 760,
+   "eval_s": 9.291599268995924,
+   "pareto": false
+  },
+  "mlp_pn seed0": {
+   "cl_fresh2000": 1.0,
+   "confirm_step": 1.0,
+   "lat_p50_us": 2273.757,
+   "lat_p99_us": 4467.2113899999995,
+   "params": 10053,
+   "eval_s": 45.2319713830002,
+   "pareto": false
+  },
+  "mlp_repo seed0": {
+   "cl_fresh2000": 0.2536875,
+   "confirm_step": 0.34375,
+   "lat_p50_us": 445.276,
+   "lat_p99_us": 1354.6862899999994,
+   "params": 4032,
+   "eval_s": 10.500175747998583,
+   "pareto": false
+  },
+  "lp incumbent (proto)": {
+   "cl_fresh2000": 0.993375,
+   "confirm_step": 1.0,
+   "lat_p50_us": 757.828,
+   "lat_p99_us": 954.2417999999999,
+   "params": 640,
+   "eval_s": 14.644546110997908,
+   "pareto": false
+  },
+  "lp incumbent (raw)": {
+   "cl_fresh2000": 0.9635,
+   "confirm_step": 0.9869791666666666,
+   "lat_p50_us": 445.0675,
+   "lat_p99_us": 2320.50331,
+   "params": 640,
+   "eval_s": 12.748194760002661,
+   "pareto": false
+  },
+  "evolved protocol s0 (kc32,k9)": {
+   "cl_fresh2000": 0.9968125,
+   "confirm_step": 1.0,
+   "lat_p50_us": 705.935,
+   "lat_p99_us": 2454.5559399999997,
+   "params": 160,
+   "eval_s": 14.467034624998632,
+   "pareto": false
+  },
+  "evolved protocol s1 (kc32,k7)": {
+   "cl_fresh2000": 0.99825,
+   "confirm_step": 1.0,
+   "lat_p50_us": 196.15,
+   "lat_p99_us": 2526.31686,
+   "params": 160,
+   "eval_s": 17.805961359998037,
+   "pareto": false
+  },
+  "evolved raw s0 (kc32,k15)": {
+   "cl_fresh2000": 0.9990625,
+   "confirm_step": 1.0,
+   "lat_p50_us": 93.034,
+   "lat_p99_us": 464.30616,
+   "params": 160,
+   "eval_s": 13.769097208998573,
+   "pareto": false
+  },
+  "evolved raw s1 (kc32,k10)": {
+   "cl_fresh2000": 0.99925,
+   "confirm_step": 1.0,
+   "lat_p50_us": 389.5395,
+   "lat_p99_us": 2331.73123,
+   "params": 160,
+   "eval_s": 13.100918705997174,
+   "pareto": false
+  }
+ },
+ "pareto": [
+  "rule_expert (0p)"
+ ],
+ "pareto_learned_only": [
+  "ridge_last (direct_input)",
+  "mlp_pn seed0",
+  "evolved raw s0 (kc32,k15)",
+  "evolved raw s1 (kc32,k10)"
+ ]
+}
