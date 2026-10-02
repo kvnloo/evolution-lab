@@ -1,0 +1,110 @@
+[
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "reviews/original-goal-round3/aodl-intent/SEAL_VALIDATION.json",
+    "path": "studies/hermes-z0-round3/evidence/043c24fdfc1076224a7e1742e36d0d5674da129ad8e804c203449a1ad61373a0.json",
+    "sha256": "043c24fdfc1076224a7e1742e36d0d5674da129ad8e804c203449a1ad61373a0"
+  },
+  {
+    "kind": "source",
+    "original_workspace_relative_path": "planning/plan.json",
+    "path": "studies/hermes-z0-round3/evidence/144afcb5b9cf4dc8d7735c3308fea7eb93a9fd8a9373a70fc793e980513e5014.json",
+    "sha256": "144afcb5b9cf4dc8d7735c3308fea7eb93a9fd8a9373a70fc793e980513e5014"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "reviews/original-goal-round3/receipt-semantics/RESULT.json",
+    "path": "studies/hermes-z0-round3/evidence/2461f3d3ac741ee39952ee7b557019a5288abdf7cc86f97c27d3a9c1250b2ec6.json",
+    "sha256": "2461f3d3ac741ee39952ee7b557019a5288abdf7cc86f97c27d3a9c1250b2ec6"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "reviews/original-goal-round3/upstream/FORK47_ACCEPTANCE.json",
+    "path": "studies/hermes-z0-round3/evidence/2734627238d6a3333a603c1307135eac86248116e7a74b920c64209f80422f5b.json",
+    "sha256": "2734627238d6a3333a603c1307135eac86248116e7a74b920c64209f80422f5b"
+  },
+  {
+    "kind": "source",
+    "original_workspace_relative_path": "experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/freeze.json",
+    "path": "studies/hermes-z0-round3/evidence/354533b1812105db27e7c5274a38c359d41201b85e8f2ba0752491615ad8400e.json",
+    "sha256": "354533b1812105db27e7c5274a38c359d41201b85e8f2ba0752491615ad8400e"
+  },
+  {
+    "kind": "review",
+    "original_workspace_relative_path": "reviews/original-goal-round3/priorities/deterministic-exit-final.json",
+    "path": "studies/hermes-z0-round3/evidence/45cca790aae9f4d60e8539a7bac57e316ce7047ee10f4f2243052c6c289c4f48.json",
+    "sha256": "45cca790aae9f4d60e8539a7bac57e316ce7047ee10f4f2243052c6c289c4f48"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "reviews/nous-provider-next/independent-replay-final.json",
+    "path": "studies/hermes-z0-round3/evidence/59c2fcf1c415e3d215a27eab745ebe69a7cf08c9c46d2d7f213bb6f71606d22d.json",
+    "sha256": "59c2fcf1c415e3d215a27eab745ebe69a7cf08c9c46d2d7f213bb6f71606d22d"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "reviews/original-goal-round3/priorities/research-refresh/evidence/5ba11d78ddfaf097e462bbf50a8bf219e7ea4f81010ee7076c7ff8e897da5902.json",
+    "path": "studies/hermes-z0-round3/evidence/5ba11d78ddfaf097e462bbf50a8bf219e7ea4f81010ee7076c7ff8e897da5902.json",
+    "sha256": "5ba11d78ddfaf097e462bbf50a8bf219e7ea4f81010ee7076c7ff8e897da5902"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "reviews/original-goal-round3/receipt-semantics/default-branch-reachability.json",
+    "path": "studies/hermes-z0-round3/evidence/7206589f4d2190eabe07dc18a7f9d518e8fe5cfef10edcd5f16427dc8a81bee6.json",
+    "sha256": "7206589f4d2190eabe07dc18a7f9d518e8fe5cfef10edcd5f16427dc8a81bee6"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "reviews/original-goal-round3/upstream/stack319-audit.json",
+    "path": "studies/hermes-z0-round3/evidence/8ee5466b548d358fa70c05c9442ceb2737c38bde66993efad56a3dc89fa037aa.json",
+    "sha256": "8ee5466b548d358fa70c05c9442ceb2737c38bde66993efad56a3dc89fa037aa"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "reviews/original-goal-round3/thrml/THRML_AUDIT_DECISION.json",
+    "path": "studies/hermes-z0-round3/evidence/96671acbad4c550c0643cc6172179ab95d36a2b861b15de39efce8b6d803b61d.json",
+    "sha256": "96671acbad4c550c0643cc6172179ab95d36a2b861b15de39efce8b6d803b61d"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "reviews/nous-provider-next/RESULT.json",
+    "path": "studies/hermes-z0-round3/evidence/9f93f7f554cf0fae6138995a51bba4568c88bf51a3898b89378af412113e6219.json",
+    "sha256": "9f93f7f554cf0fae6138995a51bba4568c88bf51a3898b89378af412113e6219"
+  },
+  {
+    "kind": "source",
+    "original_workspace_relative_path": "experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/protocol.json",
+    "path": "studies/hermes-z0-round3/evidence/b352394d5a627f05f08613e797c26db9a138d9ad306153972ba053a4a06a050f.json",
+    "sha256": "b352394d5a627f05f08613e797c26db9a138d9ad306153972ba053a4a06a050f"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "reviews/original-goal-round3/upstream/stack319-packet-integrity.json",
+    "path": "studies/hermes-z0-round3/evidence/c99d8ca74390786b29046c4a97ce35ff6b400a82bdf405d570f871effe9b2b8f.json",
+    "sha256": "c99d8ca74390786b29046c4a97ce35ff6b400a82bdf405d570f871effe9b2b8f"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/RESULT.json",
+    "path": "studies/hermes-z0-round3/evidence/cba9347396e5cf8f0fa260b4a7db3294c51c5036385070e81c73d7ad5543eaeb.json",
+    "sha256": "cba9347396e5cf8f0fa260b4a7db3294c51c5036385070e81c73d7ad5543eaeb"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "reviews/original-goal-round3/priorities/research-refresh/evidence/cbd8cfc7bef9f74be14e0ae40d7644d933174491ab475b020fcd3603c3dd386c.json",
+    "path": "studies/hermes-z0-round3/evidence/cbd8cfc7bef9f74be14e0ae40d7644d933174491ab475b020fcd3603c3dd386c.json",
+    "sha256": "cbd8cfc7bef9f74be14e0ae40d7644d933174491ab475b020fcd3603c3dd386c"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/DECISION.json",
+    "path": "studies/hermes-z0-round3/evidence/e846b15a3cca8059bdb56b9fbd4f83519f159e305c64181fa8082df866009fec.json",
+    "sha256": "e846b15a3cca8059bdb56b9fbd4f83519f159e305c64181fa8082df866009fec"
+  },
+  {
+    "kind": "receipt",
+    "original_workspace_relative_path": "reviews/original-goal-round3/hermes-dual-study-audit/AUDIT_DECISION.json",
+    "path": "studies/hermes-z0-round3/evidence/eda7f3e0edf42f8064ec88a29a410ade13d42a0b7c61bd7b83bba65ad97d389a.json",
+    "sha256": "eda7f3e0edf42f8064ec88a29a410ade13d42a0b7c61bd7b83bba65ad97d389a"
+  }
+]

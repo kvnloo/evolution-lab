@@ -1,0 +1,163 @@
+{
+  "schema": "hermes_factory.implementation_plan.v1",
+  "created_at": "2026-10-01T14:28:14.484862+00:00",
+  "status": "PLAN_ONLY",
+  "decision": "Finish one offline native Hermes integration acceptance path; select optimization by actual bottleneck and allow zero-model completion. No unconditional packet promotion.",
+  "primary_task": "Read-only repository-state handoff to a separately writable artifact, independently verified. Structural tasks are conformance, not model efficacy.",
+  "first_implementation_stop": "One conformance receipt set, negative controls and replay. If no supported semantic work item qualifies after at most three candidates, skip packet adapter and finish deterministic/native baseline only.",
+  "units": [
+    {
+      "id": "U0",
+      "name": "Freeze exposed development task, independent checker and source manifest",
+      "depends_on": []
+    },
+    {
+      "id": "U1",
+      "name": "Native baseline and actual SDK transport witness",
+      "depends_on": [
+        "U0"
+      ]
+    },
+    {
+      "id": "U2",
+      "name": "Narrow packet freshness and coverage regressions",
+      "depends_on": [
+        "U0"
+      ]
+    },
+    {
+      "id": "U3",
+      "name": "Optional standalone pre_llm_call context adapter",
+      "depends_on": [
+        "U1",
+        "U2"
+      ],
+      "guard": "U0 finds a genuine supported semantic work item; otherwise skip optional packet adapter."
+    },
+    {
+      "id": "U4",
+      "name": "Independent outcome, complete attempt accounting, receipt and replay",
+      "depends_on": [
+        "U0",
+        "U1"
+      ],
+      "conditional_dependency": "U3 only for qualified packet lane; native baseline receipt is independently complete."
+    },
+    {
+      "id": "U5",
+      "name": "Independent acceptance review and stop",
+      "depends_on": [
+        "U4"
+      ]
+    }
+  ],
+  "live_pilot": {
+    "status": "CONDITIONAL_NOT_AUTHORIZED_BY_THIS_PLAN",
+    "requires": [
+      "offline acceptance",
+      "genuine supported semantic residual unresolved by generic deterministic emitter",
+      "independently frozen task labels and citations",
+      "complete provider-boundary and attempt accounting",
+      "configured provider/model and declared spend cap"
+    ],
+    "arms": [
+      "native with common measurement/profile",
+      "same native plus simple bounded preflight",
+      "same native plus State Packet from equal eligible sources"
+    ],
+    "max_development_executions": 3,
+    "max_scored_executions": 24,
+    "max_diagnostic_executions": 6,
+    "currency_budget": null,
+    "statistical_claim_limit": "screening only; no general non-inferiority, rare-failure, reliable-tail or production-gain certification",
+    "deterministic_exit": "If deterministic emission suffices, cancel model comparison for that task."
+  },
+  "prerequisite_environment": {
+    "docker_server_responded": "28.4.0",
+    "provider_route_in_isolated_factory": false,
+    "ambient_provider_variables_present": false,
+    "credential_values_logged": false,
+    "all_repo_acquisition_complete": true,
+    "initial_metadata_collections_completed_at": "2026-10-01T08:56:57.121084+00:00"
+  },
+  "pins": [
+    {
+      "repo": "NousResearch/hermes-agent",
+      "revision": "4e7403130ee278bd99c450fcd9f73c6b32135c95",
+      "role": "proposed downstream experiment base",
+      "exists_locally": true
+    },
+    {
+      "repo": "NousResearch/hermes-agent",
+      "revision": "895b506ec93d759c6bb74efcd787a7ef627ce6e0",
+      "role": "existing validation baseline",
+      "exists_locally": true
+    },
+    {
+      "repo": "kvnloo/hermes-agent",
+      "revision": "ce5c027bbacc2c4d60a17eb61f80a76910410313",
+      "role": "selective observer donor",
+      "exists_locally": true
+    },
+    {
+      "repo": "kvnloo/z0intelligence",
+      "revision": "669323f0271e25467876ef66e0c268973a848242",
+      "role": "minimal packet implementation donor",
+      "exists_locally": true
+    },
+    {
+      "repo": "kvnloo/z0intelligence",
+      "revision": "c4b31beba521813a0266a9a9d95db4333cbd9f7c",
+      "role": "optional observational contract donor",
+      "exists_locally": true
+    },
+    {
+      "repo": "kvnloo/z0intelligence",
+      "revision": "f80da33700f1db2472571845c782928bd931e834",
+      "role": "reference for observed turn classification only",
+      "exists_locally": true
+    },
+    {
+      "repo": "kvnloo/z0intelligence",
+      "revision": "17a88bacffbe200e9571b70ec62394dc88134093",
+      "role": "reference for append-only outcome join and observational-credit semantics",
+      "exists_locally": true
+    },
+    {
+      "repo": "kvnloo/tokenomics",
+      "revision": "65e8f2dd9d6c5784a2a1c67f5236d69a5ae94021",
+      "role": "canonical usage/outcome/coverage shapes",
+      "exists_locally": true
+    },
+    {
+      "repo": "kvnloo/z0evals",
+      "revision": "fb14919b9a1c40c1840c50b305e66391d172dcc5",
+      "role": "study manifest, frozen task/checker and result ownership",
+      "exists_locally": true
+    }
+  ],
+  "scope_overrides": [
+    "Three-arm comparison supersedes feasibility two-arm shorthand.",
+    "Semantic-residual gate precedes any live pilot.",
+    "Illustrative dollar ceilings in a companion do not authorize spending.",
+    "No whole-stack donor merges; optional observer only if needed."
+  ],
+  "artifacts": [
+    {
+      "path": "/workspace/hermes-factory/planning/IMPLEMENTATION_PLAN.txt",
+      "sha256": "3a90ee0457109a55d4b7bfce13b2cbfd857879245cdeb0676af25a27bfad436e"
+    },
+    {
+      "path": "/workspace/hermes-factory/planning/priority-challenge.json",
+      "sha256": "2c807fd86f502b0d0908224d7d5a94a539ddff8c573652f060d40f4c576ccb04"
+    },
+    {
+      "path": "/workspace/hermes-factory/planning/integration-feasibility.json",
+      "sha256": "e9a6987fd25bb8074a218c6b6bb65aec74f49e3f1a0dfa970dfdac3b7c83c3a9"
+    },
+    {
+      "path": "/workspace/hermes-factory/planning/experiment-design.json",
+      "sha256": "89e52a373eca959b970eb4a0caf3aeb6493f472b0313cf765e77b817db5652f5"
+    }
+  ]
+}

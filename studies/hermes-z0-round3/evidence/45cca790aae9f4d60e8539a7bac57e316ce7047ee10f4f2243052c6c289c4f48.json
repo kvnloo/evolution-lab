@@ -1,0 +1,928 @@
+{
+  "schema": "hermes_factory.deterministic_exit_final.v1",
+  "created_at_utc": "2026-10-02T19:10:06.956785+00:00",
+  "scope": "Final source/artifact late binding for the same three bounded deterministic conclusions. Local committed hash closure only; no network, inference, tests, qualifier execution, replay execution, source changes or remote writes. The earlier review remains unchanged.",
+  "decision": "DETERMINISTIC_SUFFICIENT_FOR_ALL_THREE_BOUNDED_TASKS_STOP_MODEL_COMPARISON",
+  "planning_basis": {
+    "source": "planning",
+    "u0": {
+      "id": "U0",
+      "name": "Freeze exposed development task, independent checker and source manifest",
+      "depends_on": []
+    },
+    "first_implementation_stop": "One conformance receipt set, negative controls and replay. If no supported semantic work item qualifies after at most three candidates, skip packet adapter and finish deterministic/native baseline only.",
+    "u3_guard": "U0 finds a genuine supported semantic work item; otherwise skip optional packet adapter.",
+    "deterministic_exit": "If deterministic emission suffices, cancel model comparison for that task.",
+    "deterministic_exit_pointer": "/live_pilot/deterministic_exit",
+    "primary_task": "Read-only repository-state handoff to a separately writable artifact, independently verified. Structural tasks are conformance, not model efficacy."
+  },
+  "conclusions": [
+    {
+      "id": "typed_source_declaration_reporting",
+      "actual_user_decision": "Report exactly what supplied source records declare about the requested subject/predicate and tested_source, retaining missingness, conflict and citations; not decide whether a real Hermes speedup is true.",
+      "contract": {
+        "source": "scope_protocol",
+        "pointer": "/task",
+        "base_revision": "987022a0e876db608247c46f28e9c3ba33af875c",
+        "task": "Exact source-declaration reporting under an explicit typed contract; not actual-world verification",
+        "final_implementation_revision": "293c9ea98b43d40220f0bda049df4f091034673e"
+      },
+      "simpler_deterministic_comparator": "Existing contract.py report(packet,target): parse strict typed JSON, match literal subject/predicate, and collect distinct declarations. No match means unknown; one distinct value means declared with the exact true/false value; conflict means conflict/null. Report tested_source independently. Preserve literal citations, unknown schemas and unstructured prose. Full/minimal selection is frozen EvidenceRef membership; only fixture-authored ancillary telemetry may be removed.",
+      "independently_checkable_outcome": {
+        "sources": [
+          "scope_oracle",
+          "scope_checker",
+          "scope_final_result",
+          "scope_final_decision",
+          "scope_final_validation"
+        ],
+        "method": "The final committed receipt reports exact fixed-oracle JSON equality, visible citations, all full/minimal arm outcomes and five discriminating mutants. This late binding only compares on-disk bytes, committed Git blobs and manifest hashes; it executes no qualifier, model, test or replay.",
+        "final_qualification_status": "OFFLINE_CONTRACT_QUALIFIED",
+        "final_decision": "OFFLINE_CONTRACT_QUALIFIED_NO_MODEL_COMPARISON_SELECTED",
+        "reported_arms_passed": 14,
+        "reported_named_mutants_rejected": 5,
+        "provider_calls": 0,
+        "source_binding_matches": 15,
+        "artifact_binding_matches": 84,
+        "native_hermes_revision": "3536d56cf45b5d19c19675e2e576637edc267946",
+        "final_source_drift": false
+      },
+      "falsifiers": [
+        "Typed positive/negative maps to an incorrect value or unknown.",
+        "Missing/wrong-subject scope becomes false, conflict chooses one side, or missing source identity erases an independently explicit scope declaration.",
+        "Relevant evidence/provenance/contradictions/gaps are lost; oracle labels or a derived answer enter context; output differs from the frozen oracle."
+      ],
+      "supported_semantic_residual": false,
+      "reason": "All required output fields are strict parsing and literal set operations. Real-world truth/authentication and arbitrary prose interpretation are explicitly outside this typed-reporting task; no new independent task/oracle making them necessary was supplied.",
+      "disposition": "DETERMINISTIC_SUFFICIENT_STOP_MODEL_COMPARISON",
+      "next_action": "Retain final committed offline conformance and stop model comparison for this exact task. The optional eight-call design remains unexecuted and is not selected by U0. No further qualification or source-binding repair is needed for this pinned committed closure.",
+      "limits": [
+        "Seven inspected synthetic fixtures establish development conformance, not holdout or population evidence.",
+        "Exact source declarations do not authenticate producers, verify real-world outcomes or establish a relationship between separately inventoried revision and scope claims.",
+        "Arbitrary prose conflict parsing, semantic selection, model necessity, provider token savings, runtime activation and actual speedup remain unestablished.",
+        "The earlier implementation-smoke receipt remains historical; final source closure is the pinned committed RESULT/DECISION, not a retroactive repair of old evidence."
+      ],
+      "evidence_refs": [
+        "scope_protocol",
+        "scope_freeze",
+        "scope_reporter",
+        "scope_checker",
+        "scope_oracle",
+        "scope_final_result",
+        "scope_final_decision",
+        "scope_final_validation",
+        "scope_qualifier",
+        "scope_readme"
+      ]
+    },
+    {
+      "id": "aodl_positive_canary_and_token_validity",
+      "actual_user_decision": "For a supplied artifact bundle, classify exact positive CANONICAL_OK evidence and valid known token usage; preserve complete negative evidence and original Task A failure/Task B block.",
+      "contract": {
+        "source": "receipt_corrections",
+        "revisions": {
+          "z0intelligence": "90821c7a96e49acf7a484299f3cebb68ad8123e4",
+          "z0evals": "0701db5003d58199386fdeb8efc12bda9a6ff803"
+        },
+        "scope": "Local evidence classification, not a new provider attempt, frozen-study repin, import or activation."
+      },
+      "simpler_deterministic_comparator": "Require strict positive gold joined to its physical receipt with exact_string_CANONICAL_OK verification. Check literal output by the existing exact verifier. Token usage is known only when each required count is a nonnegative integer: zero valid; Boolean, negative, missing/null, string and float invalid. Preserve original observations. Archive completeness and positive-canary eligibility remain separate.",
+      "independently_checkable_outcome": {
+        "source": "receipt_corrections",
+        "positive_canary_focused_tests_passed": 17,
+        "false_positive_regressions_before_fix": 12,
+        "token_full_suite_passed": 35,
+        "invalid_usage_regressions_before_fix": 6,
+        "historical_raw_checksums_verified": 19,
+        "historical_summary_claims_verified": 69,
+        "negative_evidence_preserved": true,
+        "new_execution_in_this_review": false
+      },
+      "falsifiers": [
+        "Negative/non-Boolean gold, unrelated verifier or unjoined physical receipt mints positive-canary success.",
+        "Boolean/negative/missing/null/string/float count is accepted as known usage, or zero is rejected.",
+        "Complete negative evidence is discarded, historical results are rewritten, or corrected source is treated as matching the unchanged old study freeze."
+      ],
+      "supported_semantic_residual": false,
+      "reason": "The literal-output, identity/linkage and type/range decisions are exact deterministic predicates. Provider-origin authentication and future broader intent contracts are separate evidence/authority questions; no supported model residual follows here.",
+      "disposition": "DETERMINISTIC_SUFFICIENT_STOP_MODEL_COMPARISON",
+      "next_action": "Retain the completed corrections and validation. Do not reopen the canary, repin the frozen study or import Task B; original Task A failure and Task B block remain.",
+      "limits": [
+        "z0int full-suite collection remained blocked by missing tokenomics/torch; only the recorded focused suite is green.",
+        "Local evidence validation does not authenticate remote provider origin or authorize broader promotion."
+      ],
+      "evidence_refs": [
+        "receipt_corrections",
+        "aodl_seal"
+      ]
+    },
+    {
+      "id": "fork47v2_pinned_main_readiness_handoff",
+      "actual_user_decision": "State whether the existing missing-remaining-header patch has narrow functional acceptance on the pinned main, and hand off exact evidence plus remaining promotion conditions to its existing owner.",
+      "contract": {
+        "source": "fork47_acceptance",
+        "candidate_head": "1d31fe5193e1ee964e611bba6340ab2919c3192c",
+        "upstream_main": "cc761ddb80c6e557cb0855fe27a803b517bed1ec",
+        "green_commit": "f3b5cc502cdcddaab2b92d704d1c708e3dc34f10",
+        "red_commit": "56d56825e73676dbb8392a08d9104b623634bd61",
+        "scope": "Deterministic missing-header handling on pinned sources; not live prevalence, model efficacy, complete CI or automatic promotion."
+      },
+      "simpler_deterministic_comparator": "Verify candidate/base/blob identity, clean merge/tree receipts and fixed red/green tests. Missing remaining must remain unknown rather than become exhausted; existing parse/Nous guard tests discriminate it. Emit the readiness record without erasing review-slot or source-freshness boundaries.",
+      "independently_checkable_outcome": {
+        "source": "fork47_acceptance",
+        "functional_acceptance": true,
+        "green_passed": 59,
+        "green_failed": 0,
+        "red_passed": 57,
+        "red_failed": 2,
+        "expected_failures_observed": true,
+        "adjacent_suites_pass_both_arms": true,
+        "tracked_trees_clean": true,
+        "expected_red_failures": [
+          "tests/agent/test_rate_limit_tracker.py::TestParseHeaders::test_missing_remaining_is_unknown_not_exhausted",
+          "tests/agent/test_nous_rate_guard.py::TestIsGenuineNousRateLimit::test_last_known_state_missing_remaining_stays_upstream"
+        ],
+        "new_execution_in_this_review": false
+      },
+      "falsifiers": [
+        "Candidate/main/affected blobs differ from the receipt; later affected-path drift invalidates reuse.",
+        "Green fails a required frozen test, red lacks either expected failure, or adjacent failures/dirty trees are concealed.",
+        "Handoff claims complete CI, live prevalence, efficacy or promotion authority absent from the receipt."
+      ],
+      "supported_semantic_residual": false,
+      "reason": "Pinned readiness is an exact identity/test/receipt handoff. Human review-slot coordination and owner promotion decisions are external authority, not evidence of model reasoning necessity.",
+      "disposition": "DETERMINISTIC_SUFFICIENT_STOP_MODEL_COMPARISON",
+      "next_action": "Hand off the completed narrow acceptance and preserve the existing queue. Only recheck changed affected paths if main moves before actual promotion; no more current-snapshot qualification or model comparison is justified.",
+      "external_authority_boundary": "Existing approximately-three-review-slot policy versus 15 open authored PRs requires owner coordination before promotion; functional qualification grants no blanket promotion permission or new PR.",
+      "evidence_refs": [
+        "fork47_acceptance",
+        "upstream_review"
+      ]
+    }
+  ],
+  "concrete_semantic_residual_ready_to_freeze": null,
+  "additional_candidates_to_search": 0,
+  "new_provider_calls_selected": 0,
+  "global_scope_limit": "This conclusion applies only to these three exact tasks. Arbitrary prose interpretation, producer truth/authentication and human authority were not substituted as invented new candidate tasks.",
+  "sources": {
+    "planning": {
+      "path": "/workspace/hermes-factory/planning/plan.json",
+      "sha256": "144afcb5b9cf4dc8d7735c3308fea7eb93a9fd8a9373a70fc793e980513e5014"
+    },
+    "receipt_corrections": {
+      "path": "/workspace/hermes-factory/reviews/original-goal-round3/receipt-semantics/RESULT.json",
+      "sha256": "2461f3d3ac741ee39952ee7b557019a5288abdf7cc86f97c27d3a9c1250b2ec6"
+    },
+    "aodl_seal": {
+      "path": "/workspace/hermes-factory/reviews/original-goal-round3/aodl-intent/SEAL_VALIDATION.json",
+      "sha256": "043c24fdfc1076224a7e1742e36d0d5674da129ad8e804c203449a1ad61373a0"
+    },
+    "fork47_acceptance": {
+      "path": "/workspace/hermes-factory/reviews/original-goal-round3/upstream/FORK47_ACCEPTANCE.json",
+      "sha256": "2734627238d6a3333a603c1307135eac86248116e7a74b920c64209f80422f5b"
+    },
+    "upstream_review": {
+      "path": "/workspace/hermes-factory/reviews/original-goal-round3/upstream/UPSTREAM_REVIEW.json",
+      "sha256": "ee10694fdc98a966163e7a483fcf7aacd86f9282bd2ed2ff1f8f1bfb31a08096"
+    },
+    "prior_review": {
+      "path": "/workspace/hermes-factory/reviews/original-goal-round3/priorities/deterministic-exit-review.json",
+      "sha256": "7ad660980198b4e028e78430504bcdb946280122577797444d3a86f0c8788a2e"
+    },
+    "scope_protocol": {
+      "path": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/protocol.json",
+      "repository_relative_path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/protocol.json",
+      "sha256": "b352394d5a627f05f08613e797c26db9a138d9ad306153972ba053a4a06a050f",
+      "commit": "293c9ea98b43d40220f0bda049df4f091034673e"
+    },
+    "scope_freeze": {
+      "path": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/freeze.json",
+      "repository_relative_path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/freeze.json",
+      "sha256": "354533b1812105db27e7c5274a38c359d41201b85e8f2ba0752491615ad8400e",
+      "commit": "293c9ea98b43d40220f0bda049df4f091034673e"
+    },
+    "scope_reporter": {
+      "path": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/contract.py",
+      "repository_relative_path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/contract.py",
+      "sha256": "2fe9e03e616ec41569fb6a2dc0ff1f557d7908553dbfeea6cda75c5e56a263e3",
+      "commit": "293c9ea98b43d40220f0bda049df4f091034673e"
+    },
+    "scope_checker": {
+      "path": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/check_fixture.py",
+      "repository_relative_path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/check_fixture.py",
+      "sha256": "b1444d81a44086c35438efeb2d2dc561f0ea092ca3953b019019371120becf7a",
+      "commit": "293c9ea98b43d40220f0bda049df4f091034673e"
+    },
+    "scope_oracle": {
+      "path": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/oracle.json",
+      "repository_relative_path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/oracle.json",
+      "sha256": "fef9069524e856c88e52be8e0121335ecb05a46a3a157a5cee7bc6a954d6897e",
+      "commit": "293c9ea98b43d40220f0bda049df4f091034673e"
+    },
+    "scope_fixtures": {
+      "path": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/fixtures.json",
+      "repository_relative_path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/fixtures.json",
+      "sha256": "efbd7669836e74441ef1d1b6112c355e6ba91fd4360848da54df74457a797ac4",
+      "commit": "293c9ea98b43d40220f0bda049df4f091034673e"
+    },
+    "scope_qualifier": {
+      "path": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/qualify.py",
+      "repository_relative_path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/qualify.py",
+      "sha256": "b4839435adb0cfa327e97f132d6552acd29f9a483ef52689fed02f3809b14c2f",
+      "commit": "293c9ea98b43d40220f0bda049df4f091034673e"
+    },
+    "scope_readme": {
+      "path": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/README.md",
+      "repository_relative_path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/README.md",
+      "sha256": "317b07b6b6f70ea7f55496e8e8a17e717c83e483e3de0a4eac397c6ac8b33830",
+      "commit": "293c9ea98b43d40220f0bda049df4f091034673e"
+    },
+    "scope_final_result": {
+      "path": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/RESULT.json",
+      "repository_relative_path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/RESULT.json",
+      "sha256": "cba9347396e5cf8f0fa260b4a7db3294c51c5036385070e81c73d7ad5543eaeb",
+      "commit": "293c9ea98b43d40220f0bda049df4f091034673e"
+    },
+    "scope_final_decision": {
+      "path": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/DECISION.json",
+      "repository_relative_path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/DECISION.json",
+      "sha256": "e846b15a3cca8059bdb56b9fbd4f83519f159e305c64181fa8082df866009fec",
+      "commit": "293c9ea98b43d40220f0bda049df4f091034673e"
+    },
+    "scope_final_validation": {
+      "path": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/VALIDATION.json",
+      "repository_relative_path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/VALIDATION.json",
+      "sha256": "4ce3514b0d043941b1ed1aa759f85486d8c4669536b92d03b46ab88fc0af0f16",
+      "commit": "293c9ea98b43d40220f0bda049df4f091034673e"
+    }
+  },
+  "final_scope_commit": {
+    "repository": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence",
+    "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+    "tree": "4464f37a9e268155208aa1a24d422ad3a529f671",
+    "head_equals_commit": true,
+    "working_tree_clean": true,
+    "changed_files": 99,
+    "changed_file_sha256_manifest": "646adc14292d924511ad5ba6aa4ed5fa214df06138f283cad8f32ce7efc1dbff"
+  },
+  "committed_hash_closure": {
+    "status": "PASS",
+    "final_receipts": [
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/RESULT.json",
+        "sha256": "cba9347396e5cf8f0fa260b4a7db3294c51c5036385070e81c73d7ad5543eaeb",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/DECISION.json",
+        "sha256": "e846b15a3cca8059bdb56b9fbd4f83519f159e305c64181fa8082df866009fec",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/VALIDATION.json",
+        "sha256": "4ce3514b0d043941b1ed1aa759f85486d8c4669536b92d03b46ab88fc0af0f16",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      }
+    ],
+    "source_files": [
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/causal_context/fixtures/sources.json",
+        "sha256": "7334619674af88cef91aed96361a72b33d0534be76147a39b446887b1cff72ed",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/results/verified-context-cohort-20261002/runs/full-complete/native-request.bin",
+        "sha256": "6ab7acbff920e5d0620a698027ab1f9275dc552e992b370eba304f0cebcc0a68",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/README.md",
+        "sha256": "317b07b6b6f70ea7f55496e8e8a17e717c83e483e3de0a4eac397c6ac8b33830",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/baseline-bindings.json",
+        "sha256": "9532cc00a5de395eb683295de5098a1c5bdb6ff50868a21d06960024bee2c925",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/check_fixture.py",
+        "sha256": "b1444d81a44086c35438efeb2d2dc561f0ea092ca3953b019019371120becf7a",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/contract.py",
+        "sha256": "2fe9e03e616ec41569fb6a2dc0ff1f557d7908553dbfeea6cda75c5e56a263e3",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/fixtures.json",
+        "sha256": "efbd7669836e74441ef1d1b6112c355e6ba91fd4360848da54df74457a797ac4",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/freeze.json",
+        "sha256": "354533b1812105db27e7c5274a38c359d41201b85e8f2ba0752491615ad8400e",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/oracle.json",
+        "sha256": "fef9069524e856c88e52be8e0121335ecb05a46a3a157a5cee7bc6a954d6897e",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/prompt.txt",
+        "sha256": "158beabcd3211240ef3825327797382fd6fef512eaeb808fcab896fb31f5dca8",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/protocol.json",
+        "sha256": "b352394d5a627f05f08613e797c26db9a138d9ad306153972ba053a4a06a050f",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/qualify.py",
+        "sha256": "b4839435adb0cfa327e97f132d6552acd29f9a483ef52689fed02f3809b14c2f",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/test_contract.py",
+        "sha256": "eabb02770bb465224644fa3e765330824b34945cbf5216d3757664e8589a889f",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/test_saved_replay.py",
+        "sha256": "565d3580b1dc24aeec1ed60b823170f52040af114c85508993e103c53d3dec5c",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/verified_context_cohort/run_cohort.py",
+        "sha256": "0e0a03315f238d0c3c68c8d3f6d32ff8041200aaac653dbaade5a7d0a6e8f641",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      }
+    ],
+    "result_artifacts": [
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-conflicting-scope/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-conflicting-scope/context.txt",
+        "sha256": "763e4ce0198e764fe81f6c14876b1b670fb17e7af10ab0093407b2b91b9a6782",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-conflicting-scope/declarations.json",
+        "sha256": "82f091b5508fb1f2f005d33334fc9f1351e489c7bf7bc53ebfc1192dda53b700",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-conflicting-scope/request.json",
+        "sha256": "5536470d9a8c9780eea675babb7bf6c8e326044027c712946253549e80188f3f",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-conflicting-scope/selection.json",
+        "sha256": "353a4c5fb4ea4747a1c9003c8815cfc2990b1d2f1e12d6e481f729128327f28c",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-conflicting-scope/witness.json",
+        "sha256": "9e00575a97cee8d3b2233a3cf7d26a66cc1ed19c4667bb4c8a9a875fc1b5cce6",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-historical-prose-only/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-historical-prose-only/context.txt",
+        "sha256": "a5d7f52d401ca4ba3bd51d77f9d73f602ed55202c40c5af1a1abbd01f112b0e6",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-historical-prose-only/declarations.json",
+        "sha256": "bf020140d099e8abf9f3cc1439b0fb24106f8b4bb6d903a0718030a18d212410",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-historical-prose-only/request.json",
+        "sha256": "35baddd95cac2de4821f418158cd2047c36eaff457b10507c2e3d58273d91690",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-historical-prose-only/selection.json",
+        "sha256": "59caeceb3c4e398ec41b7ea929791c8a563002edb9d7d3bd80ca04400e9334bf",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-historical-prose-only/witness.json",
+        "sha256": "949a3ca1aabaae3e7d66bea14645925074712f9f029dbc1eec738807d38263bc",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-matching-negative/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-matching-negative/context.txt",
+        "sha256": "6d0eb87c3932969c3111298d38a8f64f7510b1e26f043e639b258e1ec2853f6b",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-matching-negative/declarations.json",
+        "sha256": "ffead003a94e3f703ff25a47e59bb00846f390b5b346eefe38fa21e330d86981",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-matching-negative/request.json",
+        "sha256": "b302382e1c48c7440bede3cba68de21f6048280eacca5f959f9bf3a8a9e6cf11",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-matching-negative/selection.json",
+        "sha256": "d903079a99a19dcfea0f7922f739e9eeaab55e17f5d1a073c480df8e5bc577cd",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-matching-negative/witness.json",
+        "sha256": "8628574e7789de5d5a0611f45c76ab6043b3645650d4e193488a3a31c1f6224c",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-matching-positive/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-matching-positive/context.txt",
+        "sha256": "bc7f50548b8343099885340b5ceb7ab69adae9b8a65f5ce66f4cdebdddfcd5db",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-matching-positive/declarations.json",
+        "sha256": "ce7ff5914b18fb8ce134e2a67008d560e73ec41c9b84d4574143cf1ce061d1ac",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-matching-positive/request.json",
+        "sha256": "2b361b7c708f0c991f65fe3dfadee1b39601e07eab5df2f734b1fc3adb79061f",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-matching-positive/selection.json",
+        "sha256": "4bdfea68b39b85b51992e821b1f6cbc1c0136dae31014baf9a61de03be8cd01b",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-matching-positive/witness.json",
+        "sha256": "e41cd3d386f27dc6b44709a37f88378d6169d9e3121cf4c106afe745e72026ec",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-missing-scope/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-missing-scope/context.txt",
+        "sha256": "003e2dc17a7ca8c653f5dd5469f6d776f5a7e35b7dd5bd6b3d0e1d7e9713cfa0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-missing-scope/declarations.json",
+        "sha256": "6e0dcd958a42c999271cf4aa434d7eabfbdffb9ffbdd6df61d53282a24dc9d68",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-missing-scope/request.json",
+        "sha256": "8cb575e9029129dff232a528a4c566653f78483cd2adc61db8182881fe89ca63",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-missing-scope/selection.json",
+        "sha256": "a33def01b6c97406500607456de1a4304d18fe155ed8ca67d4cf267b88ca672e",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-missing-scope/witness.json",
+        "sha256": "18283e2cb0b7a847fe320eaca60fac4a9af1fd0ddce327fd7de2d94462a154be",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-missing-source-known-negative/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-missing-source-known-negative/context.txt",
+        "sha256": "d6f6d839a6c11bf114c96bb5e8cf4dc380611914eb2567e69ab13ec18bb977ad",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-missing-source-known-negative/declarations.json",
+        "sha256": "d457cc6c4930135bff2ef10c5f30a21dc155d1a104ff34da272713637ac03b3b",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-missing-source-known-negative/request.json",
+        "sha256": "0f60c8b64dc40b4eb66b19c0aa6fb009b0ec906a8697f7d3e69c8f9fb9c75769",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-missing-source-known-negative/selection.json",
+        "sha256": "3dfcad9a336f7b21cb0bc339063470c7742c0670ac36e332587e936e5978db0d",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-missing-source-known-negative/witness.json",
+        "sha256": "23f4b1dc0fb7c169d9c888a446675d9e304e0929dfaa2e97397a7a4e3bdfe7d3",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-wrong-subject-positive/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-wrong-subject-positive/context.txt",
+        "sha256": "fe4edcb4ae21d02b84fc08ed1942380ed686505413ff83e770547bf7b131eae7",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-wrong-subject-positive/declarations.json",
+        "sha256": "efb9bc667cd661cb42d7a2773b8fa933029baa6ac71ff535d518f5883e2dd2a7",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-wrong-subject-positive/request.json",
+        "sha256": "d2006f5e273cc7cd089e180c1d636b5c15e16577bbfe7cf47aacb5a4b4e30719",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-wrong-subject-positive/selection.json",
+        "sha256": "06e41d8f7b0edf2184922ac3ccf1ee2f5898c8b93faeda40786c2d6adfd42ed7",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/full-wrong-subject-positive/witness.json",
+        "sha256": "2219007ebd7bd12061656b30ec664d48779adbab98d6319f285a1537ac31314d",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-conflicting-scope/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-conflicting-scope/context.txt",
+        "sha256": "ea774f60997c0615ae810355c0e665db5850a09d62005707a72efadada083528",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-conflicting-scope/declarations.json",
+        "sha256": "82f091b5508fb1f2f005d33334fc9f1351e489c7bf7bc53ebfc1192dda53b700",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-conflicting-scope/request.json",
+        "sha256": "3b484bc2f925f98aea740ecca94be5793704da60621317c40d9f9f51ddfa8ae9",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-conflicting-scope/selection.json",
+        "sha256": "227d25c2215f250092df9ba77e404e220657822e81e910cb44bdbc0767a363f0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-conflicting-scope/witness.json",
+        "sha256": "a988eada51677318953246894bdc29570505406a37c1fcf520e962916c512867",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-historical-prose-only/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-historical-prose-only/context.txt",
+        "sha256": "6355305b6943f931c1042dd14812d74de4d1e32def09639dc522ece573425307",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-historical-prose-only/declarations.json",
+        "sha256": "bf020140d099e8abf9f3cc1439b0fb24106f8b4bb6d903a0718030a18d212410",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-historical-prose-only/request.json",
+        "sha256": "54999593b51a2d54d0b06b1396ef1ee8117fc8699b25e1ea6bcc902735d29591",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-historical-prose-only/selection.json",
+        "sha256": "09c8b085ada97c20fba38316ffcb20fff6d85b6ef4c3ea3ed99dd31efd2bee82",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-historical-prose-only/witness.json",
+        "sha256": "17f1043c746e7037af44524664ed8c9b56c8edfd90cdc9e4d78d39e182f51801",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-matching-negative/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-matching-negative/context.txt",
+        "sha256": "4ee6a0c648c7b89b8dd8d3a5a2b657076ed02b1d054f1eceb7bd86fd6eb1881b",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-matching-negative/declarations.json",
+        "sha256": "ffead003a94e3f703ff25a47e59bb00846f390b5b346eefe38fa21e330d86981",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-matching-negative/request.json",
+        "sha256": "ee8a2515dd2d9918609cb58d565858bce8e6f657c8584b69caee0c7a8b321032",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-matching-negative/selection.json",
+        "sha256": "e919d3730e85b7b24c1477b5a54891f9f68907a0cce264471aa2f5baf2f19188",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-matching-negative/witness.json",
+        "sha256": "6b1f1d74b9347a31edb37bbe35ffd88793273c77d4a3b8c268822b97d306ada9",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-matching-positive/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-matching-positive/context.txt",
+        "sha256": "48d6586f76bcffefb389d476e40b00f63bfa3498e6acc7e91aef556586b38316",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-matching-positive/declarations.json",
+        "sha256": "ce7ff5914b18fb8ce134e2a67008d560e73ec41c9b84d4574143cf1ce061d1ac",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-matching-positive/request.json",
+        "sha256": "9e460d86dc905cc11fa2b0d954b402def6fe25eac12ece7543cb9424352249ab",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-matching-positive/selection.json",
+        "sha256": "aa49c2cf93638207a0d79a78d10c6d6d71a3a0c049044a200b81f933ddd71d22",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-matching-positive/witness.json",
+        "sha256": "201570af7fcd5b75c8ad65cba7f5f5f544d4cb1d1c7cf87cae9853ebff50b31d",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-missing-scope/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-missing-scope/context.txt",
+        "sha256": "6b87c6688d3e866d2cc1935f72f6ec4082f1caab59e9d081a288173c2bb724a4",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-missing-scope/declarations.json",
+        "sha256": "6e0dcd958a42c999271cf4aa434d7eabfbdffb9ffbdd6df61d53282a24dc9d68",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-missing-scope/request.json",
+        "sha256": "87a08cd2fe2e2800893bb39059fec0c39c06f2d4140fc5c1fcab9b917464bddf",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-missing-scope/selection.json",
+        "sha256": "fca0bde3a9da3f67eb23911a66bc23a9cf2d2a9a2a6f6244894de5c6959ddb80",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-missing-scope/witness.json",
+        "sha256": "4fae685259dc082acff2733e6b787fbb79c65cba8e6248ef26dd43832aa1cc22",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-missing-source-known-negative/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-missing-source-known-negative/context.txt",
+        "sha256": "eb0cc1423c19be14943530037a180487cc11e07c0a3146607cfd703a209b8662",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-missing-source-known-negative/declarations.json",
+        "sha256": "d457cc6c4930135bff2ef10c5f30a21dc155d1a104ff34da272713637ac03b3b",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-missing-source-known-negative/request.json",
+        "sha256": "f24004b5780fc0234ee1359637afd31cbfaaa1889cf1c6b5b9e465f04cf5027e",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-missing-source-known-negative/selection.json",
+        "sha256": "fc7a99b957a3c2170f98d4b305d38be92c768950145d66e353c7f24ec932edb5",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-missing-source-known-negative/witness.json",
+        "sha256": "3fbb3ac4f9fcb715a359e9e5a9f3e98b5b16fa1a7423d95773303aa85be3ebbd",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-wrong-subject-positive/check.json",
+        "sha256": "1f23195ff75b5126b322ca5a63a46ef4839293dd5f19b9efe0fe066af23c0ed0",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-wrong-subject-positive/context.txt",
+        "sha256": "96350de6d347e9dac0dff98ae5238c928c697b91534034d39cacd45ff7750853",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-wrong-subject-positive/declarations.json",
+        "sha256": "efb9bc667cd661cb42d7a2773b8fa933029baa6ac71ff535d518f5883e2dd2a7",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-wrong-subject-positive/request.json",
+        "sha256": "3a00445fce9a907313c15c954eabf1acf7e33bc7d93d063db4d6c19ca74c2719",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-wrong-subject-positive/selection.json",
+        "sha256": "64d6e9c0e62814d17188fe06dad814e6064eff4cc220527381a181699f9a15b6",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/results/offline-20261002/minimal-wrong-subject-positive/witness.json",
+        "sha256": "1caabd14d3b3b3bce748b54c7d7fd23f7522998aaaaab62cbc3d818f66e48666",
+        "commit": "293c9ea98b43d40220f0bda049df4f091034673e",
+        "disk_and_commit_match": true
+      }
+    ],
+    "native_source_files": [
+      {
+        "path": "agent/turn_context.py",
+        "sha256": "b838c191eb44e8fd99a768bb782438b2b8751c775df67599dbc4b5892ea344ce",
+        "commit": "3536d56cf45b5d19c19675e2e576637edc267946",
+        "disk_and_commit_match": true
+      },
+      {
+        "path": "tools/hook_output_spill.py",
+        "sha256": "3e2ab6e5f088920065c22549f34d072526aa793246096cef8656d8810f6012a0",
+        "commit": "3536d56cf45b5d19c19675e2e576637edc267946",
+        "disk_and_commit_match": true
+      }
+    ],
+    "predecessor_manifest": {
+      "path": "/workspace/hermes-factory/experiments/state-packet-scope-contract/z0intelligence/benchmarks/thermocontext/hermes_phase_c/scope_contract_v1/baseline-bindings.json",
+      "sha256": "9532cc00a5de395eb683295de5098a1c5bdb6ff50868a21d06960024bee2c925",
+      "base_revision": "987022a0e876db608247c46f28e9c3ba33af875c",
+      "files_checked_against_disk_final_commit_and_base_commit": 262,
+      "all_equal": true
+    },
+    "mismatches": [],
+    "scope": "Bytes are equal at specified Git commits; this is not a new execution or independent efficacy result."
+  },
+  "historical_review_preservation": {
+    "path": "/workspace/hermes-factory/reviews/original-goal-round3/priorities/deterministic-exit-review.json",
+    "sha256_before": "7ad660980198b4e028e78430504bcdb946280122577797444d3a86f0c8788a2e",
+    "sha256_after": "7ad660980198b4e028e78430504bcdb946280122577797444d3a86f0c8788a2e",
+    "unchanged": true,
+    "old_source_mismatches_remain_historical": "Earlier README/qualifier drift is preserved in the prior review; final committed source closure now has no mismatches."
+  },
+  "side_effects": {
+    "provider_calls": 0,
+    "network_calls": 0,
+    "tests_run": 0,
+    "qualifier_or_replay_runs": 0,
+    "code_edits": 0,
+    "remote_writes": 0,
+    "historical_artifacts_changed": false
+  }
+}

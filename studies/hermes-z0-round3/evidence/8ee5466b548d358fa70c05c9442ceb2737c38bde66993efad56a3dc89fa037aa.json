@@ -1,0 +1,51 @@
+{
+  "captured_at": "2026-10-02T18:14:39.081887+00:00",
+  "scope": "New offline parsing of published benign run/observer/decision/oracle data plus checksum audit. No harness/probe/inference execution. Isolation/safety controls were not rerun or qualified.",
+  "hermes_revision": "0d60437a3329448bb9d2992e34cec81b0afd36df",
+  "smoke_revision": "c9604fb39b48fb49b780724975aa65bd17e9f5ff",
+  "smoke_recount": {
+    "planned_runs": 106,
+    "unique_planned_runs": 106,
+    "run_summaries": 106,
+    "planned_vs_observed_ids_match": true,
+    "shadow_runs_with_receipt_file": 58,
+    "turn_scoped_observer_receipt_trace_and_turn_sets_equal": 58,
+    "independent_oracle_join_records_agree": 58,
+    "shadow_oracle_outcomes": {
+      "pass": 22,
+      "fail": 35,
+      "unknown": 1
+    },
+    "ok_persisted_decision_and_join_receipt_rows": 380,
+    "incomplete_ok_persisted_receipt_rows": 0,
+    "ok_full_decision_rows": 324,
+    "incomplete_ok_full_decision_rows": 0,
+    "api_joined_labels": 299,
+    "api_positive_labels": 0,
+    "api_negative_labels": 299,
+    "hermes_exit_codes": {
+      "0": 103,
+      "124": 2,
+      "None": 1
+    },
+    "receipts_total": 419
+  },
+  "multiseat_revision": "8502fe3ee47a1f9e146402f0d2cf448a5fe2e809",
+  "multiseat_summary_arithmetic": {
+    "pairs": 8,
+    "concurrent_faster_pairs": 8,
+    "median_speedup_from_times": 2.382900102231943,
+    "clean_pairs_without_foreign_model_requests": 0,
+    "sequential_successes": 10,
+    "concurrent_successes": 7,
+    "runs_each_arm": 32
+  },
+  "interpretation": [
+    "Existing collector has published functional join/persistence evidence; continue it.",
+    "The API-failure lane has zero positives and cannot rank backends.",
+    "Non-identical paired tool sequences and small samples do not prove universal observational equivalence.",
+    "Reported multiseat timing is contaminated by shared model traffic in every pair; no clean throughput estimate or task-success parity.",
+    "SAMPLES105-turn backend table remains worker-reported and held pending text correction; no publication acquired and no backend selection earned.",
+    "Security-sensitive isolation qualification remains held; no controls executed."
+  ]
+}

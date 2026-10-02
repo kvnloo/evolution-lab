@@ -1,0 +1,16 @@
+{
+  "captured_at": "2026-10-02T18:07:32.604921+00:00",
+  "repository": "/workspace/hermes-factory/mirrors/kvnloo/hermes-agent.git",
+  "scope": "all reachable local objects; workspace review/experiment/inventory/shared/scratch filenames; no execution",
+  "rev_list_rc": 0,
+  "reachable_objects_seen": 466507,
+  "path_matches": [
+    {
+      "object": "d0f64ab5baf7d6d2b6267a6e8775d489443b4ebc",
+      "path": "factory/frontier-2026-10-01/factory-w0/sandbox/xf-sandbox.sh"
+    }
+  ],
+  "filesystem_matches": [
+    "/workspace/hermes-factory/reviews/factory-validation-next-20261002/evidence/factory/frontier-2026-10-01/factory-w0/sandbox/xf-sandbox.sh"
+  ]
+}

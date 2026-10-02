@@ -1,0 +1,29 @@
+{
+  "captured_at": "2026-10-02T18:12:05.601140+00:00",
+  "packets": [
+    {
+      "branch": "exp/stack-smoke-20261002",
+      "revision": "c9604fb39b48fb49b780724975aa65bd17e9f5ff",
+      "manifest": "docs/experiments/stack-smoke-2026-10-02/SHA256SUMS",
+      "manifest_sha256": "21d1da9ef334552694bf5dd20ea1e43355237ff5a308b8b11b80c14dc2a49845",
+      "entries": 2768,
+      "checked": 2768,
+      "bytes_checked": 4506225,
+      "mismatches": [],
+      "missing": [],
+      "scope": "Static byte-integrity audit only. No scripts/probes/models run; does not re-certify safety, efficacy, or experimental execution."
+    },
+    {
+      "branch": "exp/stack-multiseat-20261002",
+      "revision": "8502fe3ee47a1f9e146402f0d2cf448a5fe2e809",
+      "manifest": "docs/experiments/stack-multiseat-2026-10-02/MANIFEST.sha256",
+      "manifest_sha256": "7e3a999c40e690d3986226c305780e8c0dc95ee438558925c2454f91943f3739",
+      "entries": 3476,
+      "checked": 3476,
+      "bytes_checked": 10533278,
+      "mismatches": [],
+      "missing": [],
+      "scope": "Static byte-integrity audit only. No scripts/probes/models run; does not re-certify safety, efficacy, or experimental execution."
+    }
+  ]
+}

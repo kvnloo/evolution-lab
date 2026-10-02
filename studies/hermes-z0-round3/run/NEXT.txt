@@ -1,0 +1,27 @@
+RESEARCH CANDIDATE REVIEW
+Maximize independently verified, intent-matched task completion while reducing end-to-end time and total consumed tokens.
+
+As of: 2026-10-02T19:10:40.411862+00:00
+No eligible action; do not synthesize filler work.
+
+Nondominated alternatives: 
+
+Unassessed prerequisites (no inferred cost or priority):
+
+Excluded:
+- api-failure-shadow: settled disposition: complete; explicit new evidence/reopen required
+- bounded-deterministic-exit: settled disposition: complete; explicit new evidence/reopen required
+- canary-success-gate-and-metering: settled disposition: complete; explicit new evidence/reopen required
+- factory-original-proof-recovery: settled disposition: hold; explicit new evidence/reopen required
+- hermes-verified-development-task: settled disposition: complete; explicit new evidence/reopen required
+- intent-verifier-qualification: settled disposition: complete; explicit new evidence/reopen required
+- optional-typed-reporting-eight-call-pilot: settled disposition: kill; explicit new evidence/reopen required
+- state-packet-causal: settled disposition: complete; explicit new evidence/reopen required
+- state-packet-prompt-clarification: settled disposition: complete; explicit new evidence/reopen required
+- state-packet-scope-contract: settled disposition: complete; explicit new evidence/reopen required
+- thermocontext-current-cohort: settled disposition: kill; explicit new evidence/reopen required
+- upstream-fork47-current-smoke: settled disposition: complete; explicit new evidence/reopen required
+
+Candidate-local gates, then ordinal Pareto comparison of explicitly assessed current actions. A sole frontier item is a provisional curated suggestion. Unassessed actions remain visible; unresolved comparisons have no selected winner.
+Curated claims and priorities remain judgments, not measured workload value or an optimal policy. Matching hashes bind bytes, not truth. Declared intent fields do not prove alignment with the user's actual goal. No scientific certification, promotion, or runtime authority is granted.
+Receipt: 7066119c14fe3baf79cd8d54ed2bb08ebff90640dd3161f0e2b1894d8b094aaa

@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-02T18:22:13.333296+00:00",
+  "decision": "ACCEPT_NARROW_FUNCTIONAL_PATCH_ON_PINNED_CURRENT_MAIN",
+  "source": {
+    "created_at": "2026-10-02T18:18:14.208771+00:00",
+    "candidate_head": "1d31fe5193e1ee964e611bba6340ab2919c3192c",
+    "upstream_main": "cc761ddb80c6e557cb0855fe27a803b517bed1ec",
+    "green_commit": "f3b5cc502cdcddaab2b92d704d1c708e3dc34f10",
+    "green_tree": "2fb155d04ba879783d0eb500504359d3c8ed1275",
+    "red_commit": "56d56825e73676dbb8392a08d9104b623634bd61",
+    "red_tree": "2c53b0401f81fc7913a0aaa0ed8da26905861d15",
+    "red_definition": "current upstream main plus candidate regression tests; production rate_limit_tracker from current main",
+    "original_refs_unchanged": true
+  },
+  "arms": {
+    "green": {
+      "commit": "f3b5cc502cdcddaab2b92d704d1c708e3dc34f10",
+      "exit_code": 0,
+      "files": 4,
+      "passed": 59,
+      "failed": 0,
+      "tracked_diff_clean": true,
+      "log_sha256": "631717476a08a726108ba2a2a1ab291675c3f040ce21b0283b38fcb8a5c39fcc"
+    },
+    "red": {
+      "commit": "56d56825e73676dbb8392a08d9104b623634bd61",
+      "exit_code": 1,
+      "files": 4,
+      "passed": 57,
+      "failed": 2,
+      "tracked_diff_clean": true,
+      "log_sha256": "a2f0fb641a2b59a7c449ce640253ee96b28a4456a654436ee1ea1c472dd2ba6c"
+    }
+  },
+  "expected_control_failures": [
+    "tests/agent/test_rate_limit_tracker.py::TestParseHeaders::test_missing_remaining_is_unknown_not_exhausted",
+    "tests/agent/test_nous_rate_guard.py::TestIsGenuineNousRateLimit::test_last_known_state_missing_remaining_stays_upstream"
+  ],
+  "expected_control_failures_observed": true,
+  "functional_acceptance": true,
+  "test_command_receipt": "/workspace/hermes-factory/reviews/original-goal-round3/upstream/fork47-smoke-results.json",
+  "initial_infra_failure_preserved": "/workspace/hermes-factory/reviews/original-goal-round3/upstream/fork47-smoke-results.json.attempt1",
+  "negative_controls": "Fresh current-main production removal yields expected two failures; historical exact-candidate per-hunk2/2 controls preserved in F11-P3-fork47v2. No extra new mutation suite needed for identical affected blobs.",
+  "remaining_boundaries": [
+    "Existing~3review-slot policy versus15open upstream PRs; free/coordinate a slot before promoting.",
+    "No live partial-header prevalence or provider/model-efficacy measurement.",
+    "This is targeted functional acceptance, not complete CI or security/sandbox qualification.",
+    "Main snapshot may move; recheck affected-path drift at actual promotion."
+  ],
+  "remote_writes": 0,
+  "model_inference_runs": 0
+}

@@ -1,0 +1,452 @@
+{
+  "calibration_receipts": [
+    {
+      "evaluated_base_revision": "652fb2eb57de84ea8648bce88b40fce07cad33d6",
+      "evaluated_head_revision": "79dbb1450ec404a2240529f5554526da4cfec498",
+      "receipt": "E30-N1-79dbb1450e.json",
+      "recorded_verdict": "PARTIAL",
+      "runner_digest_matches_frozen_runner": true,
+      "schema_problems": [],
+      "scope": "runner graded another candidate; this is calibration evidence",
+      "sha256": "4a8e8bee3e3058ec9048eb2d3c2b0e392920becec1060a6bd814fecebb3fd5c3",
+      "target_matches_factory_runner_head": false,
+      "usable_as_factory_runner_self_proof": false
+    },
+    {
+      "evaluated_base_revision": "ac0b07597d767ce8aa3390b60fde1020e3274e72",
+      "evaluated_head_revision": "8ded06be29cff20f284a474f6e304bda38b84940",
+      "receipt": "E30-P1-8ded06be29.json",
+      "recorded_verdict": "PARTIAL",
+      "runner_digest_matches_frozen_runner": true,
+      "schema_problems": [],
+      "scope": "runner graded another candidate; this is calibration evidence",
+      "sha256": "11f6f94a20e900b7727f184500ed004822564ace74a6413384eddbace2590969",
+      "target_matches_factory_runner_head": false,
+      "usable_as_factory_runner_self_proof": false
+    },
+    {
+      "evaluated_base_revision": "658e6c885d40a2b27a5c3f35bb6276fa5801daf8",
+      "evaluated_head_revision": "354d499511adc75769cafd9224de8b0ac6ea16ec",
+      "receipt": "F11-N1-noop-revert.json",
+      "recorded_verdict": "INFRA",
+      "runner_digest_matches_frozen_runner": true,
+      "schema_problems": [],
+      "scope": "runner graded another candidate; this is calibration evidence",
+      "sha256": "8c65e80e811b3e4d19f06c404ad8fdc5dfa4f4697ad78a37786c402386c8b310",
+      "target_matches_factory_runner_head": false,
+      "usable_as_factory_runner_self_proof": false
+    },
+    {
+      "evaluated_base_revision": "a7c2df3846f7d6040dd81b7573bd962da546222e",
+      "evaluated_head_revision": "ac0b07597d767ce8aa3390b60fde1020e3274e72",
+      "receipt": "F11-N2-review-fix.json",
+      "recorded_verdict": "DISCARD",
+      "runner_digest_matches_frozen_runner": true,
+      "schema_problems": [],
+      "scope": "runner graded another candidate; this is calibration evidence",
+      "sha256": "5ad1f6df46db0fa758739e2d9a32424849a658c80a184657be344bc0af01af6d",
+      "target_matches_factory_runner_head": false,
+      "usable_as_factory_runner_self_proof": false
+    },
+    {
+      "evaluated_base_revision": "572e4f4fad32bbdcfc948fb2ec833177ed5734c0",
+      "evaluated_head_revision": "df1b7e4ed77d4a519544f5b29b52858b2382e530",
+      "receipt": "F11-N3-fork111-conflict.json",
+      "recorded_verdict": "BLOCKED",
+      "runner_digest_matches_frozen_runner": true,
+      "schema_problems": [],
+      "scope": "runner graded another candidate; this is calibration evidence",
+      "sha256": "4f80d9eae7b0e8f86d0964488c736c94e044103e2a21aaa301c6b36f946d03a8",
+      "target_matches_factory_runner_head": false,
+      "usable_as_factory_runner_self_proof": false
+    },
+    {
+      "evaluated_base_revision": "572e4f4fad32bbdcfc948fb2ec833177ed5734c0",
+      "evaluated_head_revision": "4d0e03c8a152e5122d158446e1f564b0ec9b6abd",
+      "receipt": "F11-P1-fork50.json",
+      "recorded_verdict": "KEEP",
+      "runner_digest_matches_frozen_runner": true,
+      "schema_problems": [],
+      "scope": "runner graded another candidate; this is calibration evidence",
+      "sha256": "3ef29bd69a0ba9d7d28136bdffbf63e3a36404a678a2ed7346e5b9b3164917f7",
+      "target_matches_factory_runner_head": false,
+      "usable_as_factory_runner_self_proof": false
+    },
+    {
+      "evaluated_base_revision": "572e4f4fad32bbdcfc948fb2ec833177ed5734c0",
+      "evaluated_head_revision": "83190e3859755602629b06017891152788e3d728",
+      "receipt": "F11-P2-fork112-r2.json",
+      "recorded_verdict": "KEEP",
+      "runner_digest_matches_frozen_runner": true,
+      "schema_problems": [],
+      "scope": "runner graded another candidate; this is calibration evidence",
+      "sha256": "5dbb54df758de23dccb2309c2ebe5c2b944abbe0a8b7e024d864cbe73d99b0fb",
+      "target_matches_factory_runner_head": false,
+      "usable_as_factory_runner_self_proof": false
+    },
+    {
+      "evaluated_base_revision": "572e4f4fad32bbdcfc948fb2ec833177ed5734c0",
+      "evaluated_head_revision": "1d31fe5193e1ee964e611bba6340ab2919c3192c",
+      "receipt": "F11-P3-fork47v2.json",
+      "recorded_verdict": "KEEP",
+      "runner_digest_matches_frozen_runner": true,
+      "schema_problems": [],
+      "scope": "runner graded another candidate; this is calibration evidence",
+      "sha256": "d391548bf0a1eac9d18013a6a8875418fc5d48310977080d698d90b369f44597",
+      "target_matches_factory_runner_head": false,
+      "usable_as_factory_runner_self_proof": false
+    }
+  ],
+  "calibration_receipts_matching_runner_self_proof_target": 0,
+  "calibration_receipts_structurally_valid": 8,
+  "criteria": [
+    {
+      "hash_present": false,
+      "id": "red",
+      "missing": "original outputs with exact revision/command, hashes, and manifest receipt references",
+      "original_artifact": "private/round3-proof/",
+      "receipt_reference_present": false,
+      "status": "REPORTED_EXECUTED_UNBOUND"
+    },
+    {
+      "hash_present": false,
+      "id": "green",
+      "missing": "original outputs with exact revision/command, hashes, and manifest receipt references",
+      "original_artifact": "private/round3-proof/",
+      "receipt_reference_present": false,
+      "status": "REPORTED_EXECUTED_UNBOUND"
+    },
+    {
+      "hash_present": false,
+      "id": "negative_control",
+      "missing": "original outputs with exact revision/command, hashes, and manifest receipt references",
+      "original_artifact": "private/round3-proof/",
+      "receipt_reference_present": false,
+      "status": "REPORTED_EXECUTED_UNBOUND"
+    },
+    {
+      "hash_present": false,
+      "id": "adjacent",
+      "missing": "original outputs with exact revision/command, hashes, and manifest receipt references",
+      "original_artifact": "private/round3-proof/",
+      "receipt_reference_present": false,
+      "status": "REPORTED_EXECUTED_UNBOUND"
+    },
+    {
+      "existing_evidence": "12 targeted mutations reported; not the contracted per-hunk inventory",
+      "id": "per_hunk_sabotage",
+      "missing": "verdict for each of the two non-test addition hunks, plus explicit unpinned-hunk list",
+      "status": "NOT_ESTABLISHED"
+    },
+    {
+      "existing_evidence": "head-only 9/9 reported",
+      "id": "adjacent_base_comparison",
+      "missing": "base and head per-test/node outcome sets for the same admitted adjacent cohort",
+      "status": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "self_test_flakiness",
+      "missing": "three exact-head green repetitions with explicit agreement/flake field; F14 baseline flakiness is another claim",
+      "status": "NOT_ESTABLISHED"
+    },
+    {
+      "all_execution_source_pins_match": false,
+      "id": "f14_guard_equality",
+      "map_artifact_pins_match": true,
+      "scope": "historical rebased arm fe5e57814c on 34f8ec3b40; not direct execution of staged 732919ad7d",
+      "status": "MAPS_BOUND_EXECUTION_SOURCE_UNBOUND",
+      "stored_maps_equal": true
+    }
+  ],
+  "decision": "HOLD_P5_PENDING",
+  "f14_execution_source_binding": {
+    "cause": "UNKNOWN; no matching historical wrapper bytes recovered; do not infer behavioral failure or silently rewrite the receipt hash",
+    "failed_pins": [
+      {
+        "actual_sha256": "4572041b7760238b810fd334542ae7db2525a2cc1d4e39203b3c014e65e33f9c",
+        "expected_sha256": "c9586195c43a926317fa3d6bc18db1937527a6308dc30c683ce9c6a83398638a",
+        "match": false,
+        "path": "sandbox/xf-sandbox.sh"
+      }
+    ],
+    "status": "INCOMPLETE",
+    "wrapper_history": "only one published version at f7d7f87fedbf42462532caea701e3df39a76e916; its hash is 4572041b..., not the recorded c9586195..."
+  },
+  "f14_map_checks": [
+    {
+      "counts": {
+        "FAIL": 4,
+        "PASS": 36
+      },
+      "dirty": false,
+      "flaky": [],
+      "full_verdict_marker_fingerprint_map_equal": true,
+      "head": "fe5e57814cb0df2a53b63d383ee7efe461e10124",
+      "label": "factory-replay-gate-r1",
+      "only": null,
+      "set_digest_equal": true
+    },
+    {
+      "counts": {
+        "FAIL": 4,
+        "PASS": 36
+      },
+      "dirty": false,
+      "flaky": [],
+      "full_verdict_marker_fingerprint_map_equal": true,
+      "head": "fe5e57814cb0df2a53b63d383ee7efe461e10124",
+      "label": "factory-replay-gate-r2",
+      "only": null,
+      "set_digest_equal": true
+    }
+  ],
+  "f14_staged_patch_id_matches_published_receipt": true,
+  "github_api_calls": 0,
+  "github_writes": 0,
+  "limits": [
+    "Hash validity is not independent execution verification.",
+    "Absence from searched publication/workspace does not mean original worker never ran it.",
+    "No guard-bypass tests, fault exploits, or new runner features were executed or added.",
+    "No new current-main or exact-head product-performance claim is made."
+  ],
+  "manifest_sha256": "3a3df7559cb94ff7acad98975763866670342623d6a81269e27bc64c0dcf7288",
+  "negative_evidence": {
+    "e30_full": "NOT_LOCATED_IN_PUBLISHED_SCOPE; prior manifest explicitly says not run",
+    "e30_lite_results": {
+      "false_credit_on_negatives": "1/2",
+      "n": 3,
+      "negatives_refused": "1/2",
+      "positives_four_columns_pass": "1/1"
+    },
+    "false_credit_target": "79dbb1450e",
+    "qualification": "four proof columns passed for a later-reverted candidate; overall receipt PARTIAL, ownership PENDING; not a KEEP claim"
+  },
+  "new_probe_executions": 0,
+  "other_gates_unchanged": {
+    "P10": "PENDING",
+    "P11": "FAIL",
+    "P8": "PENDING"
+  },
+  "p5_closeable_from_available_evidence": false,
+  "schema": "factory.receipt_reconciliation.v1",
+  "smallest_missing_action": "Recover original private/round3-proof outputs and the F14 wrapper with SHA256 c9586195c43a926317fa3d6bc18db1937527a6308dc30c683ce9c6a83398638a first. Bind red/green/targeted-negative/head-adjacent to exact revisions. If unavailable, those claims remain unknown until bounded replacement execution. Separate remaining functional evidence is same-cohort adjacent base comparison and per-hunk outcome inventory; do not resweep F14 before trying to recover its recorded source artifact.",
+  "source_identity": {
+    "f14_arm_git_object_available": false,
+    "hunks": [
+      {
+        "header": "@@ -0,0 +1 @@",
+        "is_test": false,
+        "path": "evals/_factory/__init__.py",
+        "receipt_bound": false
+      },
+      {
+        "header": "@@ -0,0 +1,820 @@",
+        "is_test": false,
+        "path": "evals/_factory/gate_runner.py",
+        "receipt_bound": false
+      },
+      {
+        "header": "@@ -0,0 +1,153 @@",
+        "is_test": true,
+        "path": "tests/evals/test_factory_gate_runner.py",
+        "receipt_bound": false
+      }
+    ],
+    "ledger_revision": "47e05ca36c91a36368cc4e0872b6c968685d16a7",
+    "ledger_update_since_previous_snapshot_touches_scope": false,
+    "patch_id_stable": "dc811ecc65b3b2a70d8c08bf300e27382d848180",
+    "private_artifact_execution_status": "reported_executed; original raw files not available in searched publication/workspace scope",
+    "private_round3_proof_in_current_ledger_tree": false,
+    "private_round3_proof_in_ledger_path_history": false,
+    "private_round3_proof_located_in_local_reviews_or_experiments": false,
+    "runner_source_sha256": "66da486d13e32a585fe87b58e8f35fbb2dea8e3fa59319032caa7a6d7c3e4524",
+    "source_acquisition": "one targeted git fetch of staged/factory-replay-gate and claude/ledger; zero GitHub API calls",
+    "staged_parent": "44a1ce9724502b9c692faaef00af3054bf11f1a6",
+    "staged_revision": "732919ad7dcd2173ba000af989b084583c231a59"
+  },
+  "source_pin_checks": {
+    "checks": [
+      {
+        "actual_sha256": "c0b6bc6834441e9b21c02ce21eee3e1755e6b82a8e5e8b15ac521c2d0fcace55",
+        "expected_sha256": "c0b6bc6834441e9b21c02ce21eee3e1755e6b82a8e5e8b15ac521c2d0fcace55",
+        "match": true,
+        "path": "receipts/F11-runner-calibration.json"
+      },
+      {
+        "actual_sha256": "2d0052e0c45e872afc1abe9c3081ec745b24129f72a175094ba2e43cb199d5f4",
+        "expected_sha256": "2d0052e0c45e872afc1abe9c3081ec745b24129f72a175094ba2e43cb199d5f4",
+        "match": true,
+        "path": "receipts/E30-gate-calibration-lite.json"
+      },
+      {
+        "actual_sha256": "5bc136f0cf3f3dc2f0454469673e6877c1aa3f79298ac16dfb6f232851b0d61b",
+        "expected_sha256": "5bc136f0cf3f3dc2f0454469673e6877c1aa3f79298ac16dfb6f232851b0d61b",
+        "match": true,
+        "path": "receipts/E48-validator-faults.json"
+      },
+      {
+        "actual_sha256": "006d4dcf80a0f38af0897b88abb2ab107c0faff0ec124adabdce60699dc0eadc",
+        "expected_sha256": "006d4dcf80a0f38af0897b88abb2ab107c0faff0ec124adabdce60699dc0eadc",
+        "match": true,
+        "path": "receipts/F15-guard-canary.json"
+      },
+      {
+        "actual_sha256": "29e71ff9e52cc73dbd6aecc196edf01701d5530d7299099df6ce89ab283aeeb4",
+        "expected_sha256": "29e71ff9e52cc73dbd6aecc196edf01701d5530d7299099df6ce89ab283aeeb4",
+        "match": true,
+        "path": "receipts/C1-envelope-only.json"
+      },
+      {
+        "actual_sha256": "b1dacfcb46824632779e42ef89c3ca5fd0c06bb77f85697aea01d8609665aabf",
+        "expected_sha256": "b1dacfcb46824632779e42ef89c3ca5fd0c06bb77f85697aea01d8609665aabf",
+        "match": true,
+        "path": "receipts/FINDING-unit-test-metadata-fetch.json"
+      },
+      {
+        "actual_sha256": "83b9992ff3b354bea620d381154a4061b827a9b79b2f20c26cd0ea26a281801d",
+        "expected_sha256": "83b9992ff3b354bea620d381154a4061b827a9b79b2f20c26cd0ea26a281801d",
+        "match": true,
+        "path": "receipts/F14-r20261001-01.json"
+      },
+      {
+        "actual_sha256": "9e7b0dbc50725367d7833682d7b2870d70fa945d1409295a1e36168e6103b83e",
+        "expected_sha256": "9e7b0dbc50725367d7833682d7b2870d70fa945d1409295a1e36168e6103b83e",
+        "match": true,
+        "path": "archive/factory-replay-gate-p1-b01d6dcb8b.patch"
+      },
+      {
+        "actual_sha256": "0a42f2950f9996059ca59e281fb9cc0b88b3dcb77b0ea39a6a503c62451f8795",
+        "expected_sha256": "0a42f2950f9996059ca59e281fb9cc0b88b3dcb77b0ea39a6a503c62451f8795",
+        "match": true,
+        "path": "archive/factory-replay-gate-r0-be292fd2ba.patch"
+      },
+      {
+        "actual_sha256": "954264a2c979f653b265140733fcab7e968ce8806adc8c20e22d60a2fbb23fae",
+        "expected_sha256": "954264a2c979f653b265140733fcab7e968ce8806adc8c20e22d60a2fbb23fae",
+        "match": true,
+        "path": "archive/factory-replay-gate-r1-c430541d16.patch"
+      },
+      {
+        "actual_sha256": "8f2c6b04cab38728fd490f4cc20ea459fca697234f5c3889cfd7f5c7381c0f8f",
+        "expected_sha256": "8f2c6b04cab38728fd490f4cc20ea459fca697234f5c3889cfd7f5c7381c0f8f",
+        "match": true,
+        "path": "archive/factory-replay-gate-r2-2a4253258b.patch"
+      },
+      {
+        "actual_sha256": "11f6f94a20e900b7727f184500ed004822564ace74a6413384eddbace2590969",
+        "cited_by": "E30-gate-calibration-lite.json",
+        "expected_sha256": "11f6f94a20e900b7727f184500ed004822564ace74a6413384eddbace2590969",
+        "match": true,
+        "path": "receipts/E30-P1-8ded06be29.json"
+      },
+      {
+        "actual_sha256": "4a8e8bee3e3058ec9048eb2d3c2b0e392920becec1060a6bd814fecebb3fd5c3",
+        "cited_by": "E30-gate-calibration-lite.json",
+        "expected_sha256": "4a8e8bee3e3058ec9048eb2d3c2b0e392920becec1060a6bd814fecebb3fd5c3",
+        "match": true,
+        "path": "receipts/E30-N1-79dbb1450e.json"
+      },
+      {
+        "actual_sha256": "8c65e80e811b3e4d19f06c404ad8fdc5dfa4f4697ad78a37786c402386c8b310",
+        "cited_by": "E30-gate-calibration-lite.json",
+        "expected_sha256": "8c65e80e811b3e4d19f06c404ad8fdc5dfa4f4697ad78a37786c402386c8b310",
+        "match": true,
+        "path": "receipts/F11-N1-noop-revert.json"
+      },
+      {
+        "actual_sha256": "3ef29bd69a0ba9d7d28136bdffbf63e3a36404a678a2ed7346e5b9b3164917f7",
+        "cited_by": "F11-runner-calibration.json",
+        "expected_sha256": "3ef29bd69a0ba9d7d28136bdffbf63e3a36404a678a2ed7346e5b9b3164917f7",
+        "match": true,
+        "path": "receipts/F11-P1-fork50.json"
+      },
+      {
+        "actual_sha256": "5dbb54df758de23dccb2309c2ebe5c2b944abbe0a8b7e024d864cbe73d99b0fb",
+        "cited_by": "F11-runner-calibration.json",
+        "expected_sha256": "5dbb54df758de23dccb2309c2ebe5c2b944abbe0a8b7e024d864cbe73d99b0fb",
+        "match": true,
+        "path": "receipts/F11-P2-fork112-r2.json"
+      },
+      {
+        "actual_sha256": "d391548bf0a1eac9d18013a6a8875418fc5d48310977080d698d90b369f44597",
+        "cited_by": "F11-runner-calibration.json",
+        "expected_sha256": "d391548bf0a1eac9d18013a6a8875418fc5d48310977080d698d90b369f44597",
+        "match": true,
+        "path": "receipts/F11-P3-fork47v2.json"
+      },
+      {
+        "actual_sha256": "8c65e80e811b3e4d19f06c404ad8fdc5dfa4f4697ad78a37786c402386c8b310",
+        "cited_by": "F11-runner-calibration.json",
+        "expected_sha256": "8c65e80e811b3e4d19f06c404ad8fdc5dfa4f4697ad78a37786c402386c8b310",
+        "match": true,
+        "path": "receipts/F11-N1-noop-revert.json"
+      },
+      {
+        "actual_sha256": "5ad1f6df46db0fa758739e2d9a32424849a658c80a184657be344bc0af01af6d",
+        "cited_by": "F11-runner-calibration.json",
+        "expected_sha256": "5ad1f6df46db0fa758739e2d9a32424849a658c80a184657be344bc0af01af6d",
+        "match": true,
+        "path": "receipts/F11-N2-review-fix.json"
+      },
+      {
+        "actual_sha256": "4f80d9eae7b0e8f86d0964488c736c94e044103e2a21aaa301c6b36f946d03a8",
+        "cited_by": "F11-runner-calibration.json",
+        "expected_sha256": "4f80d9eae7b0e8f86d0964488c736c94e044103e2a21aaa301c6b36f946d03a8",
+        "match": true,
+        "path": "receipts/F11-N3-fork111-conflict.json"
+      },
+      {
+        "actual_sha256": "8b4864a72dd07b6383f98fc1e67359143216889f9c36eda79dc56fc3579044c0",
+        "expected_sha256": "8b4864a72dd07b6383f98fc1e67359143216889f9c36eda79dc56fc3579044c0",
+        "match": true,
+        "path": "f14/f14_set.json"
+      },
+      {
+        "actual_sha256": "2323a5918435b06a56ca0f5f8b55d0a0c2274915f11cd31ef120649b0fad28fe",
+        "expected_sha256": "2323a5918435b06a56ca0f5f8b55d0a0c2274915f11cd31ef120649b0fad28fe",
+        "match": true,
+        "path": "f14/f14_run.py"
+      },
+      {
+        "actual_sha256": "4572041b7760238b810fd334542ae7db2525a2cc1d4e39203b3c014e65e33f9c",
+        "expected_sha256": "c9586195c43a926317fa3d6bc18db1937527a6308dc30c683ce9c6a83398638a",
+        "match": false,
+        "path": "sandbox/xf-sandbox.sh"
+      },
+      {
+        "actual_sha256": "0df21aee5fec293042bf4511b3b4c353d13d768711b8272c85b9f86438649229",
+        "expected_sha256": "0df21aee5fec293042bf4511b3b4c353d13d768711b8272c85b9f86438649229",
+        "match": true,
+        "path": "f14/probes/readtool_direct.py"
+      },
+      {
+        "actual_sha256": "a0cfdc3291783cb7f5fcfdbd81b6ef010cbc0cd82915786aea4e6176a56a1682",
+        "expected_sha256": "a0cfdc3291783cb7f5fcfdbd81b6ef010cbc0cd82915786aea4e6176a56a1682",
+        "match": true,
+        "path": "f14/baseline-34f8ec3b40.json"
+      },
+      {
+        "actual_sha256": "adae3fdc25feed7c99adfb4bdbf757a81ad8ee97e42ad77ba679b76cd88bd8cf",
+        "expected_sha256": "adae3fdc25feed7c99adfb4bdbf757a81ad8ee97e42ad77ba679b76cd88bd8cf",
+        "match": true,
+        "path": "receipts/F15-full-r20261001-01.json"
+      },
+      {
+        "actual_sha256": "89d4dc966dd7603607f05d307d995432ee27fe7d3058340a691ec45a78ee23ed",
+        "expected_sha256": "89d4dc966dd7603607f05d307d995432ee27fe7d3058340a691ec45a78ee23ed",
+        "match": true,
+        "path": "f14/maps/factory-replay-gate-r1.json"
+      },
+      {
+        "actual_sha256": "55a0bff1ca176d316ebe37f31ec9f4d4ce3974600364d0c6263de2d50203716d",
+        "expected_sha256": "55a0bff1ca176d316ebe37f31ec9f4d4ce3974600364d0c6263de2d50203716d",
+        "match": true,
+        "path": "f14/maps/factory-replay-gate-r2.json"
+      }
+    ],
+    "count": 28,
+    "matched": 27
+  },
+  "validation_execution": "offline hashes, map comparison, and original pure JSON receipt validator only",
+  "validator_sha256": "01465d3305e7d8ed36e370a5e847d79221d9eb2f8b5fc94a38606a72d5efb922"
+}

@@ -1,0 +1,96 @@
+{
+  "artifacts": {
+    "z0evals-before-fix.txt": "7401c7c794cc68130fe1afc659bda1d896df9baf0d3e221d9a3b5b17a5348bd6",
+    "z0evals-full-suite.txt": "050845fce8c06d3dea067be8c80b17c271d4722f48545adb088be9e9438eb4e2",
+    "z0evals-usage-validity.patch": "d981b83935a34622ba9ed08653c330b6845d134295b511b50c8972c0c538b674",
+    "z0int-before-fix.txt": "e1df7df2db0ba2f0f333cf83ca233aa3e3251f764388dabcb1501ab214ea4158",
+    "z0int-full-suite-exact-source.txt": "3c7effe6cd2285181d5f70c6d25778b8cc0c07352ca2061709cf77f4a1148c5c",
+    "z0int-full-suite.txt": "9f3416957ef0faf025ee696d7ce55cf4becc7af090e40c14e5b3d50141441693",
+    "z0int-positive-canary.patch": "041672e1335b882b94a4a6882a8960f6f7dc7072079a0187dadd27dc6c89d7d5",
+    "z0int-targeted.txt": "05f0c6f8a7918aee199f9622e29aae29357785ab3b2b8a549a713423a2946786"
+  },
+  "decision": "READY_FOR_REVIEW_LOCAL_COMMITS_ONLY",
+  "side_effects": {
+    "actual_imports": 0,
+    "historical_results_modified": false,
+    "production_activation": false,
+    "provider_calls": 0,
+    "remote_writes": 0
+  },
+  "task": "AODL receipt semantics correctness fixes",
+  "validation_commands": [
+    "/workspace/hermes-factory/venvs/aodl-canary-next/bin/python -m pytest -q tests/test_golden_canary_wrapper.py",
+    "PYTHONPATH=src /workspace/hermes-factory/venvs/aodl-canary-next/bin/python -m pytest -q",
+    "(cd results/raw && sha256sum -c SHA256SUMS)",
+    "/workspace/hermes-factory/venvs/aodl-canary-next/bin/python benchmarks/verify_published.py",
+    "/workspace/hermes-factory/venvs/aodl-canary-next/bin/python -m pytest -q # in z0evals"
+  ],
+  "z0evals": {
+    "base": "6652713e25fb159a047457acfe348bd5ec98e146",
+    "baseline_existing_tests": {
+      "passed": 11
+    },
+    "behavior": "Token usage is known only for exact nonnegative integers. Zero is valid; bool, negative, missing, null, string, float are invalid. Original values are retained.",
+    "branch": "fix/golden-trace-token-usage",
+    "changed_files": [
+      "studies/aodl-admission-v1/collect_golden.py",
+      "tests/test_golden_trace.py"
+    ],
+    "frozen_manifest_changed": false,
+    "full_suite_after_fix": {
+      "passed": 35
+    },
+    "importer_changed": false,
+    "negative_evidence": "Negative gold remains a complete archival observation and passes unchanged archive validation; completeness does not assert positive canary success or promotion eligibility.",
+    "new_regressions_before_fix": {
+      "failed": 6,
+      "passed": 19
+    },
+    "revision": "0701db5003d58199386fdeb8efc12bda9a6ff803",
+    "source_sha256": {
+      "studies/aodl-admission-v1/collect_golden.py": "26e4cab96f85b1b4414f484482ed7b47f64a32e650bc6055cd1730f043ff44bf",
+      "tests/test_golden_trace.py": "1e4cc4609b0be8ba997145ca3f7f22364b163b4656f0252a00eeb92c56f2593e"
+    },
+    "targeted_tests_after_fix": {
+      "passed": 26
+    },
+    "worktree": "/workspace/hermes-factory/experiments/receipt-semantics-round3/z0evals",
+    "worktree_clean": true
+  },
+  "z0intelligence": {
+    "base": "28db1eecbe9fa9921c52945e15d4894b6dddae3d",
+    "baseline_existing_tests": {
+      "passed": 4
+    },
+    "behavior": "Only strict positive gold joined to the physical receipt with exact_string_CANONICAL_OK verifier can mint a positive canary bundle. Failed proof remains on disk.",
+    "branch": "fix/aodl-canary-positive-evidence",
+    "changed_files": [
+      "scripts/run-aodl-golden-canary.py",
+      "tests/test_golden_canary_wrapper.py"
+    ],
+    "full_suite": "COLLECTION_BLOCKED: missing tokenomics and torch in existing aodl-canary-next venv; 5 collection errors. No full-suite success claim.",
+    "limitations": [
+      "New implementation revision does not match old frozen manifest; no frozen study repin, import, rerun or activation performed.",
+      "This is local evidence validation, not provider-origin authentication."
+    ],
+    "new_regressions_before_fix": {
+      "failed": 12,
+      "passed": 5
+    },
+    "published_claim_verification": {
+      "status": "ok",
+      "verified_summary_claims": 69
+    },
+    "raw_checksum_verification": "19 files OK",
+    "revision": "90821c7a96e49acf7a484299f3cebb68ad8123e4",
+    "source_sha256": {
+      "scripts/run-aodl-golden-canary.py": "7c2e95b9980b62c5a8cb03ab48855aa2c3116115cee5e55081bd9c808de3e5b9",
+      "tests/test_golden_canary_wrapper.py": "f1770b0122ac14fcea42c7fdfc9269e80d8ea7cfe0e4850dee5f3aacd79325dc"
+    },
+    "targeted_tests_after_fix": {
+      "passed": 17
+    },
+    "worktree": "/workspace/hermes-factory/experiments/receipt-semantics-round3/z0intelligence",
+    "worktree_clean": true
+  }
+}

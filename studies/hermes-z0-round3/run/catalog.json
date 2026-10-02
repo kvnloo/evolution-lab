@@ -1,0 +1,1081 @@
+{
+  "candidates": [
+    {
+      "comparator": "Existing unchanged raw-source checker",
+      "decision": {
+        "ambiguous": "hold; identify the missing discriminator",
+        "refutes": "kill this scoped mechanism or retain simpler baseline",
+        "supports": "advance this bounded claim to its next gate"
+      },
+      "dependencies": [],
+      "evidence": {
+        "counterevidence": "Subsequent five-case study failed all strict outcomes.",
+        "level": "R",
+        "missing": "Wider coverage and economic efficacy unestablished.",
+        "reconciled": true,
+        "sources": [
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/9f93f7f554cf0fae6138995a51bba4568c88bf51a3898b89378af412113e6219.json",
+            "sha256": "9f93f7f554cf0fae6138995a51bba4568c88bf51a3898b89378af412113e6219"
+          },
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/59c2fcf1c415e3d215a27eab745ebe69a7cf08c9c46d2d7f213bb6f71606d22d.json",
+            "sha256": "59c2fcf1c415e3d215a27eab745ebe69a7cf08c9c46d2d7f213bb6f71606d22d"
+          }
+        ],
+        "strongest": "One successful Nous Solar JSON task with7828tokens and reported$0.00041885; all4 saved runs replay."
+      },
+      "factor": null,
+      "goals": [
+        "intent_validation"
+      ],
+      "hypothesis": "One native task can reach independently verified outcome and deterministic receipt replay.",
+      "id": "hermes-verified-development-task",
+      "intent": {
+        "invariants": [
+          "independent_outcome",
+          "bounded_authority",
+          "all_attempts",
+          "frozen_judge"
+        ],
+        "oracle": "Existing target-owned outcome checker or frozen z0evals task oracle; model self-report is insufficient.",
+        "task_success": "The requested task's independently checked postconditions hold, including constraints and side effects."
+      },
+      "issue": "https://github.com/kvnloo/hermes-agent/issues/320",
+      "next": {
+        "acceptance": "Exact checker/wire/usage bindings remain reproducible.",
+        "accounting": [
+          "cold",
+          "warm",
+          "retries",
+          "failures"
+        ],
+        "action": "review",
+        "controls": [
+          "missing evidence remains unknown",
+          "negative/failed outcomes remain in denominator"
+        ],
+        "mode": "offline",
+        "primary_outcome": "Intent-matched verified task success and complete-task latency/resources, kept as separate metrics.",
+        "reopen": "New exact-revision evidence changes the specific decision; a held or completed study is not automatically rerun.",
+        "resources": [
+          "local_cpu"
+        ],
+        "stop": "No population or savings claim.",
+        "summary": "Preserve the successful receipt."
+      },
+      "owner": "Hermes native study",
+      "priority": {
+        "cost": "low",
+        "impact": "high",
+        "information": "low",
+        "rationale": "Completed integration acceptance is historical evidence, not a new work item.",
+        "reuse": "high"
+      },
+      "scope": {
+        "code": {
+          "review": "2dfdcb97ab2e2ba36c4ded968d89b87b5ad80d47554cdcf250fe9a99d1fbe567"
+        },
+        "fixtures": [
+          "Existing published or frozen artifacts only"
+        ],
+        "model": "No provider inference in this action",
+        "permissions": "Existing owner continuation or read-only review; no automatic remote writes",
+        "routing": "Offline existing evidence and native source; no runtime routing change"
+      },
+      "status": "complete"
+    },
+    {
+      "comparator": "Unchanged strict checker plus exact visible source and literal prompt contract",
+      "decision": {
+        "ambiguous": "hold; identify the missing discriminator",
+        "refutes": "kill this scoped mechanism or retain simpler baseline",
+        "supports": "advance this bounded claim to its next gate"
+      },
+      "dependencies": [],
+      "evidence": {
+        "counterevidence": "Earlier one-task success survives; no verified-success-preserving reduction in either new pair.",
+        "level": "R",
+        "missing": "Whether prompt permits null where checker requires false; calibrated abstention on sufficient/missing/conflicting evidence.",
+        "reconciled": true,
+        "sources": [
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/eda7f3e0edf42f8064ec88a29a410ade13d42a0b7c61bd7b83bba65ad97d389a.json",
+            "sha256": "eda7f3e0edf42f8064ec88a29a410ade13d42a0b7c61bd7b83bba65ad97d389a"
+          }
+        ],
+        "strongest": "Five physical calls with stable full non-evidence wire and complete usage;0/5 strict successes;5436 fewer prompt tokens in each minimal pair. Independent offline review found real epistemic/field ambiguity; separately versioned source-attributed prompt clarification is defensible, with old failures unchanged."
+      },
+      "factor": null,
+      "goals": [
+        "intent_validation",
+        "consumed_tokens",
+        "e2e_latency"
+      ],
+      "hypothesis": "Offline prompt/evidence-contract review can distinguish instructed abstention from missing source use before any new experiment.",
+      "id": "state-packet-causal",
+      "intent": {
+        "invariants": [
+          "independent_outcome",
+          "bounded_authority",
+          "all_attempts",
+          "frozen_judge"
+        ],
+        "oracle": "Existing target-owned outcome checker or frozen z0evals task oracle; model self-report is insufficient.",
+        "task_success": "The requested task's independently checked postconditions hold, including constraints and side effects."
+      },
+      "issue": "https://github.com/kvnloo/hermes-agent/issues/320",
+      "next": {
+        "acceptance": "A source-cited supports/refutes/ambiguous diagnosis; any future one-axis protocol change is explicit and independently reviewed.",
+        "accounting": [
+          "cold",
+          "warm",
+          "retries",
+          "failures"
+        ],
+        "action": "review",
+        "controls": [
+          "missing evidence remains unknown",
+          "negative/failed outcomes remain in denominator"
+        ],
+        "mode": "offline",
+        "primary_outcome": "Intent-matched verified task success and complete-task latency/resources, kept as separate metrics.",
+        "reopen": "New exact-revision evidence changes the specific decision; a held or completed study is not automatically rerun.",
+        "resources": [
+          "local_cpu"
+        ],
+        "stop": "Do not relabel old failures, repeat calls or infer universal model incapability.",
+        "summary": "Review all5 preserved answers against prompt, source trust/gaps and frozen checker; identify whether one operational-contract ambiguity explains the common null speedup field without changing past verdicts."
+      },
+      "owner": "root/Hermes cohort owner; existing-lane continuation",
+      "priority": {
+        "cost": "low",
+        "impact": "high",
+        "information": "high",
+        "rationale": "A concrete common failure can change whether to repair one task contract or retain the route; offline inspection costs less than another inference cohort.",
+        "reuse": "high"
+      },
+      "scope": {
+        "code": {
+          "cohort": "a49face9fa9d518ae9dac281e121e3963cf4a9d2"
+        },
+        "fixtures": [
+          "Existing published or frozen artifacts only"
+        ],
+        "model": "No provider inference in this action",
+        "permissions": "Existing owner continuation or read-only review; no automatic remote writes",
+        "routing": "Offline existing evidence and native source; no runtime routing change"
+      },
+      "status": "complete"
+    },
+    {
+      "comparator": "Frozen collector/importer plus adversarial valid/invalid offline fixtures",
+      "decision": {
+        "ambiguous": "hold; identify the missing discriminator",
+        "refutes": "kill this scoped mechanism or retain simpler baseline",
+        "supports": "advance this bounded claim to its next gate"
+      },
+      "dependencies": [],
+      "evidence": {
+        "counterevidence": "Offline mock provider response is not live task success; declared intent contract is not proof of latent user intent.",
+        "level": "R",
+        "missing": "No performance, provider-origin authentication, process-death recovery or old TaskB import claim.",
+        "reconciled": true,
+        "sources": [
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/043c24fdfc1076224a7e1742e36d0d5674da129ad8e804c203449a1ad61373a0.json",
+            "sha256": "043c24fdfc1076224a7e1742e36d0d5674da129ad8e804c203449a1ad61373a0"
+          }
+        ],
+        "strongest": "Separate study PASS: one call112 input/5 output,$0.0000066 reported; sealed41 artifacts/13 sources and80 mutation tests pass. Original TaskA FAIL and TaskB BLOCKED unchanged."
+      },
+      "factor": null,
+      "goals": [
+        "intent_validation"
+      ],
+      "hypothesis": "A strict independent checker can reject invalid intent/outcome/usage bindings before sanitized acceptance.",
+      "id": "intent-verifier-qualification",
+      "intent": {
+        "invariants": [
+          "independent_outcome",
+          "bounded_authority",
+          "all_attempts",
+          "frozen_judge"
+        ],
+        "oracle": "Existing target-owned outcome checker or frozen z0evals task oracle; model self-report is insufficient.",
+        "task_success": "The requested task's independently checked postconditions hold, including constraints and side effects."
+      },
+      "issue": "https://github.com/kvnloo/z0evals/issues/82",
+      "next": {
+        "acceptance": "Independent review binds source,80 checker controls, strict exact-gold/identity/usage requirements and cap/replay refusals. No claim of live success from offline stubresponse.",
+        "accounting": [
+          "cold",
+          "warm",
+          "retries",
+          "failures"
+        ],
+        "action": "review",
+        "controls": [
+          "missing evidence remains unknown",
+          "negative/failed outcomes remain in denominator"
+        ],
+        "mode": "offline",
+        "primary_outcome": "Intent-matched verified task success and complete-task latency/resources, kept as separate metrics.",
+        "reopen": "New exact-revision evidence changes the specific decision; a held or completed study is not automatically rerun.",
+        "resources": [
+          "local_cpu"
+        ],
+        "stop": "No live acceptance or TaskB import before strict evidence; never substitute structural completion for verified outcome.",
+        "summary": "Completed exact study; retain separate frozen failures and do not import under the old manifest."
+      },
+      "owner": "root/AODL intent owner; existing-lane continuation",
+      "priority": {
+        "cost": "low",
+        "impact": "high",
+        "information": "high",
+        "rationale": "False acceptance directly undermines any downstream success claim; qualify existing narrow checker before spending on a live canary.",
+        "reuse": "high"
+      },
+      "scope": {
+        "code": {
+          "study": "293129b57ed6cc2b8ddab9d5a8b44bcb213d4be4"
+        },
+        "fixtures": [
+          "Existing published or frozen artifacts only"
+        ],
+        "model": "No provider inference in this action",
+        "permissions": "Existing owner continuation or read-only review; no automatic remote writes",
+        "routing": "Offline existing evidence and native source; no runtime routing change"
+      },
+      "status": "complete"
+    },
+    {
+      "comparator": "Pinned current upstream main under the same existing assertions",
+      "decision": {
+        "ambiguous": "hold; identify the missing discriminator",
+        "refutes": "kill this scoped mechanism or retain simpler baseline",
+        "supports": "advance this bounded claim to its next gate"
+      },
+      "dependencies": [],
+      "evidence": {
+        "counterevidence": "Historical runner arm object unavailable; clean merge and blob equality do not replace current functional execution.",
+        "level": "R",
+        "missing": "Existing owner coordination and review slot remain; no new upstream PR authorized by this catalog.",
+        "reconciled": true,
+        "sources": [
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/2734627238d6a3333a603c1307135eac86248116e7a74b920c64209f80422f5b.json",
+            "sha256": "2734627238d6a3333a603c1307135eac86248116e7a74b920c64209f80422f5b"
+          }
+        ],
+        "strongest": "Current merged arm59/59PASS;current-main+same-tests57PASS+2intendedFAIL;adjacent usage/statusbar pass on both. No repeated functional work needed on these exact pins."
+      },
+      "factor": null,
+      "goals": [
+        "intent_validation"
+      ],
+      "hypothesis": "The already-proved rate-limit leaf still satisfies its functional contract on the current upstream merged arm.",
+      "id": "upstream-fork47-current-smoke",
+      "intent": {
+        "invariants": [
+          "independent_outcome",
+          "bounded_authority",
+          "all_attempts",
+          "frozen_judge"
+        ],
+        "oracle": "Existing target-owned outcome checker or frozen z0evals task oracle; model self-report is insufficient.",
+        "task_success": "The requested task's independently checked postconditions hold, including constraints and side effects."
+      },
+      "issue": "https://github.com/kvnloo/hermes-agent/issues/47",
+      "next": {
+        "acceptance": "Current-main baseline and candidate outcomes preserve existing rate-limit assertions and adjacent functional behavior; exact source pins and logs.",
+        "accounting": [
+          "cold",
+          "warm",
+          "retries",
+          "failures"
+        ],
+        "action": "experiment",
+        "controls": [
+          "missing evidence remains unknown",
+          "negative/failed outcomes remain in denominator"
+        ],
+        "mode": "offline",
+        "primary_outcome": "Intent-matched verified task success and complete-task latency/resources, kept as separate metrics.",
+        "reopen": "New exact-revision evidence changes the specific decision; a held or completed study is not automatically rerun.",
+        "resources": [
+          "local_cpu"
+        ],
+        "stop": "Stop if baseline is already fixed, ownership changes, or targeted functional behavior regresses; do not add an upstream PR from this result alone.",
+        "summary": "Retain accepted current-head smoke; route disposition to existing promotion owner."
+      },
+      "owner": "Existing Hermes #47-v2 promotion owner",
+      "priority": {
+        "cost": "low",
+        "impact": "high",
+        "information": "medium",
+        "rationale": "A narrow existing product correction can cross a concrete freshness gate without model cost; queue saturation remains a separate publication constraint.",
+        "reuse": "medium"
+      },
+      "scope": {
+        "code": {
+          "head": "1d31fe5193e1ee964e611bba6340ab2919c3192c",
+          "main": "cc761ddb80c6e557cb0855fe27a803b517bed1ec"
+        },
+        "fixtures": [
+          "Existing published or frozen artifacts only"
+        ],
+        "model": "No provider inference in this action",
+        "permissions": "Existing owner continuation or read-only review; no automatic remote writes",
+        "routing": "Offline existing evidence and native source; no runtime routing change"
+      },
+      "status": "complete"
+    },
+    {
+      "comparator": "Exact persisted observer/decision/oracle joins and a constant baseline",
+      "decision": {
+        "ambiguous": "hold; identify the missing discriminator",
+        "refutes": "kill this scoped mechanism or retain simpler baseline",
+        "supports": "advance this bounded claim to its next gate"
+      },
+      "dependencies": [],
+      "evidence": {
+        "counterevidence": "0/299 API positives;all8 throughput pairs contaminated,10/32 versus7/32 success; no clean speedup or parity.",
+        "level": "R",
+        "missing": "105-turn SAMPLES source remains owner-held pending textual correction/reverification.",
+        "reconciled": true,
+        "sources": [
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/8ee5466b548d358fa70c05c9442ceb2737c38bde66993efad56a3dc89fa037aa.json",
+            "sha256": "8ee5466b548d358fa70c05c9442ceb2737c38bde66993efad56a3dc89fa037aa"
+          },
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/c99d8ca74390786b29046c4a97ce35ff6b400a82bdf405d570f871effe9b2b8f.json",
+            "sha256": "c99d8ca74390786b29046c4a97ce35ff6b400a82bdf405d570f871effe9b2b8f"
+          }
+        ],
+        "strongest": "106/106 runs,58/58 joined trace sets,324 complete decision rows;6244/6244 published hashes match."
+      },
+      "factor": null,
+      "goals": [
+        "intent_validation"
+      ],
+      "hypothesis": "Published functional evidence can settle existing collector validity while withholding unsupported model/throughput ranking.",
+      "id": "api-failure-shadow",
+      "intent": {
+        "invariants": [
+          "independent_outcome",
+          "bounded_authority",
+          "all_attempts",
+          "frozen_judge"
+        ],
+        "oracle": "Existing target-owned outcome checker or frozen z0evals task oracle; model self-report is insufficient.",
+        "task_success": "The requested task's independently checked postconditions hold, including constraints and side effects."
+      },
+      "issue": "https://github.com/kvnloo/hermes-agent/issues/319",
+      "next": {
+        "acceptance": "No new collector; source hashes and scoped disposition recorded; unknown/pending data remain explicit.",
+        "accounting": [
+          "cold",
+          "warm",
+          "retries",
+          "failures"
+        ],
+        "action": "review",
+        "controls": [
+          "missing evidence remains unknown",
+          "negative/failed outcomes remain in denominator"
+        ],
+        "mode": "offline",
+        "primary_outcome": "Intent-matched verified task success and complete-task latency/resources, kept as separate metrics.",
+        "reopen": "New exact-revision evidence changes the specific decision; a held or completed study is not automatically rerun.",
+        "resources": [
+          "local_cpu"
+        ],
+        "stop": "Stop further audit after current published artifacts settle their claim; no model ranking on all-negative labels.",
+        "summary": "Bind the completed offline recount and preserve0-positive and contamination findings; await owner-corrected SAMPLES publication before any backend decision."
+      },
+      "owner": "Existing #319 Claude Code collector; independent review only",
+      "priority": {
+        "cost": "low",
+        "impact": "medium",
+        "information": "medium",
+        "rationale": "Current review closes a publication/ownership gap; more evidence recovery has low marginal value until the held dataset changes.",
+        "reuse": "medium"
+      },
+      "scope": {
+        "code": {
+          "hermes": "0d60437a3329448bb9d2992e34cec81b0afd36df"
+        },
+        "fixtures": [
+          "Existing published or frozen artifacts only"
+        ],
+        "model": "No provider inference in this action",
+        "permissions": "Existing owner continuation or read-only review; no automatic remote writes",
+        "routing": "Offline existing evidence and native source; no runtime routing change"
+      },
+      "status": "complete"
+    },
+    {
+      "comparator": "Existing original hashes and published receipt contract",
+      "decision": {
+        "ambiguous": "hold; identify the missing discriminator",
+        "refutes": "kill this scoped mechanism or retain simpler baseline",
+        "supports": "advance this bounded claim to its next gate"
+      },
+      "dependencies": [],
+      "evidence": {
+        "counterevidence": "Calibration receipts evaluate other candidates;27/28 prior hash links matched;one mismatch is material.",
+        "level": "R",
+        "missing": "Original self-proof outputs and recorded wrapper closure still incomplete.",
+        "reconciled": true,
+        "sources": [
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/5ba11d78ddfaf097e462bbf50a8bf219e7ea4f81010ee7076c7ff8e897da5902.json",
+            "sha256": "5ba11d78ddfaf097e462bbf50a8bf219e7ea4f81010ee7076c7ff8e897da5902"
+          },
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/cbd8cfc7bef9f74be14e0ae40d7644d933174491ab475b020fcd3603c3dd386c.json",
+            "sha256": "cbd8cfc7bef9f74be14e0ae40d7644d933174491ab475b020fcd3603c3dd386c"
+          }
+        ],
+        "strongest": "Stored F14 map equality and8 calibration receipts preserved;new bounded local source search recorded."
+      },
+      "factor": null,
+      "goals": [
+        "intent_validation"
+      ],
+      "hypothesis": "Original source-bound artifacts can close a named candidate certification gap without repeating settled maps.",
+      "id": "factory-original-proof-recovery",
+      "intent": {
+        "invariants": [
+          "independent_outcome",
+          "bounded_authority",
+          "all_attempts",
+          "frozen_judge"
+        ],
+        "oracle": "Existing target-owned outcome checker or frozen z0evals task oracle; model self-report is insufficient.",
+        "task_success": "The requested task's independently checked postconditions hold, including constraints and side effects."
+      },
+      "issue": "https://github.com/kvnloo/hermes-agent/issues/414",
+      "next": {
+        "acceptance": "Exact original source/output binding or explicit bounded recovery exhaustion; no unrelated gates widened.",
+        "accounting": [
+          "cold",
+          "warm",
+          "retries",
+          "failures"
+        ],
+        "action": "reconcile",
+        "controls": [
+          "missing evidence remains unknown",
+          "negative/failed outcomes remain in denominator"
+        ],
+        "mode": "offline",
+        "primary_outcome": "Intent-matched verified task success and complete-task latency/resources, kept as separate metrics.",
+        "reopen": "New exact-revision evidence changes the specific decision; a held or completed study is not automatically rerun.",
+        "resources": [
+          "local_cpu"
+        ],
+        "stop": "No runner additions, sandbox work or F14 resweep; stop if missing originals cannot be recovered.",
+        "summary": "Bounded original-artifact search is exhausted in available scope;await an actual original artifact or named owner location,not another unchanged search."
+      },
+      "owner": "Existing #414 certification owner",
+      "priority": {
+        "cost": "medium",
+        "impact": "low",
+        "information": "medium",
+        "rationale": "Specific recovery affects certification only; repeated unchanged search has limited expected information and should stop.",
+        "reuse": "medium"
+      },
+      "scope": {
+        "code": {
+          "runner": "732919ad7dcd2173ba000af989b084583c231a59"
+        },
+        "fixtures": [
+          "Existing published or frozen artifacts only"
+        ],
+        "model": "No provider inference in this action",
+        "permissions": "Existing owner continuation or read-only review; no automatic remote writes",
+        "routing": "Offline existing evidence and native source; no runtime routing change"
+      },
+      "status": "hold"
+    },
+    {
+      "comparator": "Random+same repair and exact component DP",
+      "decision": {
+        "ambiguous": "hold; identify the missing discriminator",
+        "refutes": "kill this scoped mechanism or retain simpler baseline",
+        "supports": "advance this bounded claim to its next gate"
+      },
+      "dependencies": [],
+      "evidence": {
+        "counterevidence": "No TSU/Z1 inference from CPU/JAX;new wave counts cannot pool.",
+        "level": "R",
+        "missing": "General thermodynamic utility remains unknown.",
+        "reconciled": true,
+        "sources": [
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/96671acbad4c550c0643cc6172179ab95d36a2b861b15de39efce8b6d803b61d.json",
+            "sha256": "96671acbad4c550c0643cc6172179ab95d36a2b861b15de39efce8b6d803b61d"
+          }
+        ],
+        "strongest": "432 original and2520 small-N repeated-seed rows reproduce non-timing fields;2628 traces/graphs match. Remote2060 selected rows are a distinct wave; local/remote N32 stops preserved."
+      },
+      "factor": null,
+      "goals": [
+        "intent_validation"
+      ],
+      "hypothesis": "Sampling earns complexity against qualified simple comparators on the current engineered disconnected cohort.",
+      "id": "thermocontext-current-cohort",
+      "intent": {
+        "invariants": [
+          "independent_outcome",
+          "bounded_authority",
+          "all_attempts",
+          "frozen_judge"
+        ],
+        "oracle": "Existing target-owned outcome checker or frozen z0evals task oracle; model self-report is insufficient.",
+        "task_success": "The requested task's independently checked postconditions hold, including constraints and side effects."
+      },
+      "issue": "https://github.com/kvnloo/z0intelligence/issues/106",
+      "next": {
+        "acceptance": "No more scale or integration investment on this cohort.",
+        "accounting": [
+          "cold",
+          "warm",
+          "retries",
+          "failures"
+        ],
+        "action": "review",
+        "controls": [
+          "missing evidence remains unknown",
+          "negative/failed outcomes remain in denominator"
+        ],
+        "mode": "offline",
+        "primary_outcome": "Intent-matched verified task success and complete-task latency/resources, kept as separate metrics.",
+        "reopen": "New exact-revision evidence changes the specific decision; a held or completed study is not automatically rerun.",
+        "resources": [
+          "local_cpu"
+        ],
+        "stop": "N64/N128 not run; reopen only a new workload where simpler qualified alternatives fail.",
+        "summary": "Preserve scoped KILL and separate wave identities."
+      },
+      "owner": "z0intelligence ThermoContext owner",
+      "priority": {
+        "cost": "high",
+        "impact": "medium",
+        "information": "low",
+        "rationale": "Terminal negative evidence is a completed scientific decision, not a ready experiment.",
+        "reuse": "medium"
+      },
+      "scope": {
+        "code": {
+          "combined_publication": "987022a0e876db608247c46f28e9c3ba33af875c",
+          "publication": "46d93b02881d73bfab581a7f17c8d0dbc6feb249"
+        },
+        "fixtures": [
+          "Existing published or frozen artifacts only"
+        ],
+        "model": "No provider inference in this action",
+        "permissions": "Existing owner continuation or read-only review; no automatic remote writes",
+        "routing": "Offline existing evidence and native source; no runtime routing change"
+      },
+      "status": "kill"
+    },
+    {
+      "comparator": "Unchanged strict checker plus exact visible source and literal prompt contract",
+      "decision": {
+        "ambiguous": "hold; identify the missing discriminator",
+        "refutes": "kill this scoped mechanism or retain simpler baseline",
+        "supports": "advance this bounded claim to its next gate"
+      },
+      "dependencies": [],
+      "evidence": {
+        "counterevidence": "V1 remains0/5;v2 is a different operational target and counts are not pooled. Provider backend identity unreported;not population or efficiency proof.",
+        "level": "R",
+        "missing": "No verified smaller-context pair win. No population or backend causal claim.",
+        "reconciled": true,
+        "sources": [
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/eda7f3e0edf42f8064ec88a29a410ade13d42a0b7c61bd7b83bba65ad97d389a.json",
+            "sha256": "eda7f3e0edf42f8064ec88a29a410ade13d42a0b7c61bd7b83bba65ad97d389a"
+          }
+        ],
+        "strongest": "Completed local independent audit: v1 0/5, separately frozen v2 1/5; source/status/reason/citations correct all five, four null scope failures. All198 predecessor artifacts unchanged locally; matching requests differ only prompt."
+      },
+      "factor": null,
+      "goals": [
+        "intent_validation",
+        "consumed_tokens",
+        "e2e_latency"
+      ],
+      "hypothesis": "A newly frozen source-attributed reporting contract resolves ambiguity without answer-specific leakage.",
+      "id": "state-packet-prompt-clarification",
+      "intent": {
+        "invariants": [
+          "independent_outcome",
+          "bounded_authority",
+          "all_attempts",
+          "frozen_judge"
+        ],
+        "oracle": "Existing target-owned outcome checker or frozen z0evals task oracle; model self-report is insufficient.",
+        "task_success": "The requested task's independently checked postconditions hold, including constraints and side effects."
+      },
+      "issue": "https://github.com/kvnloo/hermes-agent/issues/320",
+      "next": {
+        "acceptance": "A source-cited supports/refutes/ambiguous diagnosis; any future one-axis protocol change is explicit and independently reviewed.",
+        "accounting": [
+          "cold",
+          "warm",
+          "retries",
+          "failures"
+        ],
+        "action": "review",
+        "controls": [
+          "missing evidence remains unknown",
+          "negative/failed outcomes remain in denominator"
+        ],
+        "mode": "offline",
+        "primary_outcome": "Intent-matched verified task success and complete-task latency/resources, kept as separate metrics.",
+        "reopen": "New exact-revision evidence changes the specific decision; a held or completed study is not automatically rerun.",
+        "resources": [
+          "local_cpu"
+        ],
+        "stop": "Preserve old verdicts and stop at the new registered budget; do not pool protocols or rescue outcomes.",
+        "summary": "Stop these exhausted protocols; keep unchanged verdicts and use new scoped contract qualification."
+      },
+      "owner": "root/Hermes cohort owner; existing-lane continuation",
+      "priority": {
+        "cost": "low",
+        "impact": "high",
+        "information": "high",
+        "rationale": "A concrete common failure can change whether to repair one task contract or retain the route; offline inspection costs less than another inference cohort.",
+        "reuse": "high"
+      },
+      "scope": {
+        "code": {
+          "cohort": "a49face9fa9d518ae9dac281e121e3963cf4a9d2"
+        },
+        "fixtures": [
+          "Existing published or frozen artifacts only"
+        ],
+        "model": "No provider inference in this action",
+        "permissions": "Existing owner continuation or read-only review; no automatic remote writes",
+        "routing": "Offline existing evidence and native source; no runtime routing change"
+      },
+      "status": "complete"
+    },
+    {
+      "comparator": "Frozen generic completeness semantics, designated exact CANONICAL_OK success contract and preserved negative/invalid-meter fixtures",
+      "decision": {
+        "ambiguous": "hold; identify the missing discriminator",
+        "refutes": "kill this scoped mechanism or retain simpler baseline",
+        "supports": "advance this bounded claim to its next gate"
+      },
+      "dependencies": [],
+      "evidence": {
+        "counterevidence": "Accepting a negative gold verdict is not itself a collector bug. Prior run-04 wording was too broad and is superseded by acceptance-boundary-review.json.",
+        "level": "R",
+        "missing": "These paths are absent current default branches. No old manifest repin/import/activation; z0int full collection blocked by missing optional dependencies.",
+        "reconciled": true,
+        "sources": [
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/2461f3d3ac741ee39952ee7b557019a5288abdf7cc86f97c27d3a9c1250b2ec6.json",
+            "sha256": "2461f3d3ac741ee39952ee7b557019a5288abdf7cc86f97c27d3a9c1250b2ec6"
+          },
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/7206589f4d2190eabe07dc18a7f9d518e8fe5cfef10edcd5f16427dc8a81bee6.json",
+            "sha256": "7206589f4d2190eabe07dc18a7f9d518e8fe5cfef10edcd5f16427dc8a81bee6"
+          }
+        ],
+        "strongest": "Published experimental-source corrections pass17 z0int targeted tests and35 z0evals full tests; negative gold remains complete, exact positive proof gates success, token usage requires exact nonnegative integers."
+      },
+      "factor": null,
+      "goals": [
+        "intent_validation"
+      ],
+      "hypothesis": "The existing receipt flow can retain complete negative evidence while separating exact canary success and rejecting invalid meter values.",
+      "id": "canary-success-gate-and-metering",
+      "intent": {
+        "invariants": [
+          "independent_outcome",
+          "bounded_authority",
+          "all_attempts",
+          "frozen_judge"
+        ],
+        "oracle": "Existing target-owned outcome checker or frozen z0evals task oracle; model self-report is insufficient.",
+        "task_success": "The requested task's independently checked postconditions hold, including constraints and side effects."
+      },
+      "issue": "https://github.com/kvnloo/z0evals/issues/82",
+      "next": {
+        "acceptance": "A valid negative gold outcome remains complete and retained;it cannot qualify exact TaskA success. Positive exact-fixture evidence qualifies only with designated verifier binding. Bool/negative usage is invalid,zero valid,missing unknown.",
+        "accounting": [
+          "cold",
+          "warm",
+          "retries",
+          "failures"
+        ],
+        "action": "experiment",
+        "controls": [
+          "missing evidence remains unknown",
+          "negative/failed outcomes remain in denominator"
+        ],
+        "mode": "offline",
+        "primary_outcome": "Intent-matched verified task success and complete-task latency/resources, kept as separate metrics.",
+        "reopen": "New exact-revision evidence changes the specific decision; a held or completed study is not automatically rerun.",
+        "resources": [
+          "local_cpu"
+        ],
+        "stop": "No globally rejecting negative outcomes,no changing historical completeness meaning,no new provider calls,schema or service;keep original failed TaskA separate.",
+        "summary": "Correction complete and separately published; preserve archival negative evidence and frozen study identity."
+      },
+      "owner": "Existing z0evals/z0intelligence acceptance owners",
+      "priority": {
+        "cost": "medium",
+        "impact": "high",
+        "information": "high",
+        "rationale": "A concrete false-acceptance path now has qualified narrow acceptance rules;offline correction can change a real import decision without more sampling.",
+        "reuse": "high"
+      },
+      "scope": {
+        "code": {
+          "z0evals_correction": "0701db5003d58199386fdeb8efc12bda9a6ff803",
+          "z0int_correction": "90821c7a96e49acf7a484299f3cebb68ad8123e4"
+        },
+        "fixtures": [
+          "Existing published or frozen artifacts only"
+        ],
+        "model": "No provider inference in this action",
+        "permissions": "Existing owner continuation or read-only review; no automatic remote writes",
+        "routing": "Offline existing evidence and native source; no runtime routing change"
+      },
+      "status": "complete"
+    },
+    {
+      "comparator": "Deterministic reporter over identical source declarations; retain raw historical prose as unknown and all relevant evidence unchanged.",
+      "decision": {
+        "ambiguous": "hold; identify the missing discriminator",
+        "refutes": "kill this scoped mechanism or retain simpler baseline",
+        "supports": "advance this bounded claim to its next gate"
+      },
+      "dependencies": [],
+      "evidence": {
+        "counterevidence": "Typed source declarations do not establish real-world truth; synthetic qualification is not model consumption, tokens, speedup or population evidence.",
+        "level": "R",
+        "missing": "No model calls, independent source truth, production selector, or real speedup established.",
+        "reconciled": true,
+        "sources": [
+          {
+            "kind": "source",
+            "path": "studies/hermes-z0-round3/evidence/b352394d5a627f05f08613e797c26db9a138d9ad306153972ba053a4a06a050f.json",
+            "sha256": "b352394d5a627f05f08613e797c26db9a138d9ad306153972ba053a4a06a050f"
+          },
+          {
+            "kind": "source",
+            "path": "studies/hermes-z0-round3/evidence/354533b1812105db27e7c5274a38c359d41201b85e8f2ba0752491615ad8400e.json",
+            "sha256": "354533b1812105db27e7c5274a38c359d41201b85e8f2ba0752491615ad8400e"
+          },
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/cba9347396e5cf8f0fa260b4a7db3294c51c5036385070e81c73d7ad5543eaeb.json",
+            "sha256": "cba9347396e5cf8f0fa260b4a7db3294c51c5036385070e81c73d7ad5543eaeb"
+          },
+          {
+            "kind": "receipt",
+            "path": "studies/hermes-z0-round3/evidence/e846b15a3cca8059bdb56b9fbd4f83519f159e305c64181fa8082df866009fec.json",
+            "sha256": "e846b15a3cca8059bdb56b9fbd4f83519f159e305c64181fa8082df866009fec"
+          }
+        ],
+        "strongest": "Final source-bound offline qualification:14/14 arms, five wrong-behavior mutants rejected,262 predecessor files unchanged,zero provider calls. Exact typed declaration reporting is deterministically sufficient; no model comparison selected."
+      },
+      "factor": null,
+      "goals": [
+        "intent_validation",
+        "consumed_tokens",
+        "e2e_latency"
+      ],
+      "hypothesis": "Existing ContextPacket can preserve exact typed scope/source declarations and uncertainty using a deterministic same-evidence comparator.",
+      "id": "state-packet-scope-contract",
+      "intent": {
+        "invariants": [
+          "independent_outcome",
+          "bounded_authority",
+          "all_attempts",
+          "frozen_judge"
+        ],
+        "oracle": "Existing target-owned outcome checker or frozen z0evals task oracle; model self-report is insufficient.",
+        "task_success": "The requested task's independently checked postconditions hold, including constraints and side effects."
+      },
+      "issue": "https://github.com/kvnloo/hermes-agent/issues/320",
+      "next": {
+        "acceptance": "Seven full/minimal pairs preserve exact source declarations; positive, negative, missing, conflict and wrong-subject controls reject named wrong behaviors.",
+        "accounting": [
+          "cold",
+          "warm",
+          "retries",
+          "failures"
+        ],
+        "action": "experiment",
+        "controls": [
+          "missing evidence remains unknown",
+          "negative/failed outcomes remain in denominator"
+        ],
+        "mode": "offline",
+        "primary_outcome": "Exact independent oracle agreement and byte preservation; model tokens unknown because no calls.",
+        "reopen": "New exact-revision evidence changes the specific decision; a held or completed study is not automatically rerun.",
+        "resources": [
+          "local_cpu"
+        ],
+        "stop": "Stop if relevant refs, contradiction/gap lists or source/scope independence fail; do not repair old labels.",
+        "summary": "Offline contract qualified and source-bound; deterministic exit applies to exact typed reporting."
+      },
+      "owner": "Existing root/Hermes study owner",
+      "priority": {
+        "cost": "low",
+        "impact": "high",
+        "information": "high",
+        "rationale": "Qualifies one observed scope-representation failure with independent controls before any new model/selector complexity. Judgment only, not measured optimality.",
+        "reuse": "high"
+      },
+      "scope": {
+        "code": {
+          "implementation": "293c9ea98b43d40220f0bda049df4f091034673e",
+          "publication_base": "987022a0e876db608247c46f28e9c3ba33af875c"
+        },
+        "fixtures": [
+          "matching-positive",
+          "matching-negative",
+          "missing-scope",
+          "conflicting-scope",
+          "missing-source-known-negative",
+          "wrong-subject-positive",
+          "historical-prose-only"
+        ],
+        "model": "None: deterministic offline exact source reporting",
+        "permissions": "Read-only evidence plus isolated offline artifacts under existing authorization",
+        "routing": "Offline existing evidence and native source; no runtime routing change"
+      },
+      "status": "complete"
+    },
+    {
+      "comparator": "Existing exact source reporter, canary success/usage predicates, and #47 source/functional receipt checks.",
+      "decision": {
+        "ambiguous": "hold; identify the missing discriminator",
+        "refutes": "kill this scoped mechanism or retain simpler baseline",
+        "supports": "advance this bounded claim to its next gate"
+      },
+      "dependencies": [],
+      "evidence": {
+        "counterevidence": "Scope final qualifier source seal is separate and owned; arbitrary prose interpretation and external authorization cannot be invented as model necessity.",
+        "level": "R",
+        "missing": "A genuinely new supported downstream task would need its own independent outcome and simpler comparator before inference.",
+        "reconciled": true,
+        "sources": [
+          {
+            "kind": "review",
+            "path": "studies/hermes-z0-round3/evidence/45cca790aae9f4d60e8539a7bac57e316ce7047ee10f4f2243052c6c289c4f48.json",
+            "sha256": "45cca790aae9f4d60e8539a7bac57e316ce7047ee10f4f2243052c6c289c4f48"
+          },
+          {
+            "kind": "source",
+            "path": "studies/hermes-z0-round3/evidence/144afcb5b9cf4dc8d7735c3308fea7eb93a9fd8a9373a70fc793e980513e5014.json",
+            "sha256": "144afcb5b9cf4dc8d7735c3308fea7eb93a9fd8a9373a70fc793e980513e5014"
+          }
+        ],
+        "strongest": "Independent bounded review finds all three tasks deterministically sufficient; no supported semantic residual ready to freeze. Human review-slot authority is external to model capability."
+      },
+      "factor": null,
+      "goals": [
+        "intent_validation",
+        "consumed_tokens",
+        "e2e_latency"
+      ],
+      "hypothesis": "At most three existing user work items expose a genuine model-dependent residual after a complete deterministic comparator.",
+      "id": "bounded-deterministic-exit",
+      "intent": {
+        "invariants": [
+          "independent_outcome",
+          "bounded_authority",
+          "all_attempts",
+          "frozen_judge"
+        ],
+        "oracle": "Existing target-owned outcome checker or frozen z0evals task oracle; model self-report is insufficient.",
+        "task_success": "The requested task's independently checked postconditions hold, including constraints and side effects."
+      },
+      "issue": "https://github.com/kvnloo/hermes-agent/issues/320",
+      "next": {
+        "acceptance": "A supported residual and independent falsifier, or explicit sufficient deterministic exit for each of at most three items.",
+        "accounting": [
+          "cold",
+          "warm",
+          "retries",
+          "failures"
+        ],
+        "action": "analysis",
+        "controls": [
+          "missing evidence remains unknown",
+          "negative/failed outcomes remain in denominator"
+        ],
+        "mode": "offline",
+        "primary_outcome": "Exact independent oracle agreement and byte preservation; model tokens unknown because no calls.",
+        "reopen": "A new actual user task with independently checkable success cannot be completed by the stated deterministic baseline.",
+        "resources": [
+          "local_cpu"
+        ],
+        "stop": "Do not invent an unrequested task to justify another model call.",
+        "summary": "Completed actual deterministic-exit check on three current items; stop model comparison for these tasks."
+      },
+      "owner": "Existing root/Hermes study owner",
+      "priority": {
+        "cost": "low",
+        "impact": "high",
+        "information": "high",
+        "rationale": "Qualifies one observed scope-representation failure with independent controls before any new model/selector complexity. Judgment only, not measured optimality.",
+        "reuse": "high"
+      },
+      "scope": {
+        "code": {
+          "publication_base": "987022a0e876db608247c46f28e9c3ba33af875c"
+        },
+        "fixtures": [
+          "typed-source-declaration",
+          "aodl-positive-and-meter-validity",
+          "fork47-pinned-readiness"
+        ],
+        "model": "None: deterministic offline exact source reporting",
+        "permissions": "Read-only evidence plus isolated offline artifacts under existing authorization",
+        "routing": "Offline existing evidence and native source; no runtime routing change"
+      },
+      "status": "complete"
+    },
+    {
+      "comparator": "Deterministic reporter over identical source declarations; retain raw historical prose as unknown and all relevant evidence unchanged.",
+      "decision": {
+        "ambiguous": "hold; identify the missing discriminator",
+        "refutes": "kill this scoped mechanism or retain simpler baseline",
+        "supports": "advance this bounded claim to its next gate"
+      },
+      "dependencies": [],
+      "evidence": {
+        "counterevidence": "Scope final qualifier source seal is separate and owned; arbitrary prose interpretation and external authorization cannot be invented as model necessity.",
+        "level": "R",
+        "missing": "A genuinely new supported downstream task would need its own independent outcome and simpler comparator before inference.",
+        "reconciled": true,
+        "sources": [
+          {
+            "kind": "review",
+            "path": "studies/hermes-z0-round3/evidence/45cca790aae9f4d60e8539a7bac57e316ce7047ee10f4f2243052c6c289c4f48.json",
+            "sha256": "45cca790aae9f4d60e8539a7bac57e316ce7047ee10f4f2243052c6c289c4f48"
+          },
+          {
+            "kind": "source",
+            "path": "studies/hermes-z0-round3/evidence/144afcb5b9cf4dc8d7735c3308fea7eb93a9fd8a9373a70fc793e980513e5014.json",
+            "sha256": "144afcb5b9cf4dc8d7735c3308fea7eb93a9fd8a9373a70fc793e980513e5014"
+          }
+        ],
+        "strongest": "Model necessity is not demonstrated for this exact reporting task; deterministic exit applies."
+      },
+      "factor": null,
+      "goals": [
+        "intent_validation",
+        "consumed_tokens",
+        "e2e_latency"
+      ],
+      "hypothesis": "Eight native model calls on exact typed reporting earn useful progress beyond a complete deterministic reporter.",
+      "id": "optional-typed-reporting-eight-call-pilot",
+      "intent": {
+        "invariants": [
+          "independent_outcome",
+          "bounded_authority",
+          "all_attempts",
+          "frozen_judge"
+        ],
+        "oracle": "Existing target-owned outcome checker or frozen z0evals task oracle; model self-report is insufficient.",
+        "task_success": "The requested task's independently checked postconditions hold, including constraints and side effects."
+      },
+      "issue": "https://github.com/kvnloo/hermes-agent/issues/320",
+      "next": {
+        "acceptance": "Seven full/minimal pairs preserve exact source declarations; positive, negative, missing, conflict and wrong-subject controls reject named wrong behaviors.",
+        "accounting": [
+          "cold",
+          "warm",
+          "retries",
+          "failures"
+        ],
+        "action": "experiment",
+        "controls": [
+          "missing evidence remains unknown",
+          "negative/failed outcomes remain in denominator"
+        ],
+        "mode": "offline",
+        "primary_outcome": "Exact independent oracle agreement and byte preservation; model tokens unknown because no calls.",
+        "reopen": "A new actual semantic residual with an independent outcome and equal-source deterministic comparator is frozen.",
+        "resources": [
+          "local_cpu"
+        ],
+        "stop": "No live calls; preserve the prospective protocol as an unused option.",
+        "summary": "Do not execute the optional eight-call pilot for this deterministic task."
+      },
+      "owner": "Existing root/Hermes study owner",
+      "priority": {
+        "cost": "low",
+        "impact": "high",
+        "information": "high",
+        "rationale": "Qualifies one observed scope-representation failure with independent controls before any new model/selector complexity. Judgment only, not measured optimality.",
+        "reuse": "high"
+      },
+      "scope": {
+        "code": {
+          "publication_base": "987022a0e876db608247c46f28e9c3ba33af875c"
+        },
+        "fixtures": [
+          "matching-positive",
+          "matching-negative",
+          "missing-scope",
+          "conflicting-scope",
+          "missing-source-known-negative",
+          "wrong-subject-positive",
+          "historical-prose-only"
+        ],
+        "model": "Nous upstage/solar-mini4; prospective only, NOT_EXECUTED",
+        "permissions": "Read-only evidence plus isolated offline artifacts under existing authorization",
+        "routing": "Offline existing evidence and native source; no runtime routing change"
+      },
+      "status": "kill"
+    }
+  ],
+  "curation_note": "Dated completed-study review using the existing engine, not new architecture or a global optimal policy. The original25 mechanism ledger is distinct from the historical25 candidate catalog. Current results are scoped; deterministic exit was actually applied to at most three current tasks. Terminal decisions are retained rather than blanket HOLD. No provider/model calls or runtime authority in this command.",
+  "intent": {
+    "goals": [
+      "e2e_latency",
+      "consumed_tokens",
+      "intent_validation"
+    ],
+    "invariants": [
+      "independent_outcome",
+      "bounded_authority",
+      "all_attempts",
+      "frozen_judge"
+    ],
+    "objective": "Maximize independently verified, intent-matched task completion while reducing end-to-end time and total consumed tokens.",
+    "resources": [
+      "local_cpu"
+    ]
+  },
+  "schema": "evolution_lab.research.v1",
+  "snapshot_at": "2026-10-02T19:10:40.310861+00:00"
+}

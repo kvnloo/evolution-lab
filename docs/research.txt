@@ -1,0 +1,140 @@
+Research candidate review
+
+Run from the Evolution Lab checkout:
+
+  python -m evolution_lab research --catalog /path/to/catalog.json \
+    --evidence-root /path/to/evidence --out /path/to/new-run
+
+For an exact replay, use the run's frozen catalog.json and pass the original
+report's as_of value with --as-of. Referenced source bytes must remain available.
+The output directory must be new. Read NEXT.txt for the compact handoff and
+report.json for every candidate, source check, exclusion and ranking judgment.
+
+Purpose
+
+Check candidate-local prerequisites and compare declared priorities for end-to-end
+latency, consumed tokens, and intent-matched verified outcomes. This is a curated
+proposal filter, not an empirical discovery engine or proof of the best next step.
+It does not establish workload frequency, user value, causal effect, or the value
+of doing more research. This extends Evolution Lab's experiment
+surface and reuses its existing factor registry. It does not execute experiments,
+call models, query GitHub, modify the frozen judge or grant runtime authority.
+Existing factor receipt importers and z0int ABAB quantitative selection remain
+available for their own contracts. This command does not invent numeric priors
+to satisfy those interfaces.
+
+Input
+
+The catalog is explicit research curation, not automatically extracted truth.
+Use tests/test_research.py for a small complete example. Top-level fields:
+
+- schema: evolution_lab.research.v1
+- snapshot_at: timezone-qualified time of the source/ownership snapshot
+- intent: objective, goals, invariants and available resources
+- candidates: bounded decisions with their existing owner and source issue
+
+Supported goals: e2e_latency, consumed_tokens, intent_validation.
+Required invariants: independent_outcome, bounded_authority, all_attempts,
+frozen_judge. Each candidate must explicitly preserve the selected invariants,
+name task success and an independent oracle, and have different possible
+dispositions for supports/refutes/ambiguous. These are contract checks; software
+does not establish the semantic correctness of the curator's interpretation.
+
+Each candidate includes:
+- id, hypothesis, owner, issue, optional existing factor ID, relevant goals;
+- intent contract, simpler comparator and decision outcomes;
+- scope: exact code revisions, model, routing, permissions, frozen fixture IDs;
+- evidence: reported D/I/R/C/X level, reconciled boolean, precise missing evidence,
+  strongest result, counterevidence, and sources with local path/sha256/kind;
+- next: action, summary, acceptance, stop, reopen, primary outcome, controls,
+  cold/warm/retries/failures accounting, required resources, bounded mode;
+- priority: low/medium/high impact, information, reuse and cost plus rationale;
+- status: open/keep/kill/complete/hold; dependencies; optional owner lease.
+
+Evidence source kinds are issue, source, review and receipt. All paths resolve
+inside the explicit evidence root; outside-root paths are refused. A matching hash
+proves bytes match the declared artifact. It does not prove the claim or transfer
+it to another revision, workload or harness. D/I/R/C/X is a claim-scoped annotation:
+documented, implemented, invoked/consumed, causal task benefit, replicated for the
+decision. It is separate from deployment/critical-path status.
+
+Keep exact tested source, binary/model, fixture and evidence-publication identities
+separate. Put detailed provenance in the referenced existing receipt, not another
+global schema. Preserve raw failures and negative evidence beneath the catalog.
+
+Selection
+
+1. Keep terminal/held dispositions and active owner leases out of the new-work queue.
+   An owner with no declared expiry remains owned; an expired lease asks for an
+   outcome check, not automatic reassignment. Old metadata asks for refresh.
+2. Check explicit intent alignment and independent verification. Reject filler that
+   cannot change a named engineering decision. Collapse exact hypothesis/scope/
+   comparator/action aliases; this is not semantic near-duplicate detection.
+3. Missing, changed or unreconciled artifacts require E-minus-1 reconciliation.
+   Missing evidence never becomes an assertion that an experiment did not run.
+4. Require pre-registration for a new experiment. Then apply resource/dependency
+   constraints. Dependency KEEP/COMPLETE labels require bound reconciled evidence.
+5. Gates affect the individual candidate. An unrelated evidence audit has no
+   automatic precedence over a ready experiment. When a gate changes the proposed
+   action (for example, experiment -> reconcile), keep it visible as unassessed.
+   Do not assume the prerequisite is cheap or inherits the experiment's impact.
+   To assess that action, explicitly curate it as next.action with its own priority.
+6. Among assessed current actions, return the ordinal Pareto frontier across goal
+   coverage, impact, information, reuse and cost. These ratings are explicit
+   judgments, not measured information gain, cardinal scores or predicted savings.
+   A single frontier item is a provisional curated suggestion among assessed
+   actions. It does not dominate unassessed actions or establish global optimality.
+   If choices remain incomparable, selected is null. ID order never picks a winner.
+
+Reports use evolution_lab.research_report.v2. selected may be null even with
+eligible work. selection_status distinguishes provisional_curated,
+unresolved_comparison, unassessed_actions and no_eligible_action. Consumers must
+retain unassessed prerequisites instead of treating them as rejected or low value.
+
+The report hashes the catalog, module implementation, factor registry and report
+contents. All source checks are included. Same input bytes and --as-of produce
+the same result. Updating source bytes without updating the evidence assessment
+causes reconciliation instead of silently retaining a prior recommendation.
+
+Loop
+
+Cache external updates using the existing collector, then reconcile their meaning
+into the catalog. Retrieve primary artifacts before treating issue prose as a
+receipt. Mark a row reconciled only for its exact claim/scope. Re-run research to
+get the next discriminating action. After an independently judged result, preserve
+the raw receipt, update the disposition and next missing evidence, and run again.
+A KILL is a successful completed leaf. Reopen it only with new relevant evidence
+and an explicit scope/decision update. No scheduler or background loop is installed.
+
+Boundaries
+
+The user/task oracle owns intent and correctness. AODL retains authority/legal
+action validation; z0intelligence retains runtime cognition policy; Hermes executes;
+z0evals owns independent evaluation; Tokenomics owns actual resource telemetry.
+The research command checks declared contracts and produces a recommendation only.
+It cannot certify model understanding of intent, authorize a paid experiment,
+certify a confidence interval, or infer consumed-token savings from prepared context.
+
+Choosing useful research begins outside these structural checks: identify an
+actual user task, its independently checkable success conditions and constraints,
+and its current end-to-end cost. Count failed attempts, retries, verification,
+human correction and actual consumed resources. Wall time follows the critical
+path; summing overlapping spans is not end-to-end latency. Keep missing usage
+unknown. Avoid choosing a component because its benchmark is convenient.
+
+An information-gaining experiment is useful when its result can change a valuable
+decision, after accounting for the cost of research, rollout and maintenance over
+an explicit reuse horizon. Evidence uncertainty alone does not justify another
+audit. Compare the simpler baseline and deletion before adding a mechanism. If
+workload relevance or cost/value tradeoffs are unknown, retain that uncertainty;
+do not turn low/medium/high labels into expected economic value. The engine does
+not yet estimate these quantities. Tests of its bookkeeping do not validate its
+research strategy or prove faster user tasks.
+
+Tests
+
+  python -m unittest discover -s tests -p 'test_research.py'
+
+Core research tests need no model or network. Full repository discovery additionally
+uses the repository's optional JAX dependency: install the existing .[jax] extra
+in an isolated environment if that dependency is absent.

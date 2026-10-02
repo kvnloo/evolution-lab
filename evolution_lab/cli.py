@@ -698,6 +698,11 @@ def main(argv: list[str] | None = None) -> int:
     parent.add_argument("--run-dir", type=Path, default=default_run_dir(root))
     p = argparse.ArgumentParser(prog="evolution_lab")
     sub = p.add_subparsers(dest="cmd", required=True)
+    research = sub.add_parser("research", parents=[parent], help="recommend evidence-closing research from a local catalog")
+    research.add_argument("--catalog", type=Path, required=True)
+    research.add_argument("--evidence-root", type=Path, required=True)
+    research.add_argument("--out", type=Path, required=True)
+    research.add_argument("--as-of", default=None, help="UTC timestamp for deterministic replay")
     sub.add_parser("seed", parents=[parent])
     pr = sub.add_parser("run", parents=[parent])
     pr.add_argument("--level", type=int, default=1)
@@ -961,7 +966,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = p.parse_args(argv)
     run_dir = args.run_dir
-    if args.cmd == "seed":
+    if args.cmd == "research":
+        from .research import recommend, write_report
+
+        catalog_bytes = args.catalog.read_bytes()
+        report = recommend(json.loads(catalog_bytes), args.evidence_root, now=args.as_of)
+        write_report(report, args.out)
+        (args.out / "catalog.json").write_bytes(catalog_bytes)
+        print((args.out / "NEXT.txt").read_text(), end="")
+    elif args.cmd == "seed":
         cmd_seed(run_dir)
     elif args.cmd == "run":
         cmd_run(run_dir, args.level)

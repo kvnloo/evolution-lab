@@ -1,0 +1,23 @@
+{
+  "scope": "Frozen experiment corrections are not automatically default-branch fixes",
+  "rows": [
+    {
+      "repo": "z0intelligence",
+      "default_snapshot": "0563ed7a52071cca63ccc91b8c9040207ad23e5d",
+      "path": "scripts/run-aodl-golden-canary.py",
+      "present": false
+    },
+    {
+      "repo": "z0intelligence",
+      "default_snapshot": "0563ed7a52071cca63ccc91b8c9040207ad23e5d",
+      "path": "src/z0int/aodl_observation.py",
+      "present": false
+    },
+    {
+      "repo": "z0evals",
+      "default_snapshot": "fb14919b9a1c40c1840c50b305e66391d172dcc5",
+      "path": "studies/aodl-admission-v1/collect_golden.py",
+      "present": false
+    }
+  ]
+}

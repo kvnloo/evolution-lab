@@ -1,0 +1,90 @@
+{
+  "as_of": "2026-10-02T19:10:40.411862+00:00",
+  "catalog_sha256": "7fd8b519722d83802d3362ff441cc048a2f80f5e94785e18b745582c295bea7f",
+  "dominated": [],
+  "duplicates": [],
+  "eligible": [],
+  "engine_sha256": "76aa2ed1af60ba8012270e618f5b8105810341fe87a52b45a5312bc020baee8e",
+  "excluded": [
+    {
+      "id": "api-failure-shadow",
+      "reason": "settled disposition: complete; explicit new evidence/reopen required"
+    },
+    {
+      "id": "bounded-deterministic-exit",
+      "reason": "settled disposition: complete; explicit new evidence/reopen required"
+    },
+    {
+      "id": "canary-success-gate-and-metering",
+      "reason": "settled disposition: complete; explicit new evidence/reopen required"
+    },
+    {
+      "id": "factory-original-proof-recovery",
+      "reason": "settled disposition: hold; explicit new evidence/reopen required"
+    },
+    {
+      "id": "hermes-verified-development-task",
+      "reason": "settled disposition: complete; explicit new evidence/reopen required"
+    },
+    {
+      "id": "intent-verifier-qualification",
+      "reason": "settled disposition: complete; explicit new evidence/reopen required"
+    },
+    {
+      "id": "optional-typed-reporting-eight-call-pilot",
+      "reason": "settled disposition: kill; explicit new evidence/reopen required"
+    },
+    {
+      "id": "state-packet-causal",
+      "reason": "settled disposition: complete; explicit new evidence/reopen required"
+    },
+    {
+      "id": "state-packet-prompt-clarification",
+      "reason": "settled disposition: complete; explicit new evidence/reopen required"
+    },
+    {
+      "id": "state-packet-scope-contract",
+      "reason": "settled disposition: complete; explicit new evidence/reopen required"
+    },
+    {
+      "id": "thermocontext-current-cohort",
+      "reason": "settled disposition: kill; explicit new evidence/reopen required"
+    },
+    {
+      "id": "upstream-fork47-current-smoke",
+      "reason": "settled disposition: complete; explicit new evidence/reopen required"
+    }
+  ],
+  "factor_registry_sha256": "99d016bde4fb215323b29117a9828430010cd9954155aad377db8eba022975dc",
+  "frontier": [],
+  "intent": {
+    "goals": [
+      "e2e_latency",
+      "consumed_tokens",
+      "intent_validation"
+    ],
+    "invariants": [
+      "independent_outcome",
+      "bounded_authority",
+      "all_attempts",
+      "frozen_judge"
+    ],
+    "objective": "Maximize independently verified, intent-matched task completion while reducing end-to-end time and total consumed tokens.",
+    "resources": [
+      "local_cpu"
+    ]
+  },
+  "limits": "Curated claims and priorities remain judgments, not measured workload value or an optimal policy. Matching hashes bind bytes, not truth. Declared intent fields do not prove alignment with the user's actual goal. No scientific certification, promotion, or runtime authority is granted.",
+  "max_age_hours": 24,
+  "model_calls": 0,
+  "network_calls": 0,
+  "policy": "candidate-local-pareto-v2",
+  "receipt_sha256": "7066119c14fe3baf79cd8d54ed2bb08ebff90640dd3161f0e2b1894d8b094aaa",
+  "runtime_authority": false,
+  "schema": "evolution_lab.research_report.v2",
+  "selected": null,
+  "selection_note": "Candidate-local gates, then ordinal Pareto comparison of explicitly assessed current actions. A sole frontier item is a provisional curated suggestion. Unassessed actions remain visible; unresolved comparisons have no selected winner.",
+  "selection_status": "no_eligible_action",
+  "snapshot_at": "2026-10-02T19:10:40.310861+00:00",
+  "unassessed": []
+}
