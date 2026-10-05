@@ -1,7 +1,7 @@
 ---
 name: z0-gym-trainer
-description: "Evolution Lab operator for SouthpawIN's evolutionary-training provider. Dry-run/preflight only in protocol v1."
-version: 0.1.0
+description: "Evolution Lab operator for SouthpawIN's evolutionary-training provider."
+version: 0.2.0
 credit: "SouthpawIN / evolutionary-training Gym Trainer"
 ---
 
@@ -13,34 +13,45 @@ The training/evolution machinery remains in `kvnloo/evolutionary-training`, trac
 
 ## Authority boundary
 
-Evolution Lab owns experiment budgets, candidate lineage, protected eval references, selection,
-and promotion gates. The provider owns data preparation, SFT/GRPO, Darwin/CMA-ES evolution, and
-benchmark execution. `z0evals` is frozen evidence, never a mutable training target. Runtime
-promotion is reversible shadow/canary only and remains owned by `z0intelligence`.
+Evolution Lab owns experiment budgets, candidate lineage, selection, and promotion gates. The
+provider owns data preparation, SFT/GRPO, Darwin/CMA-ES evolution, and development benchmarks.
+`z0evals` owns protected certification; its confirm/OOD truth is never a provider training input.
+Runtime promotion remains reversible shadow/canary under `z0intelligence`.
 
-## v1 operating rule
+## Operating loop
 
-Run **preflight + dry-run command resolution only**. Never execute a provider command from this
-profile until the protocol grows an explicitly reviewed execution phase.
+For each phase, first resolve it without execution:
 
 ```bash
 python -m evolution_lab.training_provider \
   --manifest providers/evolutionary-training.json \
   --provider-root /path/to/evolutionary-training \
-  --request /path/to/experiment-request.json \
-  --receipt /path/to/training-receipt.json \
+  --request /path/to/request.json \
+  --receipt /private/run/preflight.json \
   --dry-run
 ```
 
-The request must name exactly one declared phase and must pin the same z0eval suite revision as
-the provider manifest. Refuse the run when:
+Only after the request is explicitly execution-approved, run the exact declared argv:
 
-- the provider checkout is not at the exact pinned revision;
-- protected confirm/OOD/judge/gate artifacts appear in training inputs;
-- the candidate asks to mutate a protected surface;
-- a phase/capability was not declared by the provider;
-- the z0eval repository, revision, or suite is missing or different;
-- the Hermes profile or referenced provider script is absent.
+```bash
+python -m evolution_lab.training_provider \
+  --manifest providers/evolutionary-training.json \
+  --provider-root /path/to/evolutionary-training \
+  --request /path/to/request.json \
+  --run-dir /private/run \
+  --receipt /private/run/receipt.json \
+  --execute
+```
 
-Every accepted dry-run emits a structured receipt retaining SouthpawIN provenance. Failed runs
-remain failures; do not rewrite the judge or loosen gates to make a candidate pass.
+Manage `prepare_data -> train -> evolve -> evaluate` as separate resumable phases. Do not use a
+shell wrapper or invent replacement training code. The adapter enforces the provider origin and
+commit, declared capabilities, argv templates, execution approval, and per-phase timeout. Logs are
+written mode `0600`; receipts keep hashes/byte counts rather than copying log contents.
+
+`evaluate` is a provider development benchmark only. It cannot mint sealed promotion evidence.
+Protected certification remains blocked until a real z0evals suite replaces
+`contract-only/no-model-eval` (see z0evals #72/#74).
+
+Refuse or escalate on provider revision/origin drift, protected-data leakage, judge/gate mutation,
+undeclared phases/capabilities, missing command parameters, timeout, repeated OOM/failure, or z0eval
+revision mismatch. Failed runs stay failed; never loosen the judge to make a candidate pass.
