@@ -1,0 +1,42 @@
+{
+  "schema": "z0.training.autoresearch.v1",
+  "provider": {
+    "repo": "kvnloo/evolutionary-training",
+    "upstream": "SouthpawIN/evolutionary-training",
+    "revision": "68ecf2057586a232bea45ad0fafcdfdfae56089f"
+  },
+  "hermes_profile": "GYM-TRAINER.md",
+  "capabilities": ["data_prepare", "sft", "grpo", "darwin_merge", "cma_es", "benchmark"],
+  "commands": {
+    "prepare_data": {
+      "capability": "data_prepare",
+      "argv": ["python3", "scripts/mega_training_data.py", "--download", "--prepare"]
+    },
+    "train": {
+      "capability": "sft",
+      "argv": ["python3", "scripts/agentic_training_loop.py", "--train", "--base-model", "{base_model}"]
+    },
+    "evolve": {
+      "capability": "cma_es",
+      "argv": ["python3", "scripts/continuous_evolution.py", "--cycle", "--model", "{model_key}"]
+    },
+    "evaluate": {
+      "capability": "benchmark",
+      "argv": ["python3", "scripts/benchmark_omnisenter.py", "--model", "{candidate_model}", "--benchmarks", "bfcl", "gpqa", "--output-dir", "{result_dir}"]
+    }
+  },
+  "eval_suite": {
+    "repo": "kvnloo/z0evals",
+    "revision": "fb14919b9a1c40c1840c50b305e66391d172dcc5",
+    "suite": "contract-only/no-model-eval"
+  },
+  "protected": {
+    "training_forbidden": ["z0evals:confirm", "z0evals:ood", "z0evals:judge", "z0evals:gates"],
+    "mutable_forbidden": ["judge", "gates", "confirm", "ood", "z0evals"]
+  },
+  "provenance": {
+    "credit": "SouthpawIN",
+    "source": "SouthpawIN/evolutionary-training",
+    "note": "Gym Trainer, Darwin/CMA-ES evolution, SFT/GRPO training, ingestion, and benchmark machinery remain external and upstream-syncable."
+  }
+}
