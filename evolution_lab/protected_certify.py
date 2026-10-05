@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -65,8 +66,18 @@ def load_certification_config(provider_manifest_path: Path) -> tuple[Any, dict[s
     evaluator_manifest = str(cert.get("evaluator_manifest") or "")
     cohort = str(cert.get("cohort") or "")
     required_schema = str(cert.get("result_schema") or "")
+    broker_argv = cert.get("broker_argv")
+    env_passthrough = cert.get("env_passthrough")
     if not evaluator_manifest or not cohort or required_schema != RESULT_SCHEMA:
         raise CertificationError("certification manifest/cohort/result_schema are required")
+    if (
+        not isinstance(broker_argv, list)
+        or not broker_argv
+        or not all(isinstance(item, str) and item for item in broker_argv)
+    ):
+        raise CertificationError("certification.broker_argv must be a non-empty string list")
+    if not isinstance(env_passthrough, list) or not all(isinstance(item, str) and item for item in env_passthrough):
+        raise CertificationError("certification.env_passthrough must be a string list")
     return provider, cert
 
 
@@ -154,8 +165,7 @@ def certify_candidate(
 
     root = evaluator_root.resolve()
     command = [
-        "python3",
-        "scripts/protected_eval.py",
+        *cert["broker_argv"],
         "--manifest",
         str(cert["evaluator_manifest"]),
         "--state-dir",
@@ -170,10 +180,12 @@ def certify_candidate(
         "--candidate-revision",
         candidate_revision,
     ]
+    env = {name: os.environ[name] for name in cert["env_passthrough"] if name in os.environ}
     try:
         proc = subprocess.run(
             command,
             cwd=root,
+            env=env,
             capture_output=True,
             text=True,
             check=False,
