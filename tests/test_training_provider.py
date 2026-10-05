@@ -9,6 +9,7 @@ from evolution_lab.training_provider import (
     ProviderManifest,
     ProviderProtocolError,
     build_receipt,
+    load_manifest,
     preflight,
     resolve_command,
     validate_request,
@@ -73,6 +74,14 @@ class TrainingProviderTests(unittest.TestCase):
                 "suite": "z0-training-provider-contract-v0",
             },
         }
+
+    def test_checked_in_manifest_is_pinned_and_credited(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        manifest = load_manifest(root / "providers" / "evolutionary-training.json")
+        self.assertEqual(manifest.repo, "kvnloo/evolutionary-training")
+        self.assertEqual(manifest.upstream, "SouthpawIN/evolutionary-training")
+        self.assertEqual(manifest.revision, "68ecf2057586a232bea45ad0fafcdfdfae56089f")
+        self.assertEqual(manifest.eval_revision, "fb14919b9a1c40c1840c50b305e66391d172dcc5")
 
     def test_preflight_pins_checkout_and_resolves_without_execution(self) -> None:
         with tempfile.TemporaryDirectory() as td:
