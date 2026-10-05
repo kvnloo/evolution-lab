@@ -46,3 +46,8 @@ items:
     priority: P1
     claimable: false
     acceptance: independent seeds; locked confirm; unpublished failures reported
+  - id: later-tmnf-c-gym
+    github_issue: 14
+    priority: P3
+    claimable: false
+    acceptance: make_env tmnf/tmnf-c/trackmania fail-closed; consume after P1 kill criterion; do not vendor game assets

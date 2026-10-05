@@ -2,13 +2,13 @@
 
 Original experiment engine for the FlyForge / Hermes-recovery research program.
 
-This is **not** a fork of FlyGym, OpenEvolve, Stonkfly, or [kvnloo/fly-wirehead](https://github.com/kvnloo/fly-wirehead). The gym is `hermes_recovery` (Gymnasium `reset`/`step`). The knowledge vault stays in [kvnloo/frontier-kb](https://github.com/kvnloo/frontier-kb).
+This is **not** a fork of FlyGym, OpenEvolve, Stonkfly, [kvnloo/fly-wirehead](https://github.com/kvnloo/fly-wirehead), or [kvnloo/TMNF-C](https://github.com/kvnloo/TMNF-C). The gym is `hermes_recovery` (Gymnasium `reset`/`step`). The knowledge vault stays in [kvnloo/frontier-kb](https://github.com/kvnloo/frontier-kb).
 
 The object under optimization is **the frontier of measured systems**, not “make a fly beat Qwen.” Every candidate is an **experiment genome**. Selection is Pareto hypervolume + MAP-Elites niches, with a promotion ladder so most ideas die at a seconds-scale sanity test.
 
 Tinker SFT/RL and Cursor Cloud Agent fan-out are declared backends, not fake training runs.
 
-Contribution contract: [Verified OSS Loop](https://github.com/kvnloo/verified-oss-loop). Maintainer roadmap: [ROADMAP.md](ROADMAP.md). Workers claim `claimable` issues (P0 is [#2](https://github.com/kvnloo/evolution-lab/issues/2)); they never merge `main`. Rollout scheme `rolling`: day-pass PRs target `preview`; overnight PRs target `nightly`.
+Contribution contract: [Verified OSS Loop](https://github.com/kvnloo/verified-oss-loop). Maintainer roadmap: [ROADMAP.md](ROADMAP.md). Workers claim `claimable` issues (P0 [#2](https://github.com/kvnloo/evolution-lab/issues/2) is closed; TMNF-C is [#14](https://github.com/kvnloo/evolution-lab/issues/14) `needs-discussion`); they never merge `main`. Rollout scheme `rolling`: day-pass PRs target `preview`; overnight PRs target `nightly`.
 
 ## Goal
 
@@ -55,6 +55,8 @@ On the delayed-cue recovery task (L1): teacher **1.00**, mlp/fixed-reservoir/rew
 | `hermes_recovery` | P0 gym (`evolution_lab.gym`) |
 | [Gymnasium](https://github.com/Farama-Foundation/Gymnasium) | API we duck-type |
 | [FlyGym 2.x](https://github.com/NeLy-EPFL/flygym) | Later visuo-motor env (consume 2.x; do not fork `flygym-gymnasium`) |
+| [TMNF-C](https://github.com/kvnloo/TMNF-C) | Later TrackMania + MaleCNS MB dopamine env (fork of adonis-singh/TMNF-C). `make_env("tmnf")` fails closed. Not P0 |
+| Stonkfly / SHERWOOD | Fly-DEX / Shorts meme skins. `make_env("stonkfly"|"sherwood")` fails closed. PnL is not a connectome assay |
 | [OpenEnv](https://github.com/huggingface/OpenEnv) | Later HTTP/Docker Hermes sandbox |
 | [OpenEvolve](https://github.com/algorithmicsuperintelligence/openevolve) | Later mutation backend. `make_env("openevolve")` fails closed |
 
@@ -65,10 +67,12 @@ On the delayed-cue recovery task (L1): teacher **1.00**, mlp/fixed-reservoir/rew
 | [kvnloo/frontier-kb](https://github.com/kvnloo/frontier-kb) | Claims, protocol, Pareto interpretation |
 | [kvnloo/aodl](https://github.com/kvnloo/aodl) | HOTL 0.2; specialist is a **port**, not a new kind |
 | [kvnloo/fly-wirehead](https://github.com/kvnloo/fly-wirehead) | MaleCNS Shorts pinout demo (fork of mattyhempstead/fly-wirehead) |
+| [kvnloo/TMNF-C](https://github.com/kvnloo/TMNF-C) | TrackMania Forever + MaleCNS MB learner (fork of adonis-singh/TMNF-C). Later gym, not this engine |
 
 ## What this is not
 
 - Not MaleCNS LIF playback
 - Not a Tinker client until `tinker_sft` is wired (it refuses today)
 - Not an AODL runtime
-- Not a FlyGym or OpenEvolve rewrite
+- Not a FlyGym, OpenEvolve, or TMNF-C rewrite
+- Not a Stonkfly / SHERWOOD DEX terminal
