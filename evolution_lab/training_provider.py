@@ -242,7 +242,9 @@ def _write_private(path: Path, data: bytes) -> dict[str, Any]:
 
 
 def execute_phase(m: ProviderManifest, provider_root: Path, request: dict[str, Any], run_dir: Path) -> dict[str, Any]:
-    validate_request(m, request)
+    preflight(m, provider_root, request)
+    if not run_dir.is_absolute():
+        raise ProviderProtocolError("execution run_dir must be absolute")
     phase = str(request["phase"])
     if phase not in m.execution_allowed:
         raise ProviderProtocolError(f"phase {phase!r} is not allowed for execution")
