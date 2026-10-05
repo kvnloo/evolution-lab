@@ -1,0 +1,20 @@
+{
+  "candidate_id": "z0int-train-dry-001",
+  "experiment_id": "evolution-lab-001",
+  "phase": "train",
+  "method": "sft",
+  "training_inputs": ["train:hermes", "validation:hermes"],
+  "mutable_surfaces": ["training_config", "candidate_weights"],
+  "eval_suite": {
+    "repo": "kvnloo/z0evals",
+    "revision": "fb14919b9a1c40c1840c50b305e66391d172dcc5",
+    "suite": "contract-only/no-model-eval"
+  },
+  "params": {
+    "base_model": "/models/z0intelligence-base"
+  },
+  "execution": {
+    "approved": false,
+    "budget_s": 21600
+  }
+}
