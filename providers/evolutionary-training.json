@@ -6,23 +6,61 @@
     "revision": "68ecf2057586a232bea45ad0fafcdfdfae56089f"
   },
   "hermes_profile": "GYM-TRAINER.md",
-  "capabilities": ["data_prepare", "sft", "grpo", "darwin_merge", "cma_es", "benchmark"],
+  "capabilities": [
+    "data_prepare",
+    "sft",
+    "grpo",
+    "darwin_merge",
+    "cma_es",
+    "benchmark"
+  ],
   "commands": {
     "prepare_data": {
       "capability": "data_prepare",
-      "argv": ["python3", "scripts/mega_training_data.py", "--download", "--prepare"]
+      "argv": [
+        "python3",
+        "scripts/mega_training_data.py",
+        "--download",
+        "--prepare"
+      ],
+      "timeout_s": 14400
     },
     "train": {
       "capability": "sft",
-      "argv": ["python3", "scripts/agentic_training_loop.py", "--train", "--base-model", "{base_model}"]
+      "argv": [
+        "python3",
+        "scripts/agentic_training_loop.py",
+        "--train",
+        "--base-model",
+        "{base_model}"
+      ],
+      "timeout_s": 21600
     },
     "evolve": {
       "capability": "cma_es",
-      "argv": ["python3", "scripts/continuous_evolution.py", "--cycle", "--model", "{model_key}"]
+      "argv": [
+        "python3",
+        "scripts/continuous_evolution.py",
+        "--cycle",
+        "--model",
+        "{model_key}"
+      ],
+      "timeout_s": 21600
     },
     "evaluate": {
       "capability": "benchmark",
-      "argv": ["python3", "scripts/benchmark_omnisenter.py", "--model", "{candidate_model}", "--benchmarks", "bfcl", "gpqa", "--output-dir", "{result_dir}"]
+      "argv": [
+        "python3",
+        "scripts/benchmark_omnisenter.py",
+        "--model",
+        "{candidate_model}",
+        "--benchmarks",
+        "bfcl",
+        "gpqa",
+        "--output-dir",
+        "{result_dir}"
+      ],
+      "timeout_s": 3600
     }
   },
   "eval_suite": {
@@ -31,12 +69,49 @@
     "suite": "contract-only/no-model-eval"
   },
   "protected": {
-    "training_forbidden": ["z0evals:confirm", "z0evals:ood", "z0evals:judge", "z0evals:gates"],
-    "mutable_forbidden": ["judge", "gates", "confirm", "ood", "z0evals"]
+    "training_forbidden": [
+      "z0evals:confirm",
+      "z0evals:ood",
+      "z0evals:judge",
+      "z0evals:gates"
+    ],
+    "mutable_forbidden": [
+      "judge",
+      "gates",
+      "confirm",
+      "ood",
+      "z0evals"
+    ]
   },
   "provenance": {
     "credit": "SouthpawIN",
     "source": "SouthpawIN/evolutionary-training",
     "note": "Gym Trainer, Darwin/CMA-ES evolution, SFT/GRPO training, ingestion, and benchmark machinery remain external and upstream-syncable."
+  },
+  "execution": {
+    "allowed_phases": [
+      "prepare_data",
+      "train",
+      "evolve",
+      "evaluate"
+    ],
+    "env_passthrough": [
+      "PATH",
+      "HOME",
+      "USER",
+      "LANG",
+      "TMPDIR",
+      "XDG_CACHE_HOME",
+      "HF_HOME",
+      "HF_TOKEN",
+      "HUGGINGFACE_HUB_TOKEN",
+      "CUDA_VISIBLE_DEVICES",
+      "CUDA_HOME",
+      "LD_LIBRARY_PATH",
+      "TRANSFORMERS_CACHE",
+      "TORCH_HOME",
+      "WANDB_API_KEY",
+      "WANDB_MODE"
+    ]
   }
 }
