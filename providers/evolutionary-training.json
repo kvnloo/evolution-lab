@@ -65,8 +65,8 @@
   },
   "eval_suite": {
     "repo": "kvnloo/z0evals",
-    "revision": "fb14919b9a1c40c1840c50b305e66391d172dcc5",
-    "suite": "contract-only/no-model-eval"
+    "revision": "7047645132690d5947341684dcfd05d1cf160933",
+    "suite": "z0-training-protected-v0"
   },
   "protected": {
     "training_forbidden": [
@@ -112,6 +112,21 @@
       "TORCH_HOME",
       "WANDB_API_KEY",
       "WANDB_MODE"
+    ]
+  },
+  "certification": {
+    "evaluator_manifest": "studies/protected-evaluator-v0/evaluator.yaml",
+    "cohort": "confirm",
+    "result_schema": "z0eval.result.v1",
+    "broker_argv": [
+      "python3",
+      "scripts/protected_eval.py"
+    ],
+    "env_passthrough": [
+      "PATH",
+      "HOME",
+      "Z0EVAL_PROTECTED_ROOT",
+      "Z0EVAL_DEVELOPMENT_ROOT"
     ]
   }
 }

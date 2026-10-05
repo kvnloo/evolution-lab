@@ -3,12 +3,18 @@
   "experiment_id": "evolution-lab-001",
   "phase": "train",
   "method": "sft",
-  "training_inputs": ["train:hermes", "validation:hermes"],
-  "mutable_surfaces": ["training_config", "candidate_weights"],
+  "training_inputs": [
+    "train:hermes",
+    "validation:hermes"
+  ],
+  "mutable_surfaces": [
+    "training_config",
+    "candidate_weights"
+  ],
   "eval_suite": {
     "repo": "kvnloo/z0evals",
-    "revision": "fb14919b9a1c40c1840c50b305e66391d172dcc5",
-    "suite": "contract-only/no-model-eval"
+    "revision": "7047645132690d5947341684dcfd05d1cf160933",
+    "suite": "z0-training-protected-v0"
   },
   "params": {
     "base_model": "/models/z0intelligence-base"

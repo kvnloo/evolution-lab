@@ -1,7 +1,7 @@
 ---
 name: z0-gym-trainer
 description: "Evolution Lab operator for SouthpawIN's evolutionary-training provider."
-version: 0.2.0
+version: 0.3.0
 credit: "SouthpawIN / evolutionary-training Gym Trainer"
 ---
 
@@ -43,14 +43,32 @@ python -m evolution_lab.training_provider \
   --execute
 ```
 
-Manage `prepare_data -> train -> evolve -> evaluate` as separate resumable phases. Do not use a
+Manage `prepare_data -> train -> evolve -> evaluate` as separate resumable development phases. Do not use a
 shell wrapper or invent replacement training code. The adapter enforces the provider origin and
 commit, declared capabilities, argv templates, execution approval, and per-phase timeout. Logs are
 written mode `0600`; receipts keep hashes/byte counts rather than copying log contents.
 
 `evaluate` is a provider development benchmark only. It cannot mint sealed promotion evidence.
-Protected certification remains blocked until a real z0evals suite replaces
-`contract-only/no-model-eval` (see z0evals #72/#74).
+After a candidate produces its complete prediction vector, request protected certification from the
+exact pinned z0evals checkout:
+
+```bash
+python -m evolution_lab.protected_certify \\
+  --provider-manifest providers/evolutionary-training.json \\
+  --evaluator-root /path/to/z0evals \\
+  --state-dir /private/z0eval-state \\
+  --predictions /private/run/predictions.jsonl \\
+  --candidate-id <candidate-id> \\
+  --candidate-revision <40-char-sha> \\
+  --output /private/run/z0eval-result.json
+```
+
+The certification adapter never receives a protected truth path. It verifies the z0evals origin and
+exact revision, calls only the declared score broker, and accepts only a matching
+`z0eval.result.v1` with `sealed_credit: true`. Only `verdict: KEEP` is promotion-eligible; DISCARD,
+PARTIAL, NOT_COMPARABLE, broker refusal, contamination, supersession, or query-budget exhaustion all
+block promotion. The current local broker is a contract boundary; production deployment still needs
+a separate OS/service/account boundary so Evolution Lab cannot read the protected root directly.
 
 Refuse or escalate on provider revision/origin drift, protected-data leakage, judge/gate mutation,
 undeclared phases/capabilities, missing command parameters, timeout, repeated OOM/failure, or z0eval
