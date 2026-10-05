@@ -81,7 +81,8 @@ class TrainingProviderTests(unittest.TestCase):
         self.assertEqual(manifest.repo, "kvnloo/evolutionary-training")
         self.assertEqual(manifest.upstream, "SouthpawIN/evolutionary-training")
         self.assertEqual(manifest.revision, "68ecf2057586a232bea45ad0fafcdfdfae56089f")
-        self.assertEqual(manifest.eval_revision, "fb14919b9a1c40c1840c50b305e66391d172dcc5")
+        self.assertEqual(manifest.eval_revision, "7047645132690d5947341684dcfd05d1cf160933")
+        self.assertEqual(manifest.eval_suite, "z0-training-protected-v0")
 
     def test_preflight_pins_checkout_and_resolves_without_execution(self) -> None:
         with tempfile.TemporaryDirectory() as td:
