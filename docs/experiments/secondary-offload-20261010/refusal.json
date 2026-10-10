@@ -1,0 +1,59 @@
+{
+  "cache_ttl_seconds": 21600.0,
+  "fresh_cache_result": null,
+  "historical_diagnostic_only": true,
+  "independent_review": "NOT_RUN",
+  "observed_at": "2026-10-10T06:34:29.345236+00:00",
+  "performance_verdict": "NOT_COMPARABLE",
+  "physical_provider_calls": 0,
+  "rows": [
+    {
+      "entitlement": "unknown",
+      "existing_rejection": "free_only: quota window exhausted",
+      "known_dimensions": [],
+      "live_admitted": false,
+      "observed_model": "qwen/qwen3.8-27b",
+      "provider": "groq",
+      "quota_observed_at": 1791095662.6729293
+    },
+    {
+      "entitlement": "unknown",
+      "existing_rejection": "free_only: quota window exhausted",
+      "known_dimensions": [],
+      "live_admitted": false,
+      "observed_model": "openai/gpt-oss-20b",
+      "provider": "groq",
+      "quota_observed_at": 1791095662.6729293
+    },
+    {
+      "entitlement": "unknown",
+      "existing_rejection": "free_only: quota window exhausted",
+      "known_dimensions": [],
+      "live_admitted": false,
+      "observed_model": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "quota_observed_at": 1791095662.6729293
+    },
+    {
+      "entitlement": "unknown",
+      "existing_rejection": "free_only: quota window exhausted",
+      "known_dimensions": [],
+      "live_admitted": false,
+      "observed_model": "gpt-oss-120b",
+      "provider": "cerebras",
+      "quota_observed_at": 1791095662.772497
+    },
+    {
+      "entitlement": "unknown",
+      "existing_rejection": "free_only: quota window exhausted",
+      "known_dimensions": [],
+      "live_admitted": false,
+      "observed_model": "qwen-3.8-27b",
+      "provider": "cerebras",
+      "quota_observed_at": 1791095662.772497
+    }
+  ],
+  "source_saved_at": "2026-10-04T06:34:22.810539+00:00",
+  "source_sha256": "a14ebaf1e7ed3d6a79ce59cb5bfb573071351ee683f44b4e7fca38734e47cc65",
+  "warning": "Existing rejection says exhausted even for wholly unknown quota; this does not prove zero balance."
+}

@@ -1,0 +1,82 @@
+{
+  "comparison_sha256": "3b64b9b142f7e59e1333c83452402f0248da332f88adfc579dbb5e848cf0cef0",
+  "independent_review": "NOT_RUN",
+  "limitation": "These are evaluator fixture rows, not deduplicated physical provider requests. No latency or savings inference.",
+  "matches_reported_120_call_cohort": false,
+  "models": [
+    {
+      "backend_label": "cerebras/gpt-oss-120b",
+      "deterministic_solution": 2,
+      "fixture_rows": 28,
+      "independently_verified_development_outcomes": null,
+      "input_token_field_coverage": 0,
+      "native_request_id_coverage": 0,
+      "physical_request_count": null,
+      "raw_error_nonnull": 0,
+      "reported_retries": 132,
+      "reported_transport_failures": 22,
+      "schema_valid": 6,
+      "trajectory_correct": 9
+    },
+    {
+      "backend_label": "cerebras/qwen-3.8-27b",
+      "deterministic_solution": 2,
+      "fixture_rows": 28,
+      "independently_verified_development_outcomes": null,
+      "input_token_field_coverage": 0,
+      "native_request_id_coverage": 0,
+      "physical_request_count": null,
+      "raw_error_nonnull": 0,
+      "reported_retries": 0,
+      "reported_transport_failures": 0,
+      "schema_valid": 28,
+      "trajectory_correct": 24
+    },
+    {
+      "backend_label": "groq/openai/gpt-oss-120b",
+      "deterministic_solution": 2,
+      "fixture_rows": 28,
+      "independently_verified_development_outcomes": null,
+      "input_token_field_coverage": 0,
+      "native_request_id_coverage": 0,
+      "physical_request_count": null,
+      "raw_error_nonnull": 0,
+      "reported_retries": 144,
+      "reported_transport_failures": 23,
+      "schema_valid": 5,
+      "trajectory_correct": 8
+    },
+    {
+      "backend_label": "groq/openai/gpt-oss-20b",
+      "deterministic_solution": 2,
+      "fixture_rows": 28,
+      "independently_verified_development_outcomes": null,
+      "input_token_field_coverage": 0,
+      "native_request_id_coverage": 0,
+      "physical_request_count": null,
+      "raw_error_nonnull": 0,
+      "reported_retries": 0,
+      "reported_transport_failures": 0,
+      "schema_valid": 27,
+      "trajectory_correct": 25
+    },
+    {
+      "backend_label": "groq/qwen/qwen3.8-27b",
+      "deterministic_solution": 2,
+      "fixture_rows": 28,
+      "independently_verified_development_outcomes": null,
+      "input_token_field_coverage": 0,
+      "native_request_id_coverage": 0,
+      "physical_request_count": null,
+      "raw_error_nonnull": 0,
+      "reported_retries": 30,
+      "reported_transport_failures": 5,
+      "schema_valid": 23,
+      "trajectory_correct": 19
+    }
+  ],
+  "performance_verdict": "NOT_COMPARABLE",
+  "raw_sha256": "a5e837f7be65ce9e6114ecbd0d7aeaef704e805232a3f728e3c4afc2bab309b7",
+  "selected_fixture_rows": 140,
+  "source_revision": "78869d977e847f8f87f3b8806cdcd6ce44b6bc22"
+}

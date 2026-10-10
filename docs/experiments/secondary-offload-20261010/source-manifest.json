@@ -1,0 +1,59 @@
+{
+  "retrieved_at": "2026-10-10T06:34:53.448704+00:00",
+  "official_docs": [
+    {
+      "url": "https://console.groq.com/docs/rate-limits.md",
+      "sha256": "5cf41e644b0aa1a43a82656e2ae53ecf9b48eacb42ca3247d60ebf1ff881c03e",
+      "bytes": 5182
+    },
+    {
+      "url": "https://console.groq.com/docs/models.md",
+      "sha256": "e2910f310df5b75fbfc17d21889ee409d73c13b5cd01cab3a3dd875dae3dd0ee",
+      "bytes": 7778
+    },
+    {
+      "url": "https://console.groq.com/docs/deprecations.md",
+      "sha256": "3ceeaaa3089df13ae04812c3541737f1a9d59a34a6d82ee6352dcd877f4a6fb7",
+      "bytes": 23510
+    },
+    {
+      "url": "https://inference-docs.cerebras.ai/support/rate-limits.md",
+      "sha256": "d019b08b3c9233a02f2c8ca4eefe055793a282a89cc1a5db9ff646b7e23ef7ab",
+      "bytes": 9686
+    },
+    {
+      "url": "https://inference-docs.cerebras.ai/models/overview.md",
+      "sha256": "773511d262d16e0f637ad7fcc3944104ae68b523017081aa7f9eff4aec518b99",
+      "bytes": 3918
+    },
+    {
+      "url": "https://inference-docs.cerebras.ai/support/deprecation.md",
+      "sha256": "ed5fc68a73ca16edba1675cb9a17d898e7b22c3adc96f1e3cb69b309c4ea8dbf",
+      "bytes": 3520
+    }
+  ],
+  "kerdoios_tested_revision": "9a74ed073c9a4721ae55e9cd7b058dabfe444ce4",
+  "kerdoios_current_default": "cdb43b05a328a50649d5120bffcdecea09492219",
+  "matched_source_files": [
+    {
+      "path": "kerdoios/cache.py",
+      "sha256": "e77882f9b3bcb770e6a0f198594def31664d8d5632dac68ed73aab5db1251ca2",
+      "identical_to_current_default": true
+    },
+    {
+      "path": "kerdoios/quota/policy.py",
+      "sha256": "a5b92bb408ab4d1f5b4bfa14cfa887f4c0625b433d99fde299fe1115fab639f5",
+      "identical_to_current_default": true
+    },
+    {
+      "path": "kerdoios/quota/model.py",
+      "sha256": "e3ec1bf9606309e7767f2057f8195a5c69ee06d9219811adf7374d58c5978fc2",
+      "identical_to_current_default": true
+    },
+    {
+      "path": "kerdoios/providers/free.py",
+      "sha256": "e8943d9bbcffd283635acee17ad8871a8c29ab5e6a66f9792fb1f2d83dc1f665",
+      "identical_to_current_default": true
+    }
+  ]
+}
