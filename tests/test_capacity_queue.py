@@ -90,6 +90,11 @@ class AntiFillerTests(unittest.TestCase):
         with self.assertRaises(QueueError):
             make_item(estimate=EstimatedUse(calls=-1))
 
+    def test_invalid_cost_estimates_cannot_enter_the_queue(self):
+        for cost in (-1.0, float("nan"), float("inf"), float("-inf")):
+            with self.subTest(cost=cost), self.assertRaises(QueueError):
+                make_item(estimate=EstimatedUse(cost_usd=cost))
+
     def test_empty_queue_produces_no_work(self):
         plan = plan_capacity([], provider="groq")
         self.assertEqual(plan["selected"], [])

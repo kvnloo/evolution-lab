@@ -27,6 +27,7 @@ Splits and their names follow the existing repo discipline
 from __future__ import annotations
 
 import json
+import math
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Iterable
@@ -199,6 +200,8 @@ class WorkItem:
         est = self.estimate
         if min(est.calls, est.prompt_tokens, est.completion_tokens, est.gpu_ms) < 0:
             raise QueueError(f"{self.item_id}: estimates must be non-negative")
+        if not math.isfinite(est.cost_usd) or est.cost_usd < 0:
+            raise QueueError(f"{self.item_id}: cost estimate must be finite and non-negative")
 
     @property
     def priority(self) -> int:
