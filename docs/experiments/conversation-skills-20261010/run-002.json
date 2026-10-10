@@ -1,0 +1,26 @@
+{
+  "observed_at": "2026-10-10T02:33:30.333762+00:00",
+  "generator_exit": 0,
+  "expected_skill_count": 2,
+  "generated_skill_files": 2,
+  "candidate_sha256": [
+    "7b3b31f4b0e2c8cf3c1777bdbcce8ef7963281adbf5a3fb4f5e444b316ee4969",
+    "8161aeb104d4dd540d0c3c86ca1973c1596e945299399cfe947d745ab959357d"
+  ],
+  "model": "qwen2.5-coder:7b",
+  "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+  "generator_ref": "9176c2dd81c8a101b52debd4cec88573284e2b30",
+  "corpus_sha256": "4361185a3eee87da6233066905837e3adc0ab3d40c16e5ce476f020aa72d04f3",
+  "endpoint": "http://127.0.0.1:11435/v1",
+  "api_cost_usd": 0,
+  "sampled_records": 1,
+  "total_records": 9,
+  "corpus_char_budget": 12000,
+  "max_conversations": 2,
+  "seed": 23,
+  "input_kind": "isolated OMP synthetic qualification sessions",
+  "outputs": "private_only",
+  "installed": false,
+  "independent_qualification": "not_run",
+  "efficacy_claim": false
+}
