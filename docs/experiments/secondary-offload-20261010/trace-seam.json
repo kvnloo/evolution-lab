@@ -1,0 +1,78 @@
+{
+  "cases": {
+    "contradictory_gold": {
+      "outcome": {
+        "test_pass": false,
+        "verified_success": true
+      },
+      "outcome_complete": true,
+      "require_verified_exit": 0,
+      "structural_complete": true
+    },
+    "negative_gold": {
+      "outcome": {
+        "verified_success": false
+      },
+      "outcome_complete": true,
+      "require_verified_exit": 0,
+      "structural_complete": true
+    },
+    "no_gold": {
+      "outcome": null,
+      "outcome_complete": false,
+      "require_verified_exit": 1,
+      "structural_complete": true
+    },
+    "positive_gold": {
+      "outcome": {
+        "verified_success": true
+      },
+      "outcome_complete": true,
+      "require_verified_exit": 0,
+      "structural_complete": true
+    }
+  },
+  "evidence_kind": "synthetic_unit_characterization_only",
+  "existing_owner_normalized_control": {
+    "contradictory_gold": {
+      "collector_outcome_complete": false,
+      "owner_is_verified": false,
+      "owner_tier": "negative"
+    },
+    "negative_gold": {
+      "collector_outcome_complete": false,
+      "owner_is_verified": false,
+      "owner_tier": "negative"
+    },
+    "positive_gold": {
+      "collector_outcome_complete": true,
+      "owner_is_verified": true,
+      "owner_tier": "gold"
+    }
+  },
+  "independent_review": "NOT_RUN",
+  "missing_fact_gate": "ASK",
+  "missing_usage_control": "REJECTED",
+  "natural_work_items": 0,
+  "negative_outcome_bundle_validation": "ACCEPTED",
+  "offload_performance": "NOT_COMPARABLE",
+  "provider_calls": 0,
+  "shadow_observed_completed_with_false_success": "answered",
+  "source_sha256": {
+    "z0evals/studies/aodl-admission-v1/collect_golden.py": "f9848e75b6f39fdbd3575fafa817787a5f0bbdc51344cf438e2fe5031ce4d741",
+    "z0evals/studies/aodl-admission-v1/golden-canary-bundle.schema.json": "77479a20ef16492051e14904cc4765c05c66dba55ba0b0a354274bf7823fed27",
+    "z0evals/studies/aodl-admission-v1/golden-trace-manifest.yaml": "f88d7f5f9c1f6bcccda10d4b23f16acd672d6548f9dd8d990d770fb4e1695a82",
+    "z0evals/studies/aodl-admission-v1/golden-trace.schema.json": "24d5be7a2cafe0b80bfd5d7fd527b83ceed0a5cab4137306fda75ffa95d2b7d0",
+    "z0evals/studies/aodl-admission-v1/import_golden.py": "04f22200f3e3aef971d41ad94cc79fa5a6bf61ca2bef012bc3fdaf2d16c3d6dd",
+    "z0evals/tests/test_golden_trace.py": "8780e274b4f720b5c8bd52be4b60661085c9c5243b87856a4cf16f21dab8815f",
+    "z0intelligence/src/z0int/__init__.py": "3fc24a862af53f48283e26b4fa4a885142c9ebc4d8007aa050b15701c0942ca4",
+    "z0intelligence/src/z0int/decision_opportunity.py": "6dc904d6089abe5ffb061c240296974718d4cd53fb992adbd2d245ac6d27ae8f",
+    "z0intelligence/src/z0int/hermes_decisions.py": "9fb18d826684c44729d0ba66fff3d5c795a53ae7540fcba1b8facd5c9874c67b",
+    "z0intelligence/src/z0int/paths.py": "fe2cca470385cf4ecb6e8d6909f87f8f8d9901fd8473e325024648eccc10bf16",
+    "z0intelligence/src/z0int/receipt.py": "1b1442418fa2d39ebd0f6192a8c777f69b84f25df8263063780b4aeb5206f32c"
+  },
+  "unauthorized_write_gate": "ASK",
+  "wrong_dispatch_control": "REJECTED",
+  "z0evals_revision": "6652713e25fb159a047457acfe348bd5ec98e146",
+  "z0intelligence_revision": "5873723eb33bd5c09e5220b3619e25e01efacd64"
+}

@@ -14,6 +14,12 @@ receipted calls plus an unresolved logical stop) and four Cerebras length-limit
 failures. It preserves stale-report, cache-confounding and empty-output evidence;
 none qualify current admission or independently verified savings.
 
+[Cycle 5](trace-seam.md) exercises unchanged golden-trace collector and current
+owner outcome semantics. Deliberately inconsistent gold-tier metadata passes
+the collector/importer completeness checks; existing owner normalization rejects
+it. These are public UNIT controls, not natural/provider outcomes. Reuse the
+owner semantics rather than inventing another judge; no evaluator was changed.
+
 Status: PARTIAL research evidence. A separate coordinator replicated cycle 1 at
 `2e9b4be4df2f6a7cf6bd867a4bd76b8d5dc0f2a3` and found a provenance overclaim;
 [review6094788975](https://github.com/kvnloo/evolution-lab/issues/23#issuecomment-6094788975).
