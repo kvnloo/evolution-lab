@@ -93,6 +93,25 @@ mutable receipt newly hashed by the consumer. Duplicate JSON keys and additional
 unaccounted draft output are refused. Failed/unknown exits cannot reuse prior
 draft files. Source groups and independent verification remain separate.
 
+Optional `--lineage` / `--lineage-sha256` checks a private, complete sidecar of
+record-line hashes (UTF-8 bytes excluding the line ending), native session-ID
+hashes and conservative work-item group hashes. Its `corpus_sha256` must match;
+its `grouping_basis` is `source_reported_conservative_work_item`. A native session
+cannot map to multiple work items. Missing, extra or ambiguous mappings refuse.
+Repeated branch prefixes within each session are counted from canonical message
+hashes, not published text. These are exported-message equality counts, not native
+event identity, token counts or proof that source grouping is independently true.
+The independent verifier still owns folds and held-out lineage decisions.
+
+The actual active-branch input is quarantined as one conservative qualification
+family: all nine sessions are source exposure, even though the generator sampled
+only one truncated record. This group is deliberately broader than a recovered
+native work-item ID; no absent IDs are invented. Its private mapping hash is
+`bf53fbbffc97760a2765a3308454d5709937d247f60d5e6595f84062de8f8db1`.
+The group's hash is `30bcda589b9469dd83f1c1b94595db46685684cea91b58729f74a6dd29641e53`.
+The two-leaf shared-prefix regression is synthetic; the actual active export has
+no repeated leaves. Claude's separate all-branch finding remains source-reported.
+
 Next eligible producer slices are executable refusal controls, source-group
 leakage eligibility and a frozen paired-experiment handoff to the independently
 owned z0evals gate. That gate must compare a no-skill baseline and candidate on the

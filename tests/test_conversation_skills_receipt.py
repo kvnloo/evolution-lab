@@ -45,12 +45,18 @@ class ConversationSkillsReceiptTests(unittest.TestCase):
     def digest(path):
         return hashlib.sha256(path.read_bytes()).hexdigest()
 
-    def run_cli(self, *, pin=None, raw=None):
+    def run_cli(self, *, pin=None, raw=None, lineage=None):
         self.packet.write_text(json.dumps(self.receipt))
         if raw is not None:
             self.packet.write_text(raw)
         pin_args = ["--receipt-sha256", pin or self.digest(self.packet)]
+        lineage_args = []
+        if lineage is not None:
+            path = self.root / "lineage.json"
+            path.write_text(json.dumps(lineage))
+            lineage_args = ["--lineage", str(path), "--lineage-sha256", self.digest(path)]
         return subprocess.run([sys.executable, str(CLI), "--receipt", str(self.packet), *pin_args,
+                               *lineage_args,
                                "--corpus", str(self.corpus), "--candidates", str(self.candidates),
                                "--generator", str(self.generator)], capture_output=True, text=True, cwd=ROOT)
 
@@ -137,6 +143,57 @@ class ConversationSkillsReceiptTests(unittest.TestCase):
         for raw in ("{private malformed", "null", "[]"):
             with self.subTest(raw=raw):
                 self.assert_refused(self.run_cli(raw=raw))
+
+    def branch_lineage(self) -> dict:
+        records = [dict(session_id="synthetic-session", branch_id=str(index),
+                        messages=[{"role": "user", "content": "synthetic prefix"},
+                                  {"role": "assistant", "content": "shared synthetic reply"},
+                                  {"role": "user", "content": f"synthetic branch {index}"}])
+                   for index in range(2)]
+        lines = [json.dumps(r) for r in records]
+        self.corpus.write_text("\n".join(lines) + "\n")
+        self.receipt["corpus_sha256"] = self.digest(self.corpus)
+        return dict(corpus_sha256=self.receipt["corpus_sha256"],
+                    grouping_basis="source_reported_conservative_work_item",
+                    records=[dict(record_sha256=hashlib.sha256(line.encode()).hexdigest(),
+                                  session_sha256=hashlib.sha256(b"synthetic-session").hexdigest(),
+                                  work_item_sha256="a" * 64) for line in lines])
+
+    def test_all_branch_prefix_is_one_exposure_group(self):
+        result = self.run_cli(lineage=self.branch_lineage())
+        self.assertEqual(result.returncode, 0, result.stderr)
+        packet = json.loads(result.stdout)
+        self.assertEqual(packet["source_records"], 2)
+        self.assertEqual(packet["source_sessions"], 1)
+        self.assertEqual(packet["source_work_items"], 1)
+        self.assertEqual(packet["shared_prefix_pairs"], 1)
+        self.assertEqual(packet["shared_prefix_messages"], 2)
+        self.assertEqual(packet["source_group_status"], "producer_asserted_not_independently_verified")
+
+    def test_one_native_session_cannot_be_split_into_work_items(self):
+        lineage = self.branch_lineage()
+        lineage["records"][1]["work_item_sha256"] = "b" * 64
+        self.assert_refused(self.run_cli(lineage=lineage))
+
+    def test_missing_source_mapping_is_refused(self):
+        lineage = self.branch_lineage()
+        lineage["records"].pop()
+        self.assert_refused(self.run_cli(lineage=lineage))
+
+    def test_duplicate_ambiguous_mapping_is_refused(self):
+        lineage = self.branch_lineage()
+        lineage["records"].append(dict(lineage["records"][0], work_item_sha256="b" * 64))
+        self.assert_refused(self.run_cli(lineage=lineage))
+
+    def test_source_mapping_must_match_native_session_identity(self):
+        lineage = self.branch_lineage()
+        lineage["records"][0]["session_sha256"] = "b" * 64
+        self.assert_refused(self.run_cli(lineage=lineage))
+
+    def test_lineage_corpus_pin_cannot_drift(self):
+        lineage = self.branch_lineage()
+        lineage["corpus_sha256"] = "b" * 64
+        self.assert_refused(self.run_cli(lineage=lineage))
 
 
 if __name__ == "__main__":
