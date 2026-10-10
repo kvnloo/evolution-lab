@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-10-10T02:28:28.268847+00:00",
+  "generator_exit": 1,
+  "expected_skill_count": 2,
+  "generated_skill_files": 0,
+  "failure": "Model output was not a valid JSON object",
+  "sampled_records": 1,
+  "total_records": 9,
+  "model": "qwen2.5:3b",
+  "generator_ref": "9176c2dd81c8a101b52debd4cec88573284e2b30",
+  "original_fork_invoked": true,
+  "endpoint": "http://127.0.0.1:11435/v1",
+  "api_cost_usd": 0,
+  "input_kind": "isolated OMP synthetic qualification sessions",
+  "installed": false,
+  "independent_qualification": "not_run",
+  "private_log_sha256": "134a8adf7809344f5e1ae9ccb1a66993efbbb32d95aa050762627305031af716"
+}
