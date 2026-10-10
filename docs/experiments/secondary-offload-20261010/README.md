@@ -5,7 +5,15 @@ That receipt supersedes the unrecovered-lead status below, not this separate
 28-fixture audit or the current entitlement refusal. Historical raw outcomes and
 zero costs were weaker than reported; no live admission or promotion follows.
 
-Status: PARTIAL research evidence; independent_review=NOT_RUN. Performance verdict:
+[Cycle 3](delegation60.md) corrects the raw-export provenance and recovers a
+separate60-pair Cerebras delegation study. Replaying its original analysis found
+more parent work on both equal-cache task subsets, not an offload benefit.
+
+Status: PARTIAL research evidence. A separate coordinator replicated cycle 1 at
+`2e9b4be4df2f6a7cf6bd867a4bd76b8d5dc0f2a3` and found a provenance overclaim;
+[review6094788975](https://github.com/kvnloo/evolution-lab/issues/23#issuecomment-6094788975).
+The correction below does not extend that review to a newer head. Sealed offload
+efficacy and independent review of the current head remain NOT_RUN. Performance verdict:
 NOT_COMPARABLE. No Groq/Cerebras inference, paid fallback, service activation,
 production edit, upstream publication, or routing promotion occurred.
 
@@ -78,9 +86,17 @@ old identifiers or transport old account observations into this run.
 
 ## Historical inventory: a different cohort recovered, not the 120-call lead
 
-Recovered immutable z0intelligence commit
+Recovered comparison report committed at immutable z0intelligence revision
 [`78869d977e847f8f87f3b8806cdcd6ce44b6bc22`](https://github.com/kvnloo/z0intelligence/commit/78869d977e847f8f87f3b8806cdcd6ce44b6bc22),
-`results/local-cognition/20260922T-api-cohort/{raw.jsonl,comparison.json}`.
+`results/local-cognition/20260922T-api-cohort/comparison.json`.
+Correction from independent coordinator review: neighboring `raw.jsonl` is an
+UNTRACKED locally retained export, absent from that Git tree. Its digest is
+`a5e837f7be65ce9e6114ecbd0d7aeaef704e805232a3f728e3c4afc2bab309b7`;
+this attests to retained bytes, NOT the revision that produced them. Producer
+revision is UNKNOWN and the source checkout has local transport modifications.
+Cycle 3 independently checked Git membership and committed comparison bytes;
+the analytical output now names `comparison_revision` separately from null
+`raw_producer_revision` and freezes both input digests. No source tree was changed.
 This has 168 evaluator rows across six models, including DeepSeek. The five
 Groq/Cerebras models account for 140 rows, 28 per model, on identical fixture IDs.
 It is NOT evidence of 120 physical calls or 24 calls per pair. DeepSeek is not
@@ -164,7 +180,8 @@ Commands run at unchanged Evolution Lab base plus these docs-only scripts:
   peer environment edit. This is NOT a full-suite GREEN claim.
 - `python -m evolution_lab gym-smoke --n 8`: exit 0, teacher perfect.
 - No evaluator changed; owning tests passing are scoped invariants, not an
-  independent offload efficacy verdict. Reviewer identity: none; NOT_RUN.
+  independent offload efficacy verdict. Subsequent analytical reviewer:
+  hermes-coordinator-review, exact prior head/receipt above. Sealed efficacy NOT_RUN.
 
 Tokenomics semantics inspected at `3fa33ee83d02e43a37d7890656a4151e200f2275`:
 incremental vs aggregate attribution and root/worker/verifier roles remain

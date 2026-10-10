@@ -76,7 +76,15 @@
     }
   ],
   "performance_verdict": "NOT_COMPARABLE",
+  "prior_head_coordinator_replication": {
+    "receipt": "https://github.com/kvnloo/evolution-lab/issues/23#issuecomment-6094788975",
+    "reviewed_head": "2e9b4be4df2f6a7cf6bd867a4bd76b8d5dc0f2a3",
+    "reviewer": "hermes-coordinator-review",
+    "scope": "PARTIAL analytical replication with provenance correction; not sealed offload efficacy"
+  },
+  "raw_producer_revision": null,
+  "raw_provenance": "Locally retained untracked export; digest-frozen, not present in comparison_revision Git tree. Producer checkout had local modifications.",
   "raw_sha256": "a5e837f7be65ce9e6114ecbd0d7aeaef704e805232a3f728e3c4afc2bab309b7",
   "selected_fixture_rows": 140,
-  "source_revision": "78869d977e847f8f87f3b8806cdcd6ce44b6bc22"
+  "comparison_revision": "78869d977e847f8f87f3b8806cdcd6ce44b6bc22"
 }

@@ -1,0 +1,68 @@
+{
+  "authority_physical_attempts": 60,
+  "billing": "trial_or_existing_credit_unverified",
+  "cache_neutral_parent_delta_sensitivity_only": 45140,
+  "canonical_bytes_in_ledger": true,
+  "canonical_rows": 360,
+  "functions": {
+    "gate": {
+      "equal_cache_mean_parent_token_delta_B_minus_A": 1008.125,
+      "equal_cache_pairs": 8,
+      "repeats": 30
+    },
+    "summary": {
+      "equal_cache_mean_parent_token_delta_B_minus_A": 522.0833333333334,
+      "equal_cache_pairs": 12,
+      "repeats": 30
+    }
+  },
+  "historical_credit_balance_measured": false,
+  "historical_free_only": false,
+  "independent_review": "NOT_RUN",
+  "independent_task_specifications": 2,
+  "limitation": "Historical two-specification repeats, not a current matched arm or natural task-population sample. No savings or admission claim; reasoning counters are reported, not added again to output.",
+  "matched_pairs": 60,
+  "observed_uncached_parent_plus_worker_token_delta_B_minus_A": 128744,
+  "pair_bytes_sha256": "0765720f30f270804aa07a69cfa2757cdd589bdc0e9938c2fcf199274aad106a",
+  "parent": {
+    "A": {
+      "cached_input_tokens": 884480,
+      "input_tokens": 1210374,
+      "output_tokens": 32681,
+      "reasoning_output_tokens": 6106,
+      "uncached_input_tokens": 325894
+    },
+    "B": {
+      "cached_input_tokens": 861056,
+      "input_tokens": 1257130,
+      "output_tokens": 31065,
+      "reasoning_output_tokens": 3535,
+      "uncached_input_tokens": 396074
+    }
+  },
+  "parent_uncached_input_plus_output_delta_B_minus_A": 68564,
+  "performance_verdict": "NOT_COMPARABLE",
+  "producer_revision": null,
+  "provider_reported_cost_nonnull": 0,
+  "provider_response_id_coverage": 60,
+  "quality_status": "Historical original grades only; separate corrected report exists, not regraded here",
+  "recorded_original_parent_quality_passes": {
+    "A": 60,
+    "B": 58
+  },
+  "response_id_families": {
+    "chatcmpl-UUID": 60
+  },
+  "source_digests": {
+    "cache-analysis.json": "8cf4153e648a4d7215c7b129580d225fe1665b10f1e8ef531c47aa36888054c5",
+    "canonical-receipts.jsonl": "f51af91e8d218685ced484114d6a42962cb87c67532e4a9d3f87a3393ea9c5f9",
+    "protocol.json": "e9dbeef22ad91af28f453f3063041ac4de6efb04206a57ada4f675b7f317980f",
+    "reconciliation.json": "334e4cd5d73a50fb21224684553c434d2b121553ec5a1bc1536a5a1450c3062b"
+  },
+  "unique_provider_response_ids": 60,
+  "verifier_and_coordinator_full_cost": null,
+  "worker": {
+    "input_tokens": 15960,
+    "output_tokens": 44220
+  }
+}
