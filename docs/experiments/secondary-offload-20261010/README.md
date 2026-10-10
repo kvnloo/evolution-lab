@@ -1,5 +1,10 @@
 # Secondary offload — cycle 1, 2026-10-10
 
+Continuation: [cycle 2 recovered the original 120-row cohort](historical120.md).
+That receipt supersedes the unrecovered-lead status below, not this separate
+28-fixture audit or the current entitlement refusal. Historical raw outcomes and
+zero costs were weaker than reported; no live admission or promotion follows.
+
 Status: PARTIAL research evidence; independent_review=NOT_RUN. Performance verdict:
 NOT_COMPARABLE. No Groq/Cerebras inference, paid fallback, service activation,
 production edit, upstream publication, or routing promotion occurred.
