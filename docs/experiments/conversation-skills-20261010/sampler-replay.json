@@ -1,0 +1,20 @@
+{
+  "schema": "evolution-lab.conversation-skills.sampler-replay.v1",
+  "generator_ref": "9176c2dd81c8a101b52debd4cec88573284e2b30",
+  "generator_script_sha256": "f1514e67ccb38971d53dbbdd31cb916ccc53676c0bd9f32633edc9a353f1a786",
+  "corpus_sha256": "4361185a3eee87da6233066905837e3adc0ab3d40c16e5ce476f020aa72d04f3",
+  "seed": 23,
+  "max_conversations": 2,
+  "corpus_char_budget": 12000,
+  "sampled_records": 1,
+  "total_records": 9,
+  "excerpt_characters": 12000,
+  "excerpt_sha256": "d9fb0b2f87c5284e49baab4f63b1379bb78abbf4a2dc2057acefa5fe12b0ba3b",
+  "sampled_record_sha256": "d281564763dfa35eeba0e0a4ee0879194b3cac599d9ec54620d4a87fbe94944f",
+  "truncated": true,
+  "rendered_excerpt_complete_json": false,
+  "reconstructed_request_sha256": "c7c42d29f88bf360a194c3dcc9b2725bf8a4e4cacf1a489026363de99d593610",
+  "sampling_replay_equal": true,
+  "model_called": false,
+  "request_identity_basis": "reconstructed_from_pinned_original_sampler_not_captured_wire"
+}

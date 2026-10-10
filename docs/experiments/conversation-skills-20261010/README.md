@@ -112,10 +112,13 @@ The group's hash is `30bcda589b9469dd83f1c1b94595db46685684cea91b58729f74a6dd296
 The two-leaf shared-prefix regression is synthetic; the actual active export has
 no repeated leaves. Claude's separate all-branch finding remains source-reported.
 
-Next eligible producer slices are executable refusal controls, source-group
-leakage eligibility and a frozen paired-experiment handoff to the independently
-owned z0evals gate. That gate must compare a no-skill baseline and candidate on the
-same frozen cohort and retain malformed/unsupported/missing-data controls.
+The frozen metadata handoff is `handoff.json`; the existing independent verifier
+interface and still-blocked paired conditions are in `paired-protocol.md`.
+`sampler-replay.json` records an unchanged original-sampler replay, not a new model
+call: the single 12000-character excerpt is truncated and not complete rendered
+JSON. The reconstructed request hash is not captured historical wire evidence.
+The z0evals gate must compare a no-skill baseline and candidate on the same frozen
+cohort and retain malformed/unsupported/missing-data controls.
 No held-out outcome, KEEP decision, learning gain, token savings, production
 adoption, training or curriculum promotion is claimed. z0evals PR94's historical
 reporting correction remains separate from fresh candidate qualification.
