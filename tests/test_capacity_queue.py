@@ -155,6 +155,15 @@ class CompatibilityTests(unittest.TestCase):
 
 
 class BudgetTests(unittest.TestCase):
+    def test_invalid_cost_budgets_are_rejected_even_for_an_empty_queue(self):
+        for budget in (-1.0, float("nan"), float("inf"), float("-inf")):
+            with self.subTest(budget=budget), self.assertRaises(QueueError):
+                plan_capacity([], provider="groq", max_cost_usd=budget)
+
+    def test_negative_token_budget_is_rejected(self):
+        with self.assertRaises(QueueError):
+            plan_capacity([], provider="groq", max_tokens=-1)
+
     def test_totals_sum_selected_estimates(self):
         items = [
             make_item(
