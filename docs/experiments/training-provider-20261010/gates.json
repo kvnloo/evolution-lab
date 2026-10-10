@@ -1,0 +1,47 @@
+{
+  "tested_commit": "f2eb54b385fc435ca8971e5798977068bd1701fd",
+  "reference_commit": "0212fee31a78cdba506f4d2684813962bfe0efb0",
+  "owning_unit": {
+    "reference_exit": 1,
+    "candidate_exit": 1,
+    "tests_attempted_each": 256,
+    "errors_each": 8,
+    "skips_each": 2,
+    "identical_error_test_ids": [
+      "test_mine_tiny_corpus (test_capability_miner.MineSmoke.test_mine_tiny_corpus)",
+      "test_fixture_pop8 (test_data_recipe.NextActionGpuSmoke.test_fixture_pop8)",
+      "test_gpu_evolve (unittest.loader._FailedTest.test_gpu_evolve)",
+      "test_jax_parity (unittest.loader._FailedTest.test_jax_parity)",
+      "test_next_action_coverage (unittest.loader._FailedTest.test_next_action_coverage)",
+      "test_next_action_promote (unittest.loader._FailedTest.test_next_action_promote)",
+      "test_next_action_weak (unittest.loader._FailedTest.test_next_action_weak)",
+      "test_preflight (unittest.loader._FailedTest.test_preflight)"
+    ],
+    "dependency": "jax",
+    "verdict": "ENVIRONMENT_BLOCKED_IDENTICALLY_ON_REFERENCE_AND_CANDIDATE"
+  },
+  "toy_recovery_gym": {
+    "exit": 0,
+    "n": 8,
+    "verdict": "SIMULATION_ONLY_NOT_PROVIDER_TRAINING_OR_MODEL_QUALITY"
+  },
+  "diff_check": {
+    "exit": 0
+  },
+  "research_tests": {
+    "tests_per_complete_reproduction": 4,
+    "positive_controls": 2,
+    "failed_hypotheses": 2,
+    "errors": 0,
+    "verdict": "EXPECTED_RED_RESEARCH_HYPOTHESES"
+  },
+  "revision_negative": {
+    "exit": 2,
+    "receipt_written": false,
+    "verdict": "WRONG_PROVIDER_REJECTED_BEFORE_MODULE_IMPORT"
+  },
+  "full_suite_green": false,
+  "paid_fallback_used": false,
+  "dependencies_installed": false,
+  "ci_status": "NOT_RUN"
+}

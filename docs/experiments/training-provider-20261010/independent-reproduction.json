@@ -1,0 +1,103 @@
+{
+  "schema": "evolution-lab.external-provider-research.v1",
+  "cycle": "all",
+  "sources": {
+    "extractor": {
+      "revision": "9176c2dd81c8a101b52debd4cec88573284e2b30"
+    },
+    "trainer": {
+      "revision": "68ecf2057586a232bea45ad0fafcdfdfae56089f"
+    },
+    "file_sha256": {
+      "skills": "f1514e67ccb38971d53dbbdd31cb916ccc53676c0bd9f32633edc9a353f1a786",
+      "trainer": "c4861fe646da21d45adb6e988aa18ad2ac4191dfa74ac30bf7977234a8d0e4e5",
+      "health": "a368a74c88fd27bcbb39d9eae61fbb9dedb65a6dc92655469eefb258de4e25a1",
+      "extract_codex_cli": "7accc0869d15206f34071b3888d66c02b738346b0a590239ab9013fbc67d9fb4"
+    }
+  },
+  "observations": {
+    "direct_data_contract": {
+      "kind": "synthetic source-native fixture; no real conversation or model run",
+      "extractor_cli_exit": 0,
+      "fixture_sha256": "03da6fc14475de81a7b2bc039b229faa94081245578a00d5cd15043bc87c2267",
+      "extracted_conversations": 1,
+      "extracted_messages": 2,
+      "extracted_tool_events": 2,
+      "source_session_id_retained": true,
+      "original_skill_sampler_selected": 1,
+      "original_skill_sampler_total": 1,
+      "corpus_chars": 447,
+      "trainer_formatted_conversations": 0,
+      "hypothesis": "existing extracted messages can directly enter provider SFT formatter"
+    },
+    "sharegpt_control": {
+      "input_conversations": 1,
+      "output_conversations": 1,
+      "output_message_roles": [
+        "user",
+        "assistant",
+        "tool"
+      ],
+      "kind": "synthetic schema-control; not model quality"
+    },
+    "dry_run_contract": {
+      "kind": "owned loopback HTTP fixture; POST refused with 405 before inference",
+      "provider_main_argv": [
+        "training_loop.py",
+        "--dry-run"
+      ],
+      "fixture_health_status": 503,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/health"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/chat/completions"
+        }
+      ],
+      "post_requests": 1,
+      "model_inference": false,
+      "stdout": "DRY RUN \u2014 checking model health only\n  owned-fixture: \ud83d\udd34\n",
+      "hypothesis": "advertised dry-run is a read-only/no-inference preflight"
+    },
+    "ready_health_control": {
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/health"
+        }
+      ],
+      "model_inference": false
+    }
+  },
+  "tests_run": 4,
+  "errors": [],
+  "skipped": [],
+  "elapsed_seconds": 1.0405897419841494,
+  "cpu_seconds": 0.013652999999999995,
+  "child_cpu_seconds": 0.019184,
+  "process_peak_rss_kib": 30776,
+  "model_inference_calls": 0,
+  "training_started": false,
+  "model_quality_measured": false,
+  "savings_measured": false,
+  "scope": "original-library fixture behavior only; parent model/tool-server costs excluded",
+  "reviewed_commit": "f2eb54b385fc435ca8971e5798977068bd1701fd",
+  "reproduction_receipt_sha256": "8964310f289929ed7df9aea2b9eab2399b3a1920a6ef8f0b784605193887c033",
+  "reviewer_requested_model": "gpt-6-astra",
+  "reviewer_provider": "openai-codex",
+  "positive_controls_passed": 2,
+  "failed_hypotheses": 2,
+  "verdict": "INDEPENDENT_REPLICATION_OF_TWO_NEGATIVE_HYPOTHESES",
+  "canonical_z0evals_verdict": "NOT_RUN",
+  "high_medium_review_findings": 0,
+  "assertions_exactly_match_parent_receipts": true,
+  "limits": [
+    "One synthetic source record and one native ShareGPT role control",
+    "Owned HTTP fixtures; no real model-quality task",
+    "Safety booleans describe this inspected experiment; they are not general-purpose dispatch instrumentation",
+    "Independent reproduction is not the sealed ZE-93-V result"
+  ]
+}

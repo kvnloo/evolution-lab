@@ -1,0 +1,39 @@
+{
+  "scope": "Previous coordinator mid-task snapshot through end-of-turn plus independent reviewer. Excludes earlier research discovery and current delivery/resume turn; not task-exclusive total.",
+  "coordinator_requested_model": "gpt-6.1-sol",
+  "reviewer_requested_model": "gpt-6-astra",
+  "provider": "openai-codex",
+  "served_model_attestation": null,
+  "coordinator_counter_delta": {
+    "input_tokens": 43152,
+    "output_tokens": 16990,
+    "cache_read_tokens": 2343040,
+    "cache_write_tokens": 0,
+    "reasoning_tokens": 6824,
+    "api_call_count": 15
+  },
+  "reviewer_counters": {
+    "input_tokens": 50288,
+    "output_tokens": 6354,
+    "cache_read_tokens": 159872,
+    "cache_write_tokens": 0,
+    "reasoning_tokens": 2497,
+    "api_call_count": 7
+  },
+  "observed_api_calls": 22,
+  "actual_cost_usd": null,
+  "cost_status": "subscription included; invoice cost unknown",
+  "normalization": "Raw source-native counters retained. Reasoning is not added to output. Cached input overlap must follow producer accounting semantics.",
+  "coverage_complete": false,
+  "probe_window": {
+    "initial_cycles_wall_seconds": 1.0446463389671408,
+    "initial_cycles_process_plus_child_cpu_seconds": 0.040969,
+    "independent_reproduction_wall_seconds": 1.0405897419841494,
+    "independent_reproduction_process_plus_child_cpu_seconds": 0.03283699999999999,
+    "probe_local_model_inference_calls": 0,
+    "training_calls": 0,
+    "gpu_ms": null,
+    "host_joules": null,
+    "coverage_note": "Probe timings exclude startup/import/pin checks and coordinator/reviewer/tool-server costs. RSS is per-process lifetime peak, not aggregate memory."
+  }
+}
