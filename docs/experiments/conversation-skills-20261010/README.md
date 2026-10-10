@@ -102,6 +102,10 @@ Repeated branch prefixes within each session are counted from canonical message
 hashes, not published text. These are exported-message equality counts, not native
 event identity, token counts or proof that source grouping is independently true.
 The independent verifier still owns folds and held-out lineage decisions.
+Lineage parsing hashes the exact complete byte stream it reads, including blank
+lines and line endings, and refuses drift from the frozen corpus hash. Receipt,
+sidecar and source JSON reject duplicate keys and nonstandard NaN/Infinity values.
+This is read consistency, not a signed native-execution or filesystem-lock claim.
 
 The actual active-branch input is quarantined as one conservative qualification
 family: all nine sessions are source exposure, even though the generator sampled

@@ -37,6 +37,10 @@ def unique_object(pairs: list[tuple[str, object]]) -> dict:
     return result
 
 
+def reject_constant(value: str) -> None:
+    raise ValueError("nonstandard_json_constant")
+
+
 def git(generator: Path, *args: str) -> str:
     result = subprocess.run(["git", "-C", str(generator), *args], capture_output=True,
                             text=True, check=False, timeout=15)
@@ -64,8 +68,10 @@ def check_lineage(lineage: dict, corpus: Path, source_hash: str) -> dict:
     sessions = {}
     messages_by_session = {}
     seen = set()
+    source_digest = hashlib.sha256()
     with corpus.open("rb") as stream:
         for raw in stream:
+            source_digest.update(raw)
             raw = raw.rstrip(b"\r\n")
             if not raw.strip():
                 continue
@@ -73,7 +79,7 @@ def check_lineage(lineage: dict, corpus: Path, source_hash: str) -> dict:
             require(record_hash not in seen and record_hash in by_record,
                     "duplicate_or_unmapped_source_record")
             seen.add(record_hash)
-            record = json.loads(raw, object_pairs_hook=unique_object)
+            record = json.loads(raw, object_pairs_hook=unique_object, parse_constant=reject_constant)
             require(isinstance(record, dict), "invalid_source_record")
             session = record.get("session_id")
             require(isinstance(session, str) and bool(session.strip()), "missing_native_session")
@@ -90,6 +96,7 @@ def check_lineage(lineage: dict, corpus: Path, source_hash: str) -> dict:
                               ensure_ascii=False, separators=(",", ":")).encode()).hexdigest()
                               for m in messages]
             messages_by_session.setdefault(session_hash, []).append(message_hashes)
+    require(source_digest.hexdigest() == source_hash, "source_bytes_changed_during_lineage_read")
     require(bool(seen) and seen == set(by_record), "incomplete_source_mapping")
     shared_pairs = shared_messages = 0
     for branches in messages_by_session.values():
@@ -169,7 +176,7 @@ def main() -> int:
                 "invalid_receipt_pin")
         raw = args.receipt.read_bytes()
         require(hashlib.sha256(raw).hexdigest() == args.receipt_sha256, "receipt_hash_changed")
-        receipt = json.loads(raw, object_pairs_hook=unique_object)
+        receipt = json.loads(raw, object_pairs_hook=unique_object, parse_constant=reject_constant)
         result = check(receipt, args.corpus, args.candidates, args.generator)
         result["receipt_sha256"] = args.receipt_sha256
         require(bool(args.lineage) == bool(args.lineage_sha256), "partial_lineage_pin")
@@ -180,7 +187,8 @@ def main() -> int:
             raw_lineage = args.lineage.read_bytes()
             require(hashlib.sha256(raw_lineage).hexdigest() == args.lineage_sha256,
                     "lineage_hash_changed")
-            lineage = json.loads(raw_lineage, object_pairs_hook=unique_object)
+            lineage = json.loads(raw_lineage, object_pairs_hook=unique_object,
+                                 parse_constant=reject_constant)
             result.update(check_lineage(lineage, args.corpus, receipt["corpus_sha256"]))
             result["lineage_sha256"] = args.lineage_sha256
     except (OSError, ValueError, TypeError, subprocess.SubprocessError):

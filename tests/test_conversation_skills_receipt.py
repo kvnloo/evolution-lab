@@ -144,6 +144,12 @@ class ConversationSkillsReceiptTests(unittest.TestCase):
             with self.subTest(raw=raw):
                 self.assert_refused(self.run_cli(raw=raw))
 
+    def test_nonstandard_json_constants_are_refused(self):
+        for value in ("NaN", "Infinity", "-Infinity"):
+            with self.subTest(value=value):
+                raw = json.dumps(self.receipt)[:-1] + ', "unknown": ' + value + '}'
+                self.assert_refused(self.run_cli(raw=raw))
+
     def branch_lineage(self) -> dict:
         records = [dict(session_id="synthetic-session", branch_id=str(index),
                         messages=[{"role": "user", "content": "synthetic prefix"},
@@ -194,6 +200,35 @@ class ConversationSkillsReceiptTests(unittest.TestCase):
         lineage = self.branch_lineage()
         lineage["corpus_sha256"] = "b" * 64
         self.assert_refused(self.run_cli(lineage=lineage))
+
+    def test_nonstandard_lineage_json_is_refused(self):
+        lineage = self.branch_lineage()
+        lineage["unknown"] = float("nan")
+        self.assert_refused(self.run_cli(lineage=lineage))
+
+    def test_nonstandard_source_json_is_refused(self):
+        lineage = self.branch_lineage()
+        lines = self.corpus.read_text().splitlines()
+        record = json.loads(lines[0])
+        record["messages"][0]["unknown"] = float("nan")
+        lines[0] = json.dumps(record)
+        self.corpus.write_text("\n".join(lines) + "\n")
+        self.receipt["corpus_sha256"] = self.digest(self.corpus)
+        lineage["corpus_sha256"] = self.receipt["corpus_sha256"]
+        lineage["records"][0]["record_sha256"] = hashlib.sha256(lines[0].encode()).hexdigest()
+        self.assert_refused(self.run_cli(lineage=lineage))
+
+    def test_lineage_parser_checks_the_actual_bytes_it_reads(self):
+        from scripts.conversation_skills_receipt import check_lineage
+
+        lineage = self.branch_lineage()
+        frozen_hash = self.receipt["corpus_sha256"]
+        assert isinstance(frozen_hash, str)
+        # Simulate drift after the initial artifact hash check, before lineage read.
+        with self.corpus.open("ab") as stream:
+            stream.write(b"\n")
+        with self.assertRaises(ValueError):
+            check_lineage(lineage, self.corpus, frozen_hash)
 
 
 if __name__ == "__main__":
