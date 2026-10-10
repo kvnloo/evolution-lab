@@ -20,6 +20,12 @@ the collector/importer completeness checks; existing owner normalization rejects
 it. These are public UNIT controls, not natural/provider outcomes. Reuse the
 owner semantics rather than inventing another judge; no evaluator was changed.
 
+[Cycle 6](natural-triage.md) freezes three natural PR work groups (sixteen
+sampled runs) and discards structured CI field extraction as a model target.
+Existing gh/jq already exposes failed/skipped stages; branch-head metadata is
+not checkout attestation. Evidence selection and failure explanation remain
+unproven hypotheses, with no live provider or current frontier comparison.
+
 Status: PARTIAL research evidence. A separate coordinator replicated cycle 1 at
 `2e9b4be4df2f6a7cf6bd867a4bd76b8d5dc0f2a3` and found a provenance overclaim;
 [review6094788975](https://github.com/kvnloo/evolution-lab/issues/23#issuecomment-6094788975).

@@ -1,0 +1,166 @@
+{
+  "coverage": "Purposive three PR groups; rollup-linked latest run attempts only; not full historical attempt coverage.",
+  "existing_grouping": {
+    "dev_sessions": [],
+    "future_sessions": [],
+    "n_dev_events": 0,
+    "n_future_events": 0,
+    "n_sealed_events": 0,
+    "n_train_events": 16,
+    "schema": "flyforge.session_split.v1",
+    "sealed_sessions": [],
+    "train_sessions": [
+      "kvnloo/evolution-lab#28",
+      "kvnloo/evolution-lab#36",
+      "kvnloo/z0evals#81"
+    ]
+  },
+  "full_workflow_cost_usd": null,
+  "group_count": 3,
+  "groups": [
+    {
+      "any_green_baseline": true,
+      "branch_head_is_checkout_attestation": false,
+      "contradicted_by_failed_steps": true,
+      "failed_steps": [
+        {
+          "job": "test",
+          "name": "Run python -m unittest discover -s tests -p \"test_*.py\"",
+          "number": 5,
+          "run": "https://github.com/kvnloo/evolution-lab/actions/runs/36748013034"
+        },
+        {
+          "job": "receipt",
+          "name": "Check evidence receipt and exact head",
+          "number": 3,
+          "run": "https://github.com/kvnloo/evolution-lab/actions/runs/36748021196"
+        },
+        {
+          "job": "test",
+          "name": "Run python -m unittest discover -s tests -p \"test_*.py\"",
+          "number": 5,
+          "run": "https://github.com/kvnloo/evolution-lab/actions/runs/36748021222"
+        }
+      ],
+      "group": "kvnloo/evolution-lab#28",
+      "head_sha": "26d92191440449eac7cd6cdd783d0d6c646e46a6",
+      "sampled_runs": 5,
+      "skipped_steps": [
+        {
+          "name": "Run python -m evolution_lab gym-smoke --n 8",
+          "number": 6,
+          "run": "https://github.com/kvnloo/evolution-lab/actions/runs/36748013034"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "number": 11,
+          "run": "https://github.com/kvnloo/evolution-lab/actions/runs/36748013034"
+        },
+        {
+          "name": "Run python -m evolution_lab gym-smoke --n 8",
+          "number": 6,
+          "run": "https://github.com/kvnloo/evolution-lab/actions/runs/36748021222"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "number": 11,
+          "run": "https://github.com/kvnloo/evolution-lab/actions/runs/36748021222"
+        }
+      ]
+    },
+    {
+      "any_green_baseline": true,
+      "branch_head_is_checkout_attestation": false,
+      "contradicted_by_failed_steps": false,
+      "failed_steps": [],
+      "group": "kvnloo/evolution-lab#36",
+      "head_sha": "fea47981ade0fcdd7cc1555b226bc3ec0c165873",
+      "sampled_runs": 6,
+      "skipped_steps": []
+    },
+    {
+      "any_green_baseline": true,
+      "branch_head_is_checkout_attestation": false,
+      "contradicted_by_failed_steps": true,
+      "failed_steps": [
+        {
+          "job": "validate",
+          "name": "Run python scripts/validate.py",
+          "number": 6,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        }
+      ],
+      "group": "kvnloo/z0evals#81",
+      "head_sha": "6652713e25fb159a047457acfe348bd5ec98e146",
+      "sampled_runs": 5,
+      "skipped_steps": [
+        {
+          "name": "Run python tests/test_golden_trace.py",
+          "number": 7,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        },
+        {
+          "name": "Run python scripts/audit_web_source.py",
+          "number": 8,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        },
+        {
+          "name": "Run python scripts/build_site.py",
+          "number": 9,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        },
+        {
+          "name": "Run test -f site/index.html",
+          "number": 10,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        },
+        {
+          "name": "Run python scripts/build_site_data.py",
+          "number": 11,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        },
+        {
+          "name": "Run npm ci --no-audit --no-fund",
+          "number": 12,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        },
+        {
+          "name": "Run npm run typecheck",
+          "number": 13,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        },
+        {
+          "name": "Run Z0_BASE_PATH=/z0evals npx next build",
+          "number": 14,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        },
+        {
+          "name": "Run test -f web/out/index.html",
+          "number": 15,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        },
+        {
+          "name": "Run python scripts/audit_web_export.py --root web/out",
+          "number": 16,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "number": 30,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "number": 31,
+          "run": "https://github.com/kvnloo/z0evals/actions/runs/36874677626"
+        }
+      ]
+    }
+  ],
+  "independent_review": "NOT_RUN",
+  "new_provider_calls": 0,
+  "observed_at": "2026-10-10T07:20:09.658284+00:00",
+  "performance": "NOT_COMPARABLE",
+  "sampled_runs": 16,
+  "source_sha256": "090eea0264c3d8e59bff992343bd8298536f642265752bc62dc87f3935f8d6bf"
+}
