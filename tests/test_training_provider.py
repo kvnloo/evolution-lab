@@ -86,6 +86,29 @@ def make_case(root, splits=("train",), mutate_native=None) -> dict[str, Any]:
 @unittest.skipUnless(PROVIDER.is_dir() and EXTRACTOR.is_dir(),
                      "pinned external checkouts required; set EL_TRAINING_PROVIDER_SOURCE and EL_EXTRACTOR_SOURCE")
 class TrainingProviderTests(unittest.TestCase):
+    def test_extracted_messages_must_match_pinned_native_extraction(self):
+        from evolution_lab.training_provider import PreparationError, prepare_candidate
+        mutations = {
+            "fabricated_user": lambda r: r["messages"][0].update(content="invented training input"),
+            "fabricated_assistant": lambda r: r["messages"][1].update(content="invented training target"),
+            "reordered": lambda r: r["messages"].reverse(),
+            "omitted_metadata": lambda r: r["messages"][0].pop("timestamp"),
+            "wrong_project": lambda r: r.update(project_path="invented-project"),
+        }
+        for name, mutation in mutations.items():
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as tmp:
+                args = make_case(Path(tmp))
+                row = json.loads(args["corpus_path"].read_bytes())
+                mutation(row)
+                data = (json.dumps(row) + "\n").encode()
+                args["corpus_path"].write_bytes(data)
+                lineage = json.loads(args["lineage_path"].read_bytes())
+                lineage["corpus_sha256"] = lineage["records"][0]["record_sha256"] = sha(data)
+                args["lineage_path"].write_text(json.dumps(lineage))
+                with self.assertRaisesRegex(PreparationError, "native extraction"):
+                    prepare_candidate(**args)
+                self.assertFalse(args["output_dir"].exists())
+
     def test_equal_bytes_never_supply_origin_identity(self):
         from evolution_lab.training_provider import PreparationError, prepare_candidate
         def identical(events):

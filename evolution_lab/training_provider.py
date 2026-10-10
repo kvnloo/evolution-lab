@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
 from types import ModuleType
 
 from .sealed_split import SessionSplit
@@ -124,7 +125,22 @@ def _supported_text(row: dict, native: bytes) -> None:
             raise PreparationError("unsupported native content")
 
 
-def _validate_lineage(corpus: bytes, bindings: dict, rows: list[dict]) -> SessionSplit:
+def _native_extraction_matches(row: dict, native: bytes, extractor: ModuleType) -> None:
+    """Use the unchanged extractor on one captured source, never ambient history."""
+    source = Path(row["source_file"])
+    with tempfile.TemporaryDirectory(prefix="el-native-binding-") as tmp:
+        project = Path(tmp) / source.parent.name
+        project.mkdir(mode=0o700)
+        staged = project / source.name
+        with os.fdopen(os.open(staged, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), "wb") as handle:
+            handle.write(native)
+        extracted = extractor.extract_claude_project_conversations(project)
+    fields = ("messages", "source", "session_id", "project_path", "project_name")
+    if len(extracted) != 1 or any(row.get(key) != extracted[0].get(key) for key in fields):
+        raise PreparationError("record differs from pinned native extraction")
+
+
+def _validate_lineage(corpus: bytes, bindings: dict, rows: list[dict], extractor: ModuleType) -> SessionSplit:
     required = {"schema", "qualification", "corpus_sha256", "protected_sessions", "records"}
     if (not isinstance(bindings, dict) or set(bindings) != required
             or bindings["schema"] != "evolution_lab.source_lineage.v1"
@@ -161,6 +177,7 @@ def _validate_lineage(corpus: bytes, bindings: dict, rows: list[dict]) -> Sessio
         if ("source_file", canonical_source) in ownership:
             raise PreparationError("duplicate native origin; extractor emits one row per source file")
         _supported_text(row, native)
+        _native_extraction_matches(row, native, extractor)
         bucket = record["split"]
         if bucket not in groups:
             raise PreparationError("unknown partition; protected origin cannot be inferred")
@@ -199,12 +216,13 @@ def prepare_candidate(*, provider_root: Path, extractor_root: Path, corpus_path:
         if output_dir.is_relative_to(root):
             raise PreparationError("output must be outside source repositories")
     blobs = _source(provider_root, PROVIDER_REVISION, SOURCE_FILES)
-    _source(extractor_root, EXTRACTOR_REVISION, {EXTRACTOR_FILE: EXTRACTOR_SHA256})
+    extractor_blobs = _source(extractor_root, EXTRACTOR_REVISION, {EXTRACTOR_FILE: EXTRACTOR_SHA256})
     corpus_bytes = corpus_path.read_bytes()
     lineage_bytes = lineage_path.read_bytes()
     rows = [_json(line) for line in corpus_bytes.splitlines()]
     bindings = _json(lineage_bytes)
-    split = _validate_lineage(corpus_bytes, bindings, rows)
+    extractor = _module(extractor_root, EXTRACTOR_FILE, extractor_blobs[EXTRACTOR_FILE])
+    split = _validate_lineage(corpus_bytes, bindings, rows, extractor)
     counts = {"train": split.n_train_events, "validation": split.n_dev_events, "protected": split.n_sealed_events}
     mega = _module(provider_root, "scripts/mega_training_data.py", blobs["scripts/mega_training_data.py"])
     agentic = _module(provider_root, "scripts/agentic_training_loop.py", blobs["scripts/agentic_training_loop.py"])

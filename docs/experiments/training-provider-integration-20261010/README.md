@@ -22,7 +22,10 @@ source bytes are compiled into isolated module namespaces, never loaded from
 provider `sys.path` entries or cached bytecode. Ignored extractor caches are not
 executed or removed. Source checkouts must not be mutated concurrently.
 
-Only the two formatting functions are called. Do **not** invoke the global
+Only the two formatting functions prepare training rows. The unchanged extractor
+also re-extracts each exact captured native file in an owned single-file scratch
+project to bind message order, text, timestamps/model metadata and project context
+to the actual source bytes. It never scans ambient history for this check. Do **not** invoke the global
 preparation CLI (its output option and output name do not match the consumer),
 `training_loop.main`, health checks (including their POST fallback), training,
 evaluation, downloads or installation. No models or provider clients are loaded.
