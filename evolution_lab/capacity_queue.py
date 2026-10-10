@@ -27,6 +27,7 @@ Splits and their names follow the existing repo discipline
 from __future__ import annotations
 
 import json
+import math
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Iterable
@@ -199,6 +200,8 @@ class WorkItem:
         est = self.estimate
         if min(est.calls, est.prompt_tokens, est.completion_tokens, est.gpu_ms) < 0:
             raise QueueError(f"{self.item_id}: estimates must be non-negative")
+        if not math.isfinite(est.cost_usd) or est.cost_usd < 0:
+            raise QueueError(f"{self.item_id}: cost estimate must be finite and non-negative")
 
     @property
     def priority(self) -> int:
@@ -311,6 +314,10 @@ def plan_capacity(
     order; an item is selected only if it stays inside both budgets.  Protected
     splits are reported as skipped unless ``include_protected`` is set.
     """
+    if max_tokens is not None and max_tokens < 0:
+        raise QueueError("token budget must be non-negative")
+    if max_cost_usd is not None and (not math.isfinite(max_cost_usd) or max_cost_usd < 0):
+        raise QueueError("cost budget must be finite and non-negative")
     queue = list(items)
     skipped: list[dict[str, Any]] = []
     pool: list[WorkItem] = []
