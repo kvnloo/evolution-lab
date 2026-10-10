@@ -1,6 +1,12 @@
 # Cycle 2: original 120-row cohort recovered, accounting claims narrowed
 
 Classification: PARTIAL. independent_review=NOT_RUN; performance=NOT_COMPARABLE.
+Update: [independent coordinator review](https://github.com/kvnloo/evolution-lab/issues/23#issuecomment-6094927970)
+replicated this receipt at `0391c13b4bef1e97233e9a064a5b8ba247a05754` and passed
+narrow analytical checks, including additional synthetic negative controls.
+The NOT_RUN statement above describes initial publication; independent analytical
+review of that exact head is now PASS. Sealed efficacy remains NOT_RUN and the
+review does not certify later heads, current entitlement or offload savings.
 No new provider inference, paid fallback, model subprocess, routing change or
 account activation. Historical results do not qualify current admission.
 

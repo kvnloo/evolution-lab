@@ -1,0 +1,230 @@
+{
+  "cerebras-ab": {
+    "all_attempt_coverage": "retained cohort only",
+    "completed_pairs": 4,
+    "current_admission": "NOT_ESTABLISHED",
+    "distinct_response_ids": 4,
+    "empty_worker_outputs": 4,
+    "finish_reasons": {
+      "length": 4
+    },
+    "frozen_file_count": 18,
+    "frozen_file_hashes_match": 18,
+    "full_cost": "UNKNOWN",
+    "functions_original_grade_replay": {
+      "gate": {
+        "A_tokens": {
+          "cached_input_tokens": 18176,
+          "input_tokens": 40354,
+          "output_tokens": 1447,
+          "uncached_input_tokens": 22178
+        },
+        "B_tokens": {
+          "cached_input_tokens": 0,
+          "input_tokens": 40430,
+          "output_tokens": 1384,
+          "uncached_input_tokens": 40430
+        },
+        "bootstrap_mean_delta_95pct": [
+          13.0,
+          18176.0
+        ],
+        "mean_added_seconds": 0.13057376502547413,
+        "mean_uncached_parent_total_delta_B_minus_A": 9094.5,
+        "pairs": 2,
+        "parent_A_pass": 2,
+        "parent_B_pass": 2,
+        "raw_worker_pass": 0,
+        "repair_or_fallback": 2,
+        "worker_latency_p50_ms": 2304.2276700143702,
+        "worker_latency_p95_ms": 2751.445077912649,
+        "worker_tokens": 4768,
+        "zero_cache_mean_delta": 13,
+        "zero_cache_pairs": 1
+      },
+      "summary": {
+        "A_tokens": {
+          "cached_input_tokens": 0,
+          "input_tokens": 40228,
+          "output_tokens": 827,
+          "uncached_input_tokens": 40228
+        },
+        "B_tokens": {
+          "cached_input_tokens": 0,
+          "input_tokens": 40304,
+          "output_tokens": 902,
+          "uncached_input_tokens": 40304
+        },
+        "bootstrap_mean_delta_95pct": [
+          69.0,
+          82.0
+        ],
+        "mean_added_seconds": 4.74620007048361,
+        "mean_uncached_parent_total_delta_B_minus_A": 75.5,
+        "pairs": 2,
+        "parent_A_pass": 2,
+        "parent_B_pass": 2,
+        "raw_worker_pass": 0,
+        "repair_or_fallback": 2,
+        "worker_latency_p50_ms": 1614.2738814960467,
+        "worker_latency_p95_ms": 1725.4819940440939,
+        "worker_tokens": 4632,
+        "zero_cache_mean_delta": 75.5,
+        "zero_cache_pairs": 2
+      }
+    },
+    "historical_free_only": false,
+    "independent_review": "NOT_RUN",
+    "lifecycle_rows": 24,
+    "model": "qwen-3.8-27b",
+    "natural_task_population": false,
+    "pairs_bytes_sha256": "900a5cca58e33de6924e8ddd334b300adb4d64f34c362236e8f58fcd8b632886",
+    "parent_cache_neutral_sensitivity_delta": 164,
+    "parent_cached_input_delta": -18176,
+    "parent_delta_plus_worker_input_output": 27740,
+    "parent_effort": "low",
+    "parent_model": "gpt-6-astra",
+    "parent_uncached_input_plus_output_delta": 18340,
+    "performance": "NOT_COMPARABLE",
+    "physical_statuses": {
+      "incomplete": 4
+    },
+    "producer_revision": null,
+    "provider": "cerebras",
+    "provider_cost_known_rows": 0,
+    "receipted_physical_calls": 4,
+    "response_id_family": "chatcmpl-UUID",
+    "retained_summary_completed_pairs": 4,
+    "retained_summary_physical_calls": 4,
+    "revised_grade_report": null,
+    "source_digests": {
+      "canonical-receipts.jsonl": "525d3a3792a973163dfd6c083fde3e9e3f8280efc068542626b00ff793db3dac",
+      "protocol.json": "a7ede506c9cb2df01d84d041741a3dee81475a7ebff92a2cbad4eee725fbe348",
+      "summary.json": "f0fe6c1ab37b7b01f851c8cfe5c3b3a5ab65ef5588b92ed4b30d48253809191a"
+    },
+    "unresolved_orchestration_rows": 0,
+    "worker_bytes_sha256": "206b57db0ac8deb8adcc8311c22256ef43cf501f84810455eaeb8fc13a74dcc3",
+    "worker_tokens": {
+      "input_tokens": 1208,
+      "output_tokens": 8192
+    }
+  },
+  "free-worker-ab": {
+    "all_attempt_coverage": "UNKNOWN",
+    "completed_pairs": 38,
+    "current_admission": "NOT_ESTABLISHED",
+    "distinct_response_ids": 38,
+    "empty_worker_outputs": 1,
+    "finish_reasons": {
+      "length": 10,
+      "stop": 28
+    },
+    "frozen_file_count": 17,
+    "frozen_file_hashes_match": 17,
+    "full_cost": "UNKNOWN",
+    "functions_original_grade_replay": {
+      "gate": {
+        "A_tokens": {
+          "cached_input_tokens": 86912,
+          "input_tokens": 383599,
+          "output_tokens": 13069,
+          "uncached_input_tokens": 296687
+        },
+        "B_tokens": {
+          "cached_input_tokens": 163456,
+          "input_tokens": 390598,
+          "output_tokens": 12764,
+          "uncached_input_tokens": 227142
+        },
+        "bootstrap_mean_delta_95pct": [
+          -7600.793421052632,
+          -572.7894736842105
+        ],
+        "mean_added_seconds": 2.760911807638446,
+        "mean_uncached_parent_total_delta_B_minus_A": -3676.315789473684,
+        "pairs": 19,
+        "parent_A_pass": 11,
+        "parent_B_pass": 4,
+        "raw_worker_pass": 0,
+        "repair_or_fallback": 19,
+        "worker_latency_p50_ms": 3021.412848000182,
+        "worker_latency_p95_ms": 3375.8103790023592,
+        "worker_tokens": 41509,
+        "zero_cache_mean_delta": 555.3,
+        "zero_cache_pairs": 10
+      },
+      "summary": {
+        "A_tokens": {
+          "cached_input_tokens": 152576,
+          "input_tokens": 382128,
+          "output_tokens": 7950,
+          "uncached_input_tokens": 229552
+        },
+        "B_tokens": {
+          "cached_input_tokens": 163584,
+          "input_tokens": 390354,
+          "output_tokens": 7874,
+          "uncached_input_tokens": 226770
+        },
+        "bootstrap_mean_delta_95pct": [
+          -6846.759210526316,
+          6537.223684210526
+        ],
+        "mean_added_seconds": 1.9925404740512789,
+        "mean_uncached_parent_total_delta_B_minus_A": -150.42105263157896,
+        "pairs": 19,
+        "parent_A_pass": 19,
+        "parent_B_pass": 19,
+        "raw_worker_pass": 19,
+        "repair_or_fallback": 0,
+        "worker_latency_p50_ms": 2208.474457002012,
+        "worker_latency_p95_ms": 2591.8417406879594,
+        "worker_tokens": 27368,
+        "zero_cache_mean_delta": 430.8,
+        "zero_cache_pairs": 5
+      }
+    },
+    "historical_free_only": true,
+    "independent_review": "NOT_RUN",
+    "lifecycle_rows": 230,
+    "model": "openai/gpt-oss-20b",
+    "natural_task_population": false,
+    "pairs_bytes_sha256": "225e4833a87ed58a84d3d3f80a58ba6445856701f21d43cb5bbe1e9d5a3bb431",
+    "parent_cache_neutral_sensitivity_delta": 14844,
+    "parent_cached_input_delta": 87552,
+    "parent_delta_plus_worker_input_output": -3831,
+    "parent_effort": "low",
+    "parent_model": "gpt-6-astra",
+    "parent_uncached_input_plus_output_delta": -72708,
+    "performance": "NOT_COMPARABLE",
+    "physical_statuses": {
+      "completed": 28,
+      "incomplete": 10
+    },
+    "producer_revision": null,
+    "provider": "groq",
+    "provider_cost_known_rows": 0,
+    "receipted_physical_calls": 38,
+    "response_id_family": "chatcmpl-UUID",
+    "retained_summary_completed_pairs": 5,
+    "retained_summary_physical_calls": 6,
+    "revised_grade_report": {
+      "gate_parent_A_pass": 19,
+      "gate_parent_B_pass": 19,
+      "gate_worker_pass": 0,
+      "sha256": "ccfd772353df445471b60e2420d95b94f176e1e6f8afcf5bf1d911ec6ad29bb8",
+      "status": "historically REPORTED, not regraded or independently accepted"
+    },
+    "source_digests": {
+      "canonical-receipts.jsonl": "81c32243e253205269c558563f47d07cbdcd702ad5fbda1bbf3b955d73346439",
+      "protocol.json": "bf7a8a7ee528ebb120c598f50eaa4fc008e0f872d1b355cdc18125c94dda5806",
+      "summary.json": "54993dacbf80ce6355f974f0e3d34a54d4f893ead51f71b83c665ee4f5b1ed33"
+    },
+    "unresolved_orchestration_rows": 2,
+    "worker_bytes_sha256": "85f7165201233206a82feabdaea6afbb684394c25f76fab3b4f04989ad0f5112",
+    "worker_tokens": {
+      "input_tokens": 12103,
+      "output_tokens": 56774
+    }
+  }
+}

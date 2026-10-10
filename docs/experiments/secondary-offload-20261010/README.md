@@ -9,6 +9,11 @@ zero costs were weaker than reported; no live admission or promotion follows.
 separate60-pair Cerebras delegation study. Replaying its original analysis found
 more parent work on both equal-cache task subsets, not an offload benefit.
 
+[Cycle 4](stopped-studies.md) reconciles a separate stopped Groq study (38
+receipted calls plus an unresolved logical stop) and four Cerebras length-limit
+failures. It preserves stale-report, cache-confounding and empty-output evidence;
+none qualify current admission or independently verified savings.
+
 Status: PARTIAL research evidence. A separate coordinator replicated cycle 1 at
 `2e9b4be4df2f6a7cf6bd867a4bd76b8d5dc0f2a3` and found a provenance overclaim;
 [review6094788975](https://github.com/kvnloo/evolution-lab/issues/23#issuecomment-6094788975).
