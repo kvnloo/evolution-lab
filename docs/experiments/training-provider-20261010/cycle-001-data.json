@@ -1,0 +1,64 @@
+{
+  "schema": "evolution-lab.external-provider-research.v1",
+  "cycle": "data",
+  "sources": {
+    "extractor": {
+      "revision": "9176c2dd81c8a101b52debd4cec88573284e2b30"
+    },
+    "trainer": {
+      "revision": "68ecf2057586a232bea45ad0fafcdfdfae56089f"
+    },
+    "file_sha256": {
+      "skills": "f1514e67ccb38971d53dbbdd31cb916ccc53676c0bd9f32633edc9a353f1a786",
+      "trainer": "c4861fe646da21d45adb6e988aa18ad2ac4191dfa74ac30bf7977234a8d0e4e5",
+      "health": "a368a74c88fd27bcbb39d9eae61fbb9dedb65a6dc92655469eefb258de4e25a1",
+      "extract_codex_cli": "7accc0869d15206f34071b3888d66c02b738346b0a590239ab9013fbc67d9fb4"
+    }
+  },
+  "observations": {
+    "direct_data_contract": {
+      "kind": "synthetic source-native fixture; no real conversation or model run",
+      "extractor_cli_exit": 0,
+      "fixture_sha256": "03da6fc14475de81a7b2bc039b229faa94081245578a00d5cd15043bc87c2267",
+      "extracted_conversations": 1,
+      "extracted_messages": 2,
+      "extracted_tool_events": 2,
+      "source_session_id_retained": true,
+      "original_skill_sampler_selected": 1,
+      "original_skill_sampler_total": 1,
+      "corpus_chars": 447,
+      "trainer_formatted_conversations": 0,
+      "hypothesis": "existing extracted messages can directly enter provider SFT formatter"
+    },
+    "sharegpt_control": {
+      "input_conversations": 1,
+      "output_conversations": 1,
+      "output_message_roles": [
+        "user",
+        "assistant",
+        "tool"
+      ],
+      "kind": "synthetic schema-control; not model quality"
+    }
+  },
+  "tests_run": 2,
+  "elapsed_seconds": 0.030091873981291428,
+  "cpu_seconds": 0.0024709999999999975,
+  "child_cpu_seconds": 0.027202000000000007,
+  "process_peak_rss_kib": 26568,
+  "model_inference_calls": 0,
+  "training_started": false,
+  "model_quality_measured": false,
+  "savings_measured": false,
+  "scope": "original-library fixture behavior only; parent model/tool-server costs excluded",
+  "verdict": "DIRECT_INTEROP_INVALIDATED",
+  "positive_controls_passed": 1,
+  "hypotheses_failed": 1,
+  "negative_control": "Original provider-native ShareGPT fixture formats one conversation and preserves user/assistant/tool roles. No representation conversion was performed.",
+  "failed_tests": [
+    {
+      "test": "test_extractor_output_directly_reaches_sft_formatter (__main__.DirectDataContract.test_extractor_output_directly_reaches_sft_formatter)",
+      "reason": "original extractor output is silently dropped by original SFT formatter"
+    }
+  ]
+}
