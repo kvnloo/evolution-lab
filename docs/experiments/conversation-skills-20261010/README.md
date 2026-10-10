@@ -81,7 +81,16 @@ was prepared, with CPU JAX; no global runtime, model route or installation chang
 Exact Evolution Lab receipt heads and repeated commands belong in the PR/issue
 receipt, not a circular self-referential commit field in these JSON artifacts.
 
-Next eligible producer slices are source/candidate identity checks, source-group
+The read-only `scripts/conversation_skills_receipt.py` boundary checks the existing
+run JSON against the private corpus, candidate files and a clean exact generator
+checkout. Supply `--receipt`, `--corpus`, `--candidates`, and `--generator`; it
+prints only hashes/counts and a review-only identity status, or exits 2 with a
+sanitized refusal. It neither copies nor installs artifacts. Receipt declarations
+are producer assertions, not signed process attestations; an old success receipt
+does not prove a new generator invocation occurred. Recheck the frozen artifacts
+at consumption time. Source groups and independent verification remain separate.
+
+Next eligible producer slices are executable refusal controls, source-group
 leakage eligibility and a frozen paired-experiment handoff to the independently
 owned z0evals gate. That gate must compare a no-skill baseline and candidate on the
 same frozen cohort and retain malformed/unsupported/missing-data controls.
