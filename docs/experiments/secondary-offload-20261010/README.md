@@ -1,4 +1,17 @@
-# Secondary offload — cycle 1, 2026-10-10
+# Secondary offload — chronological evidence, 2026-10-10
+
+Start with the [cycle8 exact-head evidence handoff](evidence-handoff.md) for
+cumulative coverage, review links, unresolved failure leads, admission blockers
+and the next independent-review queue. It reconciles later results without
+rewriting publication-time JSON or extending a review to another head.
+
+The remainder preserves cycle1 context plus explicitly noted updates. Its
+unrecovered-lead and initial review statements are historical, not current
+aggregate state. The original120-row cohort was recovered in cycle2. Cycles2–5
+have scoped coordinator reviews; cycles6–7 have no independent review at the
+cycle8 snapshot. No study establishes current free admission or offload savings.
+
+## Cycle 1 and subsequent continuations
 
 Continuation: [cycle 2 recovered the original 120-row cohort](historical120.md).
 That receipt supersedes the unrecovered-lead status below, not this separate
