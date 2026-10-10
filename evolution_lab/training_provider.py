@@ -181,6 +181,19 @@ def _validate_lineage(corpus: bytes, bindings: dict, rows: list[dict], extractor
         bucket = record["split"]
         if bucket not in groups:
             raise PreparationError("unknown partition; protected origin cannot be inferred")
+        # Exclude exact training-content copies and native branch-event reuse.
+        # These are leakage controls, not independent origin qualification.
+        body = [{"role": message["role"], "content": message["content"]} for message in row["messages"]]
+        aliases = [("message_content", _sha(json.dumps(body, sort_keys=True).encode()))]
+        for native_line in native.splitlines():
+            if native_line.strip():
+                event_id = _json(native_line).get("uuid")
+                if isinstance(event_id, str) and event_id:
+                    aliases.append(("native_event_uuid", event_id))
+        for identity in aliases:
+            if identity in ownership and ownership[identity] != bucket:
+                raise PreparationError("conversation content or native branch events overlap partitions")
+            ownership[identity] = bucket
         # Hash equality is only an exclusion check, never an origin identifier.
         for key in ("session_id", "work_item_id", "source_file", "source_sha256"):
             identity = (key, canonical_source if key == "source_file" else record[key])

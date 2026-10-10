@@ -109,6 +109,31 @@ class TrainingProviderTests(unittest.TestCase):
                     prepare_candidate(**args)
                 self.assertFalse(args["output_dir"].exists())
 
+    def test_content_copies_with_changed_metadata_cannot_cross_partitions(self):
+        from evolution_lab.training_provider import PreparationError, prepare_candidate
+        calls = 0
+        def copied(events):
+            nonlocal calls
+            calls += 1
+            events[0]["message"]["content"] = "same conversation input"
+            events[1]["message"]["content"] = "same conversation output"
+            events[0]["timestamp"] = f"2026-01-0{calls}T00:00:00Z"
+        with tempfile.TemporaryDirectory() as tmp:
+            args = make_case(Path(tmp), ("train", "validation"), mutate_native=copied)
+            with self.assertRaisesRegex(PreparationError, "overlap partitions"):
+                prepare_candidate(**args)
+            self.assertFalse(args["output_dir"].exists())
+
+    def test_reused_native_branch_events_cannot_cross_partitions(self):
+        from evolution_lab.training_provider import PreparationError, prepare_candidate
+        def shared_event(events):
+            events[0]["uuid"] = "shared-native-branch-event"
+        with tempfile.TemporaryDirectory() as tmp:
+            args = make_case(Path(tmp), ("train", "validation"), mutate_native=shared_event)
+            with self.assertRaisesRegex(PreparationError, "overlap partitions"):
+                prepare_candidate(**args)
+            self.assertFalse(args["output_dir"].exists())
+
     def test_equal_bytes_never_supply_origin_identity(self):
         from evolution_lab.training_provider import PreparationError, prepare_candidate
         def identical(events):
