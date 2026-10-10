@@ -83,12 +83,15 @@ receipt, not a circular self-referential commit field in these JSON artifacts.
 
 The read-only `scripts/conversation_skills_receipt.py` boundary checks the existing
 run JSON against the private corpus, candidate files and a clean exact generator
-checkout. Supply `--receipt`, `--corpus`, `--candidates`, and `--generator`; it
+checkout. Supply `--receipt`, `--receipt-sha256`, `--corpus`, `--candidates`, and `--generator`; it
 prints only hashes/counts and a review-only identity status, or exits 2 with a
 sanitized refusal. It neither copies nor installs artifacts. Receipt declarations
 are producer assertions, not signed process attestations; an old success receipt
 does not prove a new generator invocation occurred. Recheck the frozen artifacts
-at consumption time. Source groups and independent verification remain separate.
+at consumption time. Pin the expected receipt hash from a frozen handoff, not a
+mutable receipt newly hashed by the consumer. Duplicate JSON keys and additional
+unaccounted draft output are refused. Failed/unknown exits cannot reuse prior
+draft files. Source groups and independent verification remain separate.
 
 Next eligible producer slices are executable refusal controls, source-group
 leakage eligibility and a frozen paired-experiment handoff to the independently

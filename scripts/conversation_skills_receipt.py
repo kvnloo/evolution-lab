@@ -28,6 +28,14 @@ def require(condition: bool, code: str) -> None:
         raise ValueError(code)
 
 
+def unique_object(pairs: list[tuple[str, object]]) -> dict:
+    result = {}
+    for key, value in pairs:
+        require(key not in result, "duplicate_receipt_key")
+        result[key] = value
+    return result
+
+
 def git(generator: Path, *args: str) -> str:
     result = subprocess.run(["git", "-C", str(generator), *args], capture_output=True,
                             text=True, check=False, timeout=15)
@@ -69,6 +77,8 @@ def check(receipt: dict, corpus: Path, candidates: Path, generator: Path) -> dic
     require(len(folders) == count and all(p.is_dir() and not p.is_symlink() for p in folders),
             "candidate_count_or_layout_mismatch")
     files = [p / "SKILL.md" for p in folders]
+    require(all(list(p.iterdir()) == [p / "SKILL.md"] for p in folders),
+            "unaccounted_candidate_output")
     require(all(p.is_file() and not p.is_symlink() for p in files), "missing_or_linked_candidate")
     require(sorted(digest(p) for p in files) == sorted(hashes), "candidate_hash_changed")
     return dict(schema="evolution-lab.conversation-skills.identity.v1",
@@ -82,10 +92,17 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("receipt", "corpus", "candidates", "generator"):
         parser.add_argument(f"--{name}", type=Path, required=True)
+    parser.add_argument("--receipt-sha256", required=True,
+                        help="Expected frozen receipt bytes; obtain from the producer handoff")
     args = parser.parse_args()
     try:
-        receipt = json.loads(args.receipt.read_text(encoding="utf-8"))
+        require(re.fullmatch(r"[0-9a-f]{64}", args.receipt_sha256) is not None,
+                "invalid_receipt_pin")
+        raw = args.receipt.read_bytes()
+        require(hashlib.sha256(raw).hexdigest() == args.receipt_sha256, "receipt_hash_changed")
+        receipt = json.loads(raw, object_pairs_hook=unique_object)
         result = check(receipt, args.corpus, args.candidates, args.generator)
+        result["receipt_sha256"] = args.receipt_sha256
     except (OSError, ValueError, TypeError, subprocess.SubprocessError):
         # Never include source text, draft names, caller-controlled values or private paths.
         print(json.dumps(dict(status="refused", reason="artifact_identity_inconsistent")))
