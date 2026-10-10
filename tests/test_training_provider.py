@@ -134,6 +134,28 @@ class TrainingProviderTests(unittest.TestCase):
                 prepare_candidate(**args)
             self.assertFalse(args["output_dir"].exists())
 
+    def test_output_replacement_cannot_redirect_candidate_writes(self):
+        from unittest.mock import patch
+        from evolution_lab.training_provider import PreparationError, prepare_candidate
+        with tempfile.TemporaryDirectory() as tmp:
+            args = make_case(Path(tmp))
+            target = Path(tmp) / "unrelated-output"
+            target.mkdir()
+            original_open = os.open
+            replaced = False
+            def replace_directory(path, *values, **kwargs):
+                nonlocal replaced
+                if isinstance(path, (str, os.PathLike)) and Path(path).name == "train.sft.jsonl" and not replaced:
+                    replaced = True
+                    args["output_dir"].rename(Path(tmp) / "parked-output")
+                    args["output_dir"].symlink_to(target, target_is_directory=True)
+                return original_open(path, *values, **kwargs)
+            with patch("os.open", side_effect=replace_directory):
+                with self.assertRaises((PreparationError, OSError)):
+                    prepare_candidate(**args)
+            self.assertTrue(replaced)
+            self.assertEqual(list(target.iterdir()), [])
+
     def test_equal_bytes_never_supply_origin_identity(self):
         from evolution_lab.training_provider import PreparationError, prepare_candidate
         def identical(events):

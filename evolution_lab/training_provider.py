@@ -267,9 +267,18 @@ def prepare_candidate(*, provider_root: Path, extractor_root: Path, corpus_path:
     # The manifest is the final completion marker; never overwrite any artifact.
     artifacts["candidate.json"] = (json.dumps(result, indent=2) + "\n").encode()
     output_dir.mkdir(mode=0o700)
-    for name, data in artifacts.items():
-        with os.fdopen(os.open(output_dir / name, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), "wb") as handle:
-            handle.write(data)
+    directory_fd = os.open(output_dir, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    try:
+        for name, data in artifacts.items():
+            with os.fdopen(os.open(name, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+                                   0o600, dir_fd=directory_fd), "wb") as handle:
+                handle.write(data)
+        opened = os.fstat(directory_fd)
+        visible = output_dir.stat(follow_symlinks=False)
+        if (opened.st_dev, opened.st_ino) != (visible.st_dev, visible.st_ino):
+            raise PreparationError("output directory identity changed during preparation")
+    finally:
+        os.close(directory_fd)
     return result
 
 
