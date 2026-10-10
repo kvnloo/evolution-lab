@@ -8,8 +8,9 @@ rewriting publication-time JSON or extending a review to another head.
 The remainder preserves cycle1 context plus explicitly noted updates. Its
 unrecovered-lead and initial review statements are historical, not current
 aggregate state. The original120-row cohort was recovered in cycle2. Cycles2–5
-have scoped coordinator reviews; cycles6–7 have no independent review at the
-cycle8 snapshot. No study establishes current free admission or offload savings.
+have scoped coordinator reviews; cycle6's review arrived during cycle8 and is
+linked in the handoff. Cycle7 remains unreviewed at that update. No study
+establishes current free admission or offload savings.
 
 ## Cycle 1 and subsequent continuations
 

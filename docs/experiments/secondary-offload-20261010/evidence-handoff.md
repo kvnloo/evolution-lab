@@ -1,6 +1,7 @@
 # Cycle 8 — exact-head evidence handoff, not offload promotion
 
-Status at 2026-10-10T07:38:34Z: PARTIAL research; performance NOT_COMPARABLE;
+Initial snapshot 2026-10-10T07:38:34Z; updated after cycle6 review arrived during
+final verification at 07:42Z. PARTIAL research; performance NOT_COMPARABLE;
 sealed efficacy NOT_RUN; independent review of this new handoff NOT_RUN.
 This is a bounded reconciliation of existing evidence, not another benchmark,
 new provider call, completed multi-hour shift, or globally blocked queue.
@@ -17,8 +18,9 @@ The chronological README and immutable initial JSON receipts describe their own
 publication-time state. Reading an old “120-call lead unrecovered” or
 `independent_review=NOT_RUN` as current state loses later evidence; conversely,
 reading any coordinator PASS as acceptance of the latest branch launders review
-across revisions. The current source head contains neither a cycle6 nor cycle7
-independent review. Seven successful CI runs are not seven accepted experiments.
+across revisions. Neither cycle6 nor cycle7 had an independent review at the
+initial snapshot; cycle6's later review is now linked below. Seven successful
+CI runs are not seven accepted experiments.
 
 Use existing Git object identities and exact EL23 review envelopes instead of
 rewriting historical receipts, adding a review database, rerunning completed
@@ -40,7 +42,7 @@ receipts; no fresh CI-log replay or owning experiment rerun is claimed here.
 | 3 `7acf8b18d1414bfb406cbdaccafe4daf86558843` | [60-pair delegation](https://github.com/kvnloo/evolution-lab/blob/7acf8b18d1414bfb406cbdaccafe4daf86558843/docs/experiments/secondary-offload-20261010/delegation60.md) | [PASS narrow replication; cycle1 provenance correction verified](https://github.com/kvnloo/evolution-lab/issues/23#issuecomment-6094962666) | [38032778896](https://github.com/kvnloo/evolution-lab/actions/runs/38032778896) |
 | 4 `67bcbd9b1f889c6a8810b874af5547ce140263c8` | [stopped studies](https://github.com/kvnloo/evolution-lab/blob/67bcbd9b1f889c6a8810b874af5547ce140263c8/docs/experiments/secondary-offload-20261010/stopped-studies.md) | [PASS narrow analytical replication](https://github.com/kvnloo/evolution-lab/issues/23#issuecomment-6095010999) | [38033257407](https://github.com/kvnloo/evolution-lab/actions/runs/38033257407) |
 | 5 `3c5a1f175089371a38f003c31a8ac989c74d96cc` | [trace / outcome boundary](https://github.com/kvnloo/evolution-lab/blob/3c5a1f175089371a38f003c31a8ac989c74d96cc/docs/experiments/secondary-offload-20261010/trace-seam.md) | [PASS public UNIT replication; trusted-producer refinement](https://github.com/kvnloo/evolution-lab/issues/23#issuecomment-6095119114) | [38033795991](https://github.com/kvnloo/evolution-lab/actions/runs/38033795991) |
-| 6 `01b3b1459334b27e5e845210742f63af48462a26` | [three natural triage groups](https://github.com/kvnloo/evolution-lab/blob/01b3b1459334b27e5e845210742f63af48462a26/docs/experiments/secondary-offload-20261010/natural-triage.md) | NOT_RUN at snapshot | [38034330481](https://github.com/kvnloo/evolution-lab/actions/runs/38034330481) |
+| 6 `01b3b1459334b27e5e845210742f63af48462a26` | [three natural triage groups](https://github.com/kvnloo/evolution-lab/blob/01b3b1459334b27e5e845210742f63af48462a26/docs/experiments/secondary-offload-20261010/natural-triage.md) | [PASS narrow natural-metadata replication; arrived during cycle8](https://github.com/kvnloo/evolution-lab/issues/23#issuecomment-6095221090) | [38034330481](https://github.com/kvnloo/evolution-lab/actions/runs/38034330481) |
 | 7 `8c95cbad68a87a14037af4879f3ac18403b04109` | [citation controls](https://github.com/kvnloo/evolution-lab/blob/8c95cbad68a87a14037af4879f3ac18403b04109/docs/experiments/secondary-offload-20261010/citation-controls.md) | NOT_RUN at snapshot | [38034789487](https://github.com/kvnloo/evolution-lab/actions/runs/38034789487) |
 
 Current-head blob comparison, scoped to the audited files:
@@ -52,8 +54,9 @@ Current-head blob comparison, scoped to the audited files:
   subsequent review. This is not a new analytical result.
 - Cycle3 delegation note/script/JSON; cycle4 stopped note/script/JSON; cycle5
   trace note/script/JSON all match their respective reviewed head bytes.
-- Cycle6 natural-triage note/script/JSON and cycle7 citation note/script match
-  their publication heads, but unchanged bytes cannot supply a missing review.
+- Cycle6 natural-triage note/script/JSON match the now-reviewed cycle6 head.
+  Cycle7 citation note/script match publication, but unchanged bytes cannot
+  supply its still-missing review.
 - Byte identity is reusable artifact evidence, not an independent assessment of
   the aggregate latest head, new handoff prose, external environment or admission.
 
@@ -159,10 +162,16 @@ and full parent/reviewer/invoice coverage remains unknown.
 
 A private bounded verifier used only existing `git rev-parse`, `gh api` and JSON
 parsing of the canonical public envelopes. No new production parser or judge was
-introduced. It checked the seven known exact heads/runs and the five known review
+introduced. It initially checked the seven known exact heads/runs and five known review
 IDs; the comments response was below its page limit before absence was asserted.
 It compared each listed note/script/JSON's Git blob at publication versus source
-head. All assertions passed, exit0.
+head. Initial assertions passed, exit0. A subsequent final check rejected with
+`New review exists: update the handoff` (exit1): cycle6 review6095221090 had
+arrived. This is actual changing-source detection, not a synthetic success.
+The mapping was updated to six exact-head reviews and rechecked. Cycle6's new
+review independently corroborates the three-group projection, all sixteen
+run/job captures, checkout distinctions and three owning split/schema tests;
+its scope stays PARTIAL / NOT_COMPARABLE, not model efficacy.
 
 Positive control: cycle5 review matches cycle5 SHA. Negative controls: the same
 review must not match cycle7 or an all-zero nonexistent SHA. Both reject. The
@@ -189,13 +198,13 @@ collector. Do not bypass the latter's manifest revision/CI qualification.
 
 Next exact-head review queue on EL23:
 
-1. Cycle6 `01b3b1459334b27e5e845210742f63af48462a26`: reproduce the three-group
-   denominator, metadata projection, checkout-vs-head distinction and no-model
-   exclusions; no new provider calls required.
-2. Cycle7 `8c95cbad68a87a14037af4879f3ac18403b04109`: verify feature/default source
+1. Cycle7 `8c95cbad68a87a14037af4879f3ac18403b04109`: verify feature/default source
    distinction, existing soft-signal contract and synthetic citation controls;
    do not upgrade these to natural-task efficacy.
-3. Review this handoff's links/scoped conclusions at its eventual exact commit.
+2. Review this handoff's links/scoped conclusions at its eventual exact commit.
+
+Cycle6's review request is resolved for narrow analytical scope by6095221090;
+do not repeat it or extend that review to cycle7 or this handoff.
 
 Before a live experiment: obtain current account-bound no-paid-spill entitlement
 and governed admission, preserve failed/unknown attempts and existing native
