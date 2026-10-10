@@ -1,0 +1,13 @@
+{
+  "schema": "evolution_lab.training_provider.v1",
+  "phases": ["prepare", "candidate"],
+  "commands": [
+    "mega_training_data.format_to_sharegpt",
+    "agentic_training_loop.format_for_sft"
+  ],
+  "provider_revision": "68ecf2057586a232bea45ad0fafcdfdfae56089f",
+  "extractor_revision": "9176c2dd81c8a101b52debd4cec88573284e2b30",
+  "judge": null,
+  "gates": [],
+  "verifier": null
+}
