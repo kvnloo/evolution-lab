@@ -71,7 +71,10 @@ class NextActionGpuSmoke(unittest.TestCase):
             path = Path(tmp) / "ep.jsonl"
             path.write_text("".join(json.dumps(r) + "\n" for r in rows))
             recipe = DataRecipe(n_train=32, gold_only=True, source="next_action", confirm_frac=0.25)
-            report = run_next_action_gpu(recipe=recipe, n_pop=8, n_kc=16, k_winners=4, epochs=2, episodes=path)
+            report = run_next_action_gpu(
+                recipe=recipe, n_pop=8, n_kc=16, k_winners=4, epochs=2, episodes=path, root=Path(tmp)
+            )
+            self.assertTrue((Path(tmp) / "data" / "next_action" / "champion.json").is_file())
         self.assertEqual(report["n_pop"], 8)
         self.assertGreaterEqual(report["gpu_best_confirm_acc"], 0.0)
         self.assertIn("ridge_confirm_acc", report)
