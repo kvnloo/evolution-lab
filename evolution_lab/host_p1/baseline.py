@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections import defaultdict
 from collections.abc import Sequence
 from dataclasses import dataclass
-from math import isfinite
+from math import isclose, isfinite
 from typing import Any
 
 import numpy as np
@@ -217,10 +217,10 @@ def grouped_holdout(
         raise ValueError("seed must be a nonnegative integer")
     interventions = list(interventions)
     groups = sorted({event.group_id for event in interventions})
-    if len(groups) < 2 or frac == 0.0:
-        return interventions, []
     if frac == 1.0:
         return [], interventions
+    if len(groups) < 2 or frac == 0.0:
+        return interventions, []
     rng = np.random.default_rng(seed)
     shuffled = list(rng.permutation(groups))
     n_holdout = max(1, min(len(groups) - 1, int(round(len(groups) * frac))))
@@ -242,7 +242,7 @@ def p3_gate(p1_score: float, p3_score: float, min_gain: float) -> dict[str, Any]
     if not 0.0 <= p1_score <= 1.0 or not 0.0 <= p3_score <= 1.0 or min_gain < 0:
         raise ValueError("invalid Brier score or minimum gain")
     improvement = float(p1_score - p3_score)
-    earned = bool(improvement > min_gain)
+    earned = bool(improvement > min_gain and not isclose(improvement, min_gain, rel_tol=1e-12, abs_tol=1e-12))
     if earned:
         reason = "P3 grouped-holdout Brier gain exceeds the required minimum"
     elif improvement <= 0:
