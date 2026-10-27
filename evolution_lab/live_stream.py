@@ -109,7 +109,7 @@ def _import_z0int_receipt():
     import os
     import sys
 
-    root = os.environ.get("Z0INT_ROOT", "/home/kvn/tmp/openjev")
+    root = os.path.expanduser(os.environ.get("Z0INT_ROOT", "~/tmp/openjev"))
     src = os.path.join(root, "src")
     if src not in sys.path and os.path.isdir(src):
         sys.path.insert(0, src)

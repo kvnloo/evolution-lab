@@ -2,7 +2,7 @@
  "schema": "z0evals.shadow-real-traffic.v1",
  "evidence_class": "exploratory_beta",
  "promotion_eligible": false,
- "dataset": "/home/kvn/.z0int/episodes/next_action.jsonl",
+ "dataset": "~/.z0int/episodes/next_action.jsonl",
  "dataset_kind": "live Hermes next-action log",
  "n_gold_rows": 4921,
  "split": "chronological",

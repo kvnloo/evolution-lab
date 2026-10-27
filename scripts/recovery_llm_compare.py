@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
@@ -33,7 +34,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 # z0int lives in its own repo; this script drives its DecisionBackends.
-Z0INT = Path("/home/kvn/tmp/openjev/src")
+Z0INT = Path(os.environ.get("Z0INT_ROOT", "~/tmp/openjev")).expanduser() / "src"
 if Z0INT.is_dir():
     sys.path.insert(0, str(Z0INT))
 
