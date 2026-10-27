@@ -26,22 +26,39 @@ from evolution_lab.menu_sim import (
 
 class MenuSimulatorTests(unittest.TestCase):
     def test_seeded_results_and_summaries(self) -> None:
+        # Use real trials; B=0 only tests the latent Beta sampler, not outcome
+        # randomness or Thompson's posterior decisions.
+        args = dict(K=4, L=2, B=96, probabilities=[0.48, 0.52, 0.50, 0.46])
         for name, factory in POLICIES.items():
             with self.subTest(policy=name):
-                args = dict(K=4, L=2, B=0)
                 first = run_simulation(factory(), seed=11, **args)
-                second = run_simulation(factory(), seed=11, **args)
-                different = run_simulation(factory(), seed=12, **args)
-                self.assertEqual(first, second)
-                self.assertNotEqual(
-                    first["latent_probabilities"], different["latent_probabilities"]
-                )
-                summary = run_experiment(factory, 4, 2, 0, [11, 12, 13])
-                self.assertEqual(summary, run_experiment(factory, 4, 2, 0, [11, 12, 13]))
-                self.assertNotEqual(
-                    summary["mean_regret"],
-                    run_experiment(factory, 4, 2, 0, [21, 22, 23])["mean_regret"],
-                )
+                self.assertGreater(sum(first["trials_per_arm"]), 0)
+                self.assertTrue(all(
+                    0 <= successes <= trials
+                    for successes, trials in zip(
+                        first["successes_per_arm"], first["trials_per_arm"]
+                    )
+                ))
+                self.assertEqual(first, run_simulation(factory(), seed=11, **args))
+                others = [
+                    run_simulation(factory(), seed=seed, **args)
+                    for seed in (12, 13, 14, 15)
+                ]
+                self.assertTrue(any(
+                    result["successes_per_arm"] != first["successes_per_arm"]
+                    for result in others
+                ))
+                for seed in (12, 13):
+                    self.assertEqual(
+                        run_simulation(factory(), seed=seed, **args),
+                        run_simulation(factory(), seed=seed, **args),
+                    )
+                # Include nonzero-budget aggregation with a sampled menu.
+                seeds = list(range(11, 35))
+                summary = run_experiment(factory, 4, 2, 8, seeds)
+                self.assertEqual(summary, run_experiment(factory, 4, 2, 8, seeds))
+                other_summary = run_experiment(factory, 4, 2, 8, range(101, 125))
+                self.assertNotEqual(summary["mean_regret"], other_summary["mean_regret"])
 
     def test_beta_probabilities_are_seeded_and_explicit_probabilities_win(self) -> None:
         sampled = run_simulation(uniform(), K=5, L=2, B=8, seed=8, a=2, b=5)
@@ -124,6 +141,44 @@ class MenuSimulatorTests(unittest.TestCase):
         )
         self.assertEqual(result["trials_per_arm"], [1, 1])
         self.assertEqual(result["spent_lane_minutes"], 3)
+        self.assertEqual(result["elapsed_simulated_minutes"], 3)
+
+    def test_lane_completion_order_with_heterogeneous_costs(self) -> None:
+        class TracedUniform:
+            name = "uniform"
+
+            def __init__(self) -> None:
+                self.impl = uniform()
+                self.observed: list[tuple[tuple[int, ...], tuple[int, ...], float]] = []
+
+            def choose(
+                self, state: SimulationState, rng: np.random.Generator
+            ) -> int | None:
+                self.observed.append((
+                    tuple(state.counts), tuple(state.pending), state.spent
+                ))
+                return self.impl.choose(state, rng)
+
+            def prune(self, state: SimulationState) -> set[int]:
+                return self.impl.prune(state)
+
+        kwargs = dict(
+            K=2, B=5, seed=3, probabilities=[1.0, 0.0], costs=[3.0, 1.0]
+        )
+        traced = TracedUniform()
+        parallel = run_simulation(traced, L=2, **kwargs)
+        self.assertEqual(parallel["trials_per_arm"], [1, 2])
+        self.assertEqual(parallel["successes_per_arm"], [1, 0])
+        self.assertEqual(parallel["spent_lane_minutes"], 5)
+        self.assertEqual(parallel["elapsed_simulated_minutes"], 3)
+        # After the short trial completes at t=1, the 3-minute trial must
+        # still occupy its own lane and must not yet expose an observation.
+        self.assertIn(((0, 1), (1, 0), 4.0), traced.observed)
+
+        serial = run_simulation(uniform(), L=1, **kwargs)
+        self.assertEqual(serial["trials_per_arm"], [1, 2])
+        self.assertEqual(serial["spent_lane_minutes"], 5)
+        self.assertEqual(serial["elapsed_simulated_minutes"], 5)
 
     def test_rung_prunes_only_after_every_live_arm_fulfills_quota(self) -> None:
         p = [1, 0, 0, 0]

@@ -67,6 +67,9 @@ A run returns:
 - `wrongly_pruned_best`: whether the first true argmax was ever eliminated.
 - `trials_per_arm`: number of finished trials per arm (includes in-flight
   trials that finish after commitment).
+- `successes_per_arm`: completed Bernoulli successes (seeded outcome audit).
+- `elapsed_simulated_minutes`: final simulated completion time; unlike total
+  lane-minutes spent, this accounts for overlap between occupied lanes.
 - `spent_lane_minutes`, `recommendation`, `true_best_arm`, `live_arms`,
   and `latent_probabilities` for audit and budget reconciliation.
 
