@@ -73,6 +73,8 @@ def load_episodes(
     sessions: list[str] = []
     with path.open(encoding="utf-8") as fh:
         for line in fh:
+            if not line.strip():
+                continue
             rec = json.loads(line)
             fam = rec.get("family")
             if fam not in FAM_I:
