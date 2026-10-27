@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from decimal import Decimal
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -25,6 +26,7 @@ VERDICT_ORDER = {
     "NO_COMPARABLE_FLOOR": 3,
 }
 CODE = chr(96)
+TIE_THRESHOLD = Decimal("0.01")
 
 
 def safe(value: Any) -> str:
@@ -45,6 +47,8 @@ def safe(value: Any) -> str:
                 return [sanitize(element) for element in item]
             if isinstance(item, dict):
                 return {str(key): sanitize(element) for key, element in item.items()}
+            if isinstance(item, Decimal):
+                return float(item)
             return item
         return json.dumps(sanitize(value), sort_keys=True, ensure_ascii=False)
     return str(value)
@@ -55,22 +59,27 @@ def cell(value: Any) -> str:
     return safe(value).replace("|", r"\|").replace("\r", " ").replace("\n", " ")
 
 
-def verdict(delta: float | None) -> str:
+def verdict(delta: Decimal | float | None) -> str:
     if delta is None:
         return "NO_COMPARABLE_FLOOR"
-    if abs(delta) < 0.01:
+    exact_delta = Decimal(str(delta))
+    if abs(exact_delta) < TIE_THRESHOLD:
         return "TIES_FLOOR"
-    return "BEATS_FLOOR" if delta > 0 else "LOSES_TO_FLOOR"
+    return "BEATS_FLOOR" if exact_delta > 0 else "LOSES_TO_FLOOR"
 
 
 def make_row(
-    arm: str, split: str, value: float, floor: float | None,
+    arm: str, split: str, value: Decimal | float, floor: Decimal | float | None,
     *, n: int | None = None, unparsed: int | None = None,
-    latency_p50_ms: float | None = None,
+    latency_p50_ms: Decimal | float | None = None,
 ) -> dict[str, Any]:
-    delta = value - floor if floor is not None else None
+    # Evaluate accuracy differences in decimal, not binary float: 0.29 - 0.28
+    # must reach the exact 0.01 boundary instead of rounding just below it.
+    exact_value = Decimal(str(value))
+    exact_floor = Decimal(str(floor)) if floor is not None else None
+    delta = exact_value - exact_floor if exact_floor is not None else None
     return {
-        "arm": arm, "split": split, "value": value, "floor": floor,
+        "arm": arm, "split": split, "value": exact_value, "floor": exact_floor,
         "delta": delta, "verdict": verdict(delta), "n": n,
         "unparsed": unparsed, "latency_p50_ms": latency_p50_ms,
     }
@@ -83,30 +92,33 @@ def rows_for(data: dict[str, Any]) -> list[dict[str, Any]]:
         floor_by_split = data["results"]["majority"]
         for arm, splits in sorted(data["results"].items()):
             for split, value in sorted(splits.items()):
-                rows.append(make_row(arm, split, float(value), float(floor_by_split[split])))
+                rows.append(make_row(arm, split, value, floor_by_split[split]))
     elif schema == SCHEMA_LLM:
         # This source declares no majority/trivial floor. Do not combine with
         # recovery-compare.json: its encoding_caveat forbids that comparison.
         for arm, splits in sorted(data["backends"].items()):
             for split, stats in sorted(splits.items()):
                 rows.append(make_row(
-                    arm, split, float(stats["accuracy"]), None,
+                    arm, split, stats["accuracy"], None,
                     n=int(stats["n"]), unparsed=int(stats["unparsed"]),
-                    latency_p50_ms=float(stats["latency_p50_ms"]),
+                    latency_p50_ms=stats["latency_p50_ms"],
                 ))
     elif schema == SCHEMA_SHADOW:
-        floor = float(data["majority_floor"])
+        floor = data["majority_floor"]
         for arm, value in sorted(data["results"].items()):
-            rows.append(make_row(arm, "confirm", float(value), floor))
+            rows.append(make_row(arm, "confirm", value, floor))
     else:
         raise ValueError(f"unsupported result schema: {safe(schema)}")
     return sorted(rows, key=lambda row: (row["split"], row["arm"]))
 
 
-def number(value: float | None, *, signed: bool = False) -> str:
+def number(value: Decimal | float | None, *, signed: bool = False) -> str:
     if value is None:
         return "—"
-    return f"{value:+.3f}" if signed else f"{value:.3f}"
+    # Preserve the committed scorecard's three-decimal float display only.
+    # Verdict and sorting use exact decimal differences, not this rounding.
+    displayed = float(value)
+    return f"{displayed:+.3f}" if signed else f"{displayed:.3f}"
 
 
 def render_scorecard(results_dir: Path, *, source_sha: str | None = None) -> str:
@@ -114,7 +126,7 @@ def render_scorecard(results_dir: Path, *, source_sha: str | None = None) -> str
     docs: list[tuple[str, dict[str, Any], list[dict[str, Any]]]] = []
     unrendered: list[tuple[str, str]] = []
     for path in sorted(results_dir.glob("*.json"), key=lambda item: item.name):
-        data = json.loads(path.read_text(encoding="utf-8"))
+        data = json.loads(path.read_text(encoding="utf-8"), parse_float=Decimal)
         if not isinstance(data, dict):
             unrendered.append((path.name, "(non-object JSON)"))
             continue
@@ -149,7 +161,7 @@ def render_scorecard(results_dir: Path, *, source_sha: str | None = None) -> str
             summary.append((filename, data, chosen))
     summary.sort(key=lambda item: (
         VERDICT_ORDER[item[2]["verdict"]],
-        -(item[2]["delta"] if item[2]["delta"] is not None else 0.0),
+        -(item[2]["delta"] if item[2]["delta"] is not None else Decimal(0)),
         item[0], item[2]["arm"],
     ))
     for filename, data, row in summary:
