@@ -110,13 +110,17 @@ class SyntheticCausalTests(unittest.TestCase):
 
     def test_adjustment_reduces_confounding_bias_vs_oracle(self):
         oracle = planted_probability_effect(self.states, self.interventions)
-        adjusted_error = []
-        naive_error = []
         for knob in ("harmful", "helpful"):
-            estimated = self.report["effects"][knob]
-            adjusted_error.append(abs(estimated["adjusted_effect"] - oracle[knob]))
-            naive_error.append(abs(estimated["naive_effect"] - oracle[knob]))
-        self.assertLess(sum(adjusted_error), sum(naive_error))
+            with self.subTest(knob=knob):
+                estimated = self.report["effects"][knob]
+                planted = oracle[knob]
+                adjusted_error = abs(estimated["adjusted_effect"] - planted)
+                naive_error = abs(estimated["naive_effect"] - planted)
+                self.assertLess(
+                    adjusted_error,
+                    naive_error,
+                    msg=f"{knob}: adjusted OOM probability error must beat naive error",
+                )
 
     def test_failed_actuation_reported_separately_and_has_no_effect(self):
         failed = [Intervention(100, "harmful", 1.0, 0.0, "failed")]
