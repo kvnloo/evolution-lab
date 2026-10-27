@@ -100,7 +100,10 @@ class SyntheticCausalTests(unittest.TestCase):
             self.assertGreater(result["n_groups"], 20)
             self.assertGreater(direction * result["adjusted_effect"], 0)
             self.assertIsNotNone(result["ci95"][0])
-            self.assertGreater(direction * result["ci95"][0], 0) if direction > 0 else self.assertLess(result["ci95"][1], 0)
+            if direction > 0:
+                self.assertGreater(result["ci95"][0], 0)
+            else:
+                self.assertLess(result["ci95"][1], 0)
             self.assertEqual(result["unit"], "oom_probability_difference")
         self.assertGreater(effects["harmful"]["ci95"][0], 0)
         self.assertLess(effects["helpful"]["ci95"][1], 0)
@@ -132,6 +135,8 @@ class SyntheticCausalTests(unittest.TestCase):
         self.assertEqual(receipt["truth_tier"], "synthetic")
         self.assertEqual(receipt["metrics"]["n_steps"], 5000)
         self.assertIn("temporal_holdout_brier_state", receipt["metrics"])
+        self.assertIsNotNone(receipt["metrics"]["grouped_holdout_brier_state"])
+        self.assertGreater(len(receipt["grouped_holdout"]["test_window_times"]), 0)
         self.assertEqual(set(receipt["effects"]), {"harmful", "helpful"})
         self.assertFalse(
             set(receipt["grouped_holdout"]["train_group_ids"])
