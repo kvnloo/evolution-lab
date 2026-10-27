@@ -263,9 +263,9 @@ def summarize_run(
 ) -> dict[str, Any]:
     """Produce a JSON-able P1 receipt: scores, effects, and split membership.
 
-    Risk Brier scores here are on a chronological last-quarter holdout; they
-    are NOT valid inputs to p3_gate. P3 requires separate group-held-out
-    intervention evaluation.
+    Temporal Brier scores do NOT qualify for the P3 gate. The grouped Brier
+    score is measured on held-out synthetic intervention windows, which must
+    also be used when assessing a competing P3 model.
     """
     _aligned(states, outcomes)
     if len(states) < 12:
@@ -287,6 +287,17 @@ def summarize_run(
         states, outcomes, interventions, pre_s, post_s, seed=seed
     )
     train, heldout = grouped_holdout(interventions, 0.25, seed)
+    # Held-out groups designate evaluation windows. No affected label was
+    # included in state-model training, including labels before the time cut.
+    group_windows = sorted({
+        i
+        for event in heldout if event.effective_matches_intent
+        for i in range(event.t, min(len(states), event.t + EFFECT_WINDOW_S))
+        if i > 0
+    })
+    group_probs = model.predict_proba([states[i] for i in group_windows]) if group_windows else []
+    group_truth = np.asarray([float(outcomes[i].oom_kill_in_window) for i in group_windows])
+    group_persistence = np.asarray([float(outcomes[i - 1].oom_kill_in_window) for i in group_windows])
     return {
         "schema_version": SCHEMA_VERSION,
         "truth_tier": TRUTH_TIER,
@@ -298,6 +309,12 @@ def summarize_run(
             "temporal_holdout_brier_persistence": float(
                 np.mean((labels - persistence) ** 2)
             ),
+            "grouped_holdout_brier_state": (
+                float(np.mean((group_truth - group_probs) ** 2)) if group_windows else None
+            ),
+            "grouped_holdout_brier_persistence": (
+                float(np.mean((group_truth - group_persistence) ** 2)) if group_windows else None
+            ),
         },
         "effects": effect_report["effects"],
         "ineffective": effect_report["ineffective"],
@@ -305,5 +322,6 @@ def summarize_run(
         "grouped_holdout": {
             "train_group_ids": sorted({event.group_id for event in train}),
             "test_group_ids": sorted({event.group_id for event in heldout}),
+            "test_window_times": group_windows,
         },
     }
