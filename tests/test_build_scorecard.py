@@ -6,6 +6,7 @@ import json
 import sys
 import tempfile
 import unittest
+from decimal import Decimal
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -119,12 +120,84 @@ class ResultsScorecardTests(unittest.TestCase):
             build_scorecard.safe({"files": ["/opt/private/config", "relative/file"]}),
             '{"files": ["config (local path redacted)", "relative/file"]}',
         )
+        self.assertEqual(
+            build_scorecard.safe({"accuracy": Decimal("0.25"), "file": "/private/x"}),
+            '{"accuracy": 0.25, "file": "x (local path redacted)"}',
+        )
 
     def test_tie_threshold_uses_unrounded_delta(self) -> None:
         self.assertEqual(build_scorecard.verdict(0.00999), "TIES_FLOOR")
         self.assertEqual(build_scorecard.verdict(-0.00999), "TIES_FLOOR")
         self.assertEqual(build_scorecard.verdict(0.01), "BEATS_FLOOR")
         self.assertEqual(build_scorecard.verdict(-0.01), "LOSES_TO_FLOOR")
+
+    def test_make_row_uses_exact_decimal_threshold_after_subtraction(self) -> None:
+        cases = (
+            ("0.29", "0.28", "BEATS_FLOOR"),
+            ("0.28", "0.29", "LOSES_TO_FLOOR"),
+            ("0.289999999999999999", "0.28", "TIES_FLOOR"),
+            ("0.270000000000000001", "0.28", "TIES_FLOOR"),
+            ("0.290000000000000001", "0.28", "BEATS_FLOOR"),
+            ("0.269999999999999999", "0.28", "LOSES_TO_FLOOR"),
+        )
+        for value, floor, expected in cases:
+            with self.subTest(value=value, floor=floor):
+                row = build_scorecard.make_row(
+                    "candidate", "confirm", Decimal(value), Decimal(floor)
+                )
+                self.assertEqual(row["delta"], Decimal(value) - Decimal(floor))
+                self.assertEqual(row["verdict"], expected)
+        # Exercise float callers too: 0.29 - 0.28 is < 0.01 as binary float.
+        self.assertEqual(
+            build_scorecard.make_row("candidate", "confirm", 0.29, 0.28)["verdict"],
+            "BEATS_FLOOR",
+        )
+
+    def test_rendered_json_preserves_exact_boundary_verdicts(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            results = Path(tmp)
+            (results / "boundary.json").write_text(
+                """{
+  "schema": "z0evals.shadow-real-traffic.v1",
+  "evidence_class": "synthetic",
+  "promotion_eligible": false,
+  "majority_floor": 0.28,
+  "results": {
+    "majority": 0.28,
+    "exact_win": 0.29,
+    "exact_loss": 0.27,
+    "just_below_win": 0.289999999999999999,
+    "just_below_loss": 0.270000000000000001,
+    "just_above_win": 0.290000000000000001,
+    "just_above_loss": 0.269999999999999999
+  },
+  "confidence_note": "synthetic boundary cases"
+}""",
+                encoding="utf-8",
+            )
+            document = build_scorecard.render_scorecard(results)
+            section = self.section(document, "boundary.json")
+            expected = {
+                "exact_win": ("+0.010", "BEATS_FLOOR"),
+                "exact_loss": ("-0.010", "LOSES_TO_FLOOR"),
+                "just_below_win": ("+0.010", "TIES_FLOOR"),
+                "just_below_loss": ("-0.010", "TIES_FLOOR"),
+                "just_above_win": ("+0.010", "BEATS_FLOOR"),
+                "just_above_loss": ("-0.010", "LOSES_TO_FLOOR"),
+            }
+            for arm, (display_delta, expected_verdict) in expected.items():
+                with self.subTest(arm=arm):
+                    self.assertIn(
+                        f"| confirm | {arm} | "
+                        f"{'0.270' if 'loss' in arm else '0.290'} | 0.280 | "
+                        f"{display_delta} | {expected_verdict} |",
+                        section,
+                    )
+                    self.assertIn(
+                        f"| boundary.json | {arm} | confirm |",
+                        document.split("## Summary\n\n", 1)[1].split("\n## ", 1)[0],
+                    )
+            self.assertIn("synthetic boundary cases", section)
 
     def test_summary_has_one_row_per_file_and_arm(self) -> None:
         doc = build_scorecard.render_scorecard(self.results)
