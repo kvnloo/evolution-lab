@@ -14,6 +14,7 @@ without touching the aggregation contract.
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable
@@ -62,7 +63,8 @@ class SourceSpec:
 
 
 def _default_source_specs() -> tuple[SourceSpec, ...]:
-    work = Path("/mnt/zer0models/workspace/zer0/oss/.work")
+    # Machine-specific location comes from the environment; never hardcode host paths.
+    work = Path(os.environ.get("EVOLAB_WORK_DIR", str(Path(__file__).resolve().parents[2] / ".work"))).expanduser()
     return (
         SourceSpec(work / "compositions" / "raw.jsonl", "composition", "compositions A-F + SUB"),
         SourceSpec(work / "eval-llamacpp" / "raw.jsonl", "bounded", "bounded-choice (llama.cpp)"),

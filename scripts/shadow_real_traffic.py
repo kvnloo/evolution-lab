@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -39,7 +40,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-Z0INT = Path("/home/kvn/tmp/openjev/src")
+Z0INT = Path(os.environ.get("Z0INT_ROOT", "~/tmp/openjev")).expanduser() / "src"
 if Z0INT.is_dir():
     sys.path.insert(0, str(Z0INT))
 
@@ -47,6 +48,14 @@ if Z0INT.is_dir():
 # and jax is not installed. Only the four pure helpers are needed here, so they are
 # mirrored verbatim rather than importing a GPU trainer to hash some text.
 import hashlib  # noqa: E402
+
+
+def _public_path(path: Path) -> str:
+    """Record dataset paths without the machine's home directory (results are published)."""
+    try:
+        return "~/" + str(Path(path).expanduser().resolve().relative_to(Path.home()))
+    except ValueError:
+        return Path(path).name
 
 EPISODES = Path.home() / ".z0int" / "episodes" / "next_action.jsonl"
 FAMILIES = (
@@ -185,7 +194,7 @@ def main() -> int:
         "schema": "z0evals.shadow-real-traffic.v1",
         "evidence_class": "exploratory_beta",
         "promotion_eligible": False,
-        "dataset": str(path),
+        "dataset": _public_path(path),
         "dataset_kind": "live Hermes next-action log",
         "n_gold_rows": n,
         "split": "chronological",

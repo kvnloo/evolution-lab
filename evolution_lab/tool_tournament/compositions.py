@@ -265,7 +265,7 @@ class ScriptedBackend:
 
 
 def _z0int_root() -> str:
-    return os.environ.get("Z0INT_ROOT", "/home/kvn/tmp/openjev")
+    return os.path.expanduser(os.environ.get("Z0INT_ROOT", "~/tmp/openjev"))
 
 
 def _import_z0int_cognition() -> Any:
