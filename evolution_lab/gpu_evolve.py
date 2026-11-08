@@ -16,7 +16,7 @@ from typing import Any
 import numpy as np
 
 from .engine import seed_genomes
-from .jax_mb import fit_from_numpy, numpy_perms, population_mbon, predict_numpy
+from .jax_mb import numpy_perms, population_mbon
 from .models import _kc_codes, _local_plasticity_step_samples, _pn_features, _sparse_pn_kc
 from .select import load_champion
 from .schema import DataRecipe

@@ -24,7 +24,7 @@ from .coverage_metric import (
 from .jax_mb import numpy_perms, population_mbon
 from .models import _kc_codes, _sparse_pn_kc
 from .next_action_gpu import EPISODES, FAMILIES, FAM_I, _hash, ridge_acc
-from .pn_features import combine_pn, structured_cues
+from .pn_features import combine_pn
 
 N_KC = 96
 K_WIN = 20
@@ -259,7 +259,6 @@ def run_2x2(
         np.savez(out_dir / "next_action_2x2_candidate.npz", **best_pack)
 
     if promote and report["beats_gen0"] and best_pack is not None:
-        from .coverage_metric import coverage_at_precision
         from .next_action_gpu import evaluate_coverage_policy, shadow_confirm
 
         cand_path = out_dir / "next_action_2x2_candidate.npz"

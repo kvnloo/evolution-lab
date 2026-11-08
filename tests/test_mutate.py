@@ -5,7 +5,6 @@ import numpy as np
 
 from evolution_lab.engine import seed_genomes
 from evolution_lab.mutate import mutate
-from evolution_lab.schema import GenomeError
 
 
 class MutateTests(unittest.TestCase):

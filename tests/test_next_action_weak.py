@@ -4,7 +4,7 @@ import unittest
 
 import numpy as np
 
-from evolution_lab.next_action_gpu import FAM_I, WEAK_FAMILIES, _boost_train
+from evolution_lab.next_action_gpu import FAM_I, _boost_train
 
 
 class WeakBoost(unittest.TestCase):

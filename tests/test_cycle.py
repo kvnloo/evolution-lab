@@ -4,9 +4,8 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import patch
 
-from evolution_lab.cycle import _better, _write_overlay, league_dir
+from evolution_lab.cycle import _better, _write_overlay
 from evolution_lab.select import BenchMetrics, BenchResult, FlyCandidate, load_config
 
 

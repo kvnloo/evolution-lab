@@ -8,7 +8,7 @@ import html as htmlmod
 import json
 
 from .engine import summarize
-from .pareto import Point, pareto_front
+from .pareto import pareto_front
 from .engine import points_from_archive
 
 

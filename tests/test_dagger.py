@@ -5,7 +5,6 @@ import unittest
 from evolution_lab.dagger import (
     aggregate_dagger_episodes,
     mean_closed_loop_reward,
-    rollout_student,
     run_dagger,
 )
 from evolution_lab.engine import seed_genomes

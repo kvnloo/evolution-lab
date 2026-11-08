@@ -231,7 +231,6 @@ def build_analyze(
     counterfactual realised utility of the *already fitted* router.
     """
     from .analysis import analyse, write_analysis
-    from .distill import RouterModel
     from .qfunc import StateFeatures
 
     dest = Path(run_dir)

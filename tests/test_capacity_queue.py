@@ -19,7 +19,6 @@ from pathlib import Path
 from evolution_lab import cli
 from evolution_lab.capacity_queue import (
     FILL_SPLITS,
-    PROTECTED_SPLITS,
     WORK_CLASSES,
     EstimatedUse,
     QueueError,

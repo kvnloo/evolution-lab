@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import unittest
-import numpy as np
 
 from evolution_lab.gym import (
     FORK_TRAPS,

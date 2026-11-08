@@ -14,7 +14,7 @@ import json
 import re
 import sqlite3
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 

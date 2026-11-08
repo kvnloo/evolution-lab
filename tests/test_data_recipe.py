@@ -9,7 +9,7 @@ from pathlib import Path
 os.environ.setdefault("XLA_PYTHON_CLIENT_MEM_FRACTION", "0.2")
 
 from evolution_lab.abab_meta import choose_b_action, mutate_recipe, seed_fly_world
-from evolution_lab.schema import DataRecipe, ExperimentGenome, genome_from_dict
+from evolution_lab.schema import DataRecipe, genome_from_dict
 
 
 def _g(**recipe):

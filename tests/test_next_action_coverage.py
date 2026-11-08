@@ -6,7 +6,6 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-import numpy as np
 
 from evolution_lab.next_action_gpu import (
     DEFAULT_COVERAGE_POLICY,
