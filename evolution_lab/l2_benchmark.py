@@ -30,7 +30,7 @@ from .dagger import mean_closed_loop_reward
 from .gym import make_env
 from .schema import ACTIONS
 from .splits import load_splits
-from .student_bundle import bundle_exists, bundle_meta, load_bundle
+from .student_bundle import bundle_exists, bundle_meta
 
 CAPABILITY_ID = "recovery_action"
 SCHEMA = "z0int.l2_benchmark.v1"

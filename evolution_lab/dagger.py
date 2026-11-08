@@ -14,7 +14,7 @@ import numpy as np
 
 from .gym import HermesRecoveryEnv, make_env, rollout_teacher
 from .models import FittedStudent, fit_student
-from .schema import ACTIONS, ExperimentGenome
+from .schema import ExperimentGenome
 from .splits import load_splits
 from .task import Episode, episode_from_prefix
 

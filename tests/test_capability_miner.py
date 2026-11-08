@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import tempfile
 import unittest
 from pathlib import Path
 
@@ -47,7 +46,6 @@ class Schema(unittest.TestCase):
 
 class MineSmoke(unittest.TestCase):
     def test_mine_tiny_corpus(self):
-        from evolution_lab.capability_miner import run_capability_mine
 
         # Use real episodes but write to temp research dir — may be slow; skip if no episodes
         ep = Path.home() / ".z0int" / "episodes" / "next_action.jsonl"

@@ -141,16 +141,6 @@ def rank_open(world: World) -> list[Hypothesis]:
     return sorted(open_h, key=priority, reverse=True)
 
 
-def source_weight(cls: str) -> float:
-    return {
-        "measurement": 1.0,
-        "primary": 0.85,
-        "official": 0.8,
-        "analysis": 0.55,
-        "secondary": 0.25,
-    }.get(cls, 0.2)
-
-
 def should_slow(world: World, event: str | None = None) -> bool:
     if event in ("contradiction", "plateau", "surprise", "graph_change", "repeat_fail"):
         return True
@@ -190,30 +180,6 @@ def stop_reason(world: World) -> str | None:
         if priority(top) < 0.02 and world.wave >= 2:
             return "eig_collapsed"
     return None
-
-
-def stage_c_ready(world: World) -> bool:
-    survivors = [
-        h
-        for h in world.hypotheses
-        if h.status in ("open", "rival", "promoted") and h.mechanism
-    ]
-    if not survivors:
-        return False
-    return experiment_dominates(world) or any(
-        h.status == "promoted" for h in survivors
-    )
-
-
-def analog_ok(source_mechanism: str, target_mechanism: str, mapped: bool) -> bool:
-    if not mapped:
-        return False
-    if not source_mechanism or not target_mechanism:
-        return False
-    if source_mechanism.strip().lower() == target_mechanism.strip().lower():
-        return True
-    # vocabulary-only: reject if mechanisms empty or only share a noun token
-    return mapped
 
 
 def apply_mutation(world: World, kind: Mutation, payload: dict[str, Any]) -> World:
@@ -295,27 +261,6 @@ def apply_mutation(world: World, kind: Mutation, payload: dict[str, Any]) -> Wor
     return w
 
 
-def record_experiment_outcome(world: World, exp_id: str, outcome: str, measured: dict[str, Any]) -> World:
-    w = deepcopy(world)
-    for e in w.experiments:
-        if e.id == exp_id:
-            e.outcome = outcome
-            e.measured = measured
-            hid = e.hypothesis_id
-            for h in w.hypotheses:
-                if h.id == hid:
-                    if outcome == "keep":
-                        h.status = "promoted"
-                    elif outcome == "revert":
-                        h.status = "open"
-                        h.eig = min(1.0, h.eig + 0.15)  # failed experiment raises remaining uncertainty
-                        w.dead_ends.append(f"experiment:{exp_id}")
-                        w.loop = "slow"
-    w.wave += 1
-    w.no_update_streak = 0
-    return w
-
-
 def next_a(world: World) -> Strategy:
     ranked = rank_open(world)
     top = ranked[0] if ranked else None
@@ -360,28 +305,6 @@ def next_a(world: World) -> Strategy:
         stop="",
         mode=mode,
     )
-
-
-def preserve_rivals(world: World, a_id: str, b_id: str) -> World:
-    w = deepcopy(world)
-    for h in w.hypotheses:
-        if h.id in (a_id, b_id):
-            h.status = "rival"
-            h.rival_of = b_id if h.id == a_id else a_id
-    return w
-
-
-def discriminate(a: Hypothesis, b: Hypothesis) -> str:
-    """Prefer a test that splits A from B, not more A-consistent evidence."""
-    af = set(a.falsifiers)
-    bf = set(b.falsifiers)
-    shared = af & bf
-    only_a = af - bf
-    if only_a:
-        return next(iter(only_a))
-    if shared:
-        return next(iter(shared))
-    return f"measure:{a.id}-vs-{b.id}"
 
 
 def learn_payload(world: World) -> dict[str, Any]:

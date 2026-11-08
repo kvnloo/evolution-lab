@@ -10,9 +10,7 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
-from .bench import run_fly_bench
-from .select import FlyCandidate, load_champion, load_config, save_champion
-from .autoresearch import _promote_bundle
+from .select import FlyCandidate, load_champion
 
 
 def _workers() -> int:

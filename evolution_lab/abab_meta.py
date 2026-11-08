@@ -9,7 +9,6 @@ Engine: vendored evolution_lab.abab_state (abab-meta-research skill).
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from typing import Any
 
@@ -19,10 +18,7 @@ from .abab_state import (
     World,
     apply_mutation,
     load,
-    next_a,
     save,
-    should_slow,
-    stop_reason,
     wave_heartbeat,
 )
 
